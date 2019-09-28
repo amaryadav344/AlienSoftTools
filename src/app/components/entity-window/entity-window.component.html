@@ -1,0 +1,235 @@
+<div class="toolbar"></div>
+<p-tabView>
+  <p-tabPanel header="Attributes">
+    <p-tabView>
+      <p-tabPanel header="Columns">
+        <p-table #tableColumn [value]="mEntityConfig.mEntity.columns" [paginator]="true" [rows]="7"
+                 [globalFilterFields]="['name','dataType','objectField']" selectionMode="single"
+                 [(selection)]="mEntityConfig.selection" (onRowSelect)="onColumnSelect($event)">
+
+          <ng-template pTemplate="caption">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12 ui-md-12">
+                <div class="ui-inputgroup">
+                  <input type="text" pInputText placeholder="Search Column"
+                         (input)="tableColumn.filterGlobal($event.target.value, 'contains')">
+                  <button pButton type="button" icon="pi pi-refresh"></button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th [pSortableColumn]="'name'">
+                Name
+                <p-sortIcon [field]="'name'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'dataType'">
+                Data Type
+                <p-sortIcon [field]="'dataType'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'objectField'">
+                Object Field
+                <p-sortIcon [field]="'objectField'"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData>
+            <tr [pSelectableRowDblClick]="rowData">
+              <td>{{rowData.name}}</td>
+              <td>{{rowData.dataType.name}}</td>
+              <td>{{rowData.objectField}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+      <p-tabPanel header="Objects">
+        <p-table #tableObjects [value]="mEntityConfig.mEntity.objects" [paginator]="true" [rows]="7"
+                 [globalFilterFields]="['name','entity','objectField']" selectionMode="single"
+                 [(selection)]="mEntityConfig.selection" (onRowSelect)="onObjectSelect(1)">
+          <ng-template pTemplate="caption">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12 ui-md-12">
+                <div class="ui-inputgroup">
+                  <input type="text" pInputText placeholder="Search objects"
+                         (input)="tableObjects.filterGlobal($event.target.value, 'contains')">
+                  <button pButton type="button" icon="pi pi-plus" (click)="onObjectSelect(0)"></button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th [pSortableColumn]="'name'">
+                Name
+                <p-sortIcon [field]="'name'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'entity'">
+                Entity Name
+                <p-sortIcon [field]="'entity'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'objectField'">
+                Object Field
+                <p-sortIcon [field]="'objectField'"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData>
+            <tr [pSelectableRowDblClick]="rowData">
+              <td>{{rowData.name}}</td>
+              <td>{{rowData.entity}}</td>
+              <td>{{rowData.objectField}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+      <p-tabPanel header="Collections">
+        <p-table #tableCollections [value]="mEntityConfig.mEntity.collections" [paginator]="true" [rows]="7"
+                 [globalFilterFields]="['name','entity','objectField']" selectionMode="single"
+                 [(selection)]="mEntityConfig.selection" (onRowSelect)="onCollectionSelect(1)">
+          <ng-template pTemplate="caption">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12 ui-md-12">
+                <div class="ui-inputgroup">
+                  <input type="text" pInputText placeholder="Search Collections"
+                         (input)="tableCollections.filterGlobal($event.target.value, 'contains')">
+                  <button pButton type="button" icon="pi pi-plus" (click)="onCollectionSelect(0)"></button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th [pSortableColumn]="'name'">
+                Name
+                <p-sortIcon [field]="'name'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'entity'">
+                Entity Name
+                <p-sortIcon [field]="'entity'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'objectField'">
+                Object Field
+                <p-sortIcon [field]="'objectField'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'dataType'">
+                Data Type
+                <p-sortIcon [field]="'dataType'"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData>
+            <tr [pSelectableRowDblClick]="rowData">
+              <td>{{rowData.name}}</td>
+              <td>{{rowData.entity}}</td>
+              <td>{{rowData.objectField}}</td>
+              <td>{{rowData.dataType.name}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+    </p-tabView>
+  </p-tabPanel>
+  <p-tabPanel header="Query" style="height: 400px">
+    <div class="ui-g ui-g-nopad">
+      <div class="ui-g-12 ui-md-2 ui-g-nopad">
+        <p-listbox [options]="mEntityConfig.mEntity.queries" filter="filter"
+                   [listStyle]="{'height':'370px','width':'100%'}" (onClick)="mEntityConfig.CurrentQuery=$event.option">
+          <p-header>
+            <div class="ui-helper-clearfix">
+              <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Queries</span>
+              <button pButton type="button" icon="pi pi-plus" style="float: right"></button>
+            </div>
+          </p-header>
+          <ng-template pTemplate="body" let-query>
+            <span>{{query.label}}</span>
+          </ng-template>
+        </p-listbox>
+      </div>
+      <div class="ui-g-12 ui-md-10 ui-g-nopad">
+        <div class="ui-g-12 ui-g-nopad">
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-6 ">
+              <div class="ui-inputgroup">
+                <input type="text" pInputText [disabled]="true" [(ngModel)]="mEntityConfig.CurrentQuery.label"/>
+              </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+              <p-dropdown [options]="mEntityConfig.QueryTypes" [(ngModel)]="selectedCity"
+                          placeholder="Select Query Type"
+                          optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+          </div>
+
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-12">
+              <textarea rows="8" cols="152" pInputTextarea
+                        [(ngModel)]="mEntityConfig.CurrentQuery.expression"></textarea>
+            </div>
+          </div>
+
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+              <p-panel>
+                <p-header>
+                  <div class="ui-helper-clearfix">
+                    <span class="ui -panel-title"
+                          style="font-size:16px;display:inline-block;margin-top:2px">Parameters</span>
+                    <p-button type="button" icon="pi pi-refresh" style="float: right"
+                              (onClick)="refreshParameters($event)"></p-button>
+                  </div>
+                </p-header>
+                <div *ngFor="let parameter of mEntityConfig.CurrentQuery.parameters">
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-6 ">
+                      <div>{{ parameter.name }}</div>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                      <p-dropdown appendTo="body" [options]="mEntityConfig.DataTypes" [(ngModel)]="parameter.dataType"
+                                  placeholder="Data Type"
+                                  optionLabel="name" [showClear]="true"></p-dropdown>
+                    </div>
+                  </div>
+                </div>
+              </p-panel>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+              <p-panel>
+                <p-header>
+                  <div class="ui-helper-clearfix">
+                    <span class="ui -panel-title"
+                          style="font-size:16px;display:inline-block;margin-top:2px">Custom Mapping</span>
+                    <button pButton type="button" icon="pi pi-refresh" style="float: right"></button>
+                  </div>
+                </p-header>
+                <div *ngFor="let custommap of mEntityConfig.CurrentQuery.customMaps">
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-6 ">
+                      <div>{{ custommap.column }}</div>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                      <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="custommap.objectField"
+                                      [suggestions]="mEntityConfig.mFieldSuggestions"
+                                      (completeMethod)="filterCountrySingle($event)"
+                                      [size]="30"
+                                      placeholder="Object Field" [minLength]="1"></p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+              </p-panel>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </p-tabPanel>
+  <p-tabPanel header="Validations">
+    Content 3
+  </p-tabPanel>
+  <p-tabPanel header="Business Object">
+    Content 3
+  </p-tabPanel>
+</p-tabView>
+
+

@@ -1,0 +1,28 @@
+.toolbar{
+
+  background-color: brown;
+  height:30px ;
+  width:100% ;
+}
+.ui-tabview{
+  height: 100%;
+
+}
+.ui-tabview-panels{
+  height: 100%;
+}
+.ui-tabview-panel	{
+  height: 100%;
+
+}
+.ui-g{
+  height: 100%;
+}
+.ui-listbox{
+  width: 100%;
+}
+.ui-panel-content{
+  height: 160px;
+  overflow-y: auto;
+}
+

@@ -1,0 +1,42 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-6">
+    <h6 class="first">Name</h6>
+    <div class="ui-inputgroup">
+      <input type="text" pInputText [(ngModel)]="collection.name"/>
+    </div>
+  </div>
+  <div class="ui-g-6">
+    <h6 class="first">Object Field</h6>
+    <div class="ui-inputgroup">
+      <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="collection.objectField"
+                      [suggestions]="mFieldSuggestions" (completeMethod)="filterLists($event)"
+                      [size]="30" [minLength]="1"></p-autoComplete>
+    </div>
+  </div>
+  <div class="ui-g-6">
+    <h6 class="first">Entity</h6>
+    <div class="ui-inputgroup">
+      <input type="text" pInputText [disabled]="true" [(ngModel)]="collection.entity"/>
+    </div>
+  </div>
+  <div class="ui-g-6">
+    <h6 class="first">DataType</h6>
+    <p-dropdown [options]="CollectionTypes" [(ngModel)]="collection.dataType"
+                placeholder="Select DataType" appendTo="body" [autoWidth]="false"
+                optionLabel="name" [showClear]="true"></p-dropdown>
+
+  </div>
+  <div class="ui-g-12">
+    <p-message severity="error" text="Name is required" *ngIf="collection.name===''"></p-message>
+    <p-message severity="error" text="Object Field is required" *ngIf="collection.objectField===''"></p-message>
+    <p-message severity="error" text="Collection Type is required" *ngIf="!collection.dataType"></p-message>
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
+              (click)="saveColumn()"
+              [disabled]="(collection.name===''||collection.objectField===''||!collection.dataType)"></button>
+      <p-button style="width: 90px;" label="Cancel" (click)="this.ref.close();"></p-button>
+    </div>
+  </div>
+</div>
