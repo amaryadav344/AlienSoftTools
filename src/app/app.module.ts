@@ -16,7 +16,7 @@ import {
   CheckboxModule, ContextMenuModule, DropdownModule, InputTextareaModule, OrderListModule, PaginatorModule,
   RadioButtonModule,
   ScrollPanelModule, SplitButtonModule,
-  TabViewModule
+  TabViewModule, TooltipModule
 } from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {DataViewModule} from 'primeng/dataview';
@@ -31,7 +31,7 @@ import {RouterModule} from '@angular/router';
 import {ObjectInfoDialogComponent} from './components/dialogs/object-info-dialog/object-info-dialog.component';
 import {CollectionInfoDialogComponent} from './components/dialogs/collection-info-dialog/collection-info-dialog.component';
 import {MessageModule} from 'primeng/message';
-import {QueryInfoDialogComponent} from './components/dialogs/query-info-diaglog/query-info-diaglog.component';
+import {QueryInfoDialogComponent} from './components/dialogs/query-info-diaglog/query-info-dialog.component';
 import {MenuModule} from 'primeng/menu';
 
 
@@ -74,7 +74,8 @@ import {MenuModule} from 'primeng/menu';
     SplitButtonModule,
     MessageModule,
     ContextMenuModule,
-    MenuModule
+    MenuModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent],

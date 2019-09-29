@@ -1,15 +1,16 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {EntityConfig} from '../../common/EntityConfig';
 import {IParameter} from '../../models/IParameter';
-import {DialogService, DynamicDialogConfig} from 'primeng/api';
+import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
 import {ColumnInfoDialogComponent} from '../dialogs/column-info-dialog/column-info-dialog.component';
 import {ObjectInfoDialogComponent} from '../dialogs/object-info-dialog/object-info-dialog.component';
 import {CollectionInfoDialogComponent} from '../dialogs/collection-info-dialog/collection-info-dialog.component';
 import {IObject} from '../../models/IObject';
 import {R} from '../../common/R';
 import {ICollection} from '../../models/ICollection';
-import {QueryInfoDialogComponent} from '../dialogs/query-info-diaglog/query-info-diaglog.component';
+import {QueryInfoDialogComponent} from '../dialogs/query-info-diaglog/query-info-dialog.component';
 import {IQuery} from '../../models/IQuery';
+import {IColumn} from "../../models/IColumn";
 
 @Component({
   selector: 'app-entity-window',
@@ -26,6 +27,31 @@ export class EntityWindowComponent implements OnInit {
 
   ngOnInit() {
     this.getEntity();
+  }
+
+  deleteObject(object: IObject) {
+    const index = this.mEntityConfig.mEntity.objects.indexOf(object);
+    this.mEntityConfig.mEntity.objects.splice(index, 1);
+  }
+
+  viewObject(object: IObject) {
+    this.mEntityConfig.selection = object;
+    this.onObjectSelect(1);
+  }
+
+  deleteCollection(collection: ICollection) {
+    const index = this.mEntityConfig.mEntity.collections.indexOf(collection);
+    this.mEntityConfig.mEntity.collections.splice(index, 1);
+  }
+
+  viewCollection(collection: ICollection) {
+    this.mEntityConfig.selection = collection;
+    this.onCollectionSelect(1);
+  }
+
+  viewColumn(column: IColumn) {
+    this.mEntityConfig.selection = column;
+    this.onColumnSelect();
   }
 
   onColumnSelect() {
@@ -70,6 +96,8 @@ export class EntityWindowComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(Query, query);
         } else {
+          query.expression = '';
+          query.queryType = {name: '', code: ''};
           this.mEntityConfig.mEntity.queries.push(query);
         }
         this.mEntityConfig.CurrentQuery = query;
@@ -130,14 +158,21 @@ export class EntityWindowComponent implements OnInit {
 
   refreshParameters() {
     const newParameters: IParameter[] = [];
-    const re = /@\w*/g;
-    const Parameters: string[] = re.exec(this.mEntityConfig.CurrentQuery.expression);
+    const Parameters: string[] = this.mEntityConfig.CurrentQuery.expression.match(/@\w+/g);
     if (Parameters) {
       for (const Parameter of Parameters) {
         newParameters.push({name: Parameter, dataType: {name: '', code: ''}});
       }
     }
-    this.mEntityConfig.CurrentQuery.parameters = newParameters;
+    const finalParameters: IParameter[] = [];
+    for (const Parameter of newParameters) {
+      if (this.mEntityConfig.CurrentQuery.parameters.some(x => x.name === Parameter.name)) {
+        finalParameters.push(this.mEntityConfig.CurrentQuery.parameters.find(x => x.name === Parameter.name));
+      } else {
+        finalParameters.push(Parameter);
+      }
+    }
+    this.mEntityConfig.CurrentQuery.parameters = finalParameters;
   }
 
 
@@ -210,6 +245,7 @@ export class EntityWindowComponent implements OnInit {
       },
     ];
   }
+
 }
 
 

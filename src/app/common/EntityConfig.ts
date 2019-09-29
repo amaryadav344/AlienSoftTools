@@ -20,15 +20,6 @@ export class EntityConfig {
   Types: string[] = ['ibusPerson', 'ibusAccount', 'ibusCredits', 'ibusProfile'];
   Lists: string[] = ['iclbPerson', 'iclbAccount', 'iclbCredits', 'iclbProfile'];
   Fields: string[] = ['istrPersonId', 'istrPersonName', 'iintEmailId', 'iintPhoneNumber'];
-  QueryOptions: MenuItem[] = [
-    {
-      label: 'Next',
-      icon: 'pi pi-fw pi-chevron-right'
-    },
-    {
-      label: 'Prev',
-      icon: 'pi pi-fw pi-chevron-left'
-    }
-  ];
+
 
 }
