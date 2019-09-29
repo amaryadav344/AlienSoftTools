@@ -131,14 +131,16 @@
     </p-tabView>
   </p-tabPanel>
   <p-tabPanel header="Query" style="height: 400px">
-    <div class="ui-g ui-g-nopad">
+    <div class="ui-g ui-g-nopad ui-fluid">
       <div class="ui-g-12 ui-md-2 ui-g-nopad">
         <p-listbox [options]="mEntityConfig.mEntity.queries" filter="filter"
-                   [listStyle]="{'height':'370px','width':'100%'}" (onClick)="mEntityConfig.CurrentQuery=$event.option">
+                   [listStyle]="{'height':'370px'}" (onClick)="mEntityConfig.CurrentQuery=$event.option"
+                   (onDblClick)="openQueryInfo($event.option,1)">
           <p-header>
             <div class="ui-helper-clearfix">
               <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Queries</span>
-              <button pButton type="button" icon="pi pi-plus" style="float: right"></button>
+              <button pButton type="button" icon="pi pi-plus" style="float: right"
+                      (click)="openQueryInfo('',0)"></button>
             </div>
           </p-header>
           <ng-template pTemplate="body" let-query>
@@ -155,7 +157,7 @@
               </div>
             </div>
             <div class="ui-g-12 ui-md-6">
-              <p-dropdown [options]="mEntityConfig.QueryTypes" [(ngModel)]="selectedCity"
+              <p-dropdown [options]="mEntityConfig.QueryTypes" [(ngModel)]="mEntityConfig.CurrentQuery.queryType"
                           placeholder="Select Query Type"
                           optionLabel="name" [showClear]="true"></p-dropdown>
             </div>

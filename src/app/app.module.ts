@@ -13,7 +13,8 @@ import {EntityWindowComponent} from './components/entity-window/entity-window.co
 import {TabModule} from 'angular-tabs-component';
 import {
   AutoCompleteModule,
-  CheckboxModule, DropdownModule, InputTextareaModule, OrderListModule, PaginatorModule, RadioButtonModule,
+  CheckboxModule, ContextMenuModule, DropdownModule, InputTextareaModule, OrderListModule, PaginatorModule,
+  RadioButtonModule,
   ScrollPanelModule, SplitButtonModule,
   TabViewModule
 } from 'primeng/primeng';
@@ -27,9 +28,11 @@ import {PanelModule} from 'primeng/panel';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {ColumnInfoDialogComponent} from './components/dialogs/column-info-dialog/column-info-dialog.component';
 import {RouterModule} from '@angular/router';
-import { ObjectInfoDialogComponent } from './components/dialogs/object-info-dialog/object-info-dialog.component';
-import { CollectionInfoDialogComponent } from './components/dialogs/collection-info-dialog/collection-info-dialog.component';
+import {ObjectInfoDialogComponent} from './components/dialogs/object-info-dialog/object-info-dialog.component';
+import {CollectionInfoDialogComponent} from './components/dialogs/collection-info-dialog/collection-info-dialog.component';
 import {MessageModule} from 'primeng/message';
+import {QueryInfoDialogComponent} from './components/dialogs/query-info-diaglog/query-info-diaglog.component';
+import {MenuModule} from 'primeng/menu';
 
 
 @NgModule({
@@ -43,7 +46,8 @@ import {MessageModule} from 'primeng/message';
     EntityWindowComponent,
     ColumnInfoDialogComponent,
     ObjectInfoDialogComponent,
-    CollectionInfoDialogComponent
+    CollectionInfoDialogComponent,
+    QueryInfoDialogComponent
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -68,14 +72,17 @@ import {MessageModule} from 'primeng/message';
     AutoCompleteModule,
     DynamicDialogModule,
     SplitButtonModule,
-    MessageModule
+    MessageModule,
+    ContextMenuModule,
+    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     ColumnInfoDialogComponent,
     ObjectInfoDialogComponent,
-    CollectionInfoDialogComponent
+    CollectionInfoDialogComponent,
+    QueryInfoDialogComponent,
   ]
 })
 export class AppModule {

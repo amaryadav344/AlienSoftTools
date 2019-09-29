@@ -5,9 +5,11 @@ import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {ColumnInfoDialogComponent} from '../dialogs/column-info-dialog/column-info-dialog.component';
 import {ObjectInfoDialogComponent} from '../dialogs/object-info-dialog/object-info-dialog.component';
 import {CollectionInfoDialogComponent} from '../dialogs/collection-info-dialog/collection-info-dialog.component';
-import {IObject} from "../../models/IObject";
-import {R} from "../../common/R";
-import {ICollection} from "../../models/ICollection";
+import {IObject} from '../../models/IObject';
+import {R} from '../../common/R';
+import {ICollection} from '../../models/ICollection';
+import {QueryInfoDialogComponent} from '../dialogs/query-info-diaglog/query-info-diaglog.component';
+import {IQuery} from '../../models/IQuery';
 
 @Component({
   selector: 'app-entity-window',
@@ -44,6 +46,35 @@ export class EntityWindowComponent implements OnInit {
       }as DynamicDialogConfig
       )
     ;
+  }
+
+  openQueryInfo(Query, Mode) {
+    const ref = this.dialogService.open(QueryInfoDialogComponent, {
+      data: {
+        query: Query,
+        mode: Mode
+      },
+      header: 'Query Information',
+      width:
+        '40%',
+      contentStyle:
+        {
+          'max-height':
+            '700px', overflow:
+          'auto'
+        }
+    } as DynamicDialogConfig);
+
+    ref.onClose.subscribe((query: IQuery) => {
+      if (query) {
+        if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
+          Object.assign(Query, query);
+        } else {
+          this.mEntityConfig.mEntity.queries.push(query);
+        }
+        this.mEntityConfig.CurrentQuery = query;
+      }
+    });
   }
 
   onObjectSelect(Mode: number) {
@@ -103,13 +134,7 @@ export class EntityWindowComponent implements OnInit {
     const Parameters: string[] = re.exec(this.mEntityConfig.CurrentQuery.expression);
     if (Parameters) {
       for (const Parameter of Parameters) {
-        for (const PreviousParam of this.mEntityConfig.CurrentQuery.parameters) {
-          if (PreviousParam.name === Parameter) {
-            newParameters.push({name: PreviousParam.name, dataType: ''});
-          } else {
-            newParameters.push(PreviousParam);
-          }
-        }
+        newParameters.push({name: Parameter, dataType: {name: '', code: ''}});
       }
     }
     this.mEntityConfig.CurrentQuery.parameters = newParameters;
@@ -148,9 +173,10 @@ export class EntityWindowComponent implements OnInit {
       {
         expression: 'ibuspersion.icdoPerson.person_id > 0',
         label: 'GetPersonByPersonId',
+        queryType: {name: '', code: ''},
         value: 1,
         parameters: [
-          {name: '@PESON_ID', dataType: 'integer'}
+          {name: '@PESON_ID', dataType: {name: '', code: ''}}
         ],
         customMaps: [
           {column: 'EMAIL_ID', objectField: 'istrEmailID'}
@@ -160,14 +186,15 @@ export class EntityWindowComponent implements OnInit {
         expression: 'ibuspersion.icdoPerson.person_id > 0',
         label: 'GetPersonByOrgId',
         value: 2,
+        queryType: {name: '', code: ''},
         parameters: [
-          {name: '@ORG_ID', dataType: 'integer'},
-          {name: '@ORG_ID', dataType: 'integer'},
-          {name: '@ORG_ID', dataType: 'integer'},
-          {name: '@ORG_ID', dataType: 'integer'},
-          {name: '@ORG_ID', dataType: 'integer'},
-          {name: '@ORG_ID', dataType: 'integer'},
-          {name: '@ORG_ID', dataType: 'integer'},
+          {name: '@ORG_ID', dataType: {name: '', code: ''}},
+          {name: '@ORG_ID', dataType: {name: '', code: ''}},
+          {name: '@ORG_ID', dataType: {name: '', code: ''}},
+          {name: '@ORG_ID', dataType: {name: '', code: ''}},
+          {name: '@ORG_ID', dataType: {name: '', code: ''}},
+          {name: '@ORG_ID', dataType: {name: '', code: ''}},
+          {name: '@ORG_ID', dataType: {name: '', code: ''}},
         ],
         customMaps: [
           {column: 'PERSON_NAME', objectField: 'istrPersonName'},

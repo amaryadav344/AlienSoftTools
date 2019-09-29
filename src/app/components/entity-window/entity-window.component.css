@@ -18,11 +18,10 @@
 .ui-g{
   height: 100%;
 }
-.ui-listbox{
-  width: 100%;
-}
+
 .ui-panel-content{
   height: 160px;
   overflow-y: auto;
 }
+
 
