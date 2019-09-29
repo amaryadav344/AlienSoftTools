@@ -10,7 +10,7 @@ import {R} from '../../common/R';
 import {ICollection} from '../../models/ICollection';
 import {QueryInfoDialogComponent} from '../dialogs/query-info-diaglog/query-info-dialog.component';
 import {IQuery} from '../../models/IQuery';
-import {IColumn} from "../../models/IColumn";
+import {IColumn} from '../../models/IColumn';
 
 @Component({
   selector: 'app-entity-window',

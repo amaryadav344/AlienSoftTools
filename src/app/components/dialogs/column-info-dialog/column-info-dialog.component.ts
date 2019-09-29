@@ -5,7 +5,7 @@ import {NameCode} from '../../../common/NameCode';
 import {R} from '../../../common/R';
 
 @Component({
-  selector: 'app-entity-infor-dialog',
+  selector: 'app-entity-info-dialog',
   templateUrl: './column-info-dialog.component.html',
   styleUrls: ['./column-info-dialog.component.css']
 })

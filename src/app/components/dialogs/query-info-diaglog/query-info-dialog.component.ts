@@ -4,7 +4,7 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
 
 @Component({
-  selector: 'app-query-info-diaglog',
+  selector: 'app-query-info-dialog',
   templateUrl: './query-info-dialog.component.html',
   styleUrls: ['./query-info-dialog.component.css']
 })
