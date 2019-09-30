@@ -5,7 +5,7 @@ import {NameCode} from '../common/NameCode';
 export interface IQuery {
   expression?: string;
   label?: string;
-  value?: number;
+  value?: string;
   parameters?: IParameter[];
   customMaps?: ICustomMap[];
   queryType?: NameCode;

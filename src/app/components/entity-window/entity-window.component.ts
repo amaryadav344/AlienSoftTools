@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {EntityConfig} from '../../common/EntityConfig';
 import {IParameter} from '../../models/IParameter';
 import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
@@ -11,6 +11,7 @@ import {ICollection} from '../../models/ICollection';
 import {QueryInfoDialogComponent} from '../dialogs/query-info-diaglog/query-info-dialog.component';
 import {IQuery} from '../../models/IQuery';
 import {IColumn} from '../../models/IColumn';
+import {Table} from 'primeng/table';
 
 @Component({
   selector: 'app-entity-window',
@@ -21,6 +22,9 @@ import {IColumn} from '../../models/IColumn';
 })
 export class EntityWindowComponent implements OnInit {
   mEntityConfig: EntityConfig = new EntityConfig();
+  @ViewChild('tableObjects', {static: false})
+  pTableRefObjects: Table;
+
 
   constructor(public dialogService: DialogService) {
   }
@@ -96,8 +100,6 @@ export class EntityWindowComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(Query, query);
         } else {
-          query.expression = '';
-          query.queryType = {name: '', code: ''};
           this.mEntityConfig.mEntity.queries.push(query);
         }
         this.mEntityConfig.CurrentQuery = query;
@@ -123,6 +125,7 @@ export class EntityWindowComponent implements OnInit {
           Object.assign(this.mEntityConfig.selection, object);
         } else {
           this.mEntityConfig.mEntity.objects.push(object);
+          this.pTableRefObjects.reset();
         }
       }
     });
@@ -209,7 +212,7 @@ export class EntityWindowComponent implements OnInit {
         expression: 'ibuspersion.icdoPerson.person_id > 0',
         label: 'GetPersonByPersonId',
         queryType: {name: '', code: ''},
-        value: 1,
+        value: 'GetPersonByPersonId',
         parameters: [
           {name: '@PESON_ID', dataType: {name: '', code: ''}}
         ],
@@ -220,7 +223,7 @@ export class EntityWindowComponent implements OnInit {
       {
         expression: 'ibuspersion.icdoPerson.person_id > 0',
         label: 'GetPersonByOrgId',
-        value: 2,
+        value: 'GetPersonByOrgId',
         queryType: {name: '', code: ''},
         parameters: [
           {name: '@ORG_ID', dataType: {name: '', code: ''}},

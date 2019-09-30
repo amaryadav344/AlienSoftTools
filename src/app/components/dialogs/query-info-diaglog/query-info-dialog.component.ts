@@ -17,7 +17,7 @@ export class QueryInfoDialogComponent implements OnInit {
     if (this.mode === R.Constants.OpenMode.MODE_UPDATE) {
       Object.assign(this.query, config.data.query);
     } else {
-      this.query = {label: ''};
+      this.query = {label: '', expression: '', value: ''};
     }
   }
 
@@ -25,6 +25,7 @@ export class QueryInfoDialogComponent implements OnInit {
   }
 
   saveColumn() {
+    this.query.value = this.query.label;
     this.ref.close(this.query);
   }
 
