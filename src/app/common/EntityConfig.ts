@@ -11,7 +11,7 @@ export class EntityConfig {
   CurrentQuery: IQuery = {
     expression: '',
     label: '',
-    value: 1,
+    value: '',
     parameters: [],
     customMaps: [],
   };

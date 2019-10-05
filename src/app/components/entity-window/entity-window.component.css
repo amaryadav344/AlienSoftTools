@@ -19,7 +19,7 @@
   height: 100%;
 }
 
-.ui-panel-content{
+.QueryBottomPanels .ui-panel-content{
   height: 150px;
   overflow-y: auto;
 }

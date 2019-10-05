@@ -190,7 +190,43 @@ export class EntityWindowComponent implements OnInit {
 
 
   getEntity() {
-    this.mEntityConfig.mEntity = {columns: [], objects: [], collections: [], queries: []};
+    this.mEntityConfig.mEntity = {
+      columns: [],
+      objects: [],
+      collections: [],
+      queries: [],
+      validation: {
+        rules: [{
+          expression: 'function x() {\nconsole.log("Hello world!");\n',
+          value: 'Is Salery available',
+          label: 'Is Salery available',
+          message: {
+            message: 'Salery is not available',
+            messageId: 2512,
+            parameters: [{label: '{0}', objectField: 'istrPersonName'}],
+          },
+          groups: [{label: 'MSR Validation', value: 'MSR Validation'}, {
+            label: 'MSS Validation',
+            value: 'MSS Validation'
+          }],
+        },
+          {
+            expression: '{\nconsole.log("Hello world!");\n',
+            value: 'Is MSR Review',
+            label: 'Is MSR Review',
+            message: {
+              message: 'Not MSR Review',
+              messageId: 2513,
+              parameters: [{label: '{1}', objectField: 'istrPersonName'}],
+            },
+            groups: [{label: 'MSR Validation', value: 'MSR Validation'}, {
+              label: 'MSS Validation',
+              value: 'MSS Validation'
+            }],
+          }],
+        groups: [{label: 'MSR Validation', value: 'MSR Validation'}, {label: 'MSS Validation', value: 'MSS Validation'}]
+      }
+    };
     this.mEntityConfig.mEntity.columns = [
       {name: 'person_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrPersonID'},
       {name: 'first_name', dataType: {name: 'String', code: 'STR'}, objectField: 'istrfirstname'},

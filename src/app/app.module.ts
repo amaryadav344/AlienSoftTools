@@ -33,6 +33,9 @@ import {CollectionInfoDialogComponent} from './components/dialogs/collection-inf
 import {MessageModule} from 'primeng/message';
 import {QueryInfoDialogComponent} from './components/dialogs/query-info-diaglog/query-info-dialog.component';
 import {MenuModule} from 'primeng/menu';
+import { ExpressionEditorComponent } from './components/expression-editor/expression-editor.component';
+import {AceEditorModule} from "ng2-ace-editor";
+import { ValidationTabComponent } from './components/entity/validation-tab/validation-tab.component';
 
 
 @NgModule({
@@ -47,13 +50,16 @@ import {MenuModule} from 'primeng/menu';
     ColumnInfoDialogComponent,
     ObjectInfoDialogComponent,
     CollectionInfoDialogComponent,
-    QueryInfoDialogComponent
+    QueryInfoDialogComponent,
+    ExpressionEditorComponent,
+    ValidationTabComponent
   ],
   imports: [
     RouterModule.forRoot([]),
     BrowserAnimationsModule,
     BrowserModule,
     AlertModule.forRoot(),
+    AceEditorModule,
     TabModule,
     TabViewModule,
     TableModule,
@@ -75,7 +81,8 @@ import {MenuModule} from 'primeng/menu';
     MessageModule,
     ContextMenuModule,
     MenuModule,
-    TooltipModule
+    TooltipModule,
+    CheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],

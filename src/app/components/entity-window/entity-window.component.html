@@ -195,7 +195,7 @@
 
           <div class="ui-g">
             <div class="ui-g-12 ui-md-6">
-              <p-panel>
+              <p-panel styleClass="QueryBottomPanels">
                 <p-header>
                   <div class="ui-helper-clearfix">
                     <span class="ui -panel-title"
@@ -219,7 +219,7 @@
               </p-panel>
             </div>
             <div class="ui-g-12 ui-md-6">
-              <p-panel>
+              <p-panel styleClass="QueryBottomPanels">
                 <p-header>
                   <div class="ui-helper-clearfix">
                     <span class="ui -panel-title"
@@ -250,99 +250,7 @@
 
   </p-tabPanel>
   <p-tabPanel header="Validations">
-    <div class="ui-g ui-g-nopad ui-fluid">
-      <div class="ui-g-12 ui-md-2 ui-g-nopad">
-        <p-listbox [options]="mEntityConfig.mEntity.queries" filter="filter"
-                   [listStyle]="{'height':'360px'}" (onClick)="mEntityConfig.CurrentQuery=$event.option"
-                   (onDblClick)="openQueryInfo($event.option,1)">
-          <p-header>
-            <div class="ui-helper-clearfix">
-              <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Validations</span>
-              <button pButton type="button" icon="pi pi-plus" style="float: right"
-                      (click)="openQueryInfo('',0)"></button>
-            </div>
-          </p-header>
-          <ng-template pTemplate="body" let-query>
-            <span>{{query.label}}</span>
-          </ng-template>
-        </p-listbox>
-      </div>
-      <div class="ui-g-12 ui-md-10 ui-g-nopad">
-        <div class="ui-g-12 ui-g-nopad">
-          <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-6 ">
-              <div class="ui-inputgroup">
-                <textarea rows="8" cols="152" pInputTextarea
-                          [(ngModel)]="mEntityConfig.CurrentQuery.expression"></textarea>
-              </div>
-            </div>
-            <div class="ui-g-12 ui-md-6">
-              <p-dropdown [options]="mEntityConfig.QueryTypes" [(ngModel)]="mEntityConfig.CurrentQuery.queryType"
-                          placeholder="Select Query Type"
-                          optionLabel="name" [showClear]="true"></p-dropdown>
-            </div>
-          </div>
-
-          <div class="ui-g">
-            <div class="ui-g-12 ui-md-12">
-              <input type="text" pInputText [disabled]="true" [(ngModel)]="mEntityConfig.CurrentQuery.label"/>
-            </div>
-          </div>
-
-          <div class="ui-g">
-            <div class="ui-g-12 ui-md-6">
-              <p-panel>
-                <p-header>
-                  <div class="ui-helper-clearfix">
-                    <span class="ui -panel-title"
-                          style="font-size:16px;display:inline-block;margin-top:2px">Parameters</span>
-                    <p-button type="button" icon="pi pi-refresh" style="float: right"
-                              (onClick)="refreshParameters($event)"></p-button>
-                  </div>
-                </p-header>
-                <div *ngFor="let parameter of mEntityConfig.CurrentQuery.parameters">
-                  <div class="ui-g ui-fluid">
-                    <div class="ui-g-12 ui-md-6 ">
-                      <div>{{ parameter.name }}</div>
-                    </div>
-                    <div class="ui-g-12 ui-md-6">
-                      <p-dropdown appendTo="body" [options]="mEntityConfig.DataTypes" [(ngModel)]="parameter.dataType"
-                                  placeholder="Data Type"
-                                  optionLabel="name" [showClear]="true"></p-dropdown>
-                    </div>
-                  </div>
-                </div>
-              </p-panel>
-            </div>
-            <div class="ui-g-12 ui-md-6">
-              <p-panel>
-                <p-header>
-                  <div class="ui-helper-clearfix">
-                    <span class="ui -panel-title"
-                          style="font-size:16px;display:inline-block;margin-top:2px">Custom Mapping</span>
-                    <button pButton type="button" icon="pi pi-refresh" style="float: right"></button>
-                  </div>
-                </p-header>
-                <div *ngFor="let custommap of mEntityConfig.CurrentQuery.customMaps">
-                  <div class="ui-g ui-fluid">
-                    <div class="ui-g-12 ui-md-6 ">
-                      <div>{{ custommap.column }}</div>
-                    </div>
-                    <div class="ui-g-12 ui-md-6">
-                      <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="custommap.objectField"
-                                      [suggestions]="mEntityConfig.mFieldSuggestions"
-                                      (completeMethod)="filterCountrySingle($event)"
-                                      [size]="30"
-                                      placeholder="Object Field" [minLength]="1"></p-autoComplete>
-                    </div>
-                  </div>
-                </div>
-              </p-panel>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <app-validation-tab [(validation)]="mEntityConfig.mEntity.validation"></app-validation-tab>
   </p-tabPanel>
   <p-tabPanel header="Business Object">
     Content 3
