@@ -250,10 +250,10 @@
 
   </p-tabPanel>
   <p-tabPanel header="Validations">
-  <app-validation-tab [(validation)]="mEntityConfig.mEntity.validation"></app-validation-tab>
+    <app-validation-tab [(validation)]="mEntityConfig.mEntity.validation"></app-validation-tab>
   </p-tabPanel>
   <p-tabPanel header="Business Object">
-    Content 3
+    <app-business-object-tab [(businessObject)]="mEntityConfig.mEntity.businessObject"></app-business-object-tab>
   </p-tabPanel>
 </p-tabView>
 

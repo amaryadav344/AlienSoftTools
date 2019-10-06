@@ -38,6 +38,8 @@ import {AceEditorModule} from 'ng2-ace-editor';
 import {ValidationTabComponent} from './components/entity/validation-tab/validation-tab.component';
 import {RuleInfoDialogComponent} from './components/dialogs/rule-info-dialog/rule-info-dialog.component';
 import {GroupInfoDialogComponent} from './components/dialogs/group-info-dialog/group-info-dialog.component';
+import {BusinessObjectTabComponent} from './components/entity/business-object-tab/business-object-tab.component';
+import {CustomMethodInfoDialogComponent} from './components/dialogs/custom-method-info-dialog/custom-method-info-dialog.component';
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import {GroupInfoDialogComponent} from './components/dialogs/group-info-dialog/g
     ValidationTabComponent,
     RuleInfoDialogComponent,
     GroupInfoDialogComponent,
+    BusinessObjectTabComponent,
+    CustomMethodInfoDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -96,7 +100,8 @@ import {GroupInfoDialogComponent} from './components/dialogs/group-info-dialog/g
     CollectionInfoDialogComponent,
     QueryInfoDialogComponent,
     RuleInfoDialogComponent,
-    GroupInfoDialogComponent
+    GroupInfoDialogComponent,
+    CustomMethodInfoDialogComponent
   ]
 })
 export class AppModule {

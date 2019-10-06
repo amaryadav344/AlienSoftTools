@@ -225,6 +225,18 @@ export class EntityWindowComponent implements OnInit {
             }],
           }],
         groups: [{label: 'MSR Validation', value: 'MSR Validation'}, {label: 'MSS Validation', value: 'MSS Validation'}]
+      },
+      businessObject: {
+        customMethods: [{
+          name: 'LoadFormData',
+          mode: {name: 'All', code: 'ALL'},
+          loadPrimaryObject: true,
+          loadMapping: [{
+            name: 'GetPerson',
+            loadType: {name: 'Query', code: 'QER'},
+            loadParameters: [{name: '@PERSON_ID', entityField: 'iintPersonID'}]
+          }]
+        }]
       }
     };
     this.mEntityConfig.mEntity.columns = [
