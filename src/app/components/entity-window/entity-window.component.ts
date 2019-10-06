@@ -219,7 +219,7 @@ export class EntityWindowComponent implements OnInit {
               messageId: 2513,
               parameters: [{label: '{1}', objectField: 'istrPersonName'}],
             },
-            groups: [{label: 'MSR Validation', value: 'MSR Validation'}, {
+            groups: [{
               label: 'MSS Validation',
               value: 'MSS Validation'
             }],

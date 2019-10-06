@@ -33,9 +33,11 @@ import {CollectionInfoDialogComponent} from './components/dialogs/collection-inf
 import {MessageModule} from 'primeng/message';
 import {QueryInfoDialogComponent} from './components/dialogs/query-info-diaglog/query-info-dialog.component';
 import {MenuModule} from 'primeng/menu';
-import { ExpressionEditorComponent } from './components/expression-editor/expression-editor.component';
-import {AceEditorModule} from "ng2-ace-editor";
-import { ValidationTabComponent } from './components/entity/validation-tab/validation-tab.component';
+import {ExpressionEditorComponent} from './components/expression-editor/expression-editor.component';
+import {AceEditorModule} from 'ng2-ace-editor';
+import {ValidationTabComponent} from './components/entity/validation-tab/validation-tab.component';
+import {RuleInfoDialogComponent} from './components/dialogs/rule-info-dialog/rule-info-dialog.component';
+import {GroupInfoDialogComponent} from './components/dialogs/group-info-dialog/group-info-dialog.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { ValidationTabComponent } from './components/entity/validation-tab/valid
     CollectionInfoDialogComponent,
     QueryInfoDialogComponent,
     ExpressionEditorComponent,
-    ValidationTabComponent
+    ValidationTabComponent,
+    RuleInfoDialogComponent,
+    GroupInfoDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -91,6 +95,8 @@ import { ValidationTabComponent } from './components/entity/validation-tab/valid
     ObjectInfoDialogComponent,
     CollectionInfoDialogComponent,
     QueryInfoDialogComponent,
+    RuleInfoDialogComponent,
+    GroupInfoDialogComponent
   ]
 })
 export class AppModule {
