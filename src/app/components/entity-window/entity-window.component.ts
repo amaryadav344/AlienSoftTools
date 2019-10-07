@@ -234,7 +234,11 @@ export class EntityWindowComponent implements OnInit {
           loadMapping: [{
             name: 'GetPerson',
             loadType: {name: 'Query', code: 'QER'},
-            loadParameters: [{name: '@PERSON_ID', entityField: 'iintPersonID'}]
+            loadParameters: [{name: '@PERSON_ID', entityField: 'iintPersonID'}, {
+              name: '@PERSON_ID',
+              entityField: 'iintPersonID'
+            }, {name: '@PERSON_ID', entityField: 'iintPersonID'},
+              {name: '@PERSON_ID', entityField: 'iintPersonID'}]
           }]
         }]
       }

@@ -40,6 +40,7 @@ import {RuleInfoDialogComponent} from './components/dialogs/rule-info-dialog/rul
 import {GroupInfoDialogComponent} from './components/dialogs/group-info-dialog/group-info-dialog.component';
 import {BusinessObjectTabComponent} from './components/entity/business-object-tab/business-object-tab.component';
 import {CustomMethodInfoDialogComponent} from './components/dialogs/custom-method-info-dialog/custom-method-info-dialog.component';
+import { LoadParamterInfoDialogComponent } from './components/dialogs/load-paramter-info-dialog/load-paramter-info-dialog.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import {CustomMethodInfoDialogComponent} from './components/dialogs/custom-metho
     GroupInfoDialogComponent,
     BusinessObjectTabComponent,
     CustomMethodInfoDialogComponent,
+    LoadParamterInfoDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -101,7 +103,8 @@ import {CustomMethodInfoDialogComponent} from './components/dialogs/custom-metho
     QueryInfoDialogComponent,
     RuleInfoDialogComponent,
     GroupInfoDialogComponent,
-    CustomMethodInfoDialogComponent
+    CustomMethodInfoDialogComponent,
+    LoadParamterInfoDialogComponent
   ]
 })
 export class AppModule {
