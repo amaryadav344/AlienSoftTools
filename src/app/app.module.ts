@@ -9,7 +9,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {AlertModule} from 'ngx-bootstrap';
 import {HeaderComponent} from './components/header/header.component';
 import {SamplesComponent} from './components/samples/samples.component';
-import {EntityWindowComponent} from './components/entity-window/entity-window.component';
+import {EntityWindowComponent} from './components/entity/entity-window.component';
 import {TabModule} from 'angular-tabs-component';
 import {
   AutoCompleteModule,
@@ -40,7 +40,13 @@ import {RuleInfoDialogComponent} from './components/dialogs/rule-info-dialog/rul
 import {GroupInfoDialogComponent} from './components/dialogs/group-info-dialog/group-info-dialog.component';
 import {BusinessObjectTabComponent} from './components/entity/business-object-tab/business-object-tab.component';
 import {CustomMethodInfoDialogComponent} from './components/dialogs/custom-method-info-dialog/custom-method-info-dialog.component';
-import { LoadParamterInfoDialogComponent } from './components/dialogs/load-paramter-info-dialog/load-paramter-info-dialog.component';
+import {LoadParamterInfoDialogComponent} from './components/dialogs/load-paramter-info-dialog/load-paramter-info-dialog.component';
+import {ObjectMethodInfoDialogComponent} from './components/dialogs/object-method-info-dialog/object-method-info-dialog.component';
+import { AttributesTabComponent } from './components/entity/attributes-tab/attributes-tab.component';
+import { ColumnsTabComponent } from './components/entity/attributes-tab/columns-tab/columns-tab.component';
+import { ObjectsTabComponent } from './components/entity/attributes-tab/objects-tab/objects-tab.component';
+import { CollectionsTabComponent } from './components/entity/attributes-tab/collections-tab/collections-tab.component';
+import { QueryTabComponent } from './components/entity/query-tab/query-tab.component';
 
 
 @NgModule({
@@ -63,6 +69,12 @@ import { LoadParamterInfoDialogComponent } from './components/dialogs/load-param
     BusinessObjectTabComponent,
     CustomMethodInfoDialogComponent,
     LoadParamterInfoDialogComponent,
+    ObjectMethodInfoDialogComponent,
+    AttributesTabComponent,
+    ColumnsTabComponent,
+    ObjectsTabComponent,
+    CollectionsTabComponent,
+    QueryTabComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -104,7 +116,8 @@ import { LoadParamterInfoDialogComponent } from './components/dialogs/load-param
     RuleInfoDialogComponent,
     GroupInfoDialogComponent,
     CustomMethodInfoDialogComponent,
-    LoadParamterInfoDialogComponent
+    LoadParamterInfoDialogComponent,
+    ObjectMethodInfoDialogComponent,
   ]
 })
 export class AppModule {

@@ -240,6 +240,11 @@ export class EntityWindowComponent implements OnInit {
             }, {name: '@PERSON_ID', entityField: 'iintPersonID'},
               {name: '@PERSON_ID', entityField: 'iintPersonID'}]
           }]
+        }],
+        objectMethods: [{
+          name: 'GetAllUsers',
+          returnType: 'cdoUsers',
+          objectParameters: [{name: 'aintPersonID', dataType: 'string'}]
         }]
       }
     };
@@ -247,6 +252,12 @@ export class EntityWindowComponent implements OnInit {
       {name: 'person_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrPersonID'},
       {name: 'first_name', dataType: {name: 'String', code: 'STR'}, objectField: 'istrfirstname'},
       {name: 'middle_name', dataType: {name: 'String', code: 'STR'}, objectField: 'istrMiddleName'},
+      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
       {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
       {name: 'phone_number', dataType: {name: 'String', code: 'STR'}, objectField: 'iintPhoneNumber'},
     ];

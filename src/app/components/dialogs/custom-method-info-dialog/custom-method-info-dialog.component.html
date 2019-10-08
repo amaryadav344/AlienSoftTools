@@ -20,19 +20,19 @@
 
   </div>
   <div class="ui-g-12">
-    <p-panel styleClass="CustomMethodsPanel">
+    <p-panel styleClass="LoadMappingPanel">
       <p-header>
         <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
                   style="font-size:16px;display:inline-block;margin-top:2px">Load Mappings</span>
           <button pButton type="button" icon="pi pi-plus" style="float: right; "
-                  (click)="addLoadMappingRow()"></button>
+                  (click)="openRuleInfo(0)"></button>
           <button pButton type="button" icon="pi pi-minus" style="margin-right: 8px ;float: right"
-                  (click)="removeCustomMapping()"></button>
+                  (click)="openRuleInfo(0)"></button>
         </div>
       </p-header>
       <p-table [value]="customMethod.loadMapping" selectionMode="single" [resizableColumns]="true"
-               [(selection)]="selection" scrollHeight="200px"
+               [(selection)]="selection" (onRowSelect)="onCustomMethodSelect(1)" scrollHeight="200px"
                [scrollable]="true">
         <ng-template pTemplate="header">
           <tr>
@@ -42,7 +42,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
-          <tr [pSelectableRow]="rowData">
+          <tr [pSelectableRowDblClick]="rowData">
             <td>
               <div class="ui-inputgroup">
                 <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="rowData.name"

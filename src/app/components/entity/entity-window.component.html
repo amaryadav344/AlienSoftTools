@@ -1,0 +1,18 @@
+<div class="toolbar"></div>
+<p-tabView>
+  <p-tabPanel header="Attributes">
+    <app-attributes-tab [columns]="mEntityConfig.mEntity.columns" [objects]="mEntityConfig.mEntity.objects"
+                        [collections]="mEntityConfig.mEntity.collections"></app-attributes-tab>
+  </p-tabPanel>
+  <p-tabPanel header="Query" style="height: 400px">
+    <app-query-tab [queries]="mEntityConfig.mEntity.queries"></app-query-tab>
+  </p-tabPanel>
+  <p-tabPanel header="Validations">
+    <app-validation-tab [(validation)]="mEntityConfig.mEntity.validation"></app-validation-tab>
+  </p-tabPanel>
+  <p-tabPanel header="Business Object">
+    <app-business-object-tab [(businessObject)]="mEntityConfig.mEntity.businessObject"></app-business-object-tab>
+  </p-tabPanel>
+</p-tabView>
+
+

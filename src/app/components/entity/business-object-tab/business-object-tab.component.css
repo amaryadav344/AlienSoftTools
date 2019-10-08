@@ -1,4 +1,5 @@
-.CustomMethodsPanel .ui-panel-content{
-  padding:0!important;
+.CustomMethodsPanel .ui-panel-content, .ObjectMethodsPanel .ui-panel-content {
+  padding: 0 !important;
+  height: 380px;
 
 }
