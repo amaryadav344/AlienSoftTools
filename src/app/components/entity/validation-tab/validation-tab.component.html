@@ -1,0 +1,113 @@
+<div class="ui-g ui-g-nopad ui-fluid">
+  <div class="ui-g-12 ui-md-2 ui-g-nopad">
+    <p-listbox [options]="validation.rules" filter="filter"
+               [listStyle]="{'height':'360px'}" (onClick)="selection=$event.option"
+               (onDblClick)="openRuleInfo(1)">
+      <p-header>
+        <div class="ui-helper-clearfix">
+          <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Rules</span>
+          <button pButton type="button" icon="pi pi-plus" style="float: right"
+                  (click)="openRuleInfo(0)"></button>
+        </div>
+      </p-header>
+      <ng-template pTemplate="body" let-rule>
+        <span>{{rule.label}}</span>
+      </ng-template>
+    </p-listbox>
+  </div>
+  <div class="ui-g-12 ui-md-10 ui-g-nopad">
+    <div class="ui-g-12 ui-g-nopad">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-6 ">
+          <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title"
+                      style="font-size:16px;display:inline-block;margin-top:2px">Expression</span>
+              </div>
+            </p-header>
+            <app-expression-editor [(expression)]="selection.expression"></app-expression-editor>
+          </p-panel>
+          <div style="margin-top: 16px">
+            <p-panel styleClass="MessagesBottomPanels">
+              <p-header>
+                <div class="ui-helper-clearfix">
+                  <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Message</span>
+                </div>
+              </p-header>
+              <div class="ui-inputgroup">
+                <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="selection.message.messageId"
+                                placeholder="Message ID" [minLength]="1"></p-autoComplete>
+                <button pButton type="button" icon="pi pi-refresh"></button>
+              </div>
+              <div *ngFor="let parameter of selection.message.parameters">
+                <div class="ui-g ui-fluid">
+                  <div class="ui-g-12 ui-md-6 ">
+                    <div>{{ parameter.label }}</div>
+                  </div>
+                  <div class="ui-g-12 ui-md-6">
+                    <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="parameter.objectField"
+                                    placeholder="Object Field" [minLength]="1"></p-autoComplete>
+                  </div>
+                 <!-- <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                     &lt;!&ndash; <p-autoComplete appendTo="body" autocomplete="disabled"
+                                      placeholder="Object Field" [minLength]="1"></p-autoComplete>
+                      <button pButton type="button" icon="pi pi-refresh"></button>&ndash;&gt;
+                    </div>
+                  </div>-->
+                </div>
+              </div>
+            </p-panel>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-3 ">
+          <p-panel styleClass="GroupTopPanel">
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title"
+                      style="font-size:16px;display:inline-block;margin-top:2px">Groups</span>
+                <p-button type="button" icon="pi pi-plus" style="float: right"
+                          (onClick)="openGroupInfo(0)"></p-button>
+              </div>
+            </p-header>
+            <p-listbox [(options)]="validation.groups" [(ngModel)]="selection.groups" multiple="multiple"  (onClick)="groupSelection=$event.option"
+                       checkbox="checkbox" [listStyle]="{'height':'340px'}" optionLabel="label"  (onDblClick)="openGroupInfo(1)"
+                       filter="filter">
+              <ng-template pTemplate="body" let-group>
+                <span>{{group.label}}</span>
+              </ng-template>
+            </p-listbox>
+          </p-panel>
+        </div>
+        <div class="ui-g-12 ui-md-3 ">
+          <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title"
+                      style="font-size:16px;display:inline-block;margin-top:2px">Rule Type</span>
+              </div>
+            </p-header>
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <p-checkbox [(ngModel)]="selection.isObjectRule" binary="true" label="Object Rule"></p-checkbox>
+              </div>
+              <div class="ui-g-12">
+                <p-checkbox [(ngModel)]="selection.isInitialLoad" binary="true" label="Initial Load"></p-checkbox>
+              </div>
+              <div class="ui-g-12">
+                <p-checkbox [(ngModel)]="selection.isHardError" binary="true" label="Hard Rule"></p-checkbox>
+              </div>
+              <div class="ui-g-12">
+                <p-checkbox [(ngModel)]="selection.isUpdateRule" binary="true" label="Update Rule"></p-checkbox>
+              </div>
+              <div class="ui-g-12">
+                <p-checkbox [(ngModel)]="selection.isDeleteRule" binary="true" label="Delete Rule"></p-checkbox>
+              </div>
+            </div>
+          </p-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

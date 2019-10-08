@@ -1,0 +1,8 @@
+.MessagesBottomPanels .ui-panel-content {
+  height: 198px;
+  overflow-y: auto;
+}
+
+.GroupTopPanel .ui-panel-content {
+  height: 405px;
+}
