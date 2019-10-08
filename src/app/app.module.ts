@@ -47,6 +47,7 @@ import { ColumnsTabComponent } from './components/entity/attributes-tab/columns-
 import { ObjectsTabComponent } from './components/entity/attributes-tab/objects-tab/objects-tab.component';
 import { CollectionsTabComponent } from './components/entity/attributes-tab/collections-tab/collections-tab.component';
 import { QueryTabComponent } from './components/entity/query-tab/query-tab.component';
+import { EntityToolbarComponent } from './components/entity/entity-toolbar/entity-toolbar.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { QueryTabComponent } from './components/entity/query-tab/query-tab.compo
     ObjectsTabComponent,
     CollectionsTabComponent,
     QueryTabComponent,
+    EntityToolbarComponent,
   ],
   imports: [
     RouterModule.forRoot([]),

@@ -1,0 +1,16 @@
+<div class="toolbar">
+  <div class="left">
+    <button class="pi pi-ellipsis-v button"></button>
+    <button class="pi pi-save button"></button>
+
+  </div>
+  <div class="right">
+    <a class="text-info" style="text-decoration:underline;cursor: pointer;">{{entity.parentEntity}}</a>
+    <button class="pi pi-check-circle button"></button>
+    <button class="pi pi-pencil button"></button>
+  </div>
+  <div #entityLabel class="center  text-white text-center" style="padding: 3px">
+    {{entity.name}}
+  </div>
+  <p-contextMenu [target]="entityLabel" [model]="items2"></p-contextMenu>
+</div>

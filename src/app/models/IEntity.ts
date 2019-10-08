@@ -6,6 +6,8 @@ import {IValidation} from './IValidation';
 import {IBusinessObject} from './IBusinessObject';
 
 export interface IEntity {
+  name: string;
+  parentEntity;
   columns: IColumn[];
   objects: IObject[];
   collections: ICollection[];
