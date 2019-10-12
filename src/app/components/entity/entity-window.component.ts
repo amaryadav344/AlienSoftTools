@@ -12,182 +12,43 @@ import {QueryInfoDialogComponent} from '../dialogs/query-info-diaglog/query-info
 import {IQuery} from '../../models/IQuery';
 import {IColumn} from '../../models/IColumn';
 import {Table} from 'primeng/table';
+import {EntityService} from '../../services/entity-service/entity.service';
 
 @Component({
   selector: 'app-entity-window',
   templateUrl: './entity-window.component.html',
   styleUrls: ['./entity-window.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [DialogService],
+  providers: [DialogService, EntityService],
 })
 export class EntityWindowComponent implements OnInit {
   mEntityConfig: EntityConfig = new EntityConfig();
   @ViewChild('tableObjects', {static: false})
   pTableRefObjects: Table;
+  isTextView = false;
+  xml = '';
+  option = {
+    fontSize: '15pt'
+  };
 
 
-  constructor(public dialogService: DialogService) {
+  constructor(public dialogService: DialogService, public entityService: EntityService) {
   }
 
   ngOnInit() {
     this.getEntity();
   }
 
-  deleteObject(object: IObject) {
-    const index = this.mEntityConfig.mEntity.objects.indexOf(object);
-    this.mEntityConfig.mEntity.objects.splice(index, 1);
-  }
-
-  viewObject(object: IObject) {
-    this.mEntityConfig.selection = object;
-    this.onObjectSelect(1);
-  }
-
-  deleteCollection(collection: ICollection) {
-    const index = this.mEntityConfig.mEntity.collections.indexOf(collection);
-    this.mEntityConfig.mEntity.collections.splice(index, 1);
-  }
-
-  viewCollection(collection: ICollection) {
-    this.mEntityConfig.selection = collection;
-    this.onCollectionSelect(1);
-  }
-
-  viewColumn(column: IColumn) {
-    this.mEntityConfig.selection = column;
-    this.onColumnSelect();
-  }
-
-  onColumnSelect() {
-    const ref = this.dialogService.open(ColumnInfoDialogComponent, {
-        data: {
-          column: this.mEntityConfig.selection,
-          fields: this.mEntityConfig.Fields,
-        },
-        header: 'Column Information',
-        width:
-          '40%',
-        contentStyle:
-          {
-            'max-height':
-              '700px', overflow:
-            'auto'
-          }
-      }as DynamicDialogConfig
-      )
-    ;
-  }
-
-  openQueryInfo(Query, Mode) {
-    const ref = this.dialogService.open(QueryInfoDialogComponent, {
-      data: {
-        query: Query,
-        mode: Mode
+  getXML() {
+    this.isTextView = !this.isTextView;
+    this.entityService.getXMLFromJS(this.mEntityConfig.mEntity).subscribe(
+      note => {
+        this.xml = note;
       },
-      header: 'Query Information',
-      width:
-        '40%',
-      contentStyle:
-        {
-          'max-height':
-            '700px', overflow:
-          'auto'
-        }
-    } as DynamicDialogConfig);
-
-    ref.onClose.subscribe((query: IQuery) => {
-      if (query) {
-        if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
-          Object.assign(Query, query);
-        } else {
-          this.mEntityConfig.mEntity.queries.push(query);
-        }
-        this.mEntityConfig.CurrentQuery = query;
-      }
-    });
+      error => {
+        console.log(error);
+      });
   }
-
-  onObjectSelect(Mode: number) {
-    const ref = this.dialogService.open(ObjectInfoDialogComponent, {
-      data: {
-        object: this.mEntityConfig.selection,
-        types: this.mEntityConfig.Types,
-        mode: Mode
-      },
-      header: 'Object Information',
-      width: '40%',
-      contentStyle: {'max-height': '700px', overflow: 'auto'}
-    } as DynamicDialogConfig);
-
-    ref.onClose.subscribe((object: IObject) => {
-      if (object) {
-        if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
-          Object.assign(this.mEntityConfig.selection, object);
-        } else {
-          this.mEntityConfig.mEntity.objects.push(object);
-          this.pTableRefObjects.reset();
-        }
-      }
-    });
-  }
-
-  onCollectionSelect(Mode: number) {
-    const ref = this.dialogService.open(CollectionInfoDialogComponent, {
-      data: {
-        collection: this.mEntityConfig.selection,
-        lists: this.mEntityConfig.Lists,
-        mode: Mode,
-      },
-      header: 'Collection Information',
-      width:
-        '40%',
-      contentStyle:
-        {
-          'max-height':
-            '700px', overflow:
-          'auto'
-        }
-    }as DynamicDialogConfig);
-    ref.onClose.subscribe((collection: ICollection) => {
-      if (collection) {
-        if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
-          Object.assign(this.mEntityConfig.selection, collection);
-        } else {
-          this.mEntityConfig.mEntity.collections.push(collection);
-        }
-      }
-    });
-  }
-
-  refreshParameters() {
-    const newParameters: IParameter[] = [];
-    const Parameters: string[] = this.mEntityConfig.CurrentQuery.expression.match(/@\w+/g);
-    if (Parameters) {
-      for (const Parameter of Parameters) {
-        newParameters.push({name: Parameter, dataType: {name: '', code: ''}});
-      }
-    }
-    const finalParameters: IParameter[] = [];
-    for (const Parameter of newParameters) {
-      if (this.mEntityConfig.CurrentQuery.parameters.some(x => x.name === Parameter.name)) {
-        finalParameters.push(this.mEntityConfig.CurrentQuery.parameters.find(x => x.name === Parameter.name));
-      } else {
-        finalParameters.push(Parameter);
-      }
-    }
-    this.mEntityConfig.CurrentQuery.parameters = finalParameters;
-  }
-
-
-  filterCountrySingle(event) {
-    this.mEntityConfig.mFieldSuggestions = [];
-    for (const field of this.mEntityConfig.Fields) {
-      if (field.toLowerCase().indexOf(event.query.toLowerCase()) >= 0) {
-        this.mEntityConfig.mFieldSuggestions.push(field);
-      }
-    }
-  }
-
 
   getEntity() {
     this.mEntityConfig.mEntity = {

@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {IEntity} from '../../../models/IEntity';
 import {MenuItem} from 'primeng/api';
+
 
 @Component({
   selector: 'app-entity-toolbar',
@@ -9,6 +10,8 @@ import {MenuItem} from 'primeng/api';
 })
 export class EntityToolbarComponent implements OnInit {
   @Input() entity: IEntity;
+  @Output() switch = new EventEmitter<boolean>();
+  view = false;
   items2: MenuItem[] = [
     {
       label: 'Open file location',
@@ -22,6 +25,10 @@ export class EntityToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  switchToTextMode() {
+    this.switch.emit(!this.view);
   }
 
 }

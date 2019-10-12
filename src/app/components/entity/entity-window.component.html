@@ -1,5 +1,5 @@
-<app-entity-toolbar [entity]="mEntityConfig.mEntity"></app-entity-toolbar>
-<p-tabView>
+<app-entity-toolbar [entity]="mEntityConfig.mEntity" (switch)="getXML();"></app-entity-toolbar>
+<p-tabView *ngIf="!isTextView">
   <p-tabPanel header="Attributes">
     <app-attributes-tab [columns]="mEntityConfig.mEntity.columns" [objects]="mEntityConfig.mEntity.objects"
                         [collections]="mEntityConfig.mEntity.collections"></app-attributes-tab>
@@ -14,5 +14,11 @@
     <app-business-object-tab [(businessObject)]="mEntityConfig.mEntity.businessObject"></app-business-object-tab>
   </p-tabPanel>
 </p-tabView>
+<div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid">
+  <div class="ui-g-12 ui-g-nopad">
+    <div ace-editor style="height:500px;" [options]="option"
+         [(text)]="xml" [mode]="'xml'"></div>
+  </div>
+</div>
 
 

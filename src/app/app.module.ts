@@ -48,6 +48,8 @@ import { ObjectsTabComponent } from './components/entity/attributes-tab/objects-
 import { CollectionsTabComponent } from './components/entity/attributes-tab/collections-tab/collections-tab.component';
 import { QueryTabComponent } from './components/entity/query-tab/query-tab.component';
 import { EntityToolbarComponent } from './components/entity/entity-toolbar/entity-toolbar.component';
+import {HttpClientModule} from '@angular/common/http';
+import { DropdownValueMapperPipe } from './common/DropdownValueMapper/dropdown-value-mapper.pipe';
 
 
 @NgModule({
@@ -77,12 +79,14 @@ import { EntityToolbarComponent } from './components/entity/entity-toolbar/entit
     CollectionsTabComponent,
     QueryTabComponent,
     EntityToolbarComponent,
+    DropdownValueMapperPipe,
   ],
   imports: [
     RouterModule.forRoot([]),
     BrowserAnimationsModule,
     BrowserModule,
     AlertModule.forRoot(),
+    HttpClientModule,
     AceEditorModule,
     TabModule,
     TabViewModule,

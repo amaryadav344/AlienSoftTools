@@ -36,5 +36,12 @@ export class R {
       static MODE_ALL = 2;
     };
   };
+  static SERVER_URLS = class {
+    static JS_TO_XML = 'http://localhost:8080/xml/jstoxml';
+  };
+
+  static getCollectionTypesCodeByName(name: string): NameCode {
+    return R.CollectionTypes.filter(x => x.name = name)[0];
+  }
 }
 
