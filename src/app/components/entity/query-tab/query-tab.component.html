@@ -24,9 +24,7 @@
           </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-          <p-dropdown [options]="QueryTypes" [(ngModel)]="selection.queryType"
-                      placeholder="Select Query Type"
-                      optionLabel="name" [showClear]="true"></p-dropdown>
+          <app-drop-down [(model)]="selection.queryType" [options]="QueryTypes"></app-drop-down>
         </div>
       </div>
 
@@ -54,9 +52,10 @@
                   <div>{{ parameter.name }}</div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                  <p-dropdown appendTo="body" [options]="DataTypes" [(ngModel)]="parameter.dataType"
+                  <app-drop-down [options]="DataTypes" [model]="parameter.dataType"></app-drop-down>
+                  <!--<p-dropdown appendTo="body" [options]="DataTypes" [(ngModel)]="parameter.dataType"
                               placeholder="Data Type"
-                              optionLabel="name" [showClear]="true"></p-dropdown>
+                              optionLabel="name" [showClear]="true"></p-dropdown>-->
                 </div>
               </div>
             </div>

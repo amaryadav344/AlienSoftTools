@@ -13,9 +13,7 @@
     </div>
     <div class="ui-g-4">
       <h6 class="first">Mode</h6>
-      <p-dropdown [options]="loadModes" [(ngModel)]="customMethod.mode"
-                  placeholder="Select DataType" appendTo="body" [autoWidth]="false"
-                  optionLabel="name" [showClear]="true"></p-dropdown>
+      <app-drop-down [options]="loadModes" [model]="customMethod.mode"></app-drop-down>
     </div>
 
   </div>
@@ -51,9 +49,7 @@
               </div>
             </td>
             <td>
-              <p-dropdown [options]="loadTypes" [(ngModel)]="rowData.loadType"
-                          placeholder="Select Load Type" appendTo="body" [autoWidth]="false"
-                          optionLabel="name" [showClear]="true"></p-dropdown>
+              <app-drop-down [options]="loadTypes" [model]="rowData.loadType"></app-drop-down>
             </td>
             <td>
               <table>

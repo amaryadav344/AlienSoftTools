@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IQuery} from '../../../models/IQuery';
-import {NameCode} from '../../../common/NameCode';
 import {R} from '../../../common/R';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {QueryInfoDialogComponent} from '../../dialogs/query-info-diaglog/query-info-dialog.component';
@@ -21,8 +20,8 @@ export class QueryTabComponent implements OnInit {
     parameters: [],
     customMaps: [],
   };
-  QueryTypes: NameCode[] = R.QueryTypes;
-  DataTypes: NameCode[] = R.DataTypes;
+  QueryTypes: string[] = R.QueryTypes;
+  DataTypes: string[] = R.DataTypes;
   mFieldSuggestions: string[];
   Fields: string[] = ['istrPersonId', 'istrPersonName', 'iintEmailId', 'iintPhoneNumber'];
 
@@ -67,7 +66,7 @@ export class QueryTabComponent implements OnInit {
     const Parameters: string[] = this.selection.expression.match(/@\w+/g);
     if (Parameters) {
       for (const Parameter of Parameters) {
-        newParameters.push({name: Parameter, dataType: {name: '', code: ''}});
+        newParameters.push({name: Parameter, dataType: ''});
       }
     }
     const finalParameters: IParameter[] = [];

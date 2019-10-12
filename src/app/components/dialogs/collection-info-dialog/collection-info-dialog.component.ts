@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ICollection} from '../../../models/ICollection';
-import {NameCode} from '../../../common/NameCode';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
 
@@ -10,10 +9,10 @@ import {R} from '../../../common/R';
   styleUrls: ['./collection-info-dialog.component.css']
 })
 export class CollectionInfoDialogComponent implements OnInit {
-  collection: ICollection = {entity: '', name: '', objectField: '', dataType: {name: '', code: ''}};
+  collection: ICollection = {entity: '', name: '', objectField: '', dataType: ''};
   Lists: string[];
   mFieldSuggestions: string[];
-  public CollectionTypes: NameCode[] = R.CollectionTypes;
+  public CollectionTypes: string[] = R.CollectionTypes;
   mode: number;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
@@ -25,7 +24,7 @@ export class CollectionInfoDialogComponent implements OnInit {
         name: '',
         entity: '',
         objectField: '',
-        dataType: {name: '', code: ''}
+        dataType: ''
       };
     }
     this.Lists = config.data.lists;

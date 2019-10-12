@@ -21,9 +21,7 @@
   </div>
   <div class="ui-g-6">
     <h6 class="first">DataType</h6>
-    <p-dropdown [options]="CollectionTypes" [(ngModel)]="collection.dataType"
-                placeholder="Select DataType" appendTo="body" [autoWidth]="false"
-                optionLabel="name" [showClear]="true"></p-dropdown>
+    <app-drop-down [model]="collection.dataType" [options]="CollectionTypes"></app-drop-down>
 
   </div>
   <div class="ui-g-12">

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {IColumn} from '../../../models/IColumn';
-import {NameCode} from '../../../common/NameCode';
 import {R} from '../../../common/R';
 
 @Component({
@@ -14,7 +13,7 @@ export class ColumnInfoDialogComponent implements OnInit {
   orginalColumn: IColumn;
   Fields: string[];
   mFieldSuggestions: string[];
-  public DataTypes: NameCode[] = R.DataTypes;
+  public DataTypes: string[] = R.DataTypes;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     this.column = {

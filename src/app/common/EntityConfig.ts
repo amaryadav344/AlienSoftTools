@@ -1,13 +1,11 @@
 import {R} from './R';
-import {NameCode} from './NameCode';
 import {IEntity} from '../models/IEntity';
 import {IQuery} from '../models/IQuery';
-import {MenuItem} from "primeng/api";
 
 export class EntityConfig {
   public mEntity: IEntity;
-  public QueryTypes: NameCode[] = R.QueryTypes;
-  public DataTypes: NameCode[] = R.DataTypes;
+  public QueryTypes: string[] = R.QueryTypes;
+  public DataTypes: string[] = R.DataTypes;
   CurrentQuery: IQuery = {
     expression: '',
     label: '',

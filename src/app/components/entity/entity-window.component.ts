@@ -1,16 +1,6 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {EntityConfig} from '../../common/EntityConfig';
-import {IParameter} from '../../models/IParameter';
-import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
-import {ColumnInfoDialogComponent} from '../dialogs/column-info-dialog/column-info-dialog.component';
-import {ObjectInfoDialogComponent} from '../dialogs/object-info-dialog/object-info-dialog.component';
-import {CollectionInfoDialogComponent} from '../dialogs/collection-info-dialog/collection-info-dialog.component';
-import {IObject} from '../../models/IObject';
-import {R} from '../../common/R';
-import {ICollection} from '../../models/ICollection';
-import {QueryInfoDialogComponent} from '../dialogs/query-info-diaglog/query-info-dialog.component';
-import {IQuery} from '../../models/IQuery';
-import {IColumn} from '../../models/IColumn';
+import {DialogService} from 'primeng/api';
 import {Table} from 'primeng/table';
 import {EntityService} from '../../services/entity-service/entity.service';
 
@@ -92,11 +82,11 @@ export class EntityWindowComponent implements OnInit {
       businessObject: {
         customMethods: [{
           name: 'LoadFormData',
-          mode: {name: 'All', code: 'ALL'},
+          mode: 'All',
           loadPrimaryObject: true,
           loadMapping: [{
             name: 'GetPerson',
-            loadType: {name: 'Query', code: 'QER'},
+            loadType: 'Query',
             loadParameters: [{name: '@PERSON_ID', entityField: 'iintPersonID'}, {
               name: '@PERSON_ID',
               entityField: 'iintPersonID'
@@ -112,17 +102,17 @@ export class EntityWindowComponent implements OnInit {
       }
     };
     this.mEntityConfig.mEntity.columns = [
-      {name: 'person_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrPersonID'},
-      {name: 'first_name', dataType: {name: 'String', code: 'STR'}, objectField: 'istrfirstname'},
-      {name: 'middle_name', dataType: {name: 'String', code: 'STR'}, objectField: 'istrMiddleName'},
-      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: {name: 'String', code: 'STR'}, objectField: 'istrEmailId'},
-      {name: 'phone_number', dataType: {name: 'String', code: 'STR'}, objectField: 'iintPhoneNumber'},
+      {name: 'person_id', dataType: 'String', objectField: 'istrPersonID'},
+      {name: 'first_name', dataType: 'String', objectField: 'istrfirstname'},
+      {name: 'middle_name', dataType: 'String', objectField: 'istrMiddleName'},
+      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
+      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
+      {name: 'phone_number', dataType: 'String', objectField: 'iintPhoneNumber'},
     ];
     this.mEntityConfig.mEntity.objects = [
       {name: 'objPerson', entity: 'entPerson', objectField: 'ibusPerson'},
@@ -130,17 +120,17 @@ export class EntityWindowComponent implements OnInit {
     ];
 
     this.mEntityConfig.mEntity.collections = [
-      {name: 'lstPerson', entity: 'entPerson', objectField: 'iclbPerson', dataType: {name: 'List', code: 'LST'}},
-      {name: 'lstAccount', entity: 'entAccount', objectField: 'iclbAccount', dataType: {name: 'Queue', code: 'QUE'}},
+      {name: 'lstPerson', entity: 'entPerson', objectField: 'iclbPerson', dataType: 'List'},
+      {name: 'lstAccount', entity: 'entAccount', objectField: 'iclbAccount', dataType: 'Queue'},
     ];
     this.mEntityConfig.mEntity.queries = [
       {
         expression: 'ibuspersion.icdoPerson.person_id > 0',
         label: 'GetPersonByPersonId',
-        queryType: {name: '', code: ''},
+        queryType: 'Scalar Query',
         value: 'GetPersonByPersonId',
         parameters: [
-          {name: '@PESON_ID', dataType: {name: '', code: ''}}
+          {name: '@PESON_ID', dataType: 'String'}
         ],
         customMaps: [
           {column: 'EMAIL_ID', objectField: 'istrEmailID'}
@@ -150,15 +140,14 @@ export class EntityWindowComponent implements OnInit {
         expression: 'ibuspersion.icdoPerson.person_id > 0',
         label: 'GetPersonByOrgId',
         value: 'GetPersonByOrgId',
-        queryType: {name: '', code: ''},
+        queryType: 'Sub Query',
         parameters: [
-          {name: '@ORG_ID', dataType: {name: '', code: ''}},
-          {name: '@ORG_ID', dataType: {name: '', code: ''}},
-          {name: '@ORG_ID', dataType: {name: '', code: ''}},
-          {name: '@ORG_ID', dataType: {name: '', code: ''}},
-          {name: '@ORG_ID', dataType: {name: '', code: ''}},
-          {name: '@ORG_ID', dataType: {name: '', code: ''}},
-          {name: '@ORG_ID', dataType: {name: '', code: ''}},
+          {name: '@ORG_ID', dataType: 'String'},
+          {name: '@ORG_ID', dataType: 'String'},
+          {name: '@ORG_ID', dataType: 'String'},
+          {name: '@ORG_ID', dataType: 'String'},
+          {name: '@ORG_ID', dataType: 'String'},
+          {name: '@ORG_ID', dataType: 'String'},
         ],
         customMaps: [
           {column: 'PERSON_NAME', objectField: 'istrPersonName'},

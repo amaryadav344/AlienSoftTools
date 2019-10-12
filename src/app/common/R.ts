@@ -1,33 +1,30 @@
-import {NameCode} from './NameCode';
-
 export class R {
 
-  public static QueryTypes: NameCode[] = [
-    {name: 'Select Query', code: 'SEQ'},
-    {name: 'Scalar Query', code: 'SCQ'},
-    {name: 'Sub Query', code: 'SUQ'},
+  public static QueryTypes: string[] = ['Select Query',
+    'Scalar Query',
+    'Sub Query',
   ];
-  static DataTypes: NameCode[] = [
-    {name: 'String', code: 'STR'},
-    {name: 'Integer', code: 'INT'},
-    {name: 'Datetime', code: 'DAT'},
-    {name: 'Decimal', code: 'DEC'},
+  static DataTypes: string[] = [
+    'String',
+    'Integer',
+    'Datetime',
+    'DEC',
   ];
-  static CollectionTypes: NameCode[] = [
-    {name: 'List', code: 'LST'},
-    {name: 'Queue', code: 'QUE'},
-    {name: 'Set', code: 'SET'},
+  static CollectionTypes: string[] = [
+    'List',
+    'Queue',
+    'Set',
   ];
-  static LoadTypes: NameCode[] = [
-    {name: 'Query', code: 'QER'},
-    {name: 'Method', code: 'MED'},
-    {name: 'Foreign Key', code: 'FK'},
-    {name: 'Rule', code: 'RU'},
+  static LoadTypes: string[] = [
+    'Query',
+    'Method',
+    'Foreign Key',
+    'Rule',
   ];
-  static LoadModes: NameCode[] = [
-    {name: 'New', code: 'NEW'},
-    {name: 'Update', code: 'UPD'},
-    {name: 'All', code: 'ALL'},
+  static LoadModes: string[] = [
+    'New',
+    'Update',
+    'All'
   ];
   static Constants = class {
     static OpenMode = class {
@@ -39,9 +36,5 @@ export class R {
   static SERVER_URLS = class {
     static JS_TO_XML = 'http://localhost:8080/xml/jstoxml';
   };
-
-  static getCollectionTypesCodeByName(name: string): NameCode {
-    return R.CollectionTypes.filter(x => x.name = name)[0];
-  }
 }
 

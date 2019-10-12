@@ -1,7 +1,5 @@
-import {NameCode} from '../common/NameCode';
-
 export interface IColumn {
   name: string;
-  dataType: NameCode;
+  dataType: string;
   objectField: string;
 }

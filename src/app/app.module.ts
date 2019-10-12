@@ -13,10 +13,17 @@ import {EntityWindowComponent} from './components/entity/entity-window.component
 import {TabModule} from 'angular-tabs-component';
 import {
   AutoCompleteModule,
-  CheckboxModule, ContextMenuModule, DropdownModule, InputTextareaModule, OrderListModule, PaginatorModule,
+  CheckboxModule,
+  ContextMenuModule,
+  DropdownModule,
+  InputTextareaModule,
+  OrderListModule,
+  PaginatorModule,
   RadioButtonModule,
-  ScrollPanelModule, SplitButtonModule,
-  TabViewModule, TooltipModule
+  ScrollPanelModule,
+  SplitButtonModule,
+  TabViewModule,
+  TooltipModule
 } from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {DataViewModule} from 'primeng/dataview';
@@ -42,14 +49,14 @@ import {BusinessObjectTabComponent} from './components/entity/business-object-ta
 import {CustomMethodInfoDialogComponent} from './components/dialogs/custom-method-info-dialog/custom-method-info-dialog.component';
 import {LoadParamterInfoDialogComponent} from './components/dialogs/load-paramter-info-dialog/load-paramter-info-dialog.component';
 import {ObjectMethodInfoDialogComponent} from './components/dialogs/object-method-info-dialog/object-method-info-dialog.component';
-import { AttributesTabComponent } from './components/entity/attributes-tab/attributes-tab.component';
-import { ColumnsTabComponent } from './components/entity/attributes-tab/columns-tab/columns-tab.component';
-import { ObjectsTabComponent } from './components/entity/attributes-tab/objects-tab/objects-tab.component';
-import { CollectionsTabComponent } from './components/entity/attributes-tab/collections-tab/collections-tab.component';
-import { QueryTabComponent } from './components/entity/query-tab/query-tab.component';
-import { EntityToolbarComponent } from './components/entity/entity-toolbar/entity-toolbar.component';
+import {AttributesTabComponent} from './components/entity/attributes-tab/attributes-tab.component';
+import {ColumnsTabComponent} from './components/entity/attributes-tab/columns-tab/columns-tab.component';
+import {ObjectsTabComponent} from './components/entity/attributes-tab/objects-tab/objects-tab.component';
+import {CollectionsTabComponent} from './components/entity/attributes-tab/collections-tab/collections-tab.component';
+import {QueryTabComponent} from './components/entity/query-tab/query-tab.component';
+import {EntityToolbarComponent} from './components/entity/entity-toolbar/entity-toolbar.component';
 import {HttpClientModule} from '@angular/common/http';
-import { DropdownValueMapperPipe } from './common/DropdownValueMapper/dropdown-value-mapper.pipe';
+import {DropDownComponent} from './components/drop-down/drop-down.component';
 
 
 @NgModule({
@@ -79,7 +86,7 @@ import { DropdownValueMapperPipe } from './common/DropdownValueMapper/dropdown-v
     CollectionsTabComponent,
     QueryTabComponent,
     EntityToolbarComponent,
-    DropdownValueMapperPipe,
+    DropDownComponent,
   ],
   imports: [
     RouterModule.forRoot([]),

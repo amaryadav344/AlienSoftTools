@@ -6,7 +6,7 @@
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-12">
         <div class="ui-inputgroup">
-          <input type="text" pInputText placeholder="Search Column"
+          <input pInputText placeholder="Search Column"
                  (input)="tableColumn.filterGlobal($event.target.value, 'contains')">
           <button pButton type="button" icon="pi pi-refresh"></button>
         </div>
@@ -33,7 +33,7 @@
   <ng-template pTemplate="body" let-rowData>
     <tr [pSelectableRowDblClick]="rowData">
       <td>{{rowData.name}}</td>
-      <td>{{rowData.dataType.name}}</td>
+      <td>{{rowData.dataType}}</td>
       <td>{{rowData.objectField}}</td>
       <td>
         <button pButton type="button" icon="pi pi-eye" (click)="viewColumn(rowData)"

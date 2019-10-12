@@ -4,8 +4,8 @@ import {ICustomMethod} from '../../../models/ICustomMethod';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {R} from '../../../common/R';
 import {CustomMethodInfoDialogComponent} from '../../dialogs/custom-method-info-dialog/custom-method-info-dialog.component';
-import {IObjectMethod} from "../../../models/IObjectMethod";
-import {ObjectMethodInfoDialogComponent} from "../../dialogs/object-method-info-dialog/object-method-info-dialog.component";
+import {IObjectMethod} from '../../../models/IObjectMethod';
+import {ObjectMethodInfoDialogComponent} from '../../dialogs/object-method-info-dialog/object-method-info-dialog.component';
 
 @Component({
   selector: 'app-business-object-tab',

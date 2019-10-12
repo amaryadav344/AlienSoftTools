@@ -1,9 +1,8 @@
 import {ILoadMapping} from './ILoadMapping';
-import {NameCode} from '../common/NameCode';
 
 export interface ICustomMethod {
   name: string;
-  mode: NameCode;
+  mode: string;
   loadPrimaryObject: boolean;
   loadMapping: ILoadMapping[];
 }

@@ -15,9 +15,7 @@
   </div>
   <div class="ui-g-6">
     <h6 class="first">DataType</h6>
-    <p-dropdown [options]="DataTypes" [(ngModel)]="column.dataType"
-                placeholder="Select DataType" appendTo="body" [autoWidth]="false"
-                optionLabel="name" [showClear]="true" [disabled]="true"></p-dropdown>
+    <app-drop-down [model]="column.dataType" [options]="DataTypes" [disabled]="true"></app-drop-down>
 
   </div>
   <div class="ui-g-12">

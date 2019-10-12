@@ -1,11 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
 import {ICustomMethod} from '../../../models/ICustomMethod';
-import {NameCode} from '../../../common/NameCode';
-import {ILoadMapping} from "../../../models/ILoadMapping";
-import {ILoadParameter} from "../../../models/ILoadParameter";
-import {LoadParamterInfoDialogComponent} from "../load-paramter-info-dialog/load-paramter-info-dialog.component";
+import {ILoadMapping} from '../../../models/ILoadMapping';
+import {ILoadParameter} from '../../../models/ILoadParameter';
+import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load-paramter-info-dialog.component';
 
 @Component({
   selector: 'app-custom-method-info-dialog',
@@ -18,13 +17,13 @@ export class CustomMethodInfoDialogComponent implements OnInit {
 
   customMethod: ICustomMethod = {
     name: '',
-    mode: {name: 'All', code: 'ALL'},
+    mode: 'All',
     loadPrimaryObject: false,
     loadMapping: []
   };
-  loadModes: NameCode[] = R.LoadModes;
+  loadModes: string[] = R.LoadModes;
   selection: ILoadMapping;
-  loadTypes: NameCode[] = R.LoadTypes;
+  loadTypes: string[] = R.LoadTypes;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public dialogService: DialogService) {
     if (config.data.mode === R.Constants.OpenMode.MODE_UPDATE) {
@@ -57,7 +56,7 @@ export class CustomMethodInfoDialogComponent implements OnInit {
   }
 
   addLoadMappingRow() {
-    this.customMethod.loadMapping.push({name: '', loadParameters: [], loadType: {name: '', code: ''}});
+    this.customMethod.loadMapping.push({name: '', loadParameters: [], loadType: ''});
   }
 
   removeCustomMapping() {
