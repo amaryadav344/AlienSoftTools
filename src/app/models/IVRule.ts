@@ -2,8 +2,7 @@ import {IMessage} from './IMessage';
 import {IGroup} from './IGroup';
 
 export interface IVRule {
-  label: string;
-  value: string;
+  name: string;
   expression?: string;
   isObjectRule?: boolean;
   message?: IMessage;

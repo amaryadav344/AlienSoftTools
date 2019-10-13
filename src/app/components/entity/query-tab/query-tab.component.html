@@ -1,26 +1,42 @@
 <div class="ui-g ui-g-nopad ui-fluid">
   <div class="ui-g-12 ui-md-2 ui-g-nopad">
-    <p-listbox [options]="queries" filter="filter"
-               [listStyle]="{'height':'360px'}" (onClick)="selection=$event.option"
-               (onDblClick)="openQueryInfo($event.option,1)">
+    <p-panel styleClass="CustomMethodsPanel">
       <p-header>
         <div class="ui-helper-clearfix">
-          <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Queries</span>
-          <button pButton type="button" icon="pi pi-plus" style="float: right"
-                  (click)="openQueryInfo('',0)"></button>
+            <span class="ui-panel-title"
+                  style="font-size:16px;display:inline-block;margin-top:2px">Queries</span>
+          <p-button type="button" icon="pi pi-plus" style="float: right;"
+                    (onClick)="openQueryInfo($event.option,0)"></p-button>
         </div>
       </p-header>
-      <ng-template pTemplate="body" let-query>
-        <span>{{query.label}}</span>
-      </ng-template>
-    </p-listbox>
+      <p-table #tableQueries [value]="queries" selectionMode="single" [(contextMenuSelection)]="selection"
+               [contextMenu]="cm"
+               contextMenuSelectionMode="joint" [globalFilterFields]="['name']"
+               [(selection)]="selection" scrollHeight="200px">
+        <ng-template pTemplate="caption">
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-12">
+              <div class="ui-inputgroup">
+                <input pInputText placeholder="Search Column"
+                       (input)="tableQueries.filterGlobal($event.target.value, 'contains')">
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+          <tr [pSelectableRow]="rowData" [pContextMenuRow]="rowData">
+            <td>{{rowData.name}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
   </div>
   <div class="ui-g-12 ui-md-10 ui-g-nopad">
     <div class="ui-g-12 ui-g-nopad">
       <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-6 ">
           <div class="ui-inputgroup">
-            <input type="text" pInputText [disabled]="true" [(ngModel)]="selection.label"/>
+            <input type="text" pInputText [disabled]="true" [(ngModel)]="selection.name"/>
           </div>
         </div>
         <div class="ui-g-12 ui-md-6">
@@ -31,7 +47,7 @@
       <div class="ui-g">
         <div class="ui-g-12 ui-md-12">
               <textarea rows="8" cols="152" pInputTextarea
-                        [(ngModel)]="selection.expression"></textarea>
+                        [(ngModel)]="selection.sql"></textarea>
         </div>
       </div>
 
@@ -53,9 +69,6 @@
                 </div>
                 <div class="ui-g-12 ui-md-6">
                   <app-drop-down [options]="DataTypes" [model]="parameter.dataType"></app-drop-down>
-                  <!--<p-dropdown appendTo="body" [options]="DataTypes" [(ngModel)]="parameter.dataType"
-                              placeholder="Data Type"
-                              optionLabel="name" [showClear]="true"></p-dropdown>-->
                 </div>
               </div>
             </div>
@@ -90,3 +103,4 @@
     </div>
   </div>
 </div>
+<p-contextMenu #cm [model]="items"></p-contextMenu>

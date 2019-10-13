@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {IValidation} from '../../../models/IValidation';
 import {IVRule} from '../../../models/IVRule';
-import {DialogService, DynamicDialogConfig} from 'primeng/api';
+import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
 import {RuleInfoDialogComponent} from '../../dialogs/rule-info-dialog/rule-info-dialog.component';
 import {R} from '../../../common/R';
 import {IGroup} from '../../../models/IGroup';
@@ -16,8 +16,7 @@ import {GroupInfoDialogComponent} from '../../dialogs/group-info-dialog/group-in
 export class ValidationTabComponent implements OnInit {
   @Input() validation: IValidation;
   selection: IVRule = {
-    label: '',
-    value: '',
+    name: '',
     expression: '',
     isDeleteRule: false,
     isHardError: false,
@@ -26,12 +25,17 @@ export class ValidationTabComponent implements OnInit {
     isUpdateRule: false,
     message: {message: '', messageId: 1, parameters: [{label: '', objectField: ''}]}
   };
-  groupSelection: IGroup = {label: '', value: ''}
+  groupSelection: IGroup = {label: '', value: ''};
+  items: MenuItem[];
 
   constructor(public dialogService: DialogService) {
   }
 
   ngOnInit() {
+    this.items = [
+      {label: 'Rename', icon: 'pi pi-search', command: (event) => this.openRuleInfo(1)},
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteRule()}
+    ];
   }
 
   openRuleInfo(Mode) {
@@ -55,6 +59,9 @@ export class ValidationTabComponent implements OnInit {
         }
       }
     });
+  }
+
+  deleteRule() {
   }
 
   openGroupInfo(Mode) {

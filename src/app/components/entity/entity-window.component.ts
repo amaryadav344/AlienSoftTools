@@ -51,8 +51,7 @@ export class EntityWindowComponent implements OnInit {
       validation: {
         rules: [{
           expression: 'function x() {\nconsole.log("Hello world!");\n',
-          value: 'Is Salery available',
-          label: 'Is Salery available',
+          name: 'Is Salery available',
           message: {
             message: 'Salery is not available',
             messageId: 2512,
@@ -65,8 +64,7 @@ export class EntityWindowComponent implements OnInit {
         },
           {
             expression: '{\nconsole.log("Hello world!");\n',
-            value: 'Is MSR Review',
-            label: 'Is MSR Review',
+            name: 'Is MSR Review',
             message: {
               message: 'Not MSR Review',
               messageId: 2513,
@@ -125,10 +123,9 @@ export class EntityWindowComponent implements OnInit {
     ];
     this.mEntityConfig.mEntity.queries = [
       {
-        expression: 'ibuspersion.icdoPerson.person_id > 0',
-        label: 'GetPersonByPersonId',
+        sql: 'ibuspersion.icdoPerson.person_id > 0',
+        name: 'GetPersonByPersonId',
         queryType: 'Scalar Query',
-        value: 'GetPersonByPersonId',
         parameters: [
           {name: '@PESON_ID', dataType: 'String'}
         ],
@@ -137,9 +134,8 @@ export class EntityWindowComponent implements OnInit {
         ],
       },
       {
-        expression: 'ibuspersion.icdoPerson.person_id > 0',
-        label: 'GetPersonByOrgId',
-        value: 'GetPersonByOrgId',
+        sql: 'ibuspersion.icdoPerson.person_id > 0',
+        name: 'GetPersonByOrgId',
         queryType: 'Sub Query',
         parameters: [
           {name: '@ORG_ID', dataType: 'String'},

@@ -8,7 +8,7 @@ export class R {
     'String',
     'Integer',
     'Datetime',
-    'DEC',
+    'Decimal',
   ];
   static CollectionTypes: string[] = [
     'List',

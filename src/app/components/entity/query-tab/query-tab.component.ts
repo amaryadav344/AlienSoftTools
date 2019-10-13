@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IQuery} from '../../../models/IQuery';
 import {R} from '../../../common/R';
-import {DialogService, DynamicDialogConfig} from 'primeng/api';
+import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
 import {QueryInfoDialogComponent} from '../../dialogs/query-info-diaglog/query-info-dialog.component';
 import {IParameter} from '../../../models/IParameter';
 
@@ -24,12 +24,16 @@ export class QueryTabComponent implements OnInit {
   DataTypes: string[] = R.DataTypes;
   mFieldSuggestions: string[];
   Fields: string[] = ['istrPersonId', 'istrPersonName', 'iintEmailId', 'iintPhoneNumber'];
+  items: MenuItem[];
 
   constructor(public dialogService: DialogService) {
   }
 
   ngOnInit() {
-
+    this.items = [
+      {label: 'Rename', icon: 'pi pi-search', command: (event) => this.openQueryInfo(this.selection, 1)},
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteQuery(this.selection)}
+    ];
   }
 
   openQueryInfo(Query, Mode) {
@@ -63,7 +67,7 @@ export class QueryTabComponent implements OnInit {
 
   refreshParameters() {
     const newParameters: IParameter[] = [];
-    const Parameters: string[] = this.selection.expression.match(/@\w+/g);
+    const Parameters: string[] = this.selection.sql.match(/@\w+/g);
     if (Parameters) {
       for (const Parameter of Parameters) {
         newParameters.push({name: Parameter, dataType: ''});
@@ -88,6 +92,10 @@ export class QueryTabComponent implements OnInit {
         this.mFieldSuggestions.push(field);
       }
     }
+  }
+
+
+  deleteQuery(query: IQuery) {
   }
 
 }

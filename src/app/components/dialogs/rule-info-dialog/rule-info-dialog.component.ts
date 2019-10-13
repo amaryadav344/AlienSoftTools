@@ -11,8 +11,7 @@ import {IVRule} from '../../../models/IVRule';
 export class RuleInfoDialogComponent implements OnInit {
   rule: IVRule = {
     expression: '',
-    value: '',
-    label: '',
+    name: '',
     message: {
       message: '',
       messageId: 0,
@@ -31,7 +30,6 @@ export class RuleInfoDialogComponent implements OnInit {
   }
 
   saveRule() {
-    this.rule.value = this.rule.label
     this.ref.close(this.rule);
   }
 
