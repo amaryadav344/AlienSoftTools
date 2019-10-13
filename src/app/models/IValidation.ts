@@ -1,7 +1,13 @@
 import {IVRule} from './IVRule';
 import {IGroup} from './IGroup';
+import {IRule} from './IRule';
 
 export interface IValidation {
   rules: IVRule[];
-  groups: IGroup[];
+  initialLoad: IRule[];
+  softErrors: IRule[];
+  hardErrors: IRule[];
+  updateRules: IRule[];
+  deleteRules: IRule[];
+  groupRules: IGroup[];
 }

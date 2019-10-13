@@ -9,7 +9,7 @@ import {IGroup} from '../../../models/IGroup';
   styleUrls: ['./group-info-dialog.component.css']
 })
 export class GroupInfoDialogComponent implements OnInit {
-  group: IGroup = {label: '', value: ''};
+  group: IGroup = {name: '', rules: []};
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     if (config.data.mode === R.Constants.OpenMode.MODE_UPDATE) {
@@ -21,7 +21,6 @@ export class GroupInfoDialogComponent implements OnInit {
   }
 
   saveGroup() {
-    this.group.value = this.group.label;
     this.ref.close(this.group);
   }
 

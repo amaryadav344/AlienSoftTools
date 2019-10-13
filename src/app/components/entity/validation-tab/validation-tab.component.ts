@@ -5,7 +5,7 @@ import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
 import {RuleInfoDialogComponent} from '../../dialogs/rule-info-dialog/rule-info-dialog.component';
 import {R} from '../../../common/R';
 import {IGroup} from '../../../models/IGroup';
-import {GroupInfoDialogComponent} from '../../dialogs/group-info-dialog/group-info-dialog.component';
+import {IRule} from '../../../models/IRule';
 
 @Component({
   selector: 'app-validation-tab',
@@ -18,15 +18,11 @@ export class ValidationTabComponent implements OnInit {
   selection: IVRule = {
     name: '',
     expression: '',
-    isDeleteRule: false,
-    isHardError: false,
-    isInitialLoad: false,
-    isObjectRule: false,
-    isUpdateRule: false,
     message: {message: '', messageId: 1, parameters: [{label: '', objectField: ''}]}
   };
-  groupSelection: IGroup = {label: '', value: ''};
+  IRuleSelection: IRule = {name: ''};
   items: MenuItem[];
+  draggedRule: IVRule;
 
   constructor(public dialogService: DialogService) {
   }
@@ -64,7 +60,77 @@ export class ValidationTabComponent implements OnInit {
   deleteRule() {
   }
 
-  openGroupInfo(Mode) {
+  onIVRuleSelected() {
+    this.IRuleSelection = {name: this.selection.name};
+  }
+
+  onIRuleSelected() {
+    for (const Rule of this.validation.rules) {
+      if (Rule.name === this.IRuleSelection.name) {
+        this.selection = Rule;
+        break;
+      }
+    }
+  }
+
+  dragStart(event, ivRule: IVRule) {
+    this.draggedRule = ivRule;
+  }
+
+  dropInitialLoad() {
+    if (this.draggedRule) {
+      if (!this.validation.initialLoad.some(x => x.name === this.draggedRule.name)) {
+        this.validation.initialLoad.push({name: this.draggedRule.name});
+      }
+    }
+  }
+
+  dropHardError() {
+    if (this.draggedRule) {
+      if (!this.validation.hardErrors.some(x => x.name === this.draggedRule.name)) {
+        this.validation.hardErrors.push({name: this.draggedRule.name});
+      }
+    }
+  }
+
+  dropSoftError() {
+    if (this.draggedRule) {
+      if (!this.validation.softErrors.some(x => x.name === this.draggedRule.name)) {
+        this.validation.softErrors.push({name: this.draggedRule.name});
+      }
+    }
+  }
+
+  dropUpdateRule() {
+    if (this.draggedRule) {
+      if (!this.validation.updateRules.some(x => x.name === this.draggedRule.name)) {
+        this.validation.updateRules.push({name: this.draggedRule.name});
+      }
+    }
+  }
+
+  dropDeleteRule() {
+    if (this.draggedRule) {
+      if (!this.validation.deleteRules.some(x => x.name === this.draggedRule.name)) {
+        this.validation.deleteRules.push({name: this.draggedRule.name});
+      }
+    }
+  }
+
+  dropGroupRule(group: IGroup) {
+    if (this.draggedRule) {
+      if (!group.rules.some(x => x.name === this.draggedRule.name)) {
+        group.rules.push({name: this.draggedRule.name});
+      }
+    }
+  }
+
+  dragEnd(event) {
+    this.draggedRule = null;
+  }
+
+
+  /*openGroupInfo(Mode) {
     const ref = this.dialogService.open(GroupInfoDialogComponent, {
       data: {
         group: this.groupSelection,
@@ -86,6 +152,6 @@ export class ValidationTabComponent implements OnInit {
         }
       }
     });
-  }
+  }*/
 
 }

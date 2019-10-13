@@ -57,10 +57,6 @@ export class EntityWindowComponent implements OnInit {
             messageId: 2512,
             parameters: [{label: '{0}', objectField: 'istrPersonName'}],
           },
-          groups: [{label: 'MSR Validation', value: 'MSR Validation'}, {
-            label: 'MSS Validation',
-            value: 'MSS Validation'
-          }],
         },
           {
             expression: '{\nconsole.log("Hello world!");\n',
@@ -69,13 +65,16 @@ export class EntityWindowComponent implements OnInit {
               message: 'Not MSR Review',
               messageId: 2513,
               parameters: [{label: '{1}', objectField: 'istrPersonName'}],
-            },
-            groups: [{
-              label: 'MSS Validation',
-              value: 'MSS Validation'
-            }],
+            }
           }],
-        groups: [{label: 'MSR Validation', value: 'MSR Validation'}, {label: 'MSS Validation', value: 'MSS Validation'}]
+        initialLoad: [{name: 'Is Salery available'}],
+        hardErrors: [{name: 'Is Salery available'}],
+        softErrors: [{name: 'Is Salery available'}, {name: 'Is MSR Review'}],
+        deleteRules: [{name: 'Is Salery available'}, {name: 'Is MSR Review'}],
+        updateRules: [{name: 'Is Salery available'}, {name: 'Is MSR Review'}],
+        groupRules: [{
+          name: 'Review', rules: [{name: 'Is Salery available'}]
+        }],
       },
       businessObject: {
         customMethods: [{
@@ -92,13 +91,15 @@ export class EntityWindowComponent implements OnInit {
               {name: '@PERSON_ID', entityField: 'iintPersonID'}]
           }]
         }],
-        objectMethods: [{
-          name: 'GetAllUsers',
-          returnType: 'cdoUsers',
-          objectParameters: [{name: 'aintPersonID', dataType: 'string'}]
-        }]
+        objectMethods:
+          [{
+            name: 'GetAllUsers',
+            returnType: 'cdoUsers',
+            objectParameters: [{name: 'aintPersonID', dataType: 'string'}]
+          }]
       }
-    };
+    }
+    ;
     this.mEntityConfig.mEntity.columns = [
       {name: 'person_id', dataType: 'String', objectField: 'istrPersonID'},
       {name: 'first_name', dataType: 'String', objectField: 'istrfirstname'},

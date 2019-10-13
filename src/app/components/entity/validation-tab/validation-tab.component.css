@@ -1,8 +1,33 @@
 .MessagesBottomPanels .ui-panel-content {
-  height: 198px;
+  height: 147px;
   overflow-y: auto;
 }
 
 .GroupTopPanel .ui-panel-content {
   height: 405px;
+}
+
+.InitalLoadPanel .ui-panel-content {
+  padding: 0 !important;
+  height: 200px;
+
+}
+
+.list-item {
+  padding-top: 0.571em;
+  padding-right: 0.857em;
+  padding-bottom: 0.571em;
+  padding-left: 0.857em;
+  outline: 1px solid rgb(200, 200, 200);; /* use instead of border */
+  margin-top: 1px;
+  margin-left: 1px;
+  cursor: pointer;
+}
+
+.list-item:hover {
+  background-color: #eaeaea;
+}
+
+.list-title {
+  background-color: #f9f9f9;
 }

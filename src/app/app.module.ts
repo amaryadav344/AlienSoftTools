@@ -15,6 +15,7 @@ import {
   AutoCompleteModule,
   CheckboxModule,
   ContextMenuModule,
+  DragDropModule,
   DropdownModule,
   InputTextareaModule,
   OrderListModule,
@@ -117,7 +118,8 @@ import {DropDownComponent} from './components/drop-down/drop-down.component';
     ContextMenuModule,
     MenuModule,
     TooltipModule,
-    CheckboxModule
+    CheckboxModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,5 +1,6 @@
+import {IRule} from './IRule';
 
 export interface IGroup {
-  label?: string;
-  value?: string;
+  name: string;
+  rules: IRule[];
 }

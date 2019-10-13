@@ -7,9 +7,8 @@ export class EntityConfig {
   public QueryTypes: string[] = R.QueryTypes;
   public DataTypes: string[] = R.DataTypes;
   CurrentQuery: IQuery = {
-    expression: '',
-    label: '',
-    value: '',
+    sql: '',
+    name: '',
     parameters: [],
     customMaps: [],
   };

@@ -14,9 +14,8 @@ import {IParameter} from '../../../models/IParameter';
 export class QueryTabComponent implements OnInit {
   @Input() queries: IQuery[] = [];
   selection: IQuery = {
-    expression: '',
-    label: '',
-    value: '',
+    sql: '',
+    name: '',
     parameters: [],
     customMaps: [],
   };

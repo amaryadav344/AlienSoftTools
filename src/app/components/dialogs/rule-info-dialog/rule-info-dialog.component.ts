@@ -17,7 +17,6 @@ export class RuleInfoDialogComponent implements OnInit {
       messageId: 0,
       parameters: [],
     },
-    groups: [],
   };
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
