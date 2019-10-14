@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {IValidation} from '../../../models/IValidation';
 import {IVRule} from '../../../models/IVRule';
 import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
@@ -6,6 +6,8 @@ import {RuleInfoDialogComponent} from '../../dialogs/rule-info-dialog/rule-info-
 import {R} from '../../../common/R';
 import {IGroup} from '../../../models/IGroup';
 import {IRule} from '../../../models/IRule';
+import {GroupInfoDialogComponent} from '../../dialogs/group-info-dialog/group-info-dialog.component';
+import {ContextMenu} from 'primeng/primeng';
 
 @Component({
   selector: 'app-validation-tab',
@@ -22,16 +24,23 @@ export class ValidationTabComponent implements OnInit {
   };
   IRuleSelection: IRule = {name: ''};
   items: MenuItem[];
+  itemsInitialLoad: MenuItem[];
+  itemsSofterror: MenuItem[];
+  itemsHardError: MenuItem[];
+  itemsUpdateRule: MenuItem[];
+  itemsDeleteRule: MenuItem[];
+  itemsGroup: MenuItem[];
+  itemsGroupRule: MenuItem[];
   draggedRule: IVRule;
+  groupSelection: IGroup = {name: '', rules: []};
+  @ViewChild('cmGroup', {static: false}) cmGroup: ContextMenu;
+  @ViewChild('cmGroupRule', {static: false}) cmGroupRule: ContextMenu;
 
   constructor(public dialogService: DialogService) {
   }
 
   ngOnInit() {
-    this.items = [
-      {label: 'Rename', icon: 'pi pi-search', command: (event) => this.openRuleInfo(1)},
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteRule()}
-    ];
+    this.initContextMenuItems();
   }
 
   openRuleInfo(Mode) {
@@ -130,11 +139,11 @@ export class ValidationTabComponent implements OnInit {
   }
 
 
-  /*openGroupInfo(Mode) {
+  openGroupInfo(Mode) {
     const ref = this.dialogService.open(GroupInfoDialogComponent, {
       data: {
         group: this.groupSelection,
-        groups: this.validation.groups,
+        groups: this.validation.groupRules,
         mode: Mode
       },
       header: 'Object Information',
@@ -147,11 +156,83 @@ export class ValidationTabComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(this.groupSelection, group);
         } else {
-          this.validation.groups.push(group);
-          this.validation.groups = [...this.validation.groups];
+          this.validation.groupRules.push(group);
+          this.validation.groupRules = [...this.validation.groupRules];
         }
       }
     });
-  }*/
+  }
 
+  removeGroupRule() {
+    const index = this.validation.groupRules.indexOf(this.groupSelection);
+    const ruleIndex = this.validation.groupRules[index].rules.indexOf(this.IRuleSelection);
+    this.validation.groupRules[index].rules.splice(ruleIndex, 1);
+  }
+
+  deleteGroup() {
+    const index = this.validation.groupRules.indexOf(this.groupSelection);
+    this.validation.groupRules.splice(index, 1);
+  }
+
+  removeDeleteRule() {
+    const index = this.validation.deleteRules.indexOf(this.IRuleSelection);
+    this.validation.deleteRules.splice(index, 1);
+  }
+
+  removeUpdateRule() {
+    const index = this.validation.updateRules.indexOf(this.IRuleSelection);
+    this.validation.updateRules.splice(index, 1);
+  }
+
+  removeHardRule() {
+    const index = this.validation.hardErrors.indexOf(this.IRuleSelection);
+    this.validation.hardErrors.splice(index, 1);
+  }
+
+  removeSoftRule() {
+    const index = this.validation.softErrors.indexOf(this.IRuleSelection);
+    this.validation.softErrors.splice(index, 1);
+  }
+
+  removeInitialRule() {
+    const index = this.validation.initialLoad.indexOf(this.IRuleSelection);
+    this.validation.initialLoad.splice(index, 1);
+  }
+
+  showGroupContextMenu(event) {
+    this.cmGroup.show(event);
+  }
+
+  showGroupRuleContextMenu(event) {
+    this.cmGroupRule.show(event);
+  }
+
+  initContextMenuItems() {
+    this.items = [
+      {label: 'Rename Rule', icon: 'pi pi-search', command: (event) => this.openRuleInfo(1)},
+      {label: 'Delete Rule', icon: 'pi pi-times', command: (event) => this.deleteRule()}
+    ];
+    this.itemsInitialLoad = [
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeInitialRule()}
+    ];
+    this.itemsSofterror = [
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeSoftRule()}
+    ];
+    this.itemsHardError = [
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeHardRule()}
+    ];
+    this.itemsUpdateRule = [
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeUpdateRule()}
+    ];
+    this.itemsDeleteRule = [
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeDeleteRule()}
+    ];
+    this.itemsGroup = [
+      {label: 'Rename', icon: 'pi pi-search', command: (event) => this.openGroupInfo(1)},
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteGroup()}
+    ];
+    this.itemsGroupRule = [
+      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeGroupRule()}
+    ];
+  }
 }

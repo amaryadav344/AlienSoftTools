@@ -86,7 +86,7 @@
               <p-table [value]="validation.initialLoad" selectionMode="single"
                        (onRowSelect)="onIRuleSelected($event)"
                        [(contextMenuSelection)]="IRuleSelection"
-                       [contextMenu]="cm"
+                       [contextMenu]="cmInitialLoad"
                        contextMenuSelectionMode="joint"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
                 <ng-template pTemplate="body" let-rowData>
@@ -107,7 +107,7 @@
               </p-header>
               <p-table [value]="validation.softErrors" selectionMode="single"
                        [(contextMenuSelection)]="IRuleSelection"
-                       [contextMenu]="cm"
+                       [contextMenu]="cmSofterror"
                        (onRowSelect)="onIRuleSelected($event)"
                        contextMenuSelectionMode="joint"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
@@ -129,7 +129,7 @@
               </p-header>
               <p-table [value]="validation.hardErrors" selectionMode="single"
                        [(contextMenuSelection)]="IRuleSelection"
-                       [contextMenu]="cm"
+                       [contextMenu]="cmHardError"
                        contextMenuSelectionMode="joint"
                        (onRowSelect)="onIRuleSelected($event)"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
@@ -152,7 +152,7 @@
               <p-table [value]="validation.updateRules" selectionMode="single"
                        (onRowSelect)="onIRuleSelected($event)"
                        [(contextMenuSelection)]="IRuleSelection"
-                       [contextMenu]="cm"
+                       [contextMenu]="cmUpdateRule"
                        contextMenuSelectionMode="joint"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
                 <ng-template pTemplate="body" let-rowData>
@@ -173,7 +173,7 @@
               </p-header>
               <p-table [value]="validation.deleteRules" selectionMode="single"
                        [(contextMenuSelection)]="IRuleSelection"
-                       [contextMenu]="cm"
+                       [contextMenu]="cmDeleteRule"
                        (onRowSelect)="onIRuleSelected($event)"
                        contextMenuSelectionMode="joint"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
@@ -192,12 +192,20 @@
             <span class="ui-panel-title"
                   style="font-size:16px;display:inline-block;margin-top:2px">Group Rule</span>
                   <p-button type="button" icon="pi pi-plus" style="float: right;"
-                            (onClick)="openRuleInfo(0)"></p-button>
+                            (onClick)="openGroupInfo(0)"></p-button>
                 </div>
               </p-header>
               <div *ngFor="let group of validation.groupRules">
-                <div class="list-item list-title" pDroppable (onDrop)="dropGroupRule(group)">{{group.name}}</div>
-                <div class="list-item" *ngFor="let rule of group.rules">{{rule.name}}</div>
+                <div #listTitle class="list-item list-title" pDroppable [class.selected]="group === groupSelection"
+                     (onDrop)="dropGroupRule(group)" (contextmenu)="groupSelection=group;showGroupContextMenu($event)"
+                     (click)="groupSelection=group">{{group.name}}
+                </div>
+                <div #listItem class="list-item" *ngFor="let rule of group.rules"
+                     [class.selected]="rule === IRuleSelection"
+                     (click)="IRuleSelection=rule;onIRuleSelected()"
+                     (contextmenu)="IRuleSelection=rule;groupSelection=group;onIRuleSelected();showGroupRuleContextMenu($event)">
+                  {{rule.name}}
+                </div>
               </div>
             </p-panel>
           </div>
@@ -207,3 +215,10 @@
   </div>
 </div>
 <p-contextMenu #cm [model]="items"></p-contextMenu>
+<p-contextMenu #cmInitialLoad [model]="itemsInitialLoad"></p-contextMenu>
+<p-contextMenu #cmSofterror [model]="itemsSofterror"></p-contextMenu>
+<p-contextMenu #cmHardError [model]="itemsHardError"></p-contextMenu>
+<p-contextMenu #cmUpdateRule [model]="itemsUpdateRule"></p-contextMenu>
+<p-contextMenu #cmDeleteRule [model]="itemsDeleteRule"></p-contextMenu>
+<p-contextMenu #cmGroup [model]="itemsGroup"></p-contextMenu>
+<p-contextMenu #cmGroupRule [model]="itemsGroupRule"></p-contextMenu>

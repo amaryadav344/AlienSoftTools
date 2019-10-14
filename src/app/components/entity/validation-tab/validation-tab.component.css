@@ -31,3 +31,14 @@
 .list-title {
   background-color: #f9f9f9;
 }
+
+.selected {
+  color: #ffffff;
+  background-color: #007ad9;
+}
+
+.selected:hover {
+  cursor: text;
+  background-color: #007ad9;
+}
+

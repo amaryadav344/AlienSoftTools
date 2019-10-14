@@ -2,16 +2,16 @@
   <div class="ui-g-12">
     <h6 class="first">Name</h6>
     <div class="ui-inputgroup">
-      <input type="text" pInputText [(ngModel)]="group.label"/>
+      <input type="text" pInputText [(ngModel)]="group.name"/>
     </div>
   </div>
   <div class="ui-g-12">
-    <p-message severity="error" text="Name is required" *ngIf="group.label===''"></p-message>
+    <p-message severity="error" text="Name is required" *ngIf="group.name===''"></p-message>
   </div>
   <div class="ui-g-12">
     <div style="float: right">
       <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
-              [disabled]="(group.label==='')"
+              [disabled]="(group.name==='')"
               (click)="saveGroup()"></button>
       <p-button style="width: 90px;" label="Cancel" (click)="this.ref.close();"></p-button>
     </div>
