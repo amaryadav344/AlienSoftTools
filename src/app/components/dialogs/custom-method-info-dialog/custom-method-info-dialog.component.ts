@@ -60,8 +60,10 @@ export class CustomMethodInfoDialogComponent implements OnInit {
   }
 
   removeCustomMapping() {
-    const index = this.customMethod.loadMapping.indexOf(this.selection);
-    this.customMethod.loadMapping.splice(index, 1);
+    if (this.selection) {
+      const index = this.customMethod.loadMapping.indexOf(this.selection);
+      this.customMethod.loadMapping.splice(index, 1);
+    }
   }
 
 }
