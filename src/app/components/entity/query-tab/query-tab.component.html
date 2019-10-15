@@ -50,8 +50,9 @@
 
       <div class="ui-g">
         <div class="ui-g-12 ui-md-12">
-              <textarea rows="8" cols="152" pInputTextarea
-                        [(ngModel)]="selection.sql"></textarea>
+          <div style="height: 170px">
+            <app-code-editor [code]="selection.sql"></app-code-editor>
+          </div>
         </div>
       </div>
 

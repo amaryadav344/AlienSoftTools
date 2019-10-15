@@ -1,12 +1,13 @@
 <app-entity-toolbar [entity]="mEntityConfig.mEntity" (switch)="getXML();"></app-entity-toolbar>
 <p-tabView *ngIf="!isTextView">
+  <p-tabPanel header="Query" style="height: 400px">
+    <app-query-tab [queries]="mEntityConfig.mEntity.queries"></app-query-tab>
+  </p-tabPanel>
   <p-tabPanel header="Attributes">
     <app-attributes-tab [columns]="mEntityConfig.mEntity.columns" [objects]="mEntityConfig.mEntity.objects"
                         [collections]="mEntityConfig.mEntity.collections"></app-attributes-tab>
   </p-tabPanel>
-  <p-tabPanel header="Query" style="height: 400px">
-    <app-query-tab [queries]="mEntityConfig.mEntity.queries"></app-query-tab>
-  </p-tabPanel>
+
   <p-tabPanel header="Validations">
     <app-validation-tab [(validation)]="mEntityConfig.mEntity.validation"></app-validation-tab>
   </p-tabPanel>
@@ -14,10 +15,13 @@
     <app-business-object-tab [(businessObject)]="mEntityConfig.mEntity.businessObject"></app-business-object-tab>
   </p-tabPanel>
 </p-tabView>
-<div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid">
-  <div class="ui-g-12 ui-g-nopad">
-    <div ace-editor style="height:500px;" [options]="option"
-         [(text)]="xml" [mode]="'xml'"></div>
+<div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">
+  <!-- <div class="ui-g-12 ui-g-nopad">
+     <div ace-editor style="height:500px;" [options]="option"
+          [(text)]="xml" [mode]="'xml'"></div>
+   </div>-->
+  <div style="height: 521px; width: 1365px">
+    <app-code-editor [code]="xml"></app-code-editor>
   </div>
 </div>
 

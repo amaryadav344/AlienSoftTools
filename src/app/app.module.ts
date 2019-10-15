@@ -59,6 +59,7 @@ import {EntityToolbarComponent} from './components/entity/entity-toolbar/entity-
 import {HttpClientModule} from '@angular/common/http';
 import {DropDownComponent} from './components/drop-down/drop-down.component';
 import {CodeEditorComponent} from './components/code-editor/code-editor.component';
+import {MonacoEditorModule} from 'ngx-monaco-editor';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import {CodeEditorComponent} from './components/code-editor/code-editor.componen
     BrowserAnimationsModule,
     BrowserModule,
     AlertModule.forRoot(),
+    MonacoEditorModule.forRoot(),
     HttpClientModule,
     AceEditorModule,
     TabModule,
