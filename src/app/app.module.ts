@@ -58,6 +58,7 @@ import {QueryTabComponent} from './components/entity/query-tab/query-tab.compone
 import {EntityToolbarComponent} from './components/entity/entity-toolbar/entity-toolbar.component';
 import {HttpClientModule} from '@angular/common/http';
 import {DropDownComponent} from './components/drop-down/drop-down.component';
+import {CodeEditorComponent} from './components/code-editor/code-editor.component';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import {DropDownComponent} from './components/drop-down/drop-down.component';
     QueryTabComponent,
     EntityToolbarComponent,
     DropDownComponent,
+    CodeEditorComponent,
   ],
   imports: [
     RouterModule.forRoot([]),

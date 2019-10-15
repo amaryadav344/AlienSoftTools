@@ -7,7 +7,7 @@
             <span class="ui-panel-title"
                   style="font-size:16px;display:inline-block;margin-top:2px">Custom Methods</span>
             <p-button type="button" icon="pi pi-plus" style="float: right"
-                      (onClick)="onCustomMethodSelect(0)"></p-button>
+                      (onClick)="onCustomMethodSelect(0)" pTooltip="Add new custom method"></p-button>
           </div>
         </p-header>
         <p-table [value]="businessObject.customMethods" selectionMode="single"
@@ -17,9 +17,10 @@
               <td>{{rowData.name}}</td>
               <td>
                 <button pButton type="button" icon="pi pi-trash" (click)="deleteCustomMethod(rowData)"
-                        style="margin-right: 8px" class="ui-button-danger" pTooltip="Delete object"></button>
+                        pTooltip="Delete custom method"
+                        style="margin-right: 8px" class="ui-button-danger"></button>
                 <button pButton type="button" icon="pi pi-pencil" (click)="selection=rowData;onCustomMethodSelect(1)"
-                        pTooltip="View object details"
+                        pTooltip="Edit custom method"
                         class="ui-button-success margin-left"></button>
               </td>
             </tr>
@@ -33,7 +34,7 @@
           <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
                   style="font-size:16px;display:inline-block;margin-top:2px">Object Methods</span>
-            <button pButton type="button" icon="pi pi-plus" style="float: right"
+            <button pButton type="button" icon="pi pi-plus" style="float: right" pTooltip="Add new object method"
                     (click)="onObjectMethodSelect(0)"></button>
           </div>
         </p-header>
@@ -44,9 +45,10 @@
               <td>{{rowData.name}}</td>
               <td>
                 <button pButton type="button" icon="pi pi-trash" (click)="deleteObjectMethod(rowData)"
-                        style="margin-right: 8px" class="ui-button-danger" pTooltip="Delete object"></button>
+                        pTooltip="Delete object method"
+                        style="margin-right: 8px" class="ui-button-danger"></button>
                 <button pButton type="button" icon="pi pi-pencil" (click)="selection=rowData;onObjectMethodSelect(1)"
-                        pTooltip="View object details"
+                        pTooltip="Edit obejct method"
                         class="ui-button-success margin-left"></button>
               </td>
             </tr>

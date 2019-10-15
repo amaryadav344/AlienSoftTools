@@ -13,7 +13,8 @@
     </div>
     <div class="ui-g-4">
       <h6 class="first">Mode</h6>
-      <app-drop-down [options]="loadModes" [model]="customMethod.mode"></app-drop-down>
+      <app-drop-down (OptionChange)="customMethod.mode=$event" [options]="loadModes"
+                     [model]="customMethod.mode"></app-drop-down>
     </div>
 
   </div>
@@ -23,14 +24,15 @@
         <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
                   style="font-size:16px;display:inline-block;margin-top:2px">Load Mappings</span>
-          <button pButton type="button" icon="pi pi-plus" style="float: right; "
+          <button pButton type="button" icon="pi pi-plus" style="float: right; " pTooltip="Add new load mapping"
                   (click)="addLoadMappingRow()"></button>
           <button pButton type="button" icon="pi pi-minus" style="margin-right: 8px ;float: right"
+                  pTooltip="Remove load mapping"
                   (click)="removeCustomMapping()"></button>
         </div>
       </p-header>
       <p-table [value]="customMethod.loadMapping" selectionMode="single" [resizableColumns]="true"
-               [(selection)]="selection" (onRowSelect)="onCustomMethodSelect(1)" scrollHeight="200px"
+               [(selection)]="selection" scrollHeight="200px"
                [scrollable]="true">
         <ng-template pTemplate="header">
           <tr>
@@ -49,12 +51,13 @@
               </div>
             </td>
             <td>
-              <app-drop-down [options]="loadTypes" [model]="rowData.loadType"></app-drop-down>
+              <app-drop-down (OptionChange)="rowData.loadType=$event" [options]="loadTypes"
+                             [model]="rowData.loadType"></app-drop-down>
             </td>
             <td>
               <table>
                 <tr>
-                  <button pButton type="button" icon="pi pi-pencil"
+                  <button pButton type="button" icon="pi pi-pencil" pTooltip="Edit parameters"
                           (click)="onEditParameters(rowData.loadParameters)"></button>
                 </tr>
               </table>

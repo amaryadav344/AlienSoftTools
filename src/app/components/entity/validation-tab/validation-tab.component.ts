@@ -50,7 +50,7 @@ export class ValidationTabComponent implements OnInit {
         rules: this.validation.rules,
         mode: Mode
       },
-      header: 'Object Information',
+      header: 'Rule Information',
       width: '40%',
       contentStyle: {'max-height': '700px', overflow: 'auto'}
     } as DynamicDialogConfig);
@@ -146,7 +146,7 @@ export class ValidationTabComponent implements OnInit {
         groups: this.validation.groupRules,
         mode: Mode
       },
-      header: 'Object Information',
+      header: 'Group Information',
       width: '40%',
       contentStyle: {'max-height': '700px', overflow: 'auto'}
     } as DynamicDialogConfig);
@@ -213,26 +213,26 @@ export class ValidationTabComponent implements OnInit {
       {label: 'Delete Rule', icon: 'pi pi-times', command: (event) => this.deleteRule()}
     ];
     this.itemsInitialLoad = [
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeInitialRule()}
+      {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeInitialRule()}
     ];
     this.itemsSofterror = [
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeSoftRule()}
+      {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeSoftRule()}
     ];
     this.itemsHardError = [
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeHardRule()}
+      {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeHardRule()}
     ];
     this.itemsUpdateRule = [
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeUpdateRule()}
+      {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeUpdateRule()}
     ];
     this.itemsDeleteRule = [
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeDeleteRule()}
+      {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeDeleteRule()}
     ];
     this.itemsGroup = [
-      {label: 'Rename', icon: 'pi pi-search', command: (event) => this.openGroupInfo(1)},
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteGroup()}
+      {label: 'Rename group', icon: 'pi pi-search', command: (event) => this.openGroupInfo(1)},
+      {label: 'Delete group', icon: 'pi pi-times', command: (event) => this.deleteGroup()}
     ];
     this.itemsGroupRule = [
-      {label: 'Delete', icon: 'pi pi-times', command: (event) => this.removeGroupRule()}
+      {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeGroupRule()}
     ];
   }
 }

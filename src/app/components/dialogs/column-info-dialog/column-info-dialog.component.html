@@ -15,7 +15,8 @@
   </div>
   <div class="ui-g-6">
     <h6 class="first">DataType</h6>
-    <app-drop-down [model]="column.dataType" [options]="DataTypes" [disabled]="true"></app-drop-down>
+    <app-drop-down (OptionChange)="column.dataType=$event" [model]="column.dataType" [options]="DataTypes"
+                   [disabled]="true"></app-drop-down>
 
   </div>
   <div class="ui-g-12">

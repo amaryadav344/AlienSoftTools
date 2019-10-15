@@ -46,4 +46,8 @@ export class CollectionInfoDialogComponent implements OnInit {
     }
   }
 
+  changeDatatype(event) {
+
+  }
+
 }

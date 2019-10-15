@@ -5,7 +5,7 @@
         <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
                   style="font-size:16px;display:inline-block;margin-top:2px">Queries</span>
-          <p-button type="button" icon="pi pi-plus" style="float: right;"
+          <p-button type="button" icon="pi pi-plus" style="float: right;" pTooltip="Add new query"
                     (onClick)="openQueryInfo($event.option,0)"></p-button>
         </div>
       </p-header>
@@ -17,7 +17,7 @@
           <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-12">
               <div class="ui-inputgroup">
-                <input pInputText placeholder="Search Column"
+                <input pInputText placeholder="Search query"
                        (input)="tableQueries.filterGlobal($event.target.value, 'contains')">
               </div>
             </div>
@@ -25,7 +25,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
           <tr [pSelectableRow]="rowData" [pContextMenuRow]="rowData">
-            <td>{{rowData.name}}</td>
+            <td style="white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis" [pTooltip]="rowData.name">{{rowData.name}}
+            </td>
           </tr>
         </ng-template>
       </p-table>
@@ -40,7 +43,8 @@
           </div>
         </div>
         <div class="ui-g-12 ui-md-6">
-          <app-drop-down [(model)]="selection.queryType" [options]="QueryTypes"></app-drop-down>
+          <app-drop-down [model]="selection.queryType" (OptionChange)="selection.queryType=$event"
+                         [options]="QueryTypes"></app-drop-down>
         </div>
       </div>
 
@@ -58,7 +62,7 @@
               <div class="ui-helper-clearfix">
                     <span class="ui -panel-title"
                           style="font-size:16px;display:inline-block;margin-top:2px">Parameters</span>
-                <p-button type="button" icon="pi pi-refresh" style="float: right"
+                <p-button type="button" icon="pi pi-refresh" style="float: right" pTooltip="Refresh parameters"
                           (onClick)="refreshParameters($event)"></p-button>
               </div>
             </p-header>
@@ -68,7 +72,8 @@
                   <div>{{ parameter.name }}</div>
                 </div>
                 <div class="ui-g-12 ui-md-6">
-                  <app-drop-down [options]="DataTypes" [model]="parameter.dataType"></app-drop-down>
+                  <app-drop-down (OptionChange)="parameter.dataType=$event" [options]="DataTypes"
+                                 [model]="parameter.dataType"></app-drop-down>
                 </div>
               </div>
             </div>
@@ -80,7 +85,8 @@
               <div class="ui-helper-clearfix">
                     <span class="ui -panel-title"
                           style="font-size:16px;display:inline-block;margin-top:2px">Custom Mapping</span>
-                <button pButton type="button" icon="pi pi-refresh" style="float: right"></button>
+                <button pButton type="button" icon="pi pi-refresh" style="float: right"
+                        pTooltip="Refresh result mapping"></button>
               </div>
             </p-header>
             <div *ngFor="let custommap of selection.customMaps">

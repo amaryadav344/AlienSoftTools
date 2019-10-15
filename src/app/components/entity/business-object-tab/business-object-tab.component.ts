@@ -30,7 +30,7 @@ export class BusinessObjectTabComponent implements OnInit {
         customMethods: this.businessObject.customMethods,
         mode: Mode
       },
-      header: 'Object Information',
+      header: 'Custom Method Information',
       width: '50%',
       contentStyle: {'max-height': '700px', overflow: 'auto'}
     } as DynamicDialogConfig);
@@ -59,7 +59,7 @@ export class BusinessObjectTabComponent implements OnInit {
         objectMethods: this.businessObject.objectMethods,
         mode: Mode
       },
-      header: 'Object Information',
+      header: 'Object Method Information',
       width: '50%',
       contentStyle: {'max-height': '700px', overflow: 'auto'}
     } as DynamicDialogConfig);
