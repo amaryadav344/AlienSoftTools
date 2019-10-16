@@ -35,6 +35,7 @@ export class R {
   };
   static SERVER_URLS = class {
     static JS_TO_XML = 'http://localhost:8080/xml/jstoxml';
+    static XML_TO_JS = 'http://localhost:8080/xml/xmltojs';
   };
 }
 

@@ -32,10 +32,21 @@ export class EntityWindowComponent implements OnInit {
   }
 
   getXML() {
-    this.isTextView = !this.isTextView;
     this.entityService.getXMLFromJS(this.mEntityConfig.mEntity).subscribe(
-      note => {
-        this.xml = note;
+      xml => {
+        this.xml = xml;
+        this.isTextView = !this.isTextView;
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  getJS() {
+    this.entityService.getJSFromXML(this.xml).subscribe(
+      entity => {
+        this.mEntityConfig.mEntity = entity;
+        this.isTextView = !this.isTextView;
       },
       error => {
         console.log(error);

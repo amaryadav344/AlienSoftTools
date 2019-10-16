@@ -1,4 +1,5 @@
-<app-entity-toolbar [entity]="mEntityConfig.mEntity" (switch)="getXML();"></app-entity-toolbar>
+<app-entity-toolbar [entity]="mEntityConfig.mEntity" (switchToXMl)="getJS();"
+                    (switchToUI)="getXML()"></app-entity-toolbar>
 <p-tabView *ngIf="!isTextView" (onChange)="tabChanged($event)">
 
   <p-tabPanel header="Attributes">
@@ -17,7 +18,7 @@
 </p-tabView>
 <div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">
   <div style="height: 521px; width: 1365px">
-    <app-code-editor [code]="xml" language="xml"></app-code-editor>
+    <app-code-editor [code]="xml" language="xml" (CodeChanged)="xml=$event"></app-code-editor>
   </div>
 </div>
 

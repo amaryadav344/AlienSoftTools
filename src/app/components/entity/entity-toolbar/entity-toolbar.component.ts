@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IEntity} from '../../../models/IEntity';
 import {MenuItem} from 'primeng/api';
 
@@ -10,7 +10,8 @@ import {MenuItem} from 'primeng/api';
 })
 export class EntityToolbarComponent implements OnInit {
   @Input() entity: IEntity;
-  @Output() switch = new EventEmitter<boolean>();
+  @Output() switchToXMl = new EventEmitter<boolean>();
+  @Output() switchToUI = new EventEmitter<boolean>();
   view = false;
   items2: MenuItem[] = [
     {
@@ -27,8 +28,5 @@ export class EntityToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  switchToTextMode() {
-    this.switch.emit(!this.view);
-  }
 
 }
