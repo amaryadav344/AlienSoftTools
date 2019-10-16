@@ -3,6 +3,7 @@ import {EntityConfig} from '../../common/EntityConfig';
 import {DialogService} from 'primeng/api';
 import {Table} from 'primeng/table';
 import {EntityService} from '../../services/entity-service/entity.service';
+import {TabChangeServiceService} from "../../services/tab-change/tab-change-service.service";
 
 @Component({
   selector: 'app-entity-window',
@@ -22,7 +23,8 @@ export class EntityWindowComponent implements OnInit {
   };
 
 
-  constructor(public dialogService: DialogService, public entityService: EntityService) {
+  constructor(public dialogService: DialogService, public entityService: EntityService,
+              public tabChangeService: TabChangeServiceService) {
   }
 
   ngOnInit() {
@@ -39,6 +41,12 @@ export class EntityWindowComponent implements OnInit {
         console.log(error);
       });
   }
+
+  tabChanged(e) {
+    const index = e.index;
+    this.tabChangeService.tabChanged(index);
+  }
+
 
   getEntity() {
     this.mEntityConfig.mEntity = {
@@ -124,7 +132,7 @@ export class EntityWindowComponent implements OnInit {
     ];
     this.mEntityConfig.mEntity.queries = [
       {
-        sql: 'ibuspersion.icdoPerson.person_id > 0',
+        sql: 'ibuspersi',
         name: 'GetPersonByPersonId',
         queryType: 'Scalar Query',
         parameters: [

@@ -4,6 +4,7 @@ import {R} from '../../../common/R';
 import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
 import {QueryInfoDialogComponent} from '../../dialogs/query-info-diaglog/query-info-dialog.component';
 import {IParameter} from '../../../models/IParameter';
+import {TabChangeServiceService} from "../../../services/tab-change/tab-change-service.service";
 
 @Component({
   selector: 'app-query-tab',
@@ -24,8 +25,14 @@ export class QueryTabComponent implements OnInit {
   mFieldSuggestions: string[];
   Fields: string[] = ['istrPersonId', 'istrPersonName', 'iintEmailId', 'iintPhoneNumber'];
   items: MenuItem[];
+  visible = false;
 
-  constructor(public dialogService: DialogService) {
+  constructor(public dialogService: DialogService, public tabChangeService: TabChangeServiceService) {
+    tabChangeService.TabChange$.subscribe((index) => {
+      if (index === 1) {
+        this.visible = true;
+      }
+    });
   }
 
   ngOnInit() {
@@ -96,5 +103,6 @@ export class QueryTabComponent implements OnInit {
 
   deleteQuery(query: IQuery) {
   }
+
 
 }

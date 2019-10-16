@@ -8,6 +8,8 @@ import {IGroup} from '../../../models/IGroup';
 import {IRule} from '../../../models/IRule';
 import {GroupInfoDialogComponent} from '../../dialogs/group-info-dialog/group-info-dialog.component';
 import {ContextMenu} from 'primeng/primeng';
+import {TabChangeServiceService} from "../../../services/tab-change/tab-change-service.service";
+
 
 @Component({
   selector: 'app-validation-tab',
@@ -35,12 +37,19 @@ export class ValidationTabComponent implements OnInit {
   groupSelection: IGroup = {name: '', rules: []};
   @ViewChild('cmGroup', {static: false}) cmGroup: ContextMenu;
   @ViewChild('cmGroupRule', {static: false}) cmGroupRule: ContextMenu;
+  visibleCodeEditor = false;
 
-  constructor(public dialogService: DialogService) {
+  constructor(public dialogService: DialogService, public tabChangeService: TabChangeServiceService) {
+
   }
 
   ngOnInit() {
     this.initContextMenuItems();
+    this.tabChangeService.TabChange$.subscribe((index) => {
+      if (index === 2) {
+        this.visibleCodeEditor = true;
+      }
+    });
   }
 
   openRuleInfo(Mode) {

@@ -46,7 +46,10 @@
                       style="font-size:16px;display:inline-block;margin-top:2px">Expression</span>
                 </div>
               </p-header>
-              <app-expression-editor [(expression)]="selection.expression"></app-expression-editor>
+              <div *ngIf="visibleCodeEditor" style="height: 130px">
+                <app-code-editor [code]="selection.expression" language="java"
+                                 (CodeChanged)="selection.expression=$event"></app-code-editor>
+              </div>
             </p-panel>
           </div>
           <div class="ui-g-12 ui-md-6 ">

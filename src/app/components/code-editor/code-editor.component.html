@@ -1,4 +1,3 @@
-<ngx-monaco-editor #Editor style="height: 100%; width: 100%" [options]="editorOptions" [(ngModel)]="code"
-
-                   (onInit)="onInit($event)"></ngx-monaco-editor>
+<ngx-monaco-editor style="height: 100%; width: 100%" [options]="editorOptions" [ngModel]="code"
+                   (ngModelChange)="handleCodeChanged($event)"></ngx-monaco-editor>
 
