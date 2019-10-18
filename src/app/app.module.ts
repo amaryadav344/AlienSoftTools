@@ -60,6 +60,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {DropDownComponent} from './components/drop-down/drop-down.component';
 import {CodeEditorComponent} from './components/code-editor/code-editor.component';
 import {MonacoEditorModule} from 'ngx-monaco-editor';
+import {WindowComponent} from './components/window/window.component';
+import {HomeWindowComponent} from './components/home-window/home-window.component';
+import {ContentDirective} from './directives/content.directive';
+import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/new-entity-dialog.component';
 
 
 @NgModule({
@@ -91,6 +95,10 @@ import {MonacoEditorModule} from 'ngx-monaco-editor';
     EntityToolbarComponent,
     DropDownComponent,
     CodeEditorComponent,
+    WindowComponent,
+    HomeWindowComponent,
+    ContentDirective,
+    NewEntityDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -137,6 +145,8 @@ import {MonacoEditorModule} from 'ngx-monaco-editor';
     CustomMethodInfoDialogComponent,
     LoadParamterInfoDialogComponent,
     ObjectMethodInfoDialogComponent,
+    HomeWindowComponent,
+    NewEntityDialogComponent
   ]
 })
 export class AppModule {
