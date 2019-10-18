@@ -16,6 +16,6 @@ export class EntityService {
   }
 
   public getJSFromXML(xml: string) {
-    return this.httpClient.post(R.SERVER_URLS.XML_TO_JS, xml, {responseType: 'json'});
+    return this.httpClient.post<IEntity>(R.SERVER_URLS.XML_TO_JS, xml, {responseType: 'json'});
   }
 }

@@ -9,7 +9,7 @@ export class CodeEditorComponent implements OnInit {
   @Input() language: string;
   editorOptions = {};
   @Input() code: string;
-  @Output() CodeChanged: EventEmitter = new EventEmitter<string>();
+  @Output() CodeChanged: EventEmitter<string> = new EventEmitter<string>();
 
 
   constructor() {
@@ -19,8 +19,8 @@ export class CodeEditorComponent implements OnInit {
     this.editorOptions = {theme: 'vs-dark', language: this.language};
   }
 
-  handleCodeChanged(e) {
-    this.CodeChanged.emit(e);
+  handleCodeChanged(event: string) {
+    this.CodeChanged.emit(event);
   }
 
 

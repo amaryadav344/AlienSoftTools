@@ -3,7 +3,7 @@ import {EntityConfig} from '../../common/EntityConfig';
 import {DialogService} from 'primeng/api';
 import {Table} from 'primeng/table';
 import {EntityService} from '../../services/entity-service/entity.service';
-import {TabChangeServiceService} from "../../services/tab-change/tab-change-service.service";
+import {TabChangeServiceService} from '../../services/tab-change/tab-change-service.service';
 
 @Component({
   selector: 'app-entity-window',
