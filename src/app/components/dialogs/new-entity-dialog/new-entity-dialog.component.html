@@ -20,10 +20,13 @@
   </div>
   <div class="ui-g-12">
     <div style="float: right">
-      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="Previous"
               [disabled]="(entity.name==='')"
               (click)="saveGroup()"></button>
-      <p-button style="width: 90px;" label="Cancel" (click)="this.ref.close();"></p-button>
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="Next"
+              [disabled]="(entity.name==='')"
+              (click)="saveGroup()"></button>
+      <p-button style="width: 90px;" label="Finish" (click)="this.ref.close();"></p-button>
     </div>
   </div>
 </div>

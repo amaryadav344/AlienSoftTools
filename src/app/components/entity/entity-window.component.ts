@@ -64,6 +64,8 @@ export class EntityWindowComponent implements OnInit {
     this.mEntityConfig.mEntity = {
       name: 'entPerson',
       parentEntity: 'entBase',
+      tableName: '',
+      modelName: '',
       columns: [],
       objects: [],
       collections: [],

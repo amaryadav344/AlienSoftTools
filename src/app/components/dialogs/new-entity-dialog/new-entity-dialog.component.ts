@@ -11,6 +11,8 @@ export class NewEntityDialogComponent implements OnInit {
   entity: IEntity = {
     name: '',
     parentEntity: '',
+    tableName: '',
+    modelName: '',
     validation: {
       rules: [],
       groupRules: [],

@@ -8,7 +8,7 @@ import {IGroup} from '../../../models/IGroup';
 import {IRule} from '../../../models/IRule';
 import {GroupInfoDialogComponent} from '../../dialogs/group-info-dialog/group-info-dialog.component';
 import {ContextMenu} from 'primeng/primeng';
-import {TabChangeServiceService} from "../../../services/tab-change/tab-change-service.service";
+import {TabChangeServiceService} from '../../../services/tab-change/tab-change-service.service';
 
 
 @Component({

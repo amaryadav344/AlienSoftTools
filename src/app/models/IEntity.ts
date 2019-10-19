@@ -7,7 +7,9 @@ import {IBusinessObject} from './IBusinessObject';
 
 export interface IEntity {
   name: string;
-  parentEntity;
+  parentEntity: string;
+  tableName: string;
+  modelName: string;
   columns: IColumn[];
   objects: IObject[];
   collections: ICollection[];

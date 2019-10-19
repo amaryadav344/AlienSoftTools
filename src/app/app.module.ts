@@ -24,6 +24,7 @@ import {
   ScrollPanelModule,
   SplitButtonModule,
   TabViewModule,
+  ToolbarModule,
   TooltipModule
 } from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
@@ -132,6 +133,7 @@ import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/n
     TooltipModule,
     CheckboxModule,
     DragDropModule,
+    ToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -146,7 +148,8 @@ import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/n
     LoadParamterInfoDialogComponent,
     ObjectMethodInfoDialogComponent,
     HomeWindowComponent,
-    NewEntityDialogComponent
+    NewEntityDialogComponent,
+    EntityWindowComponent
   ]
 })
 export class AppModule {
