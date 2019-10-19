@@ -19,7 +19,9 @@ export class ColumnInfoDialogComponent implements OnInit {
     this.column = {
       name: config.data.column.name,
       dataType: config.data.column.dataType,
-      objectField: config.data.column.objectField
+      objectField: config.data.column.objectField,
+      maxLength: config.data.column.objectField,
+      canBeNull: config.data.column.objectField
     };
     this.Fields = config.data.fields;
     this.orginalColumn = config.data.column;

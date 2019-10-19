@@ -23,9 +23,13 @@
         Data Type
         <p-sortIcon [field]="'dataType'"></p-sortIcon>
       </th>
-      <th [pSortableColumn]="'objectField'">
-        Object Field
-        <p-sortIcon [field]="'objectField'"></p-sortIcon>
+      <th [pSortableColumn]="'maxLength'">
+        Length
+        <p-sortIcon [field]="'maxLength'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'canBeNull'">
+        Is Null
+        <p-sortIcon [field]="'canBeNull'"></p-sortIcon>
       </th>
       <th>Actions</th>
     </tr>
@@ -35,6 +39,8 @@
       <td>{{rowData.name}}</td>
       <td>{{rowData.dataType}}</td>
       <td>{{rowData.objectField}}</td>
+      <td>{{rowData.maxLength}}</td>
+      <td>{{rowData.canBeNull}}</td>
       <td>
         <button pButton type="button" icon="pi pi-eye" (click)="viewColumn(rowData)"
                 pTooltip="View column details"

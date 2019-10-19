@@ -123,17 +123,8 @@ export class EntityWindowComponent implements OnInit {
     }
     ;
     this.mEntityConfig.mEntity.columns = [
-      {name: 'person_id', dataType: 'String', objectField: 'istrPersonID'},
-      {name: 'first_name', dataType: 'String', objectField: 'istrfirstname'},
-      {name: 'middle_name', dataType: 'String', objectField: 'istrMiddleName'},
-      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
-      {name: 'email_id', dataType: 'String', objectField: 'istrEmailId'},
-      {name: 'phone_number', dataType: 'String', objectField: 'iintPhoneNumber'},
+      {name: 'person_id', dataType: 'String', objectField: 'istrPersonID', maxLength: '4', canBeNull: true},
+      {name: 'first_name', dataType: 'String', objectField: 'istrfirstname', maxLength: '4', canBeNull: true},
     ];
     this.mEntityConfig.mEntity.objects = [
       {name: 'objPerson', entity: 'entPerson', objectField: 'ibusPerson'},
