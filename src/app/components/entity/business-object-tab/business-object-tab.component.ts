@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {IBusinessObject} from '../../../models/IBusinessObject';
 import {ICustomMethod} from '../../../models/ICustomMethod';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
@@ -13,7 +13,9 @@ import {ObjectMethodInfoDialogComponent} from '../../dialogs/object-method-info-
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./business-object-tab.component.css']
 })
-export class BusinessObjectTabComponent implements OnInit {
+export class BusinessObjectTabComponent implements OnInit, AfterViewInit {
+
+
   @Input() businessObject: IBusinessObject;
   selection: ICustomMethod;
 
@@ -21,6 +23,11 @@ export class BusinessObjectTabComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.initUndefined();
   }
 
   onCustomMethodSelect(Mode) {
@@ -40,11 +47,24 @@ export class BusinessObjectTabComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(this.selection, customMethod);
         } else {
+          this.initUndefined();
           this.businessObject.customMethods.push(customMethod);
           this.businessObject.customMethods = [...this.businessObject.customMethods];
         }
       }
     });
+  }
+
+  initUndefined() {
+    if (!this.businessObject) {
+      this.businessObject = {customMethods: [], objectMethods: []};
+    }
+    if (!this.businessObject.objectMethods) {
+      this.businessObject.objectMethods = [];
+    }
+    if (!this.businessObject.customMethods) {
+      this.businessObject.customMethods = [];
+    }
   }
 
   deleteCustomMethod(customMethod: ICustomMethod) {

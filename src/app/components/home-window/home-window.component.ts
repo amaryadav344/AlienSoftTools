@@ -30,7 +30,7 @@ export class HomeWindowComponent implements OnInit {
 
     ref.onClose.subscribe((path: string) => {
       if (path) {
-        this.windowService.Openwindow({path: path, type: 0});
+        this.windowService.Openwindow({path: path, type: 0, name: ''});
       }
     });
   }

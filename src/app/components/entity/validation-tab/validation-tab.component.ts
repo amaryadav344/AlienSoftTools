@@ -44,6 +44,7 @@ export class ValidationTabComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initItemsIfNotDefined();
     this.initContextMenuItems();
     this.tabChangeService.TabChange$.subscribe((index) => {
       if (index === 2) {
@@ -69,6 +70,9 @@ export class ValidationTabComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(this.selection, rule);
         } else {
+          if (!this.validation.rules) {
+            this.validation.rules = [];
+          }
           this.validation.rules.push(rule);
         }
       }
@@ -97,6 +101,7 @@ export class ValidationTabComponent implements OnInit {
 
   dropInitialLoad() {
     if (this.draggedRule) {
+      this.initItemsIfNotDefined();
       if (!this.validation.initialLoad.some(x => x.name === this.draggedRule.name)) {
         this.validation.initialLoad.push({name: this.draggedRule.name});
       }
@@ -105,6 +110,7 @@ export class ValidationTabComponent implements OnInit {
 
   dropHardError() {
     if (this.draggedRule) {
+      this.initItemsIfNotDefined();
       if (!this.validation.hardErrors.some(x => x.name === this.draggedRule.name)) {
         this.validation.hardErrors.push({name: this.draggedRule.name});
       }
@@ -113,6 +119,7 @@ export class ValidationTabComponent implements OnInit {
 
   dropSoftError() {
     if (this.draggedRule) {
+      this.initItemsIfNotDefined();
       if (!this.validation.softErrors.some(x => x.name === this.draggedRule.name)) {
         this.validation.softErrors.push({name: this.draggedRule.name});
       }
@@ -121,6 +128,7 @@ export class ValidationTabComponent implements OnInit {
 
   dropUpdateRule() {
     if (this.draggedRule) {
+      this.initItemsIfNotDefined();
       if (!this.validation.updateRules.some(x => x.name === this.draggedRule.name)) {
         this.validation.updateRules.push({name: this.draggedRule.name});
       }
@@ -129,6 +137,7 @@ export class ValidationTabComponent implements OnInit {
 
   dropDeleteRule() {
     if (this.draggedRule) {
+      this.initItemsIfNotDefined();
       if (!this.validation.deleteRules.some(x => x.name === this.draggedRule.name)) {
         this.validation.deleteRules.push({name: this.draggedRule.name});
       }
@@ -137,6 +146,7 @@ export class ValidationTabComponent implements OnInit {
 
   dropGroupRule(group: IGroup) {
     if (this.draggedRule) {
+      this.initItemsIfNotDefined();
       if (!group.rules.some(x => x.name === this.draggedRule.name)) {
         group.rules.push({name: this.draggedRule.name});
       }
@@ -165,6 +175,9 @@ export class ValidationTabComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(this.groupSelection, group);
         } else {
+          if (!this.validation.groupRules) {
+            this.validation.groupRules = [];
+          }
           this.validation.groupRules.push(group);
           this.validation.groupRules = [...this.validation.groupRules];
         }
@@ -243,5 +256,45 @@ export class ValidationTabComponent implements OnInit {
     this.itemsGroupRule = [
       {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeGroupRule()}
     ];
+  }
+
+  initItemsIfNotDefined() {
+    if (!this.validation) {
+      this.validation = {
+        rules: [],
+        groupRules: [],
+        deleteRules: [],
+        hardErrors: [],
+        softErrors: [],
+        initialLoad: [],
+        updateRules: []
+      };
+    }
+    if (!this.validation.rules) {
+      this.validation.rules = [];
+    }
+    if (!this.validation.deleteRules) {
+      this.validation.deleteRules = [];
+    }
+    if (!this.validation.updateRules) {
+      this.validation.updateRules = [];
+    }
+    if (!this.validation.initialLoad) {
+      this.validation.initialLoad = [];
+    }
+    if (!this.validation.softErrors) {
+      this.validation.softErrors = [];
+    }
+    if (!this.validation.hardErrors) {
+      this.validation.hardErrors = [];
+    }
+    if (!this.validation.deleteRules) {
+      this.validation.deleteRules = [];
+    }
+    if (!this.validation.groupRules) {
+      this.validation.groupRules = [];
+    }
+
+
   }
 }

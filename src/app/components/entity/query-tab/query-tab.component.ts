@@ -64,6 +64,9 @@ export class QueryTabComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(Query, query);
         } else {
+          if (!this.queries) {
+            this.queries = [];
+          }
           this.queries.push(query);
         }
         this.selection = query;
@@ -81,10 +84,14 @@ export class QueryTabComponent implements OnInit {
     }
     const finalParameters: IParameter[] = [];
     for (const Parameter of newParameters) {
-      if (this.selection.parameters.some(x => x.name === Parameter.name)) {
-        finalParameters.push(this.selection.parameters.find(x => x.name === Parameter.name));
+      if (!this.selection.parameters) {
+        this.selection.parameters = newParameters;
       } else {
-        finalParameters.push(Parameter);
+        if (this.selection.parameters.some(x => x.name === Parameter.name)) {
+          finalParameters.push(this.selection.parameters.find(x => x.name === Parameter.name));
+        } else {
+          finalParameters.push(Parameter);
+        }
       }
     }
     this.selection.parameters = finalParameters;
