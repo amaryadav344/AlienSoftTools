@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {EntityConfig} from '../../common/EntityConfig';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DialogService} from 'primeng/api';
-import {Table} from 'primeng/table';
 import {EntityService} from '../../services/entity-service/entity.service';
 import {TabChangeServiceService} from '../../services/tab-change/tab-change-service.service';
+import {IFile} from '../../models/IFile';
+import {IEntity} from '../../models/IEntity';
 
 
 @Component({
@@ -14,14 +14,25 @@ import {TabChangeServiceService} from '../../services/tab-change/tab-change-serv
   providers: [DialogService, EntityService],
 })
 export class EntityWindowComponent implements OnInit {
-  mEntityConfig: EntityConfig = new EntityConfig();
-  @ViewChild('tableObjects', {static: false})
-  pTableRefObjects: Table;
+  // TODO:Remove this
+  entity: IEntity = {
+    name: '',
+    parentEntity: '',
+    tableName: '',
+    modelName: '',
+    validation: {
+      rules: [],
+      groupRules: [],
+      hardErrors: [],
+      softErrors: [],
+      initialLoad: [],
+      updateRules: [],
+      deleteRules: []
+    }, queries: [], collections: [], objects: [], columns: [], businessObject: {customMethods: [], objectMethods: []}
+  };
+  file: IFile;
   isTextView = false;
   xml = '';
-  option = {
-    fontSize: '15pt'
-  };
 
 
   constructor(public dialogService: DialogService, public entityService: EntityService,
@@ -29,11 +40,16 @@ export class EntityWindowComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEntity();
+    this.entityService.getFile(this.file).subscribe(
+      (entity) => {
+        this.entity = entity;
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   getXML() {
-    this.entityService.getXMLFromJS(this.mEntityConfig.mEntity).subscribe(
+    this.entityService.getXMLFromJS(this.entity).subscribe(
       xml => {
         this.xml = xml;
         this.isTextView = !this.isTextView;
@@ -46,7 +62,7 @@ export class EntityWindowComponent implements OnInit {
   getJS() {
     this.entityService.getJSFromXML(this.xml).subscribe(
       entity => {
-        this.mEntityConfig.mEntity = entity;
+        this.entity = entity;
         this.isTextView = !this.isTextView;
       },
       error => {
@@ -61,7 +77,7 @@ export class EntityWindowComponent implements OnInit {
 
 
   getEntity() {
-    this.mEntityConfig.mEntity = {
+    this.entity = {
       name: 'entPerson',
       parentEntity: 'entBase',
       tableName: '',
@@ -122,20 +138,20 @@ export class EntityWindowComponent implements OnInit {
       }
     }
     ;
-    this.mEntityConfig.mEntity.columns = [
+    this.entity.columns = [
       {name: 'person_id', dataType: 'String', objectField: 'istrPersonID', maxLength: '4', canBeNull: true},
       {name: 'first_name', dataType: 'String', objectField: 'istrfirstname', maxLength: '4', canBeNull: true},
     ];
-    this.mEntityConfig.mEntity.objects = [
+    this.entity.objects = [
       {name: 'objPerson', entity: 'entPerson', objectField: 'ibusPerson'},
       {name: 'objAccount', entity: 'entAccount', objectField: 'ibusAcoount'},
     ];
 
-    this.mEntityConfig.mEntity.collections = [
+    this.entity.collections = [
       {name: 'lstPerson', entity: 'entPerson', objectField: 'iclbPerson', dataType: 'List'},
       {name: 'lstAccount', entity: 'entAccount', objectField: 'iclbAccount', dataType: 'Queue'},
     ];
-    this.mEntityConfig.mEntity.queries = [
+    this.entity.queries = [
       {
         sql: 'ibuspersi',
         name: 'GetPersonByPersonId',

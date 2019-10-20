@@ -1,19 +1,19 @@
-<app-entity-toolbar [entity]="mEntityConfig.mEntity" (switchToXMl)="getJS();"
+<app-entity-toolbar [entity]="entity" (switchToXMl)="getJS();"
                     (switchToUI)="getXML()"></app-entity-toolbar>
 <p-tabView *ngIf="!isTextView" (onChange)="tabChanged($event)">
 
   <p-tabPanel header="Attributes">
-    <app-attributes-tab [columns]="mEntityConfig.mEntity.columns" [objects]="mEntityConfig.mEntity.objects"
-                        [collections]="mEntityConfig.mEntity.collections"></app-attributes-tab>
+    <app-attributes-tab [columns]="entity.columns" [objects]="entity.objects"
+                        [collections]="entity.collections"></app-attributes-tab>
   </p-tabPanel>
   <p-tabPanel header="Query" style="height: 400px">
-    <app-query-tab [queries]="mEntityConfig.mEntity.queries"></app-query-tab>
+    <app-query-tab [queries]="entity.queries"></app-query-tab>
   </p-tabPanel>
   <p-tabPanel header="Validations">
-    <app-validation-tab [(validation)]="mEntityConfig.mEntity.validation"></app-validation-tab>
+    <app-validation-tab [(validation)]="entity.validation"></app-validation-tab>
   </p-tabPanel>
   <p-tabPanel header="Business Object">
-    <app-business-object-tab [(businessObject)]="mEntityConfig.mEntity.businessObject"></app-business-object-tab>
+    <app-business-object-tab [(businessObject)]="entity.businessObject"></app-business-object-tab>
   </p-tabPanel>
 </p-tabView>
 <div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">

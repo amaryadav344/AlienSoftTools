@@ -4,8 +4,9 @@ import {ICollection} from './ICollection';
 import {IQuery} from './IQuery';
 import {IValidation} from './IValidation';
 import {IBusinessObject} from './IBusinessObject';
+import {IBase} from './IBase';
 
-export interface IEntity {
+export interface IEntity extends IBase {
   name: string;
   parentEntity: string;
   tableName: string;
