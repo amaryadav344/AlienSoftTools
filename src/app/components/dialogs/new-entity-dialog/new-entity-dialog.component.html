@@ -21,8 +21,10 @@
       <div class="ui-g-6">
         <h6 class="first">Table Name</h6>
         <div class="ui-inputgroup">
-          <input type="text" pInputText [(ngModel)]="entity.tableName"/>
-          <button pButton type="button" icon="pi pi-refresh"></button>
+          <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
+                          [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
+                          [size]="30" [minLength]="1" [dropdown]="true"
+                          (onDropdownClick)="getMatchingTableNames(' ')"></p-autoComplete>
         </div>
       </div>
       <div class="ui-g-6">
@@ -31,6 +33,17 @@
         <h6 *ngIf="createJavaClass" class="first">Model Name</h6>
         <div class="ui-inputgroup" *ngIf="createJavaClass">
           <input type="text" pInputText [(ngModel)]="entity.modelName"/>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-6">
+        <h6 class="first">Folder</h6>
+        <div class="ui-inputgroup">
+          <p-autoComplete appendTo="body" [(ngModel)]="path"
+                          [suggestions]="folders" (completeMethod)="getMatchingFolders($event.query)"
+                          [size]="30" [minLength]="1" [dropdown]="true"
+                          (onDropdownClick)="getMatchingFolders(' ')"></p-autoComplete>
         </div>
       </div>
     </div>

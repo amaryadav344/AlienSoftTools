@@ -3,6 +3,7 @@ import {ContentDirective} from '../../directives/content.directive';
 import {WindowService} from '../../services/window/window.service';
 import {EntityWindowComponent} from '../entity/entity-window.component';
 import {IFile} from "../../models/IFile";
+import {HomeWindowComponent} from "../home-window/home-window.component";
 
 @Component({
   selector: 'app-window',
@@ -18,8 +19,8 @@ export class WindowComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.openWindow({path: 'Person\\entPerson.xml', type: 1});
-    // this.loadHomeComponent();
+    // this.openWindow({path: 'Person\\entPerson.xml', type: 1});
+    this.loadHomeComponent();
     this.windowService.OpenWindow$.subscribe((file) => {
       this.openWindow(file);
     });
@@ -31,7 +32,7 @@ export class WindowComponent implements OnInit, AfterViewInit {
 
 
   loadHomeComponent() {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntityWindowComponent);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(HomeWindowComponent);
 
     const viewContainerRef = this.contentHost.viewContainerRef;
     viewContainerRef.clear();

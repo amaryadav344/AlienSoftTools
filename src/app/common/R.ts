@@ -37,6 +37,10 @@ export class R {
     static JS_TO_XML = 'http://localhost:8080/xml/jstoxml';
     static XML_TO_JS = 'http://localhost:8080/xml/xmltojs';
     static GET_FILE = 'http://localhost:8080/xml/getxml';
+    static GET_MATCHING_FOLDERS = 'http://localhost:8080/xml/getMatchingFolders';
+    static GET_MATCHING_TABLES = 'http://localhost:8080/xml/getMatchingTableNames';
+    static GET_COLUMNS = 'http://localhost:8080/xml/getColumns';
+    static CREATE_NEW_XML = 'http://localhost:8080/xml/CreateNewXml/';
   };
 }
 

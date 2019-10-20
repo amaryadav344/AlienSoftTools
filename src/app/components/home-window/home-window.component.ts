@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {NewEntityDialogComponent} from '../dialogs/new-entity-dialog/new-entity-dialog.component';
-import {IEntity} from '../../models/IEntity';
 import {EntityService} from '../../services/entity-service/entity.service';
+import {WindowService} from "../../services/window/window.service";
 
 @Component({
   selector: 'app-home-window',
@@ -13,7 +13,7 @@ import {EntityService} from '../../services/entity-service/entity.service';
 })
 export class HomeWindowComponent implements OnInit {
 
-  constructor(public dialogService: DialogService) {
+  constructor(public dialogService: DialogService, public windowService: WindowService) {
 
   }
 
@@ -28,8 +28,9 @@ export class HomeWindowComponent implements OnInit {
       contentStyle: {'max-height': '700px', overflow: 'auto'}
     } as DynamicDialogConfig);
 
-    ref.onClose.subscribe((entity: IEntity) => {
-      if (entity) {
+    ref.onClose.subscribe((path: string) => {
+      if (path) {
+        this.windowService.Openwindow({path: path, type: 0});
       }
     });
   }
