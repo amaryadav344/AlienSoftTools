@@ -19,10 +19,12 @@ import {
   DropdownModule,
   InputTextareaModule,
   OrderListModule,
+  OverlayPanelModule,
   PaginatorModule,
   RadioButtonModule,
   ScrollPanelModule,
   SplitButtonModule,
+  TabMenuModule,
   TabViewModule,
   ToolbarModule,
   TooltipModule
@@ -133,7 +135,9 @@ import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/n
     TooltipModule,
     CheckboxModule,
     DragDropModule,
-    ToolbarModule
+    ToolbarModule,
+    TabMenuModule,
+    OverlayPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent],

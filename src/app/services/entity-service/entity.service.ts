@@ -42,4 +42,8 @@ export class EntityService {
     params = params.append('path', Path);
     return this.httpClient.post(R.SERVER_URLS.CREATE_NEW_XML, entity, {params: params, responseType: 'json'});
   }
+
+  public getFiles() {
+    return this.httpClient.post<IFile[]>(R.SERVER_URLS.GET_FILES, ' ', {responseType: 'json'});
+  }
 }
