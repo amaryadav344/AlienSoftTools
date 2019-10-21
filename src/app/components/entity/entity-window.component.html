@@ -3,11 +3,11 @@
 <p-tabView *ngIf="!isTextView" (onChange)="tabChanged($event)">
 
   <p-tabPanel header="Attributes">
-    <app-attributes-tab [columns]="entity.columns" [objects]="entity.objects"
-                        [collections]="entity.collections"></app-attributes-tab>
+    <app-attributes-tab [(columns)]="entity.columns" [(objects)]="entity.objects"
+                        [(collections)]="entity.collections"></app-attributes-tab>
   </p-tabPanel>
   <p-tabPanel header="Query" style="height: 400px">
-    <app-query-tab [queries]="entity.queries"></app-query-tab>
+    <app-query-tab [(queries)]="entity.queries"></app-query-tab>
   </p-tabPanel>
   <p-tabPanel header="Validations">
     <app-validation-tab [(validation)]="entity.validation"></app-validation-tab>

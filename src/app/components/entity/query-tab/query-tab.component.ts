@@ -64,9 +64,6 @@ export class QueryTabComponent implements OnInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(Query, query);
         } else {
-          if (!this.queries) {
-            this.queries = [];
-          }
           this.queries.push(query);
         }
         this.selection = query;

@@ -27,7 +27,6 @@ export class BusinessObjectTabComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initUndefined();
   }
 
   onCustomMethodSelect(Mode) {
@@ -47,24 +46,11 @@ export class BusinessObjectTabComponent implements OnInit, AfterViewInit {
         if (Mode === R.Constants.OpenMode.MODE_UPDATE) {
           Object.assign(this.selection, customMethod);
         } else {
-          this.initUndefined();
           this.businessObject.customMethods.push(customMethod);
           this.businessObject.customMethods = [...this.businessObject.customMethods];
         }
       }
     });
-  }
-
-  initUndefined() {
-    if (!this.businessObject) {
-      this.businessObject = {customMethods: [], objectMethods: []};
-    }
-    if (!this.businessObject.objectMethods) {
-      this.businessObject.objectMethods = [];
-    }
-    if (!this.businessObject.customMethods) {
-      this.businessObject.customMethods = [];
-    }
   }
 
   deleteCustomMethod(customMethod: ICustomMethod) {

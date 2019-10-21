@@ -44,7 +44,6 @@ export class ValidationTabComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initItemsIfNotDefined();
     this.initContextMenuItems();
     this.tabChangeService.TabChange$.subscribe((index) => {
       if (index === 2) {
@@ -101,7 +100,6 @@ export class ValidationTabComponent implements OnInit {
 
   dropInitialLoad() {
     if (this.draggedRule) {
-      this.initItemsIfNotDefined();
       if (!this.validation.initialLoad.some(x => x.name === this.draggedRule.name)) {
         this.validation.initialLoad.push({name: this.draggedRule.name});
       }
@@ -110,7 +108,6 @@ export class ValidationTabComponent implements OnInit {
 
   dropHardError() {
     if (this.draggedRule) {
-      this.initItemsIfNotDefined();
       if (!this.validation.hardErrors.some(x => x.name === this.draggedRule.name)) {
         this.validation.hardErrors.push({name: this.draggedRule.name});
       }
@@ -119,7 +116,6 @@ export class ValidationTabComponent implements OnInit {
 
   dropSoftError() {
     if (this.draggedRule) {
-      this.initItemsIfNotDefined();
       if (!this.validation.softErrors.some(x => x.name === this.draggedRule.name)) {
         this.validation.softErrors.push({name: this.draggedRule.name});
       }
@@ -128,7 +124,6 @@ export class ValidationTabComponent implements OnInit {
 
   dropUpdateRule() {
     if (this.draggedRule) {
-      this.initItemsIfNotDefined();
       if (!this.validation.updateRules.some(x => x.name === this.draggedRule.name)) {
         this.validation.updateRules.push({name: this.draggedRule.name});
       }
@@ -137,7 +132,6 @@ export class ValidationTabComponent implements OnInit {
 
   dropDeleteRule() {
     if (this.draggedRule) {
-      this.initItemsIfNotDefined();
       if (!this.validation.deleteRules.some(x => x.name === this.draggedRule.name)) {
         this.validation.deleteRules.push({name: this.draggedRule.name});
       }
@@ -146,7 +140,6 @@ export class ValidationTabComponent implements OnInit {
 
   dropGroupRule(group: IGroup) {
     if (this.draggedRule) {
-      this.initItemsIfNotDefined();
       if (!group.rules.some(x => x.name === this.draggedRule.name)) {
         group.rules.push({name: this.draggedRule.name});
       }
