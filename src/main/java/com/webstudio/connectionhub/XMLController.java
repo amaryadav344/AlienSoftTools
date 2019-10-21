@@ -1,7 +1,6 @@
 package com.webstudio.connectionhub;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -92,12 +91,33 @@ public class XMLController {
         ObjectMapper xmlMapper = new XmlMapper();
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
         String xml = xmlMapper.writeValueAsString(entity);
-        File file = new File(systemSettingsService.getXmlBasePath() + path + "/" + entity.getName() + ".xml");
+        File file = new File(systemSettingsService.getXmlBasePath() + path + "/" + entity.getName() + ".ent.xml");
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
         out.write(xml);
         out.close();
         file.createNewFile();
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<IFile[]> GetFiles() throws IOException {
+        File dir = new File(systemSettingsService.getXmlBasePath());
+
+        File[] files = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String filename) {
+                return filename.endsWith(".ent.xml");
+            }
+        });
+        IFile[] files1 = new IFile[files.length];
+        for (int i = 0; i < files.length; i++) {
+            File current = files[i];
+            IFile file = new IFile();
+            file.setPath(current.getAbsolutePath().replace(systemSettingsService.getXmlBasePath(), ""));
+            file.setName(current.getName());
+            files1[i] = file;
+
+        }
+        return new ResponseEntity<>(files1, HttpStatus.OK);
     }
 
     public void ListAllfolders(String BasePath, List<String> folders, String prefix, String query) {
