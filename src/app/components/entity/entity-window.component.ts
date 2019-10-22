@@ -4,6 +4,7 @@ import {EntityService} from '../../services/entity-service/entity.service';
 import {TabChangeServiceService} from '../../services/tab-change/tab-change-service.service';
 import {IFile} from '../../models/IFile';
 import {IEntity} from '../../models/IEntity';
+import {WindowService} from "../../services/window/window.service";
 
 
 @Component({
@@ -36,7 +37,7 @@ export class EntityWindowComponent implements OnInit {
 
 
   constructor(public dialogService: DialogService, public entityService: EntityService,
-              public tabChangeService: TabChangeServiceService) {
+              public tabChangeService: TabChangeServiceService, public windowService: WindowService) {
   }
 
   ngOnInit() {
@@ -251,6 +252,9 @@ export class EntityWindowComponent implements OnInit {
     ];
   }
 
+  closeWindow() {
+    this.windowService.closeWindow(this.file);
+  }
 }
 
 

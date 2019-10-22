@@ -12,6 +12,7 @@ export class EntityToolbarComponent implements OnInit {
   @Input() entity: IEntity;
   @Output() switchToXMl = new EventEmitter<boolean>();
   @Output() switchToUI = new EventEmitter<boolean>();
+  @Output() closeWindow = new EventEmitter();
   view = false;
   items2: MenuItem[] = [
     {

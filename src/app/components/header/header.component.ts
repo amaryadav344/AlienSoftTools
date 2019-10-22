@@ -48,6 +48,7 @@ export class HeaderComponent implements OnInit {
 
   openFile(event) {
     this.windowService.Openwindow(this.selection);
+    this.selection = {name: '', type: 0, path: ''};
   }
 
 }

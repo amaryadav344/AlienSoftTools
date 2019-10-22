@@ -2,9 +2,9 @@ import {AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild} f
 import {ContentDirective} from '../../directives/content.directive';
 import {WindowService} from '../../services/window/window.service';
 import {EntityWindowComponent} from '../entity/entity-window.component';
-import {IFile} from "../../models/IFile";
-import {HomeWindowComponent} from "../home-window/home-window.component";
-import {WindowItem} from "../../common/window-Item";
+import {IFile} from '../../models/IFile';
+import {HomeWindowComponent} from '../home-window/home-window.component';
+import {WindowItem} from '../../common/window-Item';
 
 @Component({
   selector: 'app-window',
@@ -26,12 +26,26 @@ export class WindowComponent implements OnInit, AfterViewInit {
     this.windowService.OpenWindow$.subscribe((file) => {
       this.openWindow(file);
     });
+    this.windowService.CloseWindow$.subscribe((file) => {
+      this.closeWindow(file);
+    });
   }
 
   ngAfterViewInit() {
 
   }
 
+  closeWindow(file: IFile) {
+    const compoennt = this.windows.find(x => x.data === file);
+    if (Component) {
+      const viewContainerRef = this.contentHost.viewContainerRef;
+      const index = viewContainerRef.indexOf(compoennt.component.hostView);
+      viewContainerRef.remove(index);
+      const newIndex = this.windows.indexOf(compoennt) - 1;
+      this.windows.splice(newIndex + 1, 1);
+      this.openWindow(this.windows[newIndex].data);
+    }
+  }
 
   loadHomeComponent() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(HomeWindowComponent);

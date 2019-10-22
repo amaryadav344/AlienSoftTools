@@ -1,5 +1,5 @@
 <div *ngIf="!isHidden">
-  <app-entity-toolbar [entity]="entity" (switchToXMl)="getJS();"
+  <app-entity-toolbar [entity]="entity" (switchToXMl)="getJS();" (closeWindow)="closeWindow()"
                       (switchToUI)="getXML()"></app-entity-toolbar>
   <p-tabView *ngIf="!isTextView" (onChange)="tabChanged($event)">
 
