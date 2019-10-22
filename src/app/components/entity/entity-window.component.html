@@ -1,25 +1,26 @@
-<app-entity-toolbar [entity]="entity" (switchToXMl)="getJS();"
-                    (switchToUI)="getXML()"></app-entity-toolbar>
-<p-tabView *ngIf="!isTextView" (onChange)="tabChanged($event)">
+<div *ngIf="!isHidden">
+  <app-entity-toolbar [entity]="entity" (switchToXMl)="getJS();"
+                      (switchToUI)="getXML()"></app-entity-toolbar>
+  <p-tabView *ngIf="!isTextView" (onChange)="tabChanged($event)">
 
-  <p-tabPanel header="Attributes">
-    <app-attributes-tab [(columns)]="entity.columns" [(objects)]="entity.objects"
-                        [(collections)]="entity.collections"></app-attributes-tab>
-  </p-tabPanel>
-  <p-tabPanel header="Query" style="height: 400px">
-    <app-query-tab [(queries)]="entity.queries"></app-query-tab>
-  </p-tabPanel>
-  <p-tabPanel header="Validations">
-    <app-validation-tab [(validation)]="entity.validation"></app-validation-tab>
-  </p-tabPanel>
-  <p-tabPanel header="Business Object">
-    <app-business-object-tab [(businessObject)]="entity.businessObject"></app-business-object-tab>
-  </p-tabPanel>
-</p-tabView>
-<div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">
-  <div style="height: 521px; width: 1365px">
-    <app-code-editor [code]="xml" language="xml" (CodeChanged)="xml=$event"></app-code-editor>
+    <p-tabPanel header="Attributes">
+      <app-attributes-tab [(columns)]="entity.columns" [(objects)]="entity.objects"
+                          [(collections)]="entity.collections"></app-attributes-tab>
+    </p-tabPanel>
+    <p-tabPanel header="Query" style="height: 400px">
+      <app-query-tab [(queries)]="entity.queries"></app-query-tab>
+    </p-tabPanel>
+    <p-tabPanel header="Validations">
+      <app-validation-tab [(validation)]="entity.validation"></app-validation-tab>
+    </p-tabPanel>
+    <p-tabPanel header="Business Object">
+      <app-business-object-tab [(businessObject)]="entity.businessObject"></app-business-object-tab>
+    </p-tabPanel>
+  </p-tabView>
+  <div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">
+    <div style="height: 521px; width: 1365px">
+      <app-code-editor [code]="xml" language="xml" (CodeChanged)="xml=$event"></app-code-editor>
+    </div>
   </div>
-</div>
 
 

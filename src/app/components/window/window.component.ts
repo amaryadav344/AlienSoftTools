@@ -4,6 +4,7 @@ import {WindowService} from '../../services/window/window.service';
 import {EntityWindowComponent} from '../entity/entity-window.component';
 import {IFile} from "../../models/IFile";
 import {HomeWindowComponent} from "../home-window/home-window.component";
+import {WindowItem} from "../../common/window-Item";
 
 @Component({
   selector: 'app-window',
@@ -11,7 +12,8 @@ import {HomeWindowComponent} from "../home-window/home-window.component";
   styleUrls: ['./window.component.css']
 })
 export class WindowComponent implements OnInit, AfterViewInit {
-  windows = [];
+  windows: WindowItem[] = [];
+  currentWindow: WindowItem;
   @ViewChild(ContentDirective, {static: true}) contentHost: ContentDirective;
   interval: any;
 
@@ -33,23 +35,40 @@ export class WindowComponent implements OnInit, AfterViewInit {
 
   loadHomeComponent() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(HomeWindowComponent);
-
     const viewContainerRef = this.contentHost.viewContainerRef;
     viewContainerRef.clear();
-
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    // (<HomeWindowComponent>componentRef.instance).data = adItem.data;
-    this.windows.push(componentRef);
+    const window = new WindowItem(componentRef, '');
+    this.windows.push(window);
+    this.currentWindow = window;
   }
 
   openWindow(file: IFile) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntityWindowComponent);
+    if (!(this.currentWindow.data === file)) {
+      if (this.currentWindow.component.instance instanceof EntityWindowComponent) {
+        (this.currentWindow.component.instance as EntityWindowComponent).isHidden = true;
+      } else {
+        (this.currentWindow.component.instance as HomeWindowComponent).isHidden = true;
+      }
+      const viewContainerRef = this.contentHost.viewContainerRef;
+      const result = this.windows.find(x => x.data === file);
+      if (result) {
+        if (result.component.instance instanceof EntityWindowComponent) {
+          (result.component.instance as EntityWindowComponent).isHidden = false;
+        } else {
+          (result.component.instance as HomeWindowComponent).isHidden = false;
+        }
+        this.currentWindow = result;
+      } else {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntityWindowComponent);
+        const componentRef = viewContainerRef.createComponent(componentFactory);
+        (componentRef.instance as EntityWindowComponent).file = file;
+        const window = new WindowItem(componentRef, file);
+        this.windows.push(window);
+        this.currentWindow = window;
+      }
+    }
 
-    const viewContainerRef = this.contentHost.viewContainerRef;
-    viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as EntityWindowComponent).file = file;
-    this.windows.push(componentRef);
   }
 }

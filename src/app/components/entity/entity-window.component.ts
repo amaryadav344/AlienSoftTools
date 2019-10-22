@@ -14,7 +14,7 @@ import {IEntity} from '../../models/IEntity';
   providers: [DialogService, EntityService],
 })
 export class EntityWindowComponent implements OnInit {
-  // TODO:Remove this
+  isHidden = false;
   entity: IEntity = {
     name: '',
     parentEntity: '',

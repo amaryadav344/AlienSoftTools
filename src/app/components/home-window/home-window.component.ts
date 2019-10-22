@@ -12,6 +12,7 @@ import {WindowService} from "../../services/window/window.service";
   providers: [DialogService, EntityService],
 })
 export class HomeWindowComponent implements OnInit {
+  isHidden = false;
 
   constructor(public dialogService: DialogService, public windowService: WindowService) {
 

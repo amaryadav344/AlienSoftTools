@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('opEntity', {static: false})
   opEntity: OverlayPanel;
   selection: IFile = {name: '', type: 0, path: ''};
+  EntityPopup = false;
 
   constructor(public entityService: EntityService, public windowService: WindowService) {
   }
