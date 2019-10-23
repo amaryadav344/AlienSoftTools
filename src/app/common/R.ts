@@ -35,6 +35,7 @@ export class R {
   };
   static SERVER_URLS = class {
     static JS_TO_XML = 'http://localhost:8080/xml/jstoxml';
+    static SAVE_XML = 'http://localhost:8080/xml/save';
     static XML_TO_JS = 'http://localhost:8080/xml/xmltojs';
     static GET_FILE = 'http://localhost:8080/xml/getxml';
     static GET_MATCHING_FOLDERS = 'http://localhost:8080/xml/getMatchingFolders';

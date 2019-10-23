@@ -74,6 +74,15 @@ export class EntityWindowComponent implements OnInit {
       });
   }
 
+  saveXML() {
+    this.entityService.saveXML(this.entity, this.file.path).subscribe(
+      responce => {
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
   tabChanged(e) {
     const index = e.index;
     this.tabChangeService.tabChanged(index);

@@ -21,6 +21,12 @@ export class EntityService {
     return this.httpClient.post<IEntity>(R.SERVER_URLS.XML_TO_JS, xml, {responseType: 'json'});
   }
 
+  public saveXML(entity: IEntity, Path: string) {
+    let params = new HttpParams();
+    params = params.append('path', Path);
+    return this.httpClient.post(R.SERVER_URLS.SAVE_XML, entity, {params, responseType: 'json'});
+  }
+
   public getFile(file: IFile) {
     return this.httpClient.post<IEntity>(R.SERVER_URLS.GET_FILE, file, {responseType: 'json'});
   }
