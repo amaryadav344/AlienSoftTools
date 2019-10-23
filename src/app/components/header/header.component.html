@@ -1,34 +1,35 @@
-<div class="ui-g" style="position: absolute;">
-  <div class="popwrap">
-    <p-button label="Click" (click)="EntityPopup=!EntityPopup"></p-button>
-    <div class="popup" id="pop" *ngIf="EntityPopup">
-      <p-table #tableEntityFiles [value]="files" [scrollable]="true" scrollHeight="290px"
-               [lazy]="true" (onLazyLoad)="loadMoreFiles($event)" [style]="{width: '250px'}"
-               [globalFilterFields]="['name']" selectionMode="single"
-               [(selection)]="selection"
-               (onRowSelect)="EntityPopup=false;openFile($event)">
+<div style="position: absolute;width: 100%">
+  <div class="ui-g ui-g-nopad">
+    <div class="ui-g-12  ui-g-nopad">
+      <p-toolbar [style]="{'border': 'none', 'background': '#CA3400','border-radius': '0'}">
+        <div class="popwrap">
+          <div (click)="EntityPopup=!EntityPopup">Click</div>
+          <div class="popup" id="pop" *ngIf="EntityPopup">
+            <p-table #tableEntityFiles [value]="files" [scrollable]="true" scrollHeight="290px"
+                     [lazy]="true" (onLazyLoad)="loadMoreFiles($event)" [style]="{width: '250px'}"
+                     [globalFilterFields]="['name']" selectionMode="single"
+                     [(selection)]="selection"
+                     (onRowSelect)="EntityPopup=false;openFile($event)">
 
-        <ng-template pTemplate="caption">
-          <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-12">
-              <div class="ui-inputgroup">
-                <input pInputText placeholder="Search Column"
-                       (input)="tableEntityFiles.filterGlobal($event.target.value, 'contains')">
-              </div>
-            </div>
+              <ng-template pTemplate="caption">
+                <div class="ui-g ui-fluid">
+                  <div class="ui-g-12 ui-md-12">
+                    <div class="ui-inputgroup">
+                      <input pInputText placeholder="Search Column"
+                             (input)="tableEntityFiles.filterGlobal($event.target.value, 'contains')">
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                  <td>{{rowData.name}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
           </div>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData>
-          <tr [pSelectableRow]="rowData">
-            <td>{{rowData.name}}</td>
-          </tr>
-        </ng-template>
-      </p-table>
+        </div>
+      </p-toolbar>
     </div>
   </div>
 </div>
-
-
-<p-overlayPanel #opEntity [showCloseIcon]="true" [dismissable]="false">
-
-</p-overlayPanel>
