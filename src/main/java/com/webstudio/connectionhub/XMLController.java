@@ -41,6 +41,18 @@ public class XMLController {
         return new ResponseEntity<>(xml, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/xml/save", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> saveXml(@RequestBody IEntity entity, @RequestParam("path") String path) throws IOException {
+        ObjectMapper xmlMapper = new XmlMapper();
+        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String xml = xmlMapper.writeValueAsString(entity);
+        File file = new File(systemSettingsService.getXmlBasePath() + path);
+        BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        out.write(xml);
+        out.close();
+        return new ResponseEntity<>(xml, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/xml/xmltojs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IEntity> getObjectFromXMl(@RequestBody String xml) throws IOException {
 
@@ -101,23 +113,31 @@ public class XMLController {
 
     @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IFile[]> GetFiles() throws IOException {
-        File dir = new File(systemSettingsService.getXmlBasePath());
+        List<IFile> files = new ArrayList<>();
+        ListAllFiles(systemSettingsService.getXmlBasePath(), systemSettingsService.getXmlBasePath(), files);
+        return new ResponseEntity<>(files.toArray(new IFile[files.size()]), HttpStatus.OK);
+    }
 
-        File[] files = dir.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String filename) {
-                return filename.endsWith(".ent.xml");
+    public void ListAllFiles(String directory, String replaceChar, List<IFile> files) {
+        File file = new File(directory);
+        file.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String s) {
+                File current = new File(file, s);
+                if (current.isDirectory()) {
+                    ListAllFiles(current.getAbsolutePath(), replaceChar, files);
+                } else {
+                    if (current.getName().endsWith(".ent.xml")) {
+                        IFile iFile = new IFile();
+                        iFile.setName(current.getName());
+                        iFile.setPath(current.getAbsolutePath().replace(replaceChar, ""));
+                        files.add(iFile);
+                    }
+                }
+                return false;
             }
         });
-        IFile[] files1 = new IFile[files.length];
-        for (int i = 0; i < files.length; i++) {
-            File current = files[i];
-            IFile file = new IFile();
-            file.setPath(current.getAbsolutePath().replace(systemSettingsService.getXmlBasePath(), ""));
-            file.setName(current.getName());
-            files1[i] = file;
 
-        }
-        return new ResponseEntity<>(files1, HttpStatus.OK);
     }
 
     public void ListAllfolders(String BasePath, List<String> folders, String prefix, String query) {
