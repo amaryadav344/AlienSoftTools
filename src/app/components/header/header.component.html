@@ -3,7 +3,10 @@
     <div class="ui-g-12  ui-g-nopad">
       <p-toolbar [style]="{'border': 'none', 'background': '#CA3400','border-radius': '0'}">
         <div class="popwrap">
-          <div (click)="EntityPopup=!EntityPopup">Click</div>
+          <a (click)="EntityPopup=!EntityPopup" [class.selected]="EntityPopup===true">
+            <i style="font-size: 25px;" class="pi pi-table"></i>
+            <span>Entity</span>
+          </a>
           <div class="popup" id="pop" *ngIf="EntityPopup">
             <p-table #tableEntityFiles [value]="files" [scrollable]="true" scrollHeight="290px"
                      [lazy]="true" (onLazyLoad)="loadMoreFiles($event)" [style]="{width: '250px'}"

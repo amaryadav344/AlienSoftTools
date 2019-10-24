@@ -14,6 +14,7 @@ import {TabModule} from 'angular-tabs-component';
 import {
   AutoCompleteModule,
   CheckboxModule,
+  ConfirmDialogModule,
   ContextMenuModule,
   DragDropModule,
   DropdownModule,
@@ -137,7 +138,8 @@ import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/n
     DragDropModule,
     ToolbarModule,
     TabMenuModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],
