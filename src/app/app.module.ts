@@ -8,7 +8,6 @@ import {SideBarComponent} from './components/side-bar/side-bar.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {AlertModule} from 'ngx-bootstrap';
 import {HeaderComponent} from './components/header/header.component';
-import {SamplesComponent} from './components/samples/samples.component';
 import {EntityWindowComponent} from './components/entity/entity-window.component';
 import {TabModule} from 'angular-tabs-component';
 import {
@@ -77,7 +76,6 @@ import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/n
     SideBarComponent,
     FooterComponent,
     HeaderComponent,
-    SamplesComponent,
     EntityWindowComponent,
     ColumnInfoDialogComponent,
     ObjectInfoDialogComponent,
