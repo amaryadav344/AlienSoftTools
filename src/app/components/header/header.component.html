@@ -20,6 +20,8 @@
                     <div class="ui-inputgroup">
                       <input pInputText placeholder="Search Column"
                              (input)="tableEntityFiles.filterGlobal($event.target.value, 'contains')">
+                      <p-button icon="pi pi-times" (click)="EntityPopup=false;">
+                      </p-button>
                     </div>
                   </div>
                 </div>
