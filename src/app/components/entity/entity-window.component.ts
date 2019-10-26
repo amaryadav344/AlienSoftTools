@@ -2,9 +2,9 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DialogService} from 'primeng/api';
 import {EntityService} from '../../services/entity-service/entity.service';
 import {TabChangeServiceService} from '../../services/tab-change/tab-change-service.service';
-import {IFile} from '../../models/IFile';
 import {IEntity} from '../../models/IEntity';
 import {WindowService} from "../../services/window/window.service";
+import {WindowBase} from "../window/window-base/WindowBase";
 
 
 @Component({
@@ -14,8 +14,7 @@ import {WindowService} from "../../services/window/window.service";
   encapsulation: ViewEncapsulation.None,
   providers: [DialogService, EntityService],
 })
-export class EntityWindowComponent implements OnInit {
-  isHidden = false;
+export class EntityWindowComponent extends WindowBase implements OnInit {
   entity: IEntity = {
     name: '',
     parentEntity: '',
@@ -31,13 +30,11 @@ export class EntityWindowComponent implements OnInit {
       deleteRules: []
     }, queries: [], collections: [], objects: [], columns: [], businessObject: {customMethods: [], objectMethods: []}
   };
-  file: IFile;
-  isTextView = false;
-  xml = '';
 
 
   constructor(public dialogService: DialogService, public entityService: EntityService,
               public tabChangeService: TabChangeServiceService, public windowService: WindowService) {
+    super();
   }
 
   ngOnInit() {

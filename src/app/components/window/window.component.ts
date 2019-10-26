@@ -5,6 +5,7 @@ import {EntityWindowComponent} from '../entity/entity-window.component';
 import {IFile} from '../../models/IFile';
 import {HomeWindowComponent} from '../home-window/home-window.component';
 import {WindowItem} from '../../common/window-Item';
+import {WindowBase} from './window-base/WindowBase';
 
 @Component({
   selector: 'app-window',
@@ -12,10 +13,7 @@ import {WindowItem} from '../../common/window-Item';
   styleUrls: ['./window.component.css']
 })
 export class WindowComponent implements OnInit, AfterViewInit {
-  windows: WindowItem[] = [];
-  currentWindow: WindowItem;
   @ViewChild(ContentDirective, {static: true}) contentHost: ContentDirective;
-  interval: any;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, public windowService: WindowService) {
   }
@@ -36,14 +34,14 @@ export class WindowComponent implements OnInit, AfterViewInit {
   }
 
   closeWindow(file: IFile) {
-    const compoennt = this.windows.find(x => x.data === file);
+    const compoennt = this.windowService.windowStore.getWindows().find(x => x.data === file);
     if (Component) {
       const viewContainerRef = this.contentHost.viewContainerRef;
       const index = viewContainerRef.indexOf(compoennt.component.hostView);
       viewContainerRef.remove(index);
-      const newIndex = this.windows.indexOf(compoennt) - 1;
-      this.windows.splice(newIndex + 1, 1);
-      this.openWindow(this.windows[newIndex].data);
+      const newIndex = this.windowService.windowStore.getWindows().indexOf(compoennt) - 1;
+      this.windowService.windowStore.getWindows().splice(newIndex + 1, 1);
+      this.openWindow(this.windowService.windowStore.getWindows()[newIndex].data);
     }
   }
 
@@ -52,34 +50,28 @@ export class WindowComponent implements OnInit, AfterViewInit {
     const viewContainerRef = this.contentHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    const window = new WindowItem(componentRef, '');
-    this.windows.push(window);
-    this.currentWindow = window;
+    const window = new WindowItem(componentRef, {name: 'Home', path: '', type: 0});
+    this.windowService.windowStore.getWindows().push(window);
+    this.windowService.windowStore.setCurrentWindow(window);
   }
 
   openWindow(file: IFile) {
-    if (!(this.currentWindow.data === file)) {
-      if (this.currentWindow.component.instance instanceof EntityWindowComponent) {
-        (this.currentWindow.component.instance as EntityWindowComponent).isHidden = true;
-      } else {
-        (this.currentWindow.component.instance as HomeWindowComponent).isHidden = true;
-      }
+    if (!(this.windowService.windowStore.getCurrentWindow().data === file)) {
+      const windowBaseCurrent = (this.windowService.windowStore.getCurrentWindow().component.instance as WindowBase);
+      windowBaseCurrent.hidden = false;
       const viewContainerRef = this.contentHost.viewContainerRef;
-      const result = this.windows.find(x => x.data === file);
+      const result = this.windowService.windowStore.getWindows().find(x => x.data === file);
       if (result) {
-        if (result.component.instance instanceof EntityWindowComponent) {
-          (result.component.instance as EntityWindowComponent).isHidden = false;
-        } else {
-          (result.component.instance as HomeWindowComponent).isHidden = false;
-        }
-        this.currentWindow = result;
+        const windowBaseResult = result.component.instance as WindowBase;
+        windowBaseResult.hidden = true;
+        this.windowService.windowStore.setCurrentWindow(result);
       } else {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntityWindowComponent);
         const componentRef = viewContainerRef.createComponent(componentFactory);
         (componentRef.instance as EntityWindowComponent).file = file;
         const window = new WindowItem(componentRef, file);
-        this.windows.push(window);
-        this.currentWindow = window;
+        this.windowService.windowStore.addWindow(window);
+        this.windowService.windowStore.setCurrentWindow(window);
       }
     }
 

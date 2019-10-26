@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/index';
 import {IFile} from '../../models/IFile';
+import {WindowStore} from "../../common/WindowStore";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class WindowService {
   OpenWindow$ = this.OpenWindow.asObservable();
   private CloseWindow = new Subject<IFile>();
   CloseWindow$ = this.CloseWindow.asObservable();
+  windowStore: WindowStore = WindowStore.getInstance();
 
   constructor() {
   }

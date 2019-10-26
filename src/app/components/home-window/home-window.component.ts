@@ -3,7 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {NewEntityDialogComponent} from '../dialogs/new-entity-dialog/new-entity-dialog.component';
 import {EntityService} from '../../services/entity-service/entity.service';
-import {WindowService} from "../../services/window/window.service";
+import {WindowService} from '../../services/window/window.service';
+import {WindowBase} from '../window/window-base/WindowBase';
 
 @Component({
   selector: 'app-home-window',
@@ -11,11 +12,9 @@ import {WindowService} from "../../services/window/window.service";
   styleUrls: ['./home-window.component.css'],
   providers: [DialogService, EntityService],
 })
-export class HomeWindowComponent implements OnInit {
-  isHidden = false;
-
+export class HomeWindowComponent extends WindowBase implements OnInit {
   constructor(public dialogService: DialogService, public windowService: WindowService) {
-
+    super();
   }
 
   ngOnInit() {
@@ -31,7 +30,7 @@ export class HomeWindowComponent implements OnInit {
 
     ref.onClose.subscribe((path: string) => {
       if (path) {
-        this.windowService.Openwindow({path: path, type: 0, name: ''});
+        this.windowService.Openwindow({path, type: 0, name: ''});
       }
     });
   }
