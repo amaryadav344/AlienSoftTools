@@ -67,6 +67,7 @@ import {WindowComponent} from './components/window/window.component';
 import {HomeWindowComponent} from './components/home-window/home-window.component';
 import {ContentDirective} from './directives/content.directive';
 import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/new-entity-dialog.component';
+import {EntityInfoDialogComponent} from './components/dialogs/entity-info-dialog/entity-info-dialog.component';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/n
     HomeWindowComponent,
     ContentDirective,
     NewEntityDialogComponent,
+    EntityInfoDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -153,7 +155,9 @@ import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/n
     ObjectMethodInfoDialogComponent,
     HomeWindowComponent,
     NewEntityDialogComponent,
-    EntityWindowComponent
+    EntityWindowComponent,
+    EntityInfoDialogComponent
+
   ]
 })
 export class AppModule {

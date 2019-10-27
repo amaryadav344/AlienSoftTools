@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IEntity} from '../../../models/IEntity';
-import {MenuItem} from 'primeng/api';
+import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
+import {EntityInfoDialogComponent} from "../../dialogs/entity-info-dialog/entity-info-dialog.component";
 
 
 @Component({
@@ -24,11 +25,28 @@ export class EntityToolbarComponent implements OnInit {
     }
   ];
 
-  constructor() {
+  constructor(public dialogService: DialogService) {
   }
 
   ngOnInit() {
   }
 
+  openEntityInfo() {
+    const ref = this.dialogService.open(EntityInfoDialogComponent, {
+      data: {
+        entity: this.entity,
+      },
+      header: 'Group Information',
+      width: '40%',
+      contentStyle: {'max-height': '700px', overflow: 'auto'}
+    } as DynamicDialogConfig);
+
+    ref.onClose.subscribe((entity: IEntity) => {
+      if (entity) {
+        Object.assign(this.entity, entity);
+
+      }
+    });
+  }
 
 }

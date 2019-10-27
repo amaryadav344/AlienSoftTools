@@ -1,0 +1,52 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <h6 class="first">Name</h6>
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon">ent</span>
+        <input type="text" pInputText [(ngModel)]="entity.name"/>
+        <button pButton type="button" icon="pi pi-refresh"></button>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <h6 class="first">Parent Entity</h6>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.parentEntity"/>
+        <button pButton type="button" icon="pi pi-refresh"></button>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <h6 class="first">Table Name</h6>
+      <div class="ui-inputgroup">
+        <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
+                        [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingTableNames(' ')"></p-autoComplete>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <h6 class="first">Folder</h6>
+      <div class="ui-inputgroup">
+        <p-autoComplete appendTo="body" [(ngModel)]="path"
+                        [suggestions]="folders" (completeMethod)="getMatchingFolders($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingFolders(' ')"></p-autoComplete>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <p-message severity="error" text="Name is required" *ngIf="entity.name===''"></p-message>
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
+              [disabled]="(entity.name==='')"
+              (click)="saveEntity()"></button>
+      <p-button style="width: 90px;" label="Cancel" (click)="this.ref.close();"></p-button>
+    </div>
+  </div>
+</div>
