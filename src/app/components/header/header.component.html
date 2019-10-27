@@ -1,4 +1,4 @@
-<div style="position: absolute;width: 100%">
+<div style="position: absolute;width: 100%;box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);">
   <div class="ui-g ui-g-nopad">
     <div class="ui-g-12  ui-g-nopad">
       <p-toolbar [style]="{'border': 'none', 'background': '#CA3400','border-radius': '0'}">
@@ -35,13 +35,16 @@
           </div>
         </div>
         <div class="ui-toolbar-group-right">
+          <button pButton type="button" icon="pi pi-search"></button>
           <div class="popwrap">
-            <button pButton type="button" icon="pi pi-list" (click)="WindowsPopup=!WindowsPopup"></button>
+            <button pButton type="button" icon="pi pi-list" (click)="WindowsPopup=!WindowsPopup"
+                    style="margin-right: .25em;margin-left:.25em"></button>
             <div class="popup" style="right:0 " *ngIf="WindowsPopup">
               <p-table [value]="windows" [scrollable]="true" scrollHeight="290px"
                        [lazy]="true" (onLazyLoad)="loadMoreFiles($event)" [style]="{width: '250px'}"
                        selectionMode="single"
-                       (onRowSelect)="WindowsPopup=false;">
+                       [(selection)]="selectedWindow"
+                       (onRowSelect)="WindowsPopup=false;openWindow()">
                 <ng-template pTemplate="body" let-rowData>
                   <tr [pSelectableRow]="rowData">
                     <td>{{rowData.data.name}}</td>
