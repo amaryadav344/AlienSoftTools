@@ -43,10 +43,11 @@ export class EntityService {
     return this.httpClient.post<IColumn[]>(R.SERVER_URLS.GET_COLUMNS, table, {responseType: 'json'});
   }
 
-  public createNewXml(entity: IEntity, Path: string) {
+  public createNewXml(entity: IEntity, Path: string, createModel: boolean) {
     let params = new HttpParams();
     params = params.append('path', Path);
-    return this.httpClient.post(R.SERVER_URLS.CREATE_NEW_XML, entity, {params: params, responseType: 'json'});
+    params = params.append('createModel', createModel.toString());
+    return this.httpClient.post(R.SERVER_URLS.CREATE_NEW_XML, entity, {params, responseType: 'json'});
   }
 
   public getFiles() {

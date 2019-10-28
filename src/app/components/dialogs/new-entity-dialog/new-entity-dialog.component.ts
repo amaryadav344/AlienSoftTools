@@ -64,7 +64,7 @@ export class NewEntityDialogComponent implements OnInit {
   }
 
   OnWizFinish() {
-    this.entityService.createNewXml(this.entity, this.path).subscribe(
+    this.entityService.createNewXml(this.entity, this.path, this.createJavaClass).subscribe(
       (res) => {
         this.ref.close(this.path + '/' + this.entity.name + '.ent.xml');
       }, (err) => {
