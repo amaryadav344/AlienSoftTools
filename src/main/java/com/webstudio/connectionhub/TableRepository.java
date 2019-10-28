@@ -48,11 +48,44 @@ public class TableRepository {
         List<IColumn> columns = new ArrayList<>();
         for (int i = 0; i < tables.size(); i++) {
             Object[] row = tables.get(i);
-            IColumn iColumn = new IColumn(row[0].toString(), row[4].toString(), row[1].toString(), row[3].toString(), row[2].toString());
+            IColumn iColumn = new IColumn(row[0].toString(), row[4].toString(), getDataTypeFromDBDataType(row[1].toString()), row[3].toString(), row[2].toString());
             columns.add(iColumn);
         }
         return columns;
 
+    }
+
+    public String getDataTypeFromDBDataType(String DBDataType) {
+        String DataType = "String";
+        switch (DBDataType.toLowerCase()) {
+            case "char":
+            case "varchar":
+            case "text":
+            case "nchar":
+            case "nvarchar":
+            case "ntext":
+                DataType = "String";
+                break;
+            case "bigint":
+            case "int":
+            case "smallint":
+            case "tinyint":
+            case "bit":
+            case "numeric":
+                DataType = "Integer";
+                break;
+            case "float":
+                DataType = "Float";
+                break;
+            case "date":
+            case "datetime":
+            case "datetime2":
+            case "smalldatetime":
+            case "time":
+                DataType = "DateTime";
+                break;
+        }
+        return DataType;
     }
 
 }

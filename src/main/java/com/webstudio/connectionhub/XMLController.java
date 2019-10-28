@@ -4,6 +4,10 @@ package com.webstudio.connectionhub;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 import com.webstudio.connectionhub.Models.IColumn;
 import com.webstudio.connectionhub.Models.IEntity;
 import com.webstudio.connectionhub.Models.IFile;
@@ -14,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.SAXException;
 
+import javax.lang.model.element.Modifier;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -99,7 +104,7 @@ public class XMLController {
     }
 
     @RequestMapping(value = "/xml/CreateNewXml/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity CreateNewXml(@RequestBody IEntity entity, @RequestParam("path") String path) throws IOException {
+    public ResponseEntity CreateNewXml(@RequestBody IEntity entity, @RequestParam("path") String path, @RequestParam("createModel") boolean createModel) throws IOException {
         ObjectMapper xmlMapper = new XmlMapper();
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
         String xml = xmlMapper.writeValueAsString(entity);
@@ -108,7 +113,26 @@ public class XMLController {
         out.write(xml);
         out.close();
         file.createNewFile();
+        if (createModel) {
+            createModel(path, entity);
+        }
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    private void createModel(String path, IEntity entity) throws IOException {
+        TypeSpec.Builder doClassBuilder = TypeSpec.classBuilder(entity.getModelName())
+                .addModifiers(Modifier.PUBLIC);
+        for (IColumn column : entity.getColumns()) {
+            if (column.getDataType().toLowerCase().equals("string")) {
+                FieldSpec fieldSpec = FieldSpec.builder(ClassName.get(String.class), column.getName(), Modifier.PUBLIC).build();
+                doClassBuilder.addField(fieldSpec);
+            }
+        }
+        JavaFile javaFile = JavaFile.builder("com.business.business." + path.replace("/", "."), doClassBuilder.build())
+                .build();
+        File file = new File(systemSettingsService.getBusinessModelPath());
+        javaFile.writeTo(file);
+
     }
 
     @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -148,7 +172,7 @@ public class XMLController {
                 File current = new File(file1, s);
                 boolean isFolder = current.isDirectory();
                 if (isFolder) {
-                    ListAllfolders(current.getAbsolutePath(), folders, "/" + current.getName() + "/", query);
+                    ListAllfolders(current.getAbsolutePath(), folders, current.getName() + "/", query);
                     if (current.getAbsolutePath().toLowerCase().contains(query.toLowerCase()) || Objects.equals(query, " ")) {
                         folders.add(prefix + current.getName());
                     }
