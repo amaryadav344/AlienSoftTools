@@ -4,10 +4,7 @@ package com.webstudio.connectionhub;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 import com.webstudio.connectionhub.Models.IColumn;
 import com.webstudio.connectionhub.Models.IEntity;
 import com.webstudio.connectionhub.Models.IFile;
@@ -27,6 +24,7 @@ import javax.xml.validation.Validator;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -120,18 +118,69 @@ public class XMLController {
     }
 
     private void createModel(String path, IEntity entity) throws IOException {
-        TypeSpec.Builder doClassBuilder = TypeSpec.classBuilder(entity.getModelName())
+        TypeSpec.Builder cdoClassBuilder = TypeSpec.classBuilder("cdo" + entity.getModelName());
+        TypeSpec.Builder doClassBuilder = TypeSpec.classBuilder("do" + entity.getModelName())
                 .addModifiers(Modifier.PUBLIC);
         for (IColumn column : entity.getColumns()) {
             if (column.getDataType().toLowerCase().equals("string")) {
                 FieldSpec fieldSpec = FieldSpec.builder(ClassName.get(String.class), column.getName(), Modifier.PUBLIC).build();
                 doClassBuilder.addField(fieldSpec);
+                MethodSpec methodSpecGetter = MethodSpec.methodBuilder("get" + column.getName())
+                        .addModifiers(Modifier.PUBLIC)
+                        .returns(String.class)
+                        .addStatement("return $L", column.getName())
+                        .build();
+                doClassBuilder.addMethod(methodSpecGetter);
+                MethodSpec methodSpecSetter = MethodSpec.methodBuilder("set" + column.getName())
+                        .addModifiers(Modifier.PUBLIC)
+                        .addParameter(ParameterSpec.builder(String.class, column.getName()).build())
+                        .addStatement("this.$L=$L", column.getName(), column.getName())
+                        .build();
+                doClassBuilder.addMethod(methodSpecSetter);
+            }
+            if (column.getDataType().toLowerCase().equals("integer")) {
+                FieldSpec fieldSpec = FieldSpec.builder(ClassName.get(Integer.class), column.getName(), Modifier.PUBLIC).build();
+                doClassBuilder.addField(fieldSpec);
+
+                MethodSpec methodSpecGetter = MethodSpec.methodBuilder("get" + column.getName())
+                        .addModifiers(Modifier.PUBLIC)
+                        .returns(Integer.class)
+                        .addStatement("return $L", column.getName())
+                        .build();
+                doClassBuilder.addMethod(methodSpecGetter);
+                MethodSpec methodSpecSetter = MethodSpec.methodBuilder("set" + column.getName())
+                        .addModifiers(Modifier.PUBLIC)
+                        .addParameter(ParameterSpec.builder(Integer.class, column.getName()).build())
+                        .addStatement("this.$L=$L", column.getName(), column.getName())
+                        .build();
+                doClassBuilder.addMethod(methodSpecSetter);
+            }
+            if (column.getDataType().toLowerCase().equals("datetime")) {
+                FieldSpec fieldSpec = FieldSpec.builder(ClassName.get(Date.class), column.getName(), Modifier.PUBLIC).build();
+                doClassBuilder.addField(fieldSpec);
+
+                MethodSpec methodSpecGetter = MethodSpec.methodBuilder("get" + column.getName())
+                        .addModifiers(Modifier.PUBLIC)
+                        .returns(Date.class)
+                        .addStatement("return $L", column.getName())
+                        .build();
+                doClassBuilder.addMethod(methodSpecGetter);
+                MethodSpec methodSpecSetter = MethodSpec.methodBuilder("set" + column.getName())
+                        .addModifiers(Modifier.PUBLIC)
+                        .addParameter(ParameterSpec.builder(Date.class, column.getName()).build())
+                        .addStatement("this.$L=$L", column.getName(), column.getName())
+                        .build();
+                doClassBuilder.addMethod(methodSpecSetter);
             }
         }
+        cdoClassBuilder.superclass(ClassName.get("com.business.business." + path.replace("/", "."), "do" + entity.getModelName()));
         JavaFile javaFile = JavaFile.builder("com.business.business." + path.replace("/", "."), doClassBuilder.build())
+                .build();
+        JavaFile javf = JavaFile.builder("com.business.business." + path.replace("/", "."), cdoClassBuilder.build())
                 .build();
         File file = new File(systemSettingsService.getBusinessModelPath());
         javaFile.writeTo(file);
+        javf.writeTo(file);
 
     }
 
