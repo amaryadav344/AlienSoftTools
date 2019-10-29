@@ -118,8 +118,13 @@ public class XMLController {
     }
 
     private void createModel(String path, IEntity entity) throws IOException {
-        TypeSpec.Builder cdoClassBuilder = TypeSpec.classBuilder("cdo" + entity.getModelName());
-        TypeSpec.Builder doClassBuilder = TypeSpec.classBuilder("do" + entity.getModelName())
+        String cdoClassName = "cdo" + entity.getModelName();
+        String doClassName = "do" + entity.getModelName();
+        String modelClassName = "model" + entity.getModelName();
+        String PackageName = systemSettingsService.getPackageName() + "." + path.replace("/", ".");
+        TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(modelClassName);
+        TypeSpec.Builder cdoClassBuilder = TypeSpec.classBuilder(cdoClassName);
+        TypeSpec.Builder doClassBuilder = TypeSpec.classBuilder(doClassName)
                 .addModifiers(Modifier.PUBLIC);
         for (IColumn column : entity.getColumns()) {
             if (column.getDataType().toLowerCase().equals("string")) {
@@ -173,14 +178,18 @@ public class XMLController {
                 doClassBuilder.addMethod(methodSpecSetter);
             }
         }
-        cdoClassBuilder.superclass(ClassName.get("com.business.business." + path.replace("/", "."), "do" + entity.getModelName()));
-        JavaFile javaFile = JavaFile.builder("com.business.business." + path.replace("/", "."), doClassBuilder.build())
+        cdoClassBuilder.superclass(ClassName.get(PackageName, doClassName));
+        modelClassBuilder.addField(ClassName.get(PackageName, cdoClassName), "i" + cdoClassName, Modifier.PUBLIC);
+        JavaFile javaFiledo = JavaFile.builder(PackageName, doClassBuilder.build())
                 .build();
-        JavaFile javf = JavaFile.builder("com.business.business." + path.replace("/", "."), cdoClassBuilder.build())
+        JavaFile javfilecdo = JavaFile.builder(PackageName, cdoClassBuilder.build())
+                .build();
+        JavaFile javfilemodel = JavaFile.builder(PackageName, modelClassBuilder.build())
                 .build();
         File file = new File(systemSettingsService.getBusinessModelPath());
-        javaFile.writeTo(file);
-        javf.writeTo(file);
+        javaFiledo.writeTo(file);
+        javfilecdo.writeTo(file);
+        javfilemodel.writeTo(file);
 
     }
 
