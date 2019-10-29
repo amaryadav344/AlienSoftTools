@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IEntity} from '../../../models/IEntity';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
-import {EntityService} from "../../../services/entity-service/entity.service";
+import {EntityService} from '../../../services/entity-service/entity.service';
 
 @Component({
   selector: 'app-new-entity-dialog',
@@ -66,7 +66,7 @@ export class NewEntityDialogComponent implements OnInit {
   OnWizFinish() {
     this.entityService.createNewXml(this.entity, this.path, this.createJavaClass).subscribe(
       (res) => {
-        this.ref.close(this.path + '/' + this.entity.name + '.ent.xml');
+        this.ref.close({path: this.path + '/' + this.entity.name + '.ent.xml', name: this.entity.name, type: 0});
       }, (err) => {
         console.log(err);
       }

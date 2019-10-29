@@ -31,11 +31,12 @@ export class HeaderComponent implements OnInit {
         console.log(err);
       }
     );
+    this.windowService.SyncFiles$.subscribe((file) => {
+      this.files.push(file);
+      this.files = [...this.files];
+    });
   }
 
-  loadMoreFiles(event) {
-
-  }
 
   openWindow() {
     this.windowService.Openwindow(this.selectedWindow.data);
