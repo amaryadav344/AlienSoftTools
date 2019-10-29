@@ -3,5 +3,5 @@ export interface IColumn {
   dataType: string;
   objectField: string;
   maxLength: string;
-  canBeNull: boolean;
+  canBeNull: string;
 }

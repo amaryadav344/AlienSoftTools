@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {IEntity} from '../../../models/IEntity';
+import {R} from '../../../common/R';
 
 @Component({
   selector: 'app-entity-info-dialog',
@@ -8,21 +9,7 @@ import {IEntity} from '../../../models/IEntity';
   styleUrls: ['./entity-info-dialog.component.css']
 })
 export class EntityInfoDialogComponent implements OnInit {
-  entity: IEntity = {
-    name: '',
-    parentEntity: '',
-    tableName: '',
-    modelName: '',
-    validation: {
-      rules: [],
-      groupRules: [],
-      hardErrors: [],
-      softErrors: [],
-      initialLoad: [],
-      updateRules: [],
-      deleteRules: []
-    }, queries: [], collections: [], objects: [], columns: [], businessObject: {customMethods: [], objectMethods: []}
-  };
+  entity: IEntity = R.Initializer.getEntity();
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     Object.assign(this.entity, config.data.entity);

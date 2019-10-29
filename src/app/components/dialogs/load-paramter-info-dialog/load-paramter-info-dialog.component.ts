@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ILoadParameter} from '../../../models/ILoadParameter';
-import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 
 @Component({
   selector: 'app-load-paramter-info-dialog',

@@ -9,7 +9,7 @@ import {IGroup} from '../../../models/IGroup';
   styleUrls: ['./group-info-dialog.component.css']
 })
 export class GroupInfoDialogComponent implements OnInit {
-  group: IGroup = {name: '', rules: []};
+  group: IGroup = R.Initializer.getGroup();
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     if (config.data.mode === R.Constants.OpenMode.MODE_UPDATE) {

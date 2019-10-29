@@ -10,7 +10,7 @@ import {IObject} from '../../../models/IObject';
 })
 export class ObjectInfoDialogComponent implements OnInit {
 
-  object: IObject;
+  object: IObject = R.Initializer.getObject();
   Types: string[];
   mFieldSuggestions: string[];
   mode: number;
@@ -18,17 +18,7 @@ export class ObjectInfoDialogComponent implements OnInit {
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     this.mode = config.data.mode;
     if (this.mode === R.Constants.OpenMode.MODE_UPDATE) {
-      this.object = {
-        name: config.data.object.name,
-        entity: config.data.object.entity,
-        objectField: config.data.object.objectField
-      };
-    } else {
-      this.object = {
-        name: '',
-        entity: '',
-        objectField: ''
-      };
+      Object.assign(this.object, config.data.object);
     }
     this.Types = config.data.types;
   }

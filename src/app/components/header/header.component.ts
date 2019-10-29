@@ -3,17 +3,16 @@ import {IFile} from '../../models/IFile';
 import {EntityService} from '../../services/entity-service/entity.service';
 import {WindowService} from '../../services/window/window.service';
 import {WindowItem} from '../../common/window-Item';
-import {SlideInOutAnimation} from '../../common/animations';
+import {R} from '../../common/R';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
-  animations: [SlideInOutAnimation]
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
   files: IFile[] = [];
-  selection: IFile = {name: '', type: 0, path: ''};
+  selection: IFile = R.Initializer.getFile();
   EntityPopup = false;
   WindowsPopup = false;
   windows: WindowItem[];

@@ -94,7 +94,7 @@ export class ValidationTabComponent implements OnInit {
     }
   }
 
-  dragStart(event, ivRule: IVRule) {
+  dragStart(ivRule: IVRule) {
     this.draggedRule = ivRule;
   }
 
@@ -146,7 +146,7 @@ export class ValidationTabComponent implements OnInit {
     }
   }
 
-  dragEnd(event) {
+  dragEnd() {
     this.draggedRule = null;
   }
 
@@ -249,45 +249,5 @@ export class ValidationTabComponent implements OnInit {
     this.itemsGroupRule = [
       {label: 'Remove Rule', icon: 'pi pi-times', command: (event) => this.removeGroupRule()}
     ];
-  }
-
-  initItemsIfNotDefined() {
-    if (!this.validation) {
-      this.validation = {
-        rules: [],
-        groupRules: [],
-        deleteRules: [],
-        hardErrors: [],
-        softErrors: [],
-        initialLoad: [],
-        updateRules: []
-      };
-    }
-    if (!this.validation.rules) {
-      this.validation.rules = [];
-    }
-    if (!this.validation.deleteRules) {
-      this.validation.deleteRules = [];
-    }
-    if (!this.validation.updateRules) {
-      this.validation.updateRules = [];
-    }
-    if (!this.validation.initialLoad) {
-      this.validation.initialLoad = [];
-    }
-    if (!this.validation.softErrors) {
-      this.validation.softErrors = [];
-    }
-    if (!this.validation.hardErrors) {
-      this.validation.hardErrors = [];
-    }
-    if (!this.validation.deleteRules) {
-      this.validation.deleteRules = [];
-    }
-    if (!this.validation.groupRules) {
-      this.validation.groupRules = [];
-    }
-
-
   }
 }

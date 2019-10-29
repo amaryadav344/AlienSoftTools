@@ -1,3 +1,15 @@
+import {ICollection} from '../models/ICollection';
+import {IColumn} from '../models/IColumn';
+import {ICustomMethod} from '../models/ICustomMethod';
+import {ILoadMapping} from '../models/ILoadMapping';
+import {IEntity} from '../models/IEntity';
+import {IGroup} from '../models/IGroup';
+import {IObject} from '../models/IObject';
+import {IObjectMethod} from '../models/IObjectMethod';
+import {IQuery} from '../models/IQuery';
+import {IVRule} from '../models/IVRule';
+import {IFile} from '../models/IFile';
+
 export class R {
 
   public static QueryTypes: string[] = ['Select Query',
@@ -7,7 +19,7 @@ export class R {
   static DataTypes: string[] = [
     'String',
     'Integer',
-    'Datetime',
+    'DateTime',
     'Decimal',
   ];
   static CollectionTypes: string[] = [
@@ -43,6 +55,57 @@ export class R {
     static GET_COLUMNS = 'http://localhost:8080/xml/getColumns';
     static CREATE_NEW_XML = 'http://localhost:8080/xml/CreateNewXml/';
     static GET_FILES = 'http://localhost:8080/xml/GetFiles';
+  };
+
+  static Initializer = class {
+    static getCollection(): ICollection {
+      return {entity: '', name: '', objectField: '', dataType: ''};
+    }
+
+    static getColumn(): IColumn {
+      return {name: '', maxLength: '', canBeNull: '', dataType: '', objectField: ''};
+    }
+
+    static getCustomMethod(): ICustomMethod {
+      return {name: '', mode: 'All', loadPrimaryObject: false, loadMapping: []};
+    }
+
+    static getLoadMapping(): ILoadMapping {
+      return {name: '', loadParameters: [], loadType: ''};
+    }
+
+    static getEntity(): IEntity {
+      return {
+        name: '', parentEntity: '', tableName: '', modelName: '', validation: {
+          rules: [], groupRules: [], hardErrors: [], softErrors: [], initialLoad: [], updateRules: [], deleteRules: []
+        },
+        queries: [], collections: [], objects: [], columns: [], businessObject: {customMethods: [], objectMethods: []}
+      };
+    }
+
+    static getGroup(): IGroup {
+      return {name: '', rules: []};
+    }
+
+    static getObject(): IObject {
+      return {name: '', entity: '', objectField: ''};
+    }
+
+    static getObjectMethod(): IObjectMethod {
+      return {name: '', returnType: '', objectParameters: []};
+    }
+
+    static getQuery(): IQuery {
+      return {name: '', sql: '', queryType: ''};
+    }
+
+    static getVRule(): IVRule {
+      return {expression: '', name: '', message: {message: '', messageId: 0, parameters: []}};
+    }
+
+    static getFile(): IFile {
+      return {name: '', type: 0, path: ''};
+    }
   };
 }
 

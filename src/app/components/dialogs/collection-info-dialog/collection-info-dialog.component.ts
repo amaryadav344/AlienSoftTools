@@ -9,7 +9,7 @@ import {R} from '../../../common/R';
   styleUrls: ['./collection-info-dialog.component.css']
 })
 export class CollectionInfoDialogComponent implements OnInit {
-  collection: ICollection = {entity: '', name: '', objectField: '', dataType: ''};
+  collection: ICollection = R.Initializer.getCollection();
   Lists: string[];
   mFieldSuggestions: string[];
   public CollectionTypes: string[] = R.CollectionTypes;
@@ -20,12 +20,7 @@ export class CollectionInfoDialogComponent implements OnInit {
     if (this.mode === R.Constants.OpenMode.MODE_UPDATE) {
       Object.assign(this.collection, config.data.collection);
     } else {
-      this.collection = {
-        name: '',
-        entity: '',
-        objectField: '',
-        dataType: ''
-      };
+      this.collection = R.Initializer.getCollection();
     }
     this.Lists = config.data.lists;
   }
@@ -45,9 +40,4 @@ export class CollectionInfoDialogComponent implements OnInit {
       }
     }
   }
-
-  changeDatatype(event) {
-
-  }
-
 }

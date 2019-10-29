@@ -8,9 +8,7 @@
   <div class="ui-g-6">
     <h6 class="first">Object Field</h6>
     <div class="ui-inputgroup">
-      <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="column.objectField"
-                      [suggestions]="mFieldSuggestions" (completeMethod)="filterCountrySingle($event)"
-                      [size]="30" [minLength]="1" [disabled]="true"></p-autoComplete>
+      <input type="text" pInputText [(ngModel)]="column.objectField" [disabled]="true"/>
     </div>
   </div>
   <div class="ui-g-6">

@@ -10,11 +10,7 @@ import {R} from '../../../common/R';
 })
 export class ObjectMethodInfoDialogComponent implements OnInit {
 
-  objectMethod: IObjectMethod = {
-    name: '',
-    returnType: '',
-    objectParameters: []
-  };
+  objectMethod: IObjectMethod = R.Initializer.getObjectMethod();
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     if (config.data.mode === R.Constants.OpenMode.MODE_UPDATE) {

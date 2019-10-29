@@ -9,39 +9,19 @@ import {R} from '../../../common/R';
   styleUrls: ['./column-info-dialog.component.css']
 })
 export class ColumnInfoDialogComponent implements OnInit {
-  column: IColumn;
-  orginalColumn: IColumn;
-  Fields: string[];
-  mFieldSuggestions: string[];
+  column: IColumn = R.Initializer.getColumn();
   public DataTypes: string[] = R.DataTypes;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
-    this.column = {
-      name: config.data.column.name,
-      dataType: config.data.column.dataType,
-      objectField: config.data.column.objectField,
-      maxLength: config.data.column.objectField,
-      canBeNull: config.data.column.objectField
-    };
-    this.Fields = config.data.fields;
-    this.orginalColumn = config.data.column;
+    Object.assign(this.column, config.data.column);
   }
 
   ngOnInit() {
   }
 
   saveColumn() {
-    // Object.assign(this.orginalColumn, this.column);
     this.ref.close();
   }
 
-  filterCountrySingle(event) {
-    this.mFieldSuggestions = [];
-    for (const field of this.Fields) {
-      if (field.toLowerCase().indexOf(event.query.toLowerCase()) >= 0) {
-        this.mFieldSuggestions.push(field);
-      }
-    }
-  }
 
 }

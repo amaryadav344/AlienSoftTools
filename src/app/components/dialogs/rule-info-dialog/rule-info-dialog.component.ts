@@ -9,15 +9,7 @@ import {IVRule} from '../../../models/IVRule';
   styleUrls: ['./rule-info-dialog.component.css']
 })
 export class RuleInfoDialogComponent implements OnInit {
-  rule: IVRule = {
-    expression: '',
-    name: '',
-    message: {
-      message: '',
-      messageId: 0,
-      parameters: [],
-    },
-  };
+  rule: IVRule = R.Initializer.getVRule();
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     if (config.data.mode === R.Constants.OpenMode.MODE_UPDATE) {

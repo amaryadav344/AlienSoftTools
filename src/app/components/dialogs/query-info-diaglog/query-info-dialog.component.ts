@@ -9,15 +9,13 @@ import {R} from '../../../common/R';
   styleUrls: ['./query-info-dialog.component.css']
 })
 export class QueryInfoDialogComponent implements OnInit {
-  query: IQuery = {};
+  query: IQuery = R.Initializer.getQuery();
   mode: number;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
     this.mode = config.data.mode;
     if (this.mode === R.Constants.OpenMode.MODE_UPDATE) {
       Object.assign(this.query, config.data.query);
-    } else {
-      this.query = {name: '', sql: '', queryType: ''};
     }
   }
 

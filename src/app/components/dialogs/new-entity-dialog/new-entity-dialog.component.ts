@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IEntity} from '../../../models/IEntity';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {EntityService} from '../../../services/entity-service/entity.service';
+import {R} from '../../../common/R';
 
 @Component({
   selector: 'app-new-entity-dialog',
@@ -9,21 +10,7 @@ import {EntityService} from '../../../services/entity-service/entity.service';
   styleUrls: ['./new-entity-dialog.component.css']
 })
 export class NewEntityDialogComponent implements OnInit {
-  entity: IEntity = {
-    name: '',
-    parentEntity: '',
-    tableName: '',
-    modelName: '',
-    validation: {
-      rules: [],
-      groupRules: [],
-      hardErrors: [],
-      softErrors: [],
-      initialLoad: [],
-      updateRules: [],
-      deleteRules: []
-    }, queries: [], collections: [], objects: [], columns: [], businessObject: {customMethods: [], objectMethods: []}
-  };
+  entity: IEntity = R.Initializer.getEntity();
   createJavaClass = false;
   isNextDisabled = false;
   isPreviousDisabled = true;

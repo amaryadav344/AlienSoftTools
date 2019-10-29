@@ -15,12 +15,7 @@ import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load
 })
 export class CustomMethodInfoDialogComponent implements OnInit {
 
-  customMethod: ICustomMethod = {
-    name: '',
-    mode: 'All',
-    loadPrimaryObject: false,
-    loadMapping: []
-  };
+  customMethod: ICustomMethod = R.Initializer.getCustomMethod();
   loadModes: string[] = R.LoadModes;
   selection: ILoadMapping;
   loadTypes: string[] = R.LoadTypes;
@@ -56,7 +51,7 @@ export class CustomMethodInfoDialogComponent implements OnInit {
   }
 
   addLoadMappingRow() {
-    this.customMethod.loadMapping.push({name: '', loadParameters: [], loadType: ''});
+    this.customMethod.loadMapping.push(R.Initializer.getLoadMapping());
   }
 
   removeCustomMapping() {

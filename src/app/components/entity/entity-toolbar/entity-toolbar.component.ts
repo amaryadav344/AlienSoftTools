@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IEntity} from '../../../models/IEntity';
-import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
-import {EntityInfoDialogComponent} from "../../dialogs/entity-info-dialog/entity-info-dialog.component";
+import {DialogService, DynamicDialogConfig} from 'primeng/api';
+import {EntityInfoDialogComponent} from '../../dialogs/entity-info-dialog/entity-info-dialog.component';
 
 
 @Component({
@@ -16,14 +16,6 @@ export class EntityToolbarComponent implements OnInit {
   @Output() closeWindow = new EventEmitter();
   @Output() saveXML = new EventEmitter();
   view = false;
-  items2: MenuItem[] = [
-    {
-      label: 'Open file location',
-    },
-    {
-      label: 'Edit file with sublime',
-    }
-  ];
 
   constructor(public dialogService: DialogService) {
   }

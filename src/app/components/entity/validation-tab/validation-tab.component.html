@@ -25,7 +25,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
           <tr [pSelectableRow]="rowData" [pContextMenuRow]="rowData" pDraggable
-              (onDragStart)="dragStart($event,rowData)" (onDragEnd)="dragEnd($event)">
+              (onDragStart)="dragStart(rowData)" (onDragEnd)="dragEnd()">
             <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData.name">
               {{rowData.name}}
             </td>
