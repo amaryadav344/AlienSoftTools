@@ -53,4 +53,11 @@ export class HttpClientService {
   public getFiles() {
     return this.httpClient.post<IFile[]>(R.SERVER_URLS.GET_FILES, ' ', {responseType: 'json'});
   }
+
+  public getSymbols(file: IFile, modelName: string, query: string) {
+    let params = new HttpParams();
+    params = params.append('model_name', modelName);
+    params = params.append('query', query);
+    return this.httpClient.post<string[]>(R.SERVER_URLS.GET_SYMBOLS, file, {params, responseType: 'json'});
+  }
 }

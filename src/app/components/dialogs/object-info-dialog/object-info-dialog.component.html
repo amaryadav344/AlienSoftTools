@@ -1,6 +1,6 @@
 <div class="ui-g ui-fluid">
   <div class="ui-g-6">
-    <h6 class="first">Name</h6>
+    <div class="caption">Name</div>
     <div class="ui-inputgroup">
       <input type="text" pInputText [(ngModel)]="object.name"/>
     </div>
@@ -8,8 +8,9 @@
   <div class="ui-g-6">
     <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
-      <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="object.objectField"
+      <p-autoComplete appendTo="body" #auto
                       [suggestions]="mFieldSuggestions" (completeMethod)="filterCountrySingle($event)"
+                      (onSelect)="onObjectFieldSelected($event)"
                       [size]="30" [minLength]="1"></p-autoComplete>
     </div>
   </div>

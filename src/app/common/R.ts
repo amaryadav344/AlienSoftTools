@@ -55,6 +55,7 @@ export class R {
     static GET_COLUMNS = 'http://localhost:8080/xml/getColumns';
     static CREATE_NEW_XML = 'http://localhost:8080/xml/CreateNewXml/';
     static GET_FILES = 'http://localhost:8080/xml/GetFiles';
+    static GET_SYMBOLS = 'http://localhost:8080/xml/getSymbols';
   };
 
   static Initializer = class {

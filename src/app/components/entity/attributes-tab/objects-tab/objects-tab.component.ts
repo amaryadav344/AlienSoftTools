@@ -13,7 +13,6 @@ import {R} from '../../../../common/R';
 export class ObjectsTabComponent implements OnInit {
   @Input() objects: IObject[];
   selection: IObject;
-  Types: string[] = ['ibusPerson', 'ibusAccount', 'ibusCredits', 'ibusProfile'];
 
   constructor(public dialogService: DialogService) {
   }
@@ -25,7 +24,6 @@ export class ObjectsTabComponent implements OnInit {
     const ref = this.dialogService.open(ObjectInfoDialogComponent, {
       data: {
         object: this.selection,
-        types: this.Types,
         mode: Mode
       },
       header: 'Object Information',
