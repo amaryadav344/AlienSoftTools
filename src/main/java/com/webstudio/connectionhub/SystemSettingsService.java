@@ -10,6 +10,7 @@ public class SystemSettingsService {
     private String XMlBasePath = null;
     private String BUSINESS_MODEL_LOCATION = null;
     private String PACKAGE_NAME = null;
+    private String BIN_PATH = null;
 
     public String getXmlBasePath() {
         if (XMlBasePath == null) {
@@ -30,5 +31,12 @@ public class SystemSettingsService {
             PACKAGE_NAME = systemSettingsRepository.findFirstBySettingName("PACKAGE_NAME").get(0).getSettingValue();
         }
         return PACKAGE_NAME;
+    }
+
+    public String getBinPath() {
+        if (BIN_PATH == null) {
+            BIN_PATH = systemSettingsRepository.findFirstBySettingName("BIN_PATH").get(0).getSettingValue();
+        }
+        return BIN_PATH;
     }
 }

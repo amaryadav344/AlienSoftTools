@@ -14,6 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.SAXException;
+import spoon.JarLauncher;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtFieldReference;
+import spoon.reflect.reference.CtTypeReference;
 
 import javax.lang.model.element.Modifier;
 import javax.xml.XMLConstants;
@@ -23,10 +27,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 @RestController
@@ -120,7 +121,7 @@ public class XMLController {
     private void createModel(String path, IEntity entity) throws IOException {
         String cdoClassName = "cdo" + entity.getModelName();
         String doClassName = "do" + entity.getModelName();
-        String modelClassName = "model" + entity.getModelName();
+        String modelClassName = entity.getModelName();
         String PackageName = systemSettingsService.getPackageName() + "." + path.replace("/", ".");
         TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(modelClassName);
         TypeSpec.Builder cdoClassBuilder = TypeSpec.classBuilder(cdoClassName);
@@ -191,6 +192,39 @@ public class XMLController {
         javfilecdo.writeTo(file);
         javfilemodel.writeTo(file);
 
+    }
+
+    @RequestMapping(value = "/xml/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String[]> getSymbols(@RequestBody IFile file, @RequestParam("model_name") String ModelName, @RequestParam(name = "query", required = false) String query) {
+        JarLauncher launcher = new JarLauncher(systemSettingsService.getBinPath() + "/BusinessObjects.jar");
+        launcher.buildModel();
+        Factory factory = launcher.getFactory();
+        CtTypeReference<?> type = factory.Type().get("com.business.business.Person.Person").getReference();
+        String[] symobols = query.split("\\.");
+        CtTypeReference<?> LastType = type;
+        String lastQuery = "";
+        String FullName = "";
+        for (String symbol : symobols) {
+            if (type.getDeclaredField(symbol) != null) {
+                LastType = type.getDeclaredField(symbol).getType();
+                FullName = FullName + symbol + ".";
+            } else {
+                lastQuery = symbol;
+            }
+        }
+        List<String> symbols = new ArrayList<>();
+        ListSymbols(symbols, LastType, lastQuery, FullName);
+        return new ResponseEntity<>(symbols.toArray(new String[symbols.size()]), HttpStatus.OK);
+    }
+
+    public void ListSymbols(List<String> symbols, CtTypeReference<?> type, String query, String FullName) {
+        Collection<CtFieldReference<?>> fieldReferences = type.getAllFields();
+        for (CtFieldReference<?> fieldReference : fieldReferences) {
+            if (fieldReference.getSimpleName().toLowerCase().contains(query.toLowerCase())) {
+                symbols.add(FullName + "." + fieldReference.getSimpleName());
+            }
+
+        }
     }
 
     @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
