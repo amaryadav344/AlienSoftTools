@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {IEntity} from '../../../models/IEntity';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
-import {EntityService} from '../../../services/entity-service/entity.service';
 import {R} from '../../../common/R';
+import {HttpClientService} from '../../../services/entity-service/httpclient.service';
 
 @Component({
   selector: 'app-new-entity-dialog',
@@ -22,14 +22,14 @@ export class NewEntityDialogComponent implements OnInit {
   tables: string[] = [];
   path: string;
 
-  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public entityService: EntityService) {
+  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public httpClientService: HttpClientService) {
   }
 
   ngOnInit() {
   }
 
   OpenNextStep() {
-    this.entityService.getColumns(this.entity.tableName).subscribe(
+    this.httpClientService.getColumns(this.entity.tableName).subscribe(
       (columns) => {
         this.entity.columns = columns;
       },
@@ -51,7 +51,7 @@ export class NewEntityDialogComponent implements OnInit {
   }
 
   OnWizFinish() {
-    this.entityService.createNewXml(this.entity, this.path, this.createJavaClass).subscribe(
+    this.httpClientService.createNewXml(this.entity, this.path, this.createJavaClass).subscribe(
       (res) => {
         this.ref.close({path: this.path + '/' + this.entity.name + '.ent.xml', name: this.entity.name, type: 0});
       }, (err) => {
@@ -61,7 +61,7 @@ export class NewEntityDialogComponent implements OnInit {
   }
 
   getMatchingFolders(query) {
-    this.entityService.getMatchingFolders(query).subscribe(
+    this.httpClientService.getMatchingFolders(query).subscribe(
       (folders) => {
         this.folders = folders;
       },
@@ -72,7 +72,7 @@ export class NewEntityDialogComponent implements OnInit {
   }
 
   getMatchingTableNames(query) {
-    this.entityService.getMatchingTables(query).subscribe(
+    this.httpClientService.getMatchingTables(query).subscribe(
       (tables) => {
         this.tables = tables;
       },

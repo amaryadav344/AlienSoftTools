@@ -1,7 +1,7 @@
 <div class="ui-g ui-fluid">
   <div class="ui-g-12">
     <div class="ui-g-4">
-      <h6 class="first">Name</h6>
+      <div class="caption">Name</div>
       <div class="ui-inputgroup">
         <input type="text" pInputText [(ngModel)]="customMethod.name"/>
       </div>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="ui-g-4">
-      <h6 class="first">Mode</h6>
+      <div class="caption">Mode</div>
       <app-drop-down (OptionChange)="customMethod.mode=$event" [options]="loadModes"
                      [model]="customMethod.mode"></app-drop-down>
     </div>

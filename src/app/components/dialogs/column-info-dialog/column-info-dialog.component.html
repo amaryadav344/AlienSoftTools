@@ -1,18 +1,18 @@
 <div class="ui-g ui-fluid">
   <div class="ui-g-6">
-    <h6 class="first">Name</h6>
+    <div class="caption">Name</div>
     <div class="ui-inputgroup">
       <input type="text" pInputText [(ngModel)]="column.name" [disabled]="true"/>
     </div>
   </div>
   <div class="ui-g-6">
-    <h6 class="first">Object Field</h6>
+    <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
       <input type="text" pInputText [(ngModel)]="column.objectField" [disabled]="true"/>
     </div>
   </div>
   <div class="ui-g-6">
-    <h6 class="first">DataType</h6>
+    <div class="caption">DataType</div>
     <app-drop-down (OptionChange)="column.dataType=$event" [model]="column.dataType" [options]="DataTypes"
                    [disabled]="true"></app-drop-down>
 

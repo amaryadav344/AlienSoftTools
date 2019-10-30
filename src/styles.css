@@ -1,20 +1,35 @@
-body,html{
+body, html {
   height: 100%;
   width: 100%;
   overflow: hidden;
   margin: 0;
-  height: 100%;
-  width: 100%;
+
 }
 
-.inline-block{
-  display: inline-block;
+@font-face {
+  font-family: roboto-bold;
+  src: url(assets/assets/Roboto-Bold.ttf) format("opentype");
 }
-.myGlyphMarginClass {
-  width: 100%;
-  height:100%;
-  background: red;
+
+@font-face {
+  font-family: roboto-regular;
+  src: url(assets/assets/Roboto-Regular.ttf) format("opentype");
 }
-.myContentClass {
-  background: lightblue;
+
+.caption {
+  padding: 0 0 12px 0;
+  font-size: 16px;
+  font-family: roboto-regular, 'arial', sans-serif;
+}
+
+.ui-widget {
+  font-family: roboto-regular, 'arial', sans-serif !important;
+}
+
+body {
+  font-family: roboto-regular, 'arial', sans-serif;;
+}
+
+.ui-tabview-nav li a, .ui-panel-title {
+  font-family: roboto-bold, 'arial', sans-serif;;
 }

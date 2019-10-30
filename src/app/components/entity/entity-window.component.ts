@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DialogService} from 'primeng/api';
-import {EntityService} from '../../services/entity-service/entity.service';
-import {TabChangeServiceService} from '../../services/tab-change/tab-change-service.service';
 import {IEntity} from '../../models/IEntity';
 import {WindowService} from '../../services/window/window.service';
 import {WindowBase} from '../window/window-base/WindowBase';
 import {R} from '../../common/R';
+import {HttpClientService} from '../../services/entity-service/httpclient.service';
 
 
 @Component({
@@ -13,19 +12,19 @@ import {R} from '../../common/R';
   templateUrl: './entity-window.component.html',
   styleUrls: ['./entity-window.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [DialogService, EntityService],
+  providers: [DialogService],
 })
 export class EntityWindowComponent extends WindowBase implements OnInit {
   entity: IEntity = R.Initializer.getEntity();
 
 
-  constructor(public dialogService: DialogService, public entityService: EntityService,
-              public tabChangeService: TabChangeServiceService, public windowService: WindowService) {
+  constructor(public dialogService: DialogService, public httpClientService: HttpClientService,
+              public windowService: WindowService) {
     super();
   }
 
   ngOnInit() {
-    this.entityService.getFile(this.file).subscribe(
+    this.httpClientService.getFile(this.file).subscribe(
       (entity) => {
         this.entity = entity;
         this.checkForUndefined(this.entity);
@@ -36,7 +35,7 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
 
 
   getXML() {
-    this.entityService.getXMLFromJS(this.entity).subscribe(
+    this.httpClientService.getXMLFromJS(this.entity).subscribe(
       xml => {
         this.xml = xml;
         this.isTextView = !this.isTextView;
@@ -47,7 +46,7 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
   }
 
   getJS() {
-    this.entityService.getJSFromXML(this.xml).subscribe(
+    this.httpClientService.getJSFromXML(this.xml).subscribe(
       entity => {
         this.entity = entity;
         this.checkForUndefined(this.entity);
@@ -59,7 +58,7 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
   }
 
   saveXML() {
-    this.entityService.saveXML(this.entity, this.file.path).subscribe(
+    this.httpClientService.saveXML(this.entity, this.file.path).subscribe(
       responce => {
       },
       error => {
@@ -69,7 +68,7 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
 
   tabChanged(e) {
     const index = e.index;
-    this.tabChangeService.tabChanged(index);
+    this.windowService.tabChanged(index);
   }
 
   checkForUndefined(entity: IEntity) {

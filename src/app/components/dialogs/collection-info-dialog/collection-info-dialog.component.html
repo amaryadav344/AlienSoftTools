@@ -1,12 +1,12 @@
 <div class="ui-g ui-fluid">
   <div class="ui-g-6">
-    <h6 class="first">Name</h6>
+    <div class="caption">Name</div>
     <div class="ui-inputgroup">
       <input type="text" pInputText [(ngModel)]="collection.name"/>
     </div>
   </div>
   <div class="ui-g-6">
-    <h6 class="first">Object Field</h6>
+    <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
       <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="collection.objectField"
                       [suggestions]="mFieldSuggestions" (completeMethod)="filterLists($event)"
@@ -14,13 +14,13 @@
     </div>
   </div>
   <div class="ui-g-6">
-    <h6 class="first">Entity</h6>
+    <div class="caption">Entity</div>
     <div class="ui-inputgroup">
       <input type="text" pInputText [disabled]="true" [(ngModel)]="collection.entity"/>
     </div>
   </div>
   <div class="ui-g-6">
-    <h6 class="first">DataType</h6>
+    <div class="caption">DataType</div>
     <app-drop-down [model]="collection.dataType" (OptionChange)="collection.dataType=$event"
                    [options]="CollectionTypes"></app-drop-down>
 

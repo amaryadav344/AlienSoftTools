@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {IFile} from '../../models/IFile';
-import {EntityService} from '../../services/entity-service/entity.service';
 import {WindowService} from '../../services/window/window.service';
 import {WindowItem} from '../../common/window-Item';
 import {R} from '../../common/R';
+import {HttpClientService} from '../../services/entity-service/httpclient.service';
 
 @Component({
   selector: 'app-header',
@@ -18,12 +18,12 @@ export class HeaderComponent implements OnInit {
   windows: WindowItem[];
   selectedWindow: WindowItem = {data: {name: '', type: 0, path: ''}, component: null};
 
-  constructor(public entityService: EntityService, public windowService: WindowService) {
+  constructor(public httpClientService: HttpClientService, public windowService: WindowService) {
   }
 
   ngOnInit() {
     this.windows = this.windowService.windowStore.getWindows();
-    this.entityService.getFiles().subscribe(
+    this.httpClientService.getFiles().subscribe(
       (res) => {
         this.files = res;
       }, (err) => {

@@ -8,7 +8,7 @@ import {IGroup} from '../../../models/IGroup';
 import {IRule} from '../../../models/IRule';
 import {GroupInfoDialogComponent} from '../../dialogs/group-info-dialog/group-info-dialog.component';
 import {ContextMenu} from 'primeng/primeng';
-import {TabChangeServiceService} from '../../../services/tab-change/tab-change-service.service';
+import {WindowService} from '../../../services/window/window.service';
 
 
 @Component({
@@ -39,13 +39,13 @@ export class ValidationTabComponent implements OnInit {
   @ViewChild('cmGroupRule', {static: false}) cmGroupRule: ContextMenu;
   visibleCodeEditor = false;
 
-  constructor(public dialogService: DialogService, public tabChangeService: TabChangeServiceService) {
+  constructor(public dialogService: DialogService, public windowService: WindowService) {
 
   }
 
   ngOnInit() {
     this.initContextMenuItems();
-    this.tabChangeService.TabChange$.subscribe((index) => {
+    this.windowService.TabChange$.subscribe((index) => {
       if (index === 2) {
         this.visibleCodeEditor = true;
       }

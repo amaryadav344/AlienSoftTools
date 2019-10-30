@@ -2,13 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {IEntity} from '../../models/IEntity';
 import {R} from '../../common/R';
-import {IFile} from "../../models/IFile";
-import {IColumn} from "../../models/IColumn";
+import {IFile} from '../../models/IFile';
+import {IColumn} from '../../models/IColumn';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EntityService {
+export class HttpClientService {
 
   constructor(public httpClient: HttpClient) {
   }

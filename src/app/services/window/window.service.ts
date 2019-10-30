@@ -14,6 +14,8 @@ export class WindowService {
   windowStore: WindowStore = WindowStore.getInstance();
   private SyncFiles = new Subject<IFile>();
   SyncFiles$ = this.SyncFiles.asObservable();
+  private TabChange = new Subject<number>();
+  TabChange$ = this.TabChange.asObservable();
 
   constructor() {
   }
@@ -28,5 +30,9 @@ export class WindowService {
 
   syncFiles(file: IFile) {
     this.SyncFiles.next(file);
+  }
+
+  tabChanged(index: number) {
+    this.TabChange.next(index);
   }
 }

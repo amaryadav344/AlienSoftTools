@@ -2,15 +2,13 @@
   <div class="STEP_ENTITY_INFO" *ngIf="currentStep===STEP_ENTITY_INFO">
     <div class="ui-g-12">
       <div class="ui-g-6">
-        <h6 class="first">Name</h6>
+        <div class="caption">Name</div>
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">ent</span>
           <input type="text" pInputText [(ngModel)]="entity.name"/>
-          <button pButton type="button" icon="pi pi-refresh"></button>
         </div>
       </div>
       <div class="ui-g-6">
-        <h6 class="first">Parent Entity</h6>
+        <div class="caption">Parent Entity</div>
         <div class="ui-inputgroup">
           <input type="text" pInputText [(ngModel)]="entity.parentEntity"/>
           <button pButton type="button" icon="pi pi-refresh"></button>
@@ -19,7 +17,7 @@
     </div>
     <div class="ui-g-12">
       <div class="ui-g-6">
-        <h6 class="first">Table Name</h6>
+        <div class="caption">Table Name</div>
         <div class="ui-inputgroup">
           <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
                           [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
@@ -28,22 +26,24 @@
         </div>
       </div>
       <div class="ui-g-6">
-        <h6 class="first">Model</h6>
+        <div class="caption">Model</div>
         <p-checkbox [(ngModel)]="createJavaClass" binary="true" label="Create model"></p-checkbox>
-        <h6 *ngIf="createJavaClass" class="first">Model Name</h6>
-        <div class="ui-inputgroup" *ngIf="createJavaClass">
-          <input type="text" pInputText [(ngModel)]="entity.modelName"/>
-        </div>
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-6">
-        <h6 class="first">Folder</h6>
+        <div class="caption">Folder</div>
         <div class="ui-inputgroup">
           <p-autoComplete appendTo="body" [(ngModel)]="path"
                           [suggestions]="folders" (completeMethod)="getMatchingFolders($event.query)"
                           [size]="30" [minLength]="1" [dropdown]="true"
                           (onDropdownClick)="getMatchingFolders(' ')"></p-autoComplete>
+        </div>
+      </div>
+      <div class="ui-g-6" *ngIf="createJavaClass">
+        <div class="caption">Model Name</div>
+        <div class="ui-inputgroup">
+          <input type="text" pInputText [(ngModel)]="entity.modelName"/>
         </div>
       </div>
     </div>
