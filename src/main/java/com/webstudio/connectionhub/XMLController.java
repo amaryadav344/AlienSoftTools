@@ -119,9 +119,9 @@ public class XMLController {
     }
 
     private void createModel(String path, IEntity entity) throws IOException {
-        String cdoClassName = "cdo" + entity.getModelName();
-        String doClassName = "do" + entity.getModelName();
-        String modelClassName = entity.getModelName();
+        String cdoClassName = "cdo" + entity.getName();
+        String doClassName = "do" + entity.getName();
+        String modelClassName = entity.getName();
         String PackageName = systemSettingsService.getPackageName() + "." + path.replace("/", ".");
         TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(modelClassName);
         TypeSpec.Builder cdoClassBuilder = TypeSpec.classBuilder(cdoClassName);
@@ -196,10 +196,11 @@ public class XMLController {
 
     @RequestMapping(value = "/xml/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String[]> getSymbols(@RequestBody IFile file, @RequestParam("model_name") String ModelName, @RequestParam(name = "query", required = false) String query) {
+        String ClassPath = systemSettingsService.getPackageName() + "." + file.getPath().replace(".ent.xml", "").replace("\\", ".");
         JarLauncher launcher = new JarLauncher(systemSettingsService.getBinPath() + "/BusinessObjects.jar");
         launcher.buildModel();
         Factory factory = launcher.getFactory();
-        CtTypeReference<?> type = factory.Type().get("com.business.business.Person.Person").getReference();
+        CtTypeReference<?> type = factory.Type().get(ClassPath).getReference();
         String[] symobols = query.split("\\.");
         CtTypeReference<?> LastType = type;
         String lastQuery = "";
@@ -221,7 +222,7 @@ public class XMLController {
         Collection<CtFieldReference<?>> fieldReferences = type.getAllFields();
         for (CtFieldReference<?> fieldReference : fieldReferences) {
             if (fieldReference.getSimpleName().toLowerCase().contains(query.toLowerCase())) {
-                symbols.add(FullName + "." + fieldReference.getSimpleName());
+                symbols.add(fieldReference.getSimpleName());
             }
 
         }

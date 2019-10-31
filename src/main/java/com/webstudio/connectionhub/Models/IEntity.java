@@ -7,15 +7,13 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JsonPropertyOrder({"columns", "objects", "collections", "queries", "validation", "businessObject"})
 @JacksonXmlRootElement(localName = "entity")
-public class IEntity {
+public class IEntity extends IBase {
     @JacksonXmlProperty(isAttribute = true)
     String name;
     @JacksonXmlProperty(isAttribute = true)
     String parentEntity;
     @JacksonXmlProperty(isAttribute = true)
     String tableName;
-    @JacksonXmlProperty(isAttribute = true)
-    String modelName;
     @JacksonXmlElementWrapper(localName = "columns")
     @JacksonXmlProperty(localName = "column")
     IColumn[] columns;
@@ -119,12 +117,6 @@ public class IEntity {
         this.tableName = tableName;
     }
 
-    public String getModelName() {
-        return modelName;
-    }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
 
 }
