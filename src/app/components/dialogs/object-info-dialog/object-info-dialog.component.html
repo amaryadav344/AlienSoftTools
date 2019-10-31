@@ -9,7 +9,7 @@
     <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
       <p-autoComplete appendTo="body" #auto
-                      [suggestions]="mFieldSuggestions" (completeMethod)="filterCountrySingle($event)"
+                      [suggestions]="mFieldSuggestions" (completeMethod)="filterSymbols($event)"
                       (onSelect)="onObjectFieldSelected($event)"
                       [size]="30" [minLength]="1"></p-autoComplete>
     </div>

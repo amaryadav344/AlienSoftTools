@@ -4,7 +4,7 @@
       <div class="ui-g-6">
         <div class="caption">Name</div>
         <div class="ui-inputgroup">
-          <input type="text" pInputText [(ngModel)]="entity.name"/>
+          <input type="text" pInputText [(ngModel)]="entity.name" (ngModelChange)="modelName=entity.name"/>
         </div>
       </div>
       <div class="ui-g-6">
@@ -20,6 +20,7 @@
         <div class="caption">Table Name</div>
         <div class="ui-inputgroup">
           <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
+                          (ngModelChange)="entity.name=entity.tableName;modelName=entity.name"
                           [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
                           [size]="30" [minLength]="1" [dropdown]="true"
                           (onDropdownClick)="getMatchingTableNames(' ')"></p-autoComplete>
@@ -43,7 +44,7 @@
       <div class="ui-g-6" *ngIf="createJavaClass">
         <div class="caption">Model Name</div>
         <div class="ui-inputgroup">
-          <input type="text" pInputText [(ngModel)]="entity.modelName"/>
+          <input type="text" pInputText [(ngModel)]="modelName" [disabled]="true"/>
         </div>
       </div>
     </div>

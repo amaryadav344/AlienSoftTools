@@ -21,6 +21,7 @@ export class NewEntityDialogComponent implements OnInit {
   folders: string[] = [];
   tables: string[] = [];
   path: string;
+  modelName: string;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public httpClientService: HttpClientService) {
   }
@@ -53,7 +54,11 @@ export class NewEntityDialogComponent implements OnInit {
   OnWizFinish() {
     this.httpClientService.createNewXml(this.entity, this.path, this.createJavaClass).subscribe(
       (res) => {
-        this.ref.close({path: this.path + '/' + this.entity.name + '.ent.xml', name: this.entity.name, type: 0});
+        this.ref.close({
+          path: this.path + '/' + this.entity.name + '.ent.xml',
+          name: this.entity.name + '.ent.xml',
+          type: 0
+        });
       }, (err) => {
         console.log(err);
       }

@@ -36,7 +36,7 @@ export class ObjectInfoDialogComponent implements OnInit {
 
   }
 
-  filterCountrySingle(event) {
+  filterSymbols(event) {
     this.prevalue = event.query;
     this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, 'Person', event.query).subscribe(
       (res) => {
@@ -48,7 +48,9 @@ export class ObjectInfoDialogComponent implements OnInit {
   }
 
   onObjectFieldSelected(event) {
-    const value = this.a.value.substr(0, this.a.value.lastIndexOf('\.'));
+    const PreText = this.prevalue.substr(0, this.prevalue.lastIndexOf('\.') + 1);
+    this.a.writeValue(PreText + event);
+    this.object.objectField = PreText + event;
   }
 
 

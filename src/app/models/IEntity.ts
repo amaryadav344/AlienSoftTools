@@ -10,7 +10,6 @@ export interface IEntity extends IBase {
   name: string;
   parentEntity: string;
   tableName: string;
-  modelName: string;
   columns: IColumn[];
   objects: IObject[];
   collections: ICollection[];
