@@ -12,10 +12,13 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class IEntity extends IXMLBase {
     @JacksonXmlProperty(isAttribute = true)
     String name;
-
     String type;
     @JacksonXmlProperty(isAttribute = true)
     String parentEntity;
+    @JacksonXmlProperty(isAttribute = true)
+    String modelName;
+    @JacksonXmlProperty(isAttribute = true)
+    String databaseObjectField;
     @JacksonXmlProperty(isAttribute = true)
     String tableName;
     @JacksonXmlElementWrapper(localName = "columns")
@@ -127,5 +130,21 @@ public class IEntity extends IXMLBase {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getDatabaseObjectField() {
+        return databaseObjectField;
+    }
+
+    public void setDatabaseObjectField(String databaseObjectField) {
+        this.databaseObjectField = databaseObjectField;
     }
 }

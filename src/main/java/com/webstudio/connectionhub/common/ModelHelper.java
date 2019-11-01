@@ -12,9 +12,9 @@ import java.util.Date;
 
 public class ModelHelper {
     public static void createModel(String path, IEntity entity, String PackageName, String BSModelPath) throws IOException {
-        String cdoClassName = "cdo" + entity.getName();
-        String doClassName = "do" + entity.getName();
-        String modelClassName = entity.getName();
+        String cdoClassName = "cdo" + entity.getModelName();
+        String doClassName = "do" + entity.getModelName();
+        String modelClassName = entity.getModelName();
         ModelBuilder modelBuilder = new ModelBuilder(modelClassName)
                 .setPackageName(PackageName)
                 .setModifier(Modifier.PUBLIC);

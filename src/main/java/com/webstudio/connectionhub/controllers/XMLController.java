@@ -99,14 +99,16 @@ public class XMLController {
 
 
     @RequestMapping(value = "/xml/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String[]> getSymbols(@RequestBody IFile file, @RequestParam("model_name") String ModelName, @RequestParam(name = "query", required = false) String query) {
-        String ClassPath = systemSettingsService.getPackageName() + "." + file.getPath().replace(".ent.xml", "").replace("\\", ".");
+    public ResponseEntity<String[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(systemSettingsService.getXmlBasePath() + file.getPath());
+        IEntity value = (IEntity) xmlWorker.getXMLObjectFromString(xmlString);
+        String ClassPath = systemSettingsService.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
         List<String> symbols = symbolProvider.getMatchingSymbols(ClassPath, query);
         return new ResponseEntity<>(symbols.toArray(new String[symbols.size()]), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IFile[]> GetFiles() throws IOException {
+    public ResponseEntity<IFile[]> GetFiles() {
         List<IFile> files = FileHelper.ListAllFiles(systemSettingsService.getXmlBasePath(), systemSettingsService.getXmlBasePath());
         return new ResponseEntity<>(files.toArray(new IFile[files.size()]), HttpStatus.OK);
     }
