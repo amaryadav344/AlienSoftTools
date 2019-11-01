@@ -23,7 +23,7 @@
                           (ngModelChange)="entity.name=entity.tableName;modelName=entity.name"
                           [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
                           [size]="30" [minLength]="1" [dropdown]="true"
-                          (onDropdownClick)="getMatchingTableNames(' ')"></p-autoComplete>
+                          (onDropdownClick)="getMatchingTableNames('')"></p-autoComplete>
         </div>
       </div>
       <div class="ui-g-6">
@@ -38,7 +38,7 @@
           <p-autoComplete appendTo="body" [(ngModel)]="path"
                           [suggestions]="folders" (completeMethod)="getMatchingFolders($event.query)"
                           [size]="30" [minLength]="1" [dropdown]="true"
-                          (onDropdownClick)="getMatchingFolders(' ')"></p-autoComplete>
+                          (onDropdownClick)="getMatchingFolders('')"></p-autoComplete>
         </div>
       </div>
       <div class="ui-g-6" *ngIf="createJavaClass">

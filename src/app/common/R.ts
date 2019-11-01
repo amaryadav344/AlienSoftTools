@@ -77,7 +77,7 @@ export class R {
 
     static getEntity(): IEntity {
       return {
-        name: '', parentEntity: '', tableName: '', validation: {
+        name: '', type: 'entity', parentEntity: '', tableName: '', validation: {
           rules: [], groupRules: [], hardErrors: [], softErrors: [], initialLoad: [], updateRules: [], deleteRules: []
         },
         queries: [], collections: [], objects: [], columns: [], businessObject: {customMethods: [], objectMethods: []}

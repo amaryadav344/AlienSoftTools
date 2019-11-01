@@ -26,7 +26,7 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
   ngOnInit() {
     this.httpClientService.getFile(this.file).subscribe(
       (entity) => {
-        this.entity = entity;
+        this.entity = entity as IEntity;
         this.checkForUndefined(this.entity);
       }, (error) => {
         console.log(error);
@@ -48,7 +48,7 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
   getJS() {
     this.httpClientService.getJSFromXML(this.xml).subscribe(
       entity => {
-        this.entity = entity;
+        this.entity = entity as IEntity;
         this.checkForUndefined(this.entity);
         this.isTextView = !this.isTextView;
       },

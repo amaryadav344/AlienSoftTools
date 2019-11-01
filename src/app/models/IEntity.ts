@@ -4,10 +4,11 @@ import {ICollection} from './ICollection';
 import {IQuery} from './IQuery';
 import {IValidation} from './IValidation';
 import {IBusinessObject} from './IBusinessObject';
-import {IBase} from './IBase';
+import {IXMLBase} from './IXMLBase';
 
-export interface IEntity extends IBase {
+export interface IEntity extends IXMLBase {
   name: string;
+  type: string;
   parentEntity: string;
   tableName: string;
   columns: IColumn[];
