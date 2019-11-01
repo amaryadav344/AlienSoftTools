@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class TableRepository {
@@ -16,7 +15,7 @@ public class TableRepository {
 
     public List<String> getAllTables(String query) {
         List<String> tables;
-        if (Objects.equals(query, " ")) {
+        if (query.isEmpty()) {
             tables = entityManager.createNativeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES").getResultList();
         } else {
             tables = entityManager.createNativeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE lower(TABLE_NAME) LIKE lower(?1)")

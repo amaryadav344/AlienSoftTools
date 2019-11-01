@@ -1,5 +1,6 @@
 package com.webstudio.connectionhub.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -7,9 +8,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JsonPropertyOrder({"columns", "objects", "collections", "queries", "validation", "businessObject"})
 @JacksonXmlRootElement(localName = "entity")
+@JsonIgnoreProperties({"type"})
 public class IEntity extends IXMLBase {
     @JacksonXmlProperty(isAttribute = true)
     String name;
+
+    String type;
     @JacksonXmlProperty(isAttribute = true)
     String parentEntity;
     @JacksonXmlProperty(isAttribute = true)
@@ -117,6 +121,11 @@ public class IEntity extends IXMLBase {
         this.tableName = tableName;
     }
 
+    public String getType() {
+        return type;
+    }
 
-
+    public void setType(String type) {
+        this.type = type;
+    }
 }

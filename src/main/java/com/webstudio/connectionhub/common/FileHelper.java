@@ -6,7 +6,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class FileHelper {
     public static void WriteFile(String PathToFile, String Value) throws IOException {
@@ -50,7 +49,7 @@ public class FileHelper {
             boolean isFolder = current.isDirectory();
             if (isFolder) {
                 ListFD(current.getAbsolutePath(), folders, current.getName() + "/", query);
-                if (current.getAbsolutePath().toLowerCase().contains(query.toLowerCase()) || Objects.equals(query, " ")) {
+                if (current.getAbsolutePath().toLowerCase().contains(query.toLowerCase()) || query.isEmpty()) {
                     folders.add(prefix + current.getName());
                 }
             }

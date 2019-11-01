@@ -3,7 +3,6 @@ package com.webstudio.connectionhub.common;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.webstudio.connectionhub.models.IEntity;
 import com.webstudio.connectionhub.models.IXMLBase;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class XMLWorker {
     }
 
     public IXMLBase getXMLObjectFromString(String xml) throws IOException {
-        return xmlMapper.readValue(xml, IEntity.class);
+        return xmlMapper.readValue(xml, IXMLBase.class);
     }
 
 
