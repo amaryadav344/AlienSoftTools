@@ -18,7 +18,7 @@ export class ObjectInfoDialogComponent implements OnInit {
   mode: number;
   prevalue = '';
   @ViewChild('auto', {static: false})
-  a: AutoComplete;
+  ObjectFieldAutoC: AutoComplete;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
               public httpClientService: HttpClientService, public windowService: WindowService) {
@@ -38,7 +38,7 @@ export class ObjectInfoDialogComponent implements OnInit {
 
   filterSymbols(event) {
     this.prevalue = event.query;
-    this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, 'Person', event.query).subscribe(
+    this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, event.query).subscribe(
       (res) => {
         this.mFieldSuggestions = res;
       }, (err) => {
@@ -49,7 +49,7 @@ export class ObjectInfoDialogComponent implements OnInit {
 
   onObjectFieldSelected(event) {
     const PreText = this.prevalue.substr(0, this.prevalue.lastIndexOf('\.') + 1);
-    this.a.writeValue(PreText + event);
+    this.ObjectFieldAutoC.writeValue(PreText + event);
     this.object.objectField = PreText + event;
   }
 

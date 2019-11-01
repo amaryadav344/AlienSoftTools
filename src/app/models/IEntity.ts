@@ -9,6 +9,8 @@ import {IXMLBase} from './IXMLBase';
 export interface IEntity extends IXMLBase {
   name: string;
   type: string;
+  modelName: string;
+  databaseObjectField: string;
   parentEntity: string;
   tableName: string;
   columns: IColumn[];

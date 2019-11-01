@@ -1,30 +1,18 @@
 <div class="ui-g ui-fluid">
   <div class="ui-g-12">
     <div class="ui-g-6">
-      <div class="caption">Name</div>
-      <div class="ui-inputgroup">
-        <input type="text" pInputText [(ngModel)]="entity.name" [disabled]="true"/>
-      </div>
-    </div>
-    <div class="ui-g-6">
-      <div class="caption">Parent Entity</div>
-      <div class="ui-inputgroup">
-        <p-autoComplete appendTo="body" [(ngModel)]="entity.parentEntity" [dropdown]="true"
-                        (onDropdownClick)="getMatchingTableNames(' ')"></p-autoComplete>
-      </div>
-    </div>
-  </div>
-  <div class="ui-g-12">
-    <div class="ui-g-6">
       <div class="caption">Table Name</div>
       <div class="ui-inputgroup">
-        <input type="text" pInputText [(ngModel)]="entity.tableName" [disabled]="true"/>
+        <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
+                        [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingTableNames('')"></p-autoComplete>
       </div>
     </div>
     <div class="ui-g-6">
-      <div class="caption">Model</div>
+      <div class="caption">Entity Name</div>
       <div class="ui-inputgroup">
-        <input type="text" pInputText [(ngModel)]="entity.modelName" [disabled]="true"/>
+        <input type="text" pInputText [(ngModel)]="entity.name"/>
       </div>
     </div>
   </div>
@@ -33,6 +21,27 @@
       <div class="caption">Path</div>
       <div class="ui-inputgroup">
         <input type="text" pInputText [(ngModel)]="file.path" [disabled]="true"/>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="caption">Parent Entity</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.parentEntity"/>
+        <button pButton type="button" icon="pi pi-refresh"></button>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <div class="caption">Model Name</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.modelName"/>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="caption">Database Object Field</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.databaseObjectField" [disabled]/>
       </div>
     </div>
   </div>

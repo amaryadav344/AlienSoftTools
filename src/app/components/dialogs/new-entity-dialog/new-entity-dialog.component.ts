@@ -21,7 +21,6 @@ export class NewEntityDialogComponent implements OnInit {
   folders: string[] = [];
   tables: string[] = [];
   path: string;
-  modelName: string;
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public httpClientService: HttpClientService) {
   }
@@ -30,6 +29,7 @@ export class NewEntityDialogComponent implements OnInit {
   }
 
   OpenNextStep() {
+    this.entity.databaseObjectField = 'icdo' + this.entity.modelName;
     this.httpClientService.getColumns(this.entity.tableName).subscribe(
       (columns) => {
         this.entity.columns = columns;
