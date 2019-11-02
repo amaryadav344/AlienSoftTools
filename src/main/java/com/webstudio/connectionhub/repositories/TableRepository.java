@@ -1,12 +1,16 @@
 package com.webstudio.connectionhub.repositories;
 
 import com.webstudio.connectionhub.models.IColumn;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TableRepository {
@@ -52,6 +56,17 @@ public class TableRepository {
         }
         return columns;
 
+    }
+
+    public String getConnectionString() {
+        Session session = entityManager.unwrap(Session.class);
+        SessionFactory sessionFactory = session.getSessionFactory();
+        SessionFactoryImpl sessionFactoryImpl = (SessionFactoryImpl) sessionFactory;
+        Map<String, Object> props = sessionFactoryImpl.getProperties();
+        String url = props.get("spring.datasource.url").toString();
+        String[] urlArray = url.split(":");
+        String db_name = urlArray[urlArray.length - 1];
+        return db_name;
     }
 
     public String getDataTypeFromDBDataType(String DBDataType) {

@@ -5,10 +5,8 @@ import com.webstudio.connectionhub.common.FileHelper;
 import com.webstudio.connectionhub.common.ModelHelper;
 import com.webstudio.connectionhub.common.SymbolProvider;
 import com.webstudio.connectionhub.common.XMLWorker;
-import com.webstudio.connectionhub.models.IColumn;
-import com.webstudio.connectionhub.models.IEntity;
-import com.webstudio.connectionhub.models.IFile;
-import com.webstudio.connectionhub.models.IXMLBase;
+import com.webstudio.connectionhub.models.*;
+import com.webstudio.connectionhub.repositories.AppConfigRepository;
 import com.webstudio.connectionhub.repositories.TableRepository;
 import com.webstudio.connectionhub.services.SystemSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +109,15 @@ public class XMLController {
     public ResponseEntity<IFile[]> GetFiles() {
         List<IFile> files = FileHelper.ListAllFiles(systemSettingsService.getXmlBasePath(), systemSettingsService.getXmlBasePath());
         return new ResponseEntity<>(files.toArray(new IFile[files.size()]), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/xml/GetDBConnectionInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<IDBConnectionInfo> GetDBConnection() throws IOException {
+        AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
+        IDBConnectionInfo idbConnectionInfo = new IDBConnectionInfo();
+        idbConnectionInfo.setDBUrl(appConfigRepository.getAppConfig("databaseurl"));
+        idbConnectionInfo.setDBUserName(appConfigRepository.getAppConfig("databaseusername"));
+        return new ResponseEntity<>(idbConnectionInfo, HttpStatus.OK);
     }
 
     @PostConstruct
