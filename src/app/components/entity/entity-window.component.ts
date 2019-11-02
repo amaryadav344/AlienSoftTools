@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {DialogService} from 'primeng/api';
+import {DialogService, MessageService} from 'primeng/api';
 import {IEntity} from '../../models/IEntity';
 import {WindowService} from '../../services/window/window.service';
 import {WindowBase} from '../window/window-base/WindowBase';
@@ -12,14 +12,13 @@ import {HttpClientService} from '../../services/entity-service/httpclient.servic
   templateUrl: './entity-window.component.html',
   styleUrls: ['./entity-window.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [DialogService],
 })
 export class EntityWindowComponent extends WindowBase implements OnInit {
   entity: IEntity = R.Initializer.getEntity();
 
 
   constructor(public dialogService: DialogService, public httpClientService: HttpClientService,
-              public windowService: WindowService) {
+              public windowService: WindowService, public messageService: MessageService) {
     super();
   }
 
@@ -60,6 +59,7 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
   saveXML() {
     this.httpClientService.saveXML(this.entity, this.file.path).subscribe(
       responce => {
+        this.messageService.add({severity: 'success', summary: 'Save', detail: 'Saved File ' + this.file.name});
       },
       error => {
         console.log(error);

@@ -50,9 +50,10 @@ export class WindowComponent implements OnInit, AfterViewInit {
     const viewContainerRef = this.contentHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    const window = new WindowItem(componentRef, {name: 'Home', path: '', type: 0});
+    const window = new WindowItem(componentRef, {name: 'Home', path: 'Home', type: 0});
     this.windowService.windowStore.getWindows().push(window);
     this.windowService.windowStore.setCurrentWindow(window);
+    this.windowService.WindowChanged(window);
   }
 
   openWindow(file: IFile) {
@@ -65,6 +66,7 @@ export class WindowComponent implements OnInit, AfterViewInit {
         const windowBaseResult = result.component.instance as WindowBase;
         windowBaseResult.hidden = true;
         this.windowService.windowStore.setCurrentWindow(result);
+        this.windowService.WindowChanged(result);
       } else {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntityWindowComponent);
         const componentRef = viewContainerRef.createComponent(componentFactory);
@@ -72,6 +74,7 @@ export class WindowComponent implements OnInit, AfterViewInit {
         const window = new WindowItem(componentRef, file);
         this.windowService.windowStore.addWindow(window);
         this.windowService.windowStore.setCurrentWindow(window);
+        this.windowService.WindowChanged(window);
       }
     }
 

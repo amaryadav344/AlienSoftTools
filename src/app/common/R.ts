@@ -9,6 +9,8 @@ import {IObjectMethod} from '../models/IObjectMethod';
 import {IQuery} from '../models/IQuery';
 import {IVRule} from '../models/IVRule';
 import {IFile} from '../models/IFile';
+import {IDBConnectionInfo} from "../models/IDBConnectionInfo";
+import {WindowItem} from "./window-Item";
 
 export class R {
 
@@ -56,6 +58,7 @@ export class R {
     static CREATE_NEW_XML = 'http://localhost:8080/xml/CreateNewXml/';
     static GET_FILES = 'http://localhost:8080/xml/GetFiles';
     static GET_SYMBOLS = 'http://localhost:8080/xml/getSymbols';
+    static GET_DB_CONNECTION_INFO = 'http://localhost:8080/xml/GetDBConnectionInfo';
   };
 
   static Initializer = class {
@@ -106,6 +109,14 @@ export class R {
 
     static getFile(): IFile {
       return {name: '', type: 0, path: ''};
+    }
+
+    static getDBConnectionInfo(): IDBConnectionInfo {
+      return {DBUrl: '', DBUserName: ''};
+    }
+
+    static getWindowItem(): WindowItem {
+      return {component: null, data: R.Initializer.getFile()};
     }
   };
 }

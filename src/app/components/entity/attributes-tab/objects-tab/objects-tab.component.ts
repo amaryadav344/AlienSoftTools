@@ -8,7 +8,6 @@ import {R} from '../../../../common/R';
   selector: 'app-objects-tab',
   templateUrl: './objects-tab.component.html',
   styleUrls: ['./objects-tab.component.css'],
-  providers: [DialogService],
 })
 export class ObjectsTabComponent implements OnInit {
   @Input() objects: IObject[];

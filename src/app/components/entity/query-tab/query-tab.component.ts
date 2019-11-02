@@ -9,8 +9,7 @@ import {WindowService} from '../../../services/window/window.service';
 @Component({
   selector: 'app-query-tab',
   templateUrl: './query-tab.component.html',
-  styleUrls: ['./query-tab.component.css'],
-  providers: [DialogService]
+  styleUrls: ['./query-tab.component.css']
 })
 export class QueryTabComponent implements OnInit {
   @Input() queries: IQuery[] = [];

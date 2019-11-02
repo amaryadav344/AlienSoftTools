@@ -4,6 +4,7 @@ import {R} from '../../common/R';
 import {IFile} from '../../models/IFile';
 import {IColumn} from '../../models/IColumn';
 import {IXMLBase} from '../../models/IXMLBase';
+import {IDBConnectionInfo} from '../../models/IDBConnectionInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class HttpClientService {
   public saveXML(entity: IXMLBase, Path: string) {
     let params = new HttpParams();
     params = params.append('path', Path);
-    return this.httpClient.post(R.SERVER_URLS.SAVE_XML, entity, {params, responseType: 'json'});
+    return this.httpClient.post(R.SERVER_URLS.SAVE_XML, entity, {params, responseType: 'text'});
   }
 
   public getFile(file: IFile) {
@@ -52,6 +53,10 @@ export class HttpClientService {
 
   public getFiles() {
     return this.httpClient.post<IFile[]>(R.SERVER_URLS.GET_FILES, ' ', {responseType: 'json'});
+  }
+
+  public getDBConnectionInfo() {
+    return this.httpClient.post<IDBConnectionInfo>(R.SERVER_URLS.GET_DB_CONNECTION_INFO, ' ', {responseType: 'json'});
   }
 
   public getSymbols(file: IFile, query: string) {

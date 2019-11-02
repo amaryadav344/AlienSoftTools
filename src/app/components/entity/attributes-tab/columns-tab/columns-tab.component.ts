@@ -7,7 +7,6 @@ import {DialogService, DynamicDialogConfig} from 'primeng/api';
   selector: 'app-columns-tab',
   templateUrl: './columns-tab.component.html',
   styleUrls: ['./columns-tab.component.css'],
-  providers: [DialogService],
 })
 export class ColumnsTabComponent implements OnInit {
   @Input() columns: IColumn[];

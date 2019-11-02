@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/index';
 import {IFile} from '../../models/IFile';
 import {WindowStore} from '../../common/WindowStore';
+import {WindowItem} from "../../common/window-Item";
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,18 @@ export class WindowService {
   SyncFiles$ = this.SyncFiles.asObservable();
   private TabChange = new Subject<number>();
   TabChange$ = this.TabChange.asObservable();
+  private WindowChange = new Subject<WindowItem>();
+  WindowChange$ = this.WindowChange.asObservable();
 
   constructor() {
   }
 
   Openwindow(file: IFile) {
     this.OpenWindow.next(file);
+  }
+
+  WindowChanged(windowItem: WindowItem) {
+    this.WindowChange.next(windowItem);
   }
 
   closeWindow(file: IFile) {

@@ -8,7 +8,6 @@ import {R} from '../../../../common/R';
   selector: 'app-collections-tab',
   templateUrl: './collections-tab.component.html',
   styleUrls: ['./collections-tab.component.css'],
-  providers: [DialogService],
 })
 export class CollectionsTabComponent implements OnInit {
   @Input() collections: ICollection[];

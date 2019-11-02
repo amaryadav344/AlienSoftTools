@@ -12,6 +12,7 @@ import {EntityWindowComponent} from './components/entity/entity-window.component
 import {TabModule} from 'angular-tabs-component';
 import {
   AutoCompleteModule,
+  BreadcrumbModule,
   CheckboxModule,
   ConfirmDialogModule,
   ContextMenuModule,
@@ -68,6 +69,7 @@ import {HomeWindowComponent} from './components/home-window/home-window.componen
 import {ContentDirective} from './directives/content.directive';
 import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/new-entity-dialog.component';
 import {EntityInfoDialogComponent} from './components/dialogs/entity-info-dialog/entity-info-dialog.component';
+import {ToastModule} from "primeng/toast";
 
 
 @NgModule({
@@ -139,7 +141,9 @@ import {EntityInfoDialogComponent} from './components/dialogs/entity-info-dialog
     ToolbarModule,
     TabMenuModule,
     OverlayPanelModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ToastModule,
+    BreadcrumbModule
   ],
   providers: [],
   bootstrap: [AppComponent],
