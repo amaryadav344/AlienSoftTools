@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IColumn} from '../../../models/IColumn';
-import {IObject} from '../../../models/IObject';
-import {ICollection} from '../../../models/ICollection';
+import {IColumn} from '../../../models/Enitity/IColumn';
+import {IObject} from '../../../models/Enitity/IObject';
+import {ICollection} from '../../../models/Enitity/ICollection';
 
 @Component({
   selector: 'app-attributes-tab',

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
-import {IVRule} from '../../../models/IVRule';
+import {IVRule} from '../../../models/Enitity/IVRule';
 
 @Component({
   selector: 'app-rule-info-dialog',

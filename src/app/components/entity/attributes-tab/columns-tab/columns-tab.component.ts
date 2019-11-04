@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IColumn} from '../../../../models/IColumn';
+import {IColumn} from '../../../../models/Enitity/IColumn';
 import {ColumnInfoDialogComponent} from '../../../dialogs/column-info-dialog/column-info-dialog.component';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 

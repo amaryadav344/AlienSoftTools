@@ -33,3 +33,8 @@ body {
 .ui-tabview-nav li a, .ui-panel-title {
   font-family: roboto-bold, 'arial', sans-serif;;
 }
+
+.window-content {
+  height: 100%;
+}
+

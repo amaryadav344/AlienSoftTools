@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {IBusinessObject} from '../../../models/IBusinessObject';
-import {ICustomMethod} from '../../../models/ICustomMethod';
+import {IBusinessObject} from '../../../models/Enitity/IBusinessObject';
+import {ICustomMethod} from '../../../models/Enitity/ICustomMethod';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {R} from '../../../common/R';
 import {CustomMethodInfoDialogComponent} from '../../dialogs/custom-method-info-dialog/custom-method-info-dialog.component';
-import {IObjectMethod} from '../../../models/IObjectMethod';
+import {IObjectMethod} from '../../../models/Enitity/IObjectMethod';
 import {ObjectMethodInfoDialogComponent} from '../../dialogs/object-method-info-dialog/object-method-info-dialog.component';
 
 @Component({

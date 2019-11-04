@@ -1,11 +1,11 @@
 import {Component, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {IValidation} from '../../../models/IValidation';
-import {IVRule} from '../../../models/IVRule';
+import {IValidation} from '../../../models/Enitity/IValidation';
+import {IVRule} from '../../../models/Enitity/IVRule';
 import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
 import {RuleInfoDialogComponent} from '../../dialogs/rule-info-dialog/rule-info-dialog.component';
 import {R} from '../../../common/R';
-import {IGroup} from '../../../models/IGroup';
-import {IRule} from '../../../models/IRule';
+import {IGroup} from '../../../models/Enitity/IGroup';
+import {IRule} from '../../../models/Enitity/IRule';
 import {GroupInfoDialogComponent} from '../../dialogs/group-info-dialog/group-info-dialog.component';
 import {ContextMenu} from 'primeng/primeng';
 import {WindowService} from '../../../services/window/window.service';

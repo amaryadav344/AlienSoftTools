@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
-import {IGroup} from '../../../models/IGroup';
+import {IGroup} from '../../../models/Enitity/IGroup';
 
 @Component({
   selector: 'app-group-info-dialog',

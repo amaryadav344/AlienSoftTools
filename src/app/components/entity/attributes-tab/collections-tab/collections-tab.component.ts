@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
-import {ICollection} from '../../../../models/ICollection';
+import {ICollection} from '../../../../models/Enitity/ICollection';
 import {CollectionInfoDialogComponent} from '../../../dialogs/collection-info-dialog/collection-info-dialog.component';
 import {R} from '../../../../common/R';
 

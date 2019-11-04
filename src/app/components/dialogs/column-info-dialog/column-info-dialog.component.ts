@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
-import {IColumn} from '../../../models/IColumn';
+import {IColumn} from '../../../models/Enitity/IColumn';
 import {R} from '../../../common/R';
 
 @Component({

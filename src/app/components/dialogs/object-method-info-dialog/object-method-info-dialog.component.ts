@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IObjectMethod} from '../../../models/IObjectMethod';
+import {IObjectMethod} from '../../../models/Enitity/IObjectMethod';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
 

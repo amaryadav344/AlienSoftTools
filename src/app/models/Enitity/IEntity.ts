@@ -4,7 +4,7 @@ import {ICollection} from './ICollection';
 import {IQuery} from './IQuery';
 import {IValidation} from './IValidation';
 import {IBusinessObject} from './IBusinessObject';
-import {IXMLBase} from './IXMLBase';
+import {IXMLBase} from '../IXMLBase';
 
 export interface IEntity extends IXMLBase {
   name: string;

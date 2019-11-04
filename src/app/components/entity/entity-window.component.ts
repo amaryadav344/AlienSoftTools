@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DialogService, MessageService} from 'primeng/api';
-import {IEntity} from '../../models/IEntity';
+import {IEntity} from '../../models/Enitity/IEntity';
 import {WindowService} from '../../services/window/window.service';
 import {WindowBase} from '../window/window-base/WindowBase';
 import {R} from '../../common/R';

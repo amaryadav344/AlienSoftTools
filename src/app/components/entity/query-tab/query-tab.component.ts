@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IQuery} from '../../../models/IQuery';
+import {IQuery} from '../../../models/Enitity/IQuery';
 import {R} from '../../../common/R';
 import {DialogService, DynamicDialogConfig, MenuItem} from 'primeng/api';
 import {QueryInfoDialogComponent} from '../../dialogs/query-info-diaglog/query-info-dialog.component';
-import {IParameter} from '../../../models/IParameter';
+import {IParameter} from '../../../models/Enitity/IParameter';
 import {WindowService} from '../../../services/window/window.service';
 
 @Component({

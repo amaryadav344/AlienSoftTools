@@ -1,4 +1,4 @@
-import {IFile} from '../../../models/IFile';
+import {IFile} from '../../../models/Enitity/IFile';
 
 export class WindowBase {
   hidden = true;

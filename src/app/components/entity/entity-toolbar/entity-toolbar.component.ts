@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IEntity} from '../../../models/IEntity';
+import {IEntity} from '../../../models/Enitity/IEntity';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {EntityInfoDialogComponent} from '../../dialogs/entity-info-dialog/entity-info-dialog.component';
 

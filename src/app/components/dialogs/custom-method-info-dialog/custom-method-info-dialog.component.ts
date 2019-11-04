@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
-import {ICustomMethod} from '../../../models/ICustomMethod';
-import {ILoadMapping} from '../../../models/ILoadMapping';
-import {ILoadParameter} from '../../../models/ILoadParameter';
+import {ICustomMethod} from '../../../models/Enitity/ICustomMethod';
+import {ILoadMapping} from '../../../models/Enitity/ILoadMapping';
+import {ILoadParameter} from '../../../models/Enitity/ILoadParameter';
 import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load-paramter-info-dialog.component';
 
 @Component({

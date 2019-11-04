@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ILoadParameter} from '../../../models/ILoadParameter';
+import {ILoadParameter} from '../../../models/Enitity/ILoadParameter';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 
 @Component({

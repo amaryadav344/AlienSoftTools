@@ -5,7 +5,7 @@ import {NewEntityDialogComponent} from '../dialogs/new-entity-dialog/new-entity-
 import {HttpClientService} from '../../services/entity-service/httpclient.service';
 import {WindowService} from '../../services/window/window.service';
 import {WindowBase} from '../window/window-base/WindowBase';
-import {IFile} from '../../models/IFile';
+import {IFile} from '../../models/Enitity/IFile';
 
 @Component({
   selector: 'app-home-window',

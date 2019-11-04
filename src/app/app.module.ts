@@ -3,8 +3,6 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {MainAppComponent} from './components/main-app/main-app.component';
-import {SideBarComponent} from './components/side-bar/side-bar.component';
-
 import {FooterComponent} from './components/footer/footer.component';
 import {AlertModule} from 'ngx-bootstrap';
 import {HeaderComponent} from './components/header/header.component';
@@ -69,7 +67,11 @@ import {HomeWindowComponent} from './components/home-window/home-window.componen
 import {ContentDirective} from './directives/content.directive';
 import {NewEntityDialogComponent} from './components/dialogs/new-entity-dialog/new-entity-dialog.component';
 import {EntityInfoDialogComponent} from './components/dialogs/entity-info-dialog/entity-info-dialog.component';
-import {ToastModule} from "primeng/toast";
+import {ToastModule} from 'primeng/toast';
+import {UserInterfaceComponent} from './components/ui/user-interface/user-interface.component';
+import {FormComponent} from './components/ui/form/form.component';
+import {SideBarComponent} from './components/ui/side-bar/side-bar.component';
+import {UIToolbarComponent} from './components/ui/uitoolbar/uitoolbar.component';
 
 
 @NgModule({
@@ -105,6 +107,9 @@ import {ToastModule} from "primeng/toast";
     ContentDirective,
     NewEntityDialogComponent,
     EntityInfoDialogComponent,
+    UserInterfaceComponent,
+    FormComponent,
+    UIToolbarComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -160,7 +165,8 @@ import {ToastModule} from "primeng/toast";
     HomeWindowComponent,
     NewEntityDialogComponent,
     EntityWindowComponent,
-    EntityInfoDialogComponent
+    EntityInfoDialogComponent,
+    UserInterfaceComponent
 
   ]
 })

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {R} from '../../common/R';
-import {IFile} from '../../models/IFile';
-import {IColumn} from '../../models/IColumn';
+import {IFile} from '../../models/Enitity/IFile';
+import {IColumn} from '../../models/Enitity/IColumn';
 import {IXMLBase} from '../../models/IXMLBase';
-import {IDBConnectionInfo} from '../../models/IDBConnectionInfo';
+import {IDBConnectionInfo} from '../../models/Enitity/IDBConnectionInfo';
 
 @Injectable({
   providedIn: 'root'

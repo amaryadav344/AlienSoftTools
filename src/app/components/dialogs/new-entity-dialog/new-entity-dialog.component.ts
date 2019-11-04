@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IEntity} from '../../../models/IEntity';
+import {IEntity} from '../../../models/Enitity/IEntity';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
 import {HttpClientService} from '../../../services/entity-service/httpclient.service';

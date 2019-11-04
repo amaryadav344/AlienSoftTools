@@ -1,16 +1,18 @@
-import {ICollection} from '../models/ICollection';
-import {IColumn} from '../models/IColumn';
-import {ICustomMethod} from '../models/ICustomMethod';
-import {ILoadMapping} from '../models/ILoadMapping';
-import {IEntity} from '../models/IEntity';
-import {IGroup} from '../models/IGroup';
-import {IObject} from '../models/IObject';
-import {IObjectMethod} from '../models/IObjectMethod';
-import {IQuery} from '../models/IQuery';
-import {IVRule} from '../models/IVRule';
-import {IFile} from '../models/IFile';
-import {IDBConnectionInfo} from "../models/IDBConnectionInfo";
-import {WindowItem} from "./window-Item";
+import {ICollection} from '../models/Enitity/ICollection';
+import {IColumn} from '../models/Enitity/IColumn';
+import {ICustomMethod} from '../models/Enitity/ICustomMethod';
+import {ILoadMapping} from '../models/Enitity/ILoadMapping';
+import {IEntity} from '../models/Enitity/IEntity';
+import {IGroup} from '../models/Enitity/IGroup';
+import {IObject} from '../models/Enitity/IObject';
+import {IObjectMethod} from '../models/Enitity/IObjectMethod';
+import {IQuery} from '../models/Enitity/IQuery';
+import {IVRule} from '../models/Enitity/IVRule';
+import {IFile} from '../models/Enitity/IFile';
+import {IDBConnectionInfo} from '../models/Enitity/IDBConnectionInfo';
+import {WindowItem} from './window-Item';
+import {IForm} from '../models/UI/IForm';
+import {ILabel} from '../models/UI/ILabel';
 
 export class R {
 
@@ -117,6 +119,51 @@ export class R {
 
     static getWindowItem(): WindowItem {
       return {component: null, data: R.Initializer.getFile()};
+    }
+
+    static getForm(): IForm {
+      return {
+        panels: [{
+          name: 'Search Criteria',
+          ID: 'pnlSearch',
+          collapsible: true,
+          table: {
+            rows: [
+              {
+                data: [
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {controls: []},
+                  {controls: []},
+                  {controls: []},
+                  {controls: []},
+                  {controls: []},
+                ],
+              }]
+          }
+        },
+          {
+            name: 'Search Criteria',
+            ID: 'pnlSearch',
+            collapsible: true,
+            table: {
+              rows: [
+                {
+                  data: [
+                    {
+                      controls: [
+                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel,
+                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                      ]
+                    }
+                  ]
+                }]
+            }
+          }]
+      };
     }
   };
 }

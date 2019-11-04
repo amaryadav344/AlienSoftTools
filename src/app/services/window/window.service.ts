@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/index';
-import {IFile} from '../../models/IFile';
+import {IFile} from '../../models/Enitity/IFile';
 import {WindowStore} from '../../common/WindowStore';
 import {WindowItem} from "../../common/window-Item";
 

@@ -7,7 +7,7 @@
             <button pButton type="button" icon="pi pi-table" (click)="EntityPopup=!EntityPopup"
                     label="Entity"></button>
             <div class="popup" *ngIf="EntityPopup">
-              <p-table #tableEntityFiles [value]="files" [scrollable]="true" scrollHeight="290px"
+              <p-table #tableEntityFiles [value]="EntityFiles" [scrollable]="true" scrollHeight="290px"
                        [style]="{width: '250px'}"
                        [globalFilterFields]="['name']" selectionMode="single"
                        [(selection)]="selection"

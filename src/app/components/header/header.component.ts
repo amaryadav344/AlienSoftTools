@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IFile} from '../../models/IFile';
+import {IFile} from '../../models/Enitity/IFile';
 import {WindowService} from '../../services/window/window.service';
 import {WindowItem} from '../../common/window-Item';
 import {R} from '../../common/R';
@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   WindowsPopup = false;
   windows: WindowItem[];
   selectedWindow: WindowItem = {data: {name: '', type: 0, path: ''}, component: null};
+  EntityFiles: IFile[] = [];
 
   constructor(public httpClientService: HttpClientService, public windowService: WindowService) {
   }
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
     this.httpClientService.getFiles().subscribe(
       (res) => {
         this.files = res;
+        this.EntityFiles = res.filter(x => x.name.includes('.ent.xml'));
       }, (err) => {
         console.log(err);
       }

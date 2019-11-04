@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
-import {IEntity} from '../../../models/IEntity';
+import {IEntity} from '../../../models/Enitity/IEntity';
 import {R} from '../../../common/R';
 import {WindowService} from '../../../services/window/window.service';
-import {IFile} from '../../../models/IFile';
+import {IFile} from '../../../models/Enitity/IFile';
 import {HttpClientService} from '../../../services/entity-service/httpclient.service';
 
 @Component({

@@ -2,10 +2,10 @@ import {AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild} f
 import {ContentDirective} from '../../directives/content.directive';
 import {WindowService} from '../../services/window/window.service';
 import {EntityWindowComponent} from '../entity/entity-window.component';
-import {IFile} from '../../models/IFile';
-import {HomeWindowComponent} from '../home-window/home-window.component';
+import {IFile} from '../../models/Enitity/IFile';
 import {WindowItem} from '../../common/window-Item';
 import {WindowBase} from './window-base/WindowBase';
+import {UserInterfaceComponent} from "../ui/user-interface/user-interface.component";
 
 @Component({
   selector: 'app-window',
@@ -46,7 +46,7 @@ export class WindowComponent implements OnInit, AfterViewInit {
   }
 
   loadHomeComponent() {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(HomeWindowComponent);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UserInterfaceComponent);
     const viewContainerRef = this.contentHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);

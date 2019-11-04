@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClientService} from '../../services/entity-service/httpclient.service';
-import {IDBConnectionInfo} from '../../models/IDBConnectionInfo';
+import {IDBConnectionInfo} from '../../models/Enitity/IDBConnectionInfo';
 import {R} from '../../common/R';
 import {WindowService} from '../../services/window/window.service';
 import {WindowItem} from '../../common/window-Item';

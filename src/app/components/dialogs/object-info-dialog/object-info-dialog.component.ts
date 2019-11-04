@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {R} from '../../../common/R';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
-import {IObject} from '../../../models/IObject';
+import {IObject} from '../../../models/Enitity/IObject';
 import {HttpClientService} from '../../../services/entity-service/httpclient.service';
 import {WindowService} from '../../../services/window/window.service';
 import {AutoComplete} from "primeng/primeng";
