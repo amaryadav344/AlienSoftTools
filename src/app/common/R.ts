@@ -61,6 +61,7 @@ export class R {
     static GET_FILES = 'http://localhost:8080/xml/GetFiles';
     static GET_SYMBOLS = 'http://localhost:8080/xml/getSymbols';
     static GET_DB_CONNECTION_INFO = 'http://localhost:8080/xml/GetDBConnectionInfo';
+    static LOAD_PROJECT = 'http://localhost:8080/xml/LoadProject';
   };
 
   static Initializer = class {
@@ -136,11 +137,56 @@ export class R {
                       {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
                     ]
                   },
-                  {controls: []},
-                  {controls: []},
-                  {controls: []},
-                  {controls: []},
-                  {controls: []},
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  },
+                  {
+                    controls: [
+                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                    ]
+                  }
                 ],
               }]
           }
@@ -151,6 +197,16 @@ export class R {
             collapsible: true,
             table: {
               rows: [
+                {
+                  data: [
+                    {
+                      controls: [
+                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel,
+                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
+                      ]
+                    }
+                  ]
+                },
                 {
                   data: [
                     {

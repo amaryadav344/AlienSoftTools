@@ -20,6 +20,8 @@ import {
   OrderListModule,
   OverlayPanelModule,
   PaginatorModule,
+  PasswordModule,
+  ProgressSpinnerModule,
   RadioButtonModule,
   ScrollPanelModule,
   SplitButtonModule,
@@ -72,6 +74,10 @@ import {UserInterfaceComponent} from './components/ui/user-interface/user-interf
 import {FormComponent} from './components/ui/form/form.component';
 import {SideBarComponent} from './components/ui/side-bar/side-bar.component';
 import {UIToolbarComponent} from './components/ui/uitoolbar/uitoolbar.component';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {MasterWindowComponent} from './components/master-window/master-window.component';
+import {MasterLoginWindowComponent} from './components/master-window/master-login-window/master-login-window.component';
+import {MasterIntitalLoadComponent} from './components/master-window/master-intital-load/master-intital-load.component';
 
 
 @NgModule({
@@ -110,6 +116,9 @@ import {UIToolbarComponent} from './components/ui/uitoolbar/uitoolbar.component'
     UserInterfaceComponent,
     FormComponent,
     UIToolbarComponent,
+    MasterWindowComponent,
+    MasterLoginWindowComponent,
+    MasterIntitalLoadComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -118,10 +127,12 @@ import {UIToolbarComponent} from './components/ui/uitoolbar/uitoolbar.component'
     AlertModule.forRoot(),
     MonacoEditorModule.forRoot(),
     HttpClientModule,
+    AngularFontAwesomeModule,
     AceEditorModule,
     TabModule,
     TabViewModule,
     TableModule,
+    PasswordModule,
     PaginatorModule,
     DataViewModule,
     CheckboxModule,
@@ -148,7 +159,8 @@ import {UIToolbarComponent} from './components/ui/uitoolbar/uitoolbar.component'
     OverlayPanelModule,
     ConfirmDialogModule,
     ToastModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    ProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -166,7 +178,11 @@ import {UIToolbarComponent} from './components/ui/uitoolbar/uitoolbar.component'
     NewEntityDialogComponent,
     EntityWindowComponent,
     EntityInfoDialogComponent,
-    UserInterfaceComponent
+    UserInterfaceComponent,
+    MasterLoginWindowComponent,
+    MasterIntitalLoadComponent,
+    MainAppComponent
+
 
   ]
 })

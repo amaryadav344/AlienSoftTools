@@ -38,3 +38,9 @@ body {
   height: 100%;
 }
 
+.vertical-container {
+  margin: 0;
+  height: 100%;
+  background: #efefef;
+  border-radius: 4px;
+}

@@ -64,4 +64,8 @@ export class HttpClientService {
     params = params.append('query', query);
     return this.httpClient.post<string[]>(R.SERVER_URLS.GET_SYMBOLS, file, {params, responseType: 'json'});
   }
+
+  public LoadProject() {
+    return this.httpClient.get(R.SERVER_URLS.LOAD_PROJECT);
+  }
 }
