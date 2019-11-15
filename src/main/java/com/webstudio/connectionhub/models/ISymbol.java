@@ -1,25 +1,25 @@
 package com.webstudio.connectionhub.models;
 
 public class ISymbol {
-    String fullName;
-    String field;
+    private String name;
+    private String type;
 
     public ISymbol() {
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getField() {
-        return field;
+    public String getType() {
+        return type;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setType(String type) {
+        this.type = type;
     }
 }

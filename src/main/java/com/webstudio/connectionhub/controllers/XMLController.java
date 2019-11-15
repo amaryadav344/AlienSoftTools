@@ -2,9 +2,7 @@ package com.webstudio.connectionhub.controllers;
 
 
 import com.webstudio.connectionhub.common.FileHelper;
-import com.webstudio.connectionhub.common.ModelHelper;
-import com.webstudio.connectionhub.common.SymbolProvider;
-import com.webstudio.connectionhub.common.XMLWorker;
+import com.webstudio.connectionhub.common.ProjectStore;
 import com.webstudio.connectionhub.models.*;
 import com.webstudio.connectionhub.repositories.AppConfigRepository;
 import com.webstudio.connectionhub.repositories.TableRepository;
@@ -15,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,32 +23,29 @@ public class XMLController {
     SystemSettingsService systemSettingsService;
     @Autowired
     TableRepository tableRepository;
-    private XMLWorker xmlWorker = XMLWorker.getInstance();
-    private SymbolProvider symbolProvider = SymbolProvider.getInstance();
+    ProjectStore projectStore = ProjectStore.getInstance();
 
     @RequestMapping(value = "/xml/jstoxml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> getXmlFromObject(@RequestBody IXMLBase entity) throws IOException {
-        String xml = xmlWorker.getXMLString(entity);
+        String xml = projectStore.getXMLString(entity);
         return new ResponseEntity<>(xml, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/xmltojs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IXMLBase> getObjectFromXMl(@RequestBody String xml) throws IOException {
-        IXMLBase value = xmlWorker.getXMLObjectFromString(xml);
+        IXMLBase value = projectStore.getXMLObjectFromString(xml);
         return new ResponseEntity<>(value, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/save", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> saveXml(@RequestBody IXMLBase entity, @RequestParam("path") String path) throws IOException {
-        String xml = xmlWorker.getXMLString(entity);
-        FileHelper.WriteFile(systemSettingsService.getXmlBasePath() + path, xml);
+        String xml = projectStore.SaveXml(entity, path);
         return new ResponseEntity<>(xml, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/getxml", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IXMLBase> getXml(@RequestBody IFile file) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(systemSettingsService.getXmlBasePath() + file.getPath());
-        IXMLBase value = xmlWorker.getXMLObjectFromString(xmlString);
+        IXMLBase value = projectStore.GetXml(file);
         return new ResponseEntity<>(value, HttpStatus.OK);
     }
 
@@ -82,32 +76,20 @@ public class XMLController {
 
     @RequestMapping(value = "/xml/CreateNewXml/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity CreateNewXml(@RequestBody IXMLBase ixmlBase, @RequestParam("path") String path, @RequestParam("createModel") boolean createModel) throws IOException {
-        if (ixmlBase instanceof IEntity) {
-            IEntity entity = (IEntity) ixmlBase;
-            String xml = xmlWorker.getXMLString(entity);
-            FileHelper.CreateAndWriteFile(systemSettingsService.getXmlBasePath() + path + "/" + entity.getName() + ".ent.xml", xml);
-            if (createModel) {
-                ModelHelper.createModel(path, entity,
-                        systemSettingsService.getPackageName() + "." + path.replace("/", "."),
-                        systemSettingsService.getBusinessModelPath());
-            }
-        }
+        projectStore.CreateEntity(ixmlBase, path, createModel);
         return new ResponseEntity(HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/xml/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(systemSettingsService.getXmlBasePath() + file.getPath());
-        IEntity value = (IEntity) xmlWorker.getXMLObjectFromString(xmlString);
-        String ClassPath = systemSettingsService.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
-        List<String> symbols = symbolProvider.getMatchingSymbols(ClassPath, query);
+        List<String> symbols = projectStore.GetObjectSymbols(file, query);
         return new ResponseEntity<>(symbols.toArray(new String[symbols.size()]), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IFile[]> GetFiles() {
-        List<IFile> files = FileHelper.ListAllFiles(systemSettingsService.getXmlBasePath(), systemSettingsService.getXmlBasePath());
+        List<IFile> files = projectStore.getFiles();
         return new ResponseEntity<>(files.toArray(new IFile[files.size()]), HttpStatus.OK);
     }
 
@@ -120,9 +102,17 @@ public class XMLController {
         return new ResponseEntity<>(idbConnectionInfo, HttpStatus.OK);
     }
 
-    @PostConstruct
-    public void LoadSymbols() {
-        symbolProvider.LoadJar(systemSettingsService.getBinPath() + "/BusinessObjects.jar");
+
+    @RequestMapping(value = "/xml/LoadProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity LoadProject() throws IOException {
+        IProject iProject = new IProject();
+        iProject.setBinPath(systemSettingsService.getBinPath());
+        iProject.setXMLPath(systemSettingsService.getXmlBasePath());
+        iProject.setPackageName(systemSettingsService.getPackageName());
+        iProject.setBusinessModelPath(systemSettingsService.getBusinessModelPath());
+        projectStore.LoadProject(iProject);
+        return new ResponseEntity(HttpStatus.OK);
     }
+
 
 }

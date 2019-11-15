@@ -1,11 +1,13 @@
 package com.webstudio.connectionhub.common;
 
+import com.webstudio.connectionhub.models.ISymbol;
 import spoon.JarLauncher;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtReference;
 import spoon.reflect.reference.CtTypeReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,5 +57,38 @@ public class SymbolProvider {
         List<CtFieldReference<?>> fieldReferences = SymbolStore.containsKey(LastType.getQualifiedName()) ?
                 SymbolStore.get(LastType.getQualifiedName()) : getSymbols(LastType);
         return fieldReferences.stream().map(CtReference::getSimpleName).collect(Collectors.toList());
+    }
+
+    public List<String> getObjectSymbols(String FullQualifiedName, String Query) {
+        List<ISymbol> symbols = new ArrayList<>();
+        CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
+        String LastSymbol = "";
+        String[] Symbols = Query.split("\\.");
+        for (String symbol : Symbols) {
+
+            if (LastType.getAllFields().stream().anyMatch(ctFieldReference -> HasBaseSuperClass(ctFieldReference.getType())
+                    && ctFieldReference.getSimpleName().equals(symbol))) {
+                LastType = LastType.getAllFields().stream().filter(ctFieldReference -> HasBaseSuperClass(ctFieldReference.getType())
+                        && ctFieldReference.getSimpleName().equals(symbol)).findFirst().get().getType();
+            } else {
+                LastSymbol = symbol;
+            }
+        }
+        String finalLastSymbol = LastSymbol.toLowerCase();
+
+        return LastType.getAllFields()
+                .stream().filter(ctFieldReference -> ctFieldReference.getSimpleName().toLowerCase().contains(finalLastSymbol) && HasBaseSuperClass(ctFieldReference.getType())).map(CtReference::getSimpleName).collect(Collectors.toList());
+    }
+
+    public boolean HasBaseSuperClass(CtTypeReference ctTypeReference) {
+        CtTypeReference superClass = ctTypeReference.getSuperclass();
+        if (superClass == null) {
+            return false;
+        }
+        if (superClass.getSimpleName().equals("BusBase")) {
+            return true;
+        }
+
+        return HasBaseSuperClass(superClass);
     }
 }
