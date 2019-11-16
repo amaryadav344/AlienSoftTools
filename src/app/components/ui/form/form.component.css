@@ -1,0 +1,39 @@
+.cell {
+  padding: 5px;
+  height: 35px;
+  border: solid;
+  border-color: rgba(0, 0, 255, 0.25);
+  border-width: 1px;
+}
+
+.c-label input {
+  border: none;
+  background: transparent;
+}
+
+.c-label input:focus {
+  background: transparent;
+}
+
+.c-panel-header {
+  background-color: black;
+  min-height: 25px;
+  line-height: 25px;
+  color: white;
+  padding: 10px;
+}
+
+.c-panel-content {
+  min-height: 50px;
+}
+
+.c-panel {
+  width: 100%;
+  border-radius: 2px;
+  border: 2px solid black;
+  height: 150px;
+}
+
+.content {
+
+}

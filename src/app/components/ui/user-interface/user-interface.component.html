@@ -1,0 +1,16 @@
+<div *ngIf="hidden">
+  <div class="ui-g ui-g-nopad">
+    <div class="ui-g-12 ui-g-nopad">
+      <app-uitoolbar></app-uitoolbar>
+    </div>
+  </div>
+  <div style="width: 100%;display: inline-flex">
+    <app-side-bar></app-side-bar>
+    <app-form></app-form>
+  </div>
+  <div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">
+    <div style="height: 521px; width: 1365px">
+      <!-- <app-code-editor [code]="xml" language="xml" (CodeChanged)="xml=$event"></app-code-editor>-->
+    </div>
+  </div>
+</div>

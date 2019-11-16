@@ -1,0 +1,16 @@
+.center {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+}
+
+.center > div {
+
+}
+
+.inner {
+  margin: 0 auto;
+  margin-left: -50%;
+  margin-top: -50%;
+}
+

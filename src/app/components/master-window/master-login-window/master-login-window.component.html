@@ -1,0 +1,34 @@
+<div class="p-grid p-align-center vertical-container">
+  <div class="p-col">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-4 ui-g-offset-4">
+        <p-panel header="Login">
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+              <div class="caption">Email</div>
+              <div class="ui-inputgroup">
+                <input type="text" pInputText/>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="caption">Password</div>
+              <div class="ui-inputgroup">
+                <input type="password" pPassword [feedback]="false"/>
+              </div>
+            </div>
+          </div>
+          <p-footer>
+            <div class="ui-g">
+              <div style="float: left">
+                <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
+                        (click)="MasterWindowCallbacks.onLogin()"></button>
+                <p-button style="width: 90px;" label="Cancel"></p-button>
+              </div>
+            </div>
+
+          </p-footer>
+        </p-panel>
+      </div>
+    </div>
+  </div>
+</div>
