@@ -1,10 +1,7 @@
 package com.webstudio.connectionhub.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.webstudio.connectionhub.models.IEntity;
-import com.webstudio.connectionhub.models.IFile;
-import com.webstudio.connectionhub.models.IProject;
-import com.webstudio.connectionhub.models.IXMLBase;
+import com.webstudio.connectionhub.models.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,13 +60,26 @@ public class ProjectStore {
         return symbols;
     }
 
-    public List<String> GetObjectSymbols(IFile file, String query) throws IOException {
+    public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
         String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
         String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
-        List<String> symbols = symbolProvider.getObjectSymbols(ClassPath, query);
-        for (String symbol : symbols) {
-            String ModelName = xmlStore.getEntityNameByModelName(symbol);
+        List<ISymbol> symbols = symbolProvider.getObjectSymbols(ClassPath, query);
+        for (ISymbol symbol : symbols) {
+            String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
+            symbol.setEntityName(ModelName);
+        }
+        return symbols;
+    }
+
+    public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
+        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        List<ISymbol> symbols = symbolProvider.getCollectionSymbols(ClassPath, query);
+        for (ISymbol symbol : symbols) {
+            String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
+            symbol.setEntityName(ModelName);
         }
         return symbols;
     }
@@ -89,5 +99,13 @@ public class ProjectStore {
 
     public IXMLBase getXMLObjectFromString(String xml) throws IOException {
         return xmlStore.getXMLObjectFromString(xml);
+    }
+
+    public List<IObjectMethod> ListObjectMethods(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
+        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        List<IObjectMethod> symbols = symbolProvider.getAllMethods(ClassPath, query);
+        return symbols;
     }
 }

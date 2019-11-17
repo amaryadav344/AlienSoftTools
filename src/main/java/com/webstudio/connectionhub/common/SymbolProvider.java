@@ -1,7 +1,11 @@
 package com.webstudio.connectionhub.common;
 
+import com.webstudio.connectionhub.models.IObjectMethod;
+import com.webstudio.connectionhub.models.IObjectParameter;
 import com.webstudio.connectionhub.models.ISymbol;
 import spoon.JarLauncher;
+import spoon.reflect.declaration.CtExecutable;
+import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtReference;
@@ -59,8 +63,7 @@ public class SymbolProvider {
         return fieldReferences.stream().map(CtReference::getSimpleName).collect(Collectors.toList());
     }
 
-    public List<String> getObjectSymbols(String FullQualifiedName, String Query) {
-        List<ISymbol> symbols = new ArrayList<>();
+    public List<ISymbol> getObjectSymbols(String FullQualifiedName, String Query) {
         CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
         String LastSymbol = "";
         String[] Symbols = Query.split("\\.");
@@ -77,7 +80,70 @@ public class SymbolProvider {
         String finalLastSymbol = LastSymbol.toLowerCase();
 
         return LastType.getAllFields()
-                .stream().filter(ctFieldReference -> ctFieldReference.getSimpleName().toLowerCase().contains(finalLastSymbol) && HasBaseSuperClass(ctFieldReference.getType())).map(CtReference::getSimpleName).collect(Collectors.toList());
+                .stream().filter(ctFieldReference -> ctFieldReference.getSimpleName().toLowerCase().contains(finalLastSymbol) && HasBaseSuperClass(ctFieldReference.getType())).map(ctFieldReference -> {
+                    ISymbol symbol = new ISymbol();
+                    symbol.setName(ctFieldReference.getSimpleName());
+                    symbol.setObjectType(ctFieldReference.getType().getSimpleName());
+                    symbol.setType(Constants.SymbolTypes.TYPE_OBJECT);
+                    return symbol;
+                }).collect(Collectors.toList());
+    }
+
+    public List<ISymbol> getCollectionSymbols(String FullQualifiedName, String Query) {
+        CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
+        String LastSymbol = "";
+        String[] Symbols = Query.split("\\.");
+        for (String symbol : Symbols) {
+            if (LastType.getAllFields().stream().anyMatch(ctFieldReference ->
+                    ctFieldReference.getType().getActualTypeArguments().size() != 0 &&
+                            HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                            && ctFieldReference.getSimpleName().equals(symbol)
+                            && ctFieldReference.getType().getQualifiedName().equals(List.class.getCanonicalName()))) {
+                LastType = LastType.getAllFields().stream()
+
+                        .filter(ctFieldReference ->
+                                ctFieldReference.getType().getActualTypeArguments().size() != 0
+                                        && HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                                        && ctFieldReference.getType().getQualifiedName().equals(List.class.getCanonicalName())
+                                        && ctFieldReference.getSimpleName().equals(symbol)).findFirst().get().getType();
+            } else {
+                LastSymbol = symbol;
+            }
+        }
+        String finalLastSymbol = LastSymbol.toLowerCase();
+
+        return LastType.getAllFields()
+                .stream().filter(ctFieldReference ->
+                        ctFieldReference.getType().getActualTypeArguments().size() != 0
+                                && ctFieldReference.getSimpleName().toLowerCase().contains(finalLastSymbol)
+                                && HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                                && ctFieldReference.getType().getQualifiedName().equals(List.class.getCanonicalName())).map(ctFieldReference -> {
+                    ISymbol symbol = new ISymbol();
+                    symbol.setName(ctFieldReference.getSimpleName());
+                    symbol.setObjectType(ctFieldReference.getType().getActualTypeArguments().get(0).getSimpleName());
+                    symbol.setType(Constants.SymbolTypes.TYPE_COLLECTION);
+                    return symbol;
+                }).collect(Collectors.toList());
+    }
+
+    public List<IObjectMethod> getAllMethods(String FullQualifiedName, String Query) {
+        CtTypeReference<?> Type = factory.Type().get(FullQualifiedName).getReference();
+        return Type.getDeclaredExecutables().stream().filter(ctExecutableReference -> !ctExecutableReference.isConstructor()).map(ctExecutableReference -> {
+            CtExecutable executable = ctExecutableReference.getDeclaration();
+            IObjectMethod method = new IObjectMethod();
+            method.setName(executable.getSimpleName());
+            method.setReturnType(executable.getType().getSimpleName());
+            List<IObjectParameter> objectParameters = new ArrayList<>();
+            List<CtParameter<?>> parameters = executable.getParameters();
+            for (CtParameter parameter : parameters) {
+                IObjectParameter iObjectParameter = new IObjectParameter();
+                iObjectParameter.setName(parameter.getSimpleName());
+                iObjectParameter.setDataType(parameter.getType().getSimpleName().toString());
+                objectParameters.add(iObjectParameter);
+            }
+            method.setObjectParameters(objectParameters.toArray(new IObjectParameter[objectParameters.size()]));
+            return method;
+        }).collect(Collectors.toList());
     }
 
     public boolean HasBaseSuperClass(CtTypeReference ctTypeReference) {

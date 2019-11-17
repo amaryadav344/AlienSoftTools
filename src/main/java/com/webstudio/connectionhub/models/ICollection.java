@@ -9,14 +9,11 @@ public class ICollection {
     String entity;
     @JacksonXmlProperty(isAttribute = true)
     String objectField;
-    @JacksonXmlProperty(isAttribute = true)
-    String dataType;
 
     public ICollection(String name, String entity, String objectField, String dataType) {
         this.name = name;
         this.entity = entity;
         this.objectField = objectField;
-        this.dataType = dataType;
     }
 
     public ICollection() {
@@ -46,11 +43,4 @@ public class ICollection {
         this.objectField = objectField;
     }
 
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
-    }
 }

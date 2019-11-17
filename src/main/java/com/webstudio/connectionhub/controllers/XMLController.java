@@ -1,6 +1,7 @@
 package com.webstudio.connectionhub.controllers;
 
 
+import com.webstudio.connectionhub.common.Constants;
 import com.webstudio.connectionhub.common.FileHelper;
 import com.webstudio.connectionhub.common.ProjectStore;
 import com.webstudio.connectionhub.models.*;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -82,9 +84,22 @@ public class XMLController {
 
 
     @RequestMapping(value = "/xml/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query) throws IOException {
-        List<String> symbols = projectStore.GetObjectSymbols(file, query);
-        return new ResponseEntity<>(symbols.toArray(new String[symbols.size()]), HttpStatus.OK);
+    public ResponseEntity<ISymbol[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query, @RequestParam(name = "type", required = false) int SymbolType) throws IOException {
+        List<ISymbol> symbols = new ArrayList<>();
+        if (SymbolType == Constants.SymbolTypes.TYPE_OBJECT) {
+            symbols.addAll(projectStore.GetObjectSymbols(file, query));
+        } else if (SymbolType == Constants.SymbolTypes.TYPE_COLLECTION) {
+            symbols.addAll(projectStore.GetObjectSymbols(file, query));
+            symbols.addAll(projectStore.GetCollectionSymbols(file, query));
+        }
+        return new ResponseEntity<>(symbols.toArray(new ISymbol[symbols.size()]), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/xml/GetObjectMethods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<IObjectMethod[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query) throws IOException {
+        List<IObjectMethod> symbols = new ArrayList<>();
+        symbols = projectStore.ListObjectMethods(file, query);
+        return new ResponseEntity<>(symbols.toArray(new IObjectMethod[symbols.size()]), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
