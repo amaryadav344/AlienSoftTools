@@ -1,7 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ICollection} from '../../../models/Enitity/ICollection';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
+import {HttpClientService} from '../../../services/entity-service/httpclient.service';
+import {WindowService} from '../../../services/window/window.service';
+import {AutoComplete} from 'primeng/primeng';
+import {ISymbol} from '../../../models/Enitity/ISymbol';
 
 @Component({
   selector: 'app-collection-info-dialog',
@@ -11,11 +15,15 @@ import {R} from '../../../common/R';
 export class CollectionInfoDialogComponent implements OnInit {
   collection: ICollection = R.Initializer.getCollection();
   Lists: string[];
-  mFieldSuggestions: string[];
+  mFieldSuggestions: ISymbol[];
   public CollectionTypes: string[] = R.CollectionTypes;
   mode: number;
+  prevalue = '';
+  @ViewChild('auto', {static: false})
+  ObjectFieldAutoC: AutoComplete;
 
-  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
+  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
+              public httpClientService: HttpClientService, public windowService: WindowService) {
     this.mode = config.data.mode;
     if (this.mode === R.Constants.OpenMode.MODE_UPDATE) {
       Object.assign(this.collection, config.data.collection);
@@ -32,12 +40,23 @@ export class CollectionInfoDialogComponent implements OnInit {
     this.ref.close(this.collection);
   }
 
-  filterLists(event) {
-    this.mFieldSuggestions = [];
-    for (const field of this.Lists) {
-      if (field.toLowerCase().indexOf(event.query.toLowerCase()) >= 0) {
-        this.mFieldSuggestions.push(field);
+  filterSymbols(event) {
+    this.prevalue = event.query;
+    this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, event.query, R.SymbolTypes.TYPE_COLLECTION).subscribe(
+      (res) => {
+        this.mFieldSuggestions = res;
+      }, (err) => {
+        console.log(err);
       }
-    }
+    );
   }
+
+  onObjectFieldSelected(event) {
+    const PreText = this.prevalue.substr(0, this.prevalue.lastIndexOf('\.') + 1);
+    event.name = PreText + event.name;
+    this.ObjectFieldAutoC.writeValue(event);
+    this.collection.objectField = PreText + event.name;
+    this.collection.entity = event.entityName;
+  }
+
 }

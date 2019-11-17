@@ -26,10 +26,6 @@
         Object Field
         <p-sortIcon [field]="'objectField'"></p-sortIcon>
       </th>
-      <th [pSortableColumn]="'dataType'">
-        Data Type
-        <p-sortIcon [field]="'dataType'"></p-sortIcon>
-      </th>
       <th>Actions</th>
     </tr>
   </ng-template>
@@ -38,7 +34,6 @@
       <td>{{rowData.name}}</td>
       <td>{{rowData.entity}}</td>
       <td>{{rowData.objectField}}</td>
-      <td>{{rowData.dataType}}</td>
       <td>
         <button pButton type="button" icon="pi pi-trash" (click)="deleteCollection(rowData)"
                 pTooltip="Delete collection"

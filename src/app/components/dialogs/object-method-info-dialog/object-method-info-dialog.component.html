@@ -3,7 +3,10 @@
     <div class="ui-g-8">
       <div class="caption">Name</div>
       <div class="ui-inputgroup">
-        <input type="text" pInputText [(ngModel)]="objectMethod.name"/>
+        <p-autoComplete appendTo="body" [(ngModel)]="objectMethod" field="name"
+                        [suggestions]="suggectionMethods" (completeMethod)="getMatchingMethods($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingMethods('')"></p-autoComplete>
       </div>
     </div>
     <div class="ui-g-4">

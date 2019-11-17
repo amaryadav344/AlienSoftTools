@@ -1,4 +1,5 @@
 export interface ISymbol {
-  fullName: string;
-  field: string;
+  name: string;
+  type: number;
+  entityName: number;
 }

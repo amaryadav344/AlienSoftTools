@@ -1,20 +1,21 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {R} from '../../../common/R';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {IObject} from '../../../models/Enitity/IObject';
 import {HttpClientService} from '../../../services/entity-service/httpclient.service';
 import {WindowService} from '../../../services/window/window.service';
-import {AutoComplete} from "primeng/primeng";
+import {AutoComplete} from 'primeng/primeng';
+import {ISymbol} from '../../../models/Enitity/ISymbol';
 
 @Component({
   selector: 'app-object-info-dialog',
   templateUrl: './object-info-dialog.component.html',
   styleUrls: ['./object-info-dialog.component.css']
 })
-export class ObjectInfoDialogComponent implements OnInit {
+export class ObjectInfoDialogComponent implements OnInit, AfterViewInit {
 
   object: IObject = R.Initializer.getObject();
-  mFieldSuggestions: string[];
+  mFieldSuggestions: ISymbol[];
   mode: number;
   prevalue = '';
   @ViewChild('auto', {static: false})
@@ -29,6 +30,11 @@ export class ObjectInfoDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.ObjectFieldAutoC.writeValue({name: this.object.objectField});
   }
 
   saveColumn() {
@@ -38,7 +44,7 @@ export class ObjectInfoDialogComponent implements OnInit {
 
   filterSymbols(event) {
     this.prevalue = event.query;
-    this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, event.query).subscribe(
+    this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, event.query, R.SymbolTypes.TYPE_OBJECT).subscribe(
       (res) => {
         this.mFieldSuggestions = res;
       }, (err) => {
@@ -49,8 +55,10 @@ export class ObjectInfoDialogComponent implements OnInit {
 
   onObjectFieldSelected(event) {
     const PreText = this.prevalue.substr(0, this.prevalue.lastIndexOf('\.') + 1);
-    this.ObjectFieldAutoC.writeValue(PreText + event);
-    this.object.objectField = PreText + event;
+    event.name = PreText + event.name;
+    this.ObjectFieldAutoC.writeValue(event);
+    this.object.objectField = PreText + event.name;
+    this.object.entity = event.entityName;
   }
 
 

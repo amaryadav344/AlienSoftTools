@@ -8,9 +8,18 @@
   <div class="ui-g-6">
     <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
-      <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="collection.objectField"
-                      [suggestions]="mFieldSuggestions" (completeMethod)="filterLists($event)"
-                      [size]="30" [minLength]="1"></p-autoComplete>
+      <p-autoComplete appendTo="body" #auto
+                      [suggestions]="mFieldSuggestions" (completeMethod)="filterSymbols($event)" field="name"
+                      dataKey="name"
+                      (onSelect)="onObjectFieldSelected($event)" forceSelection="true" [dropdown]="true"
+                      [size]="30" [minLength]="1">
+        <ng-template let-symbol pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <span *ngIf="symbol.type===2"><i class="fa fa-list" style="padding: 4px"></i>{{symbol.name}}</span>
+            <span *ngIf="symbol.type===1"><i class="fa fa-cube" style="padding: 4px"></i>{{symbol.name}}</span>
+          </div>
+        </ng-template>
+      </p-autoComplete>
     </div>
   </div>
   <div class="ui-g-6">
@@ -18,12 +27,6 @@
     <div class="ui-inputgroup">
       <input type="text" pInputText [disabled]="true" [(ngModel)]="collection.entity"/>
     </div>
-  </div>
-  <div class="ui-g-6">
-    <div class="caption">DataType</div>
-    <app-drop-down [model]="collection.dataType" (OptionChange)="collection.dataType=$event"
-                   [options]="CollectionTypes"></app-drop-down>
-
   </div>
   <div class="ui-g-12">
     <p-message severity="error" text="Name is required" *ngIf="collection.name===''"></p-message>

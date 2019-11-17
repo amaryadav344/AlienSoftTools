@@ -5,6 +5,8 @@ import {IFile} from '../../models/Enitity/IFile';
 import {IColumn} from '../../models/Enitity/IColumn';
 import {IXMLBase} from '../../models/IXMLBase';
 import {IDBConnectionInfo} from '../../models/Enitity/IDBConnectionInfo';
+import {ISymbol} from "../../models/Enitity/ISymbol";
+import {IObjectMethod} from "../../models/Enitity/IObjectMethod";
 
 @Injectable({
   providedIn: 'root'
@@ -59,10 +61,20 @@ export class HttpClientService {
     return this.httpClient.post<IDBConnectionInfo>(R.SERVER_URLS.GET_DB_CONNECTION_INFO, ' ', {responseType: 'json'});
   }
 
-  public getSymbols(file: IFile, query: string) {
+  public getSymbols(file: IFile, query: string, SymbolType: number) {
     let params = new HttpParams();
     params = params.append('query', query);
-    return this.httpClient.post<string[]>(R.SERVER_URLS.GET_SYMBOLS, file, {params, responseType: 'json'});
+    params = params.append('type', SymbolType.toString());
+    return this.httpClient.post<ISymbol[]>(R.SERVER_URLS.GET_SYMBOLS, file, {params, responseType: 'json'});
+  }
+
+  public getObjectMethods(file: IFile, query: string) {
+    let params = new HttpParams();
+    params = params.append('query', query);
+    return this.httpClient.post<IObjectMethod[]>(R.SERVER_URLS.GET_OBJECT_METHODS, file, {
+      params,
+      responseType: 'json'
+    });
   }
 
   public LoadProject() {

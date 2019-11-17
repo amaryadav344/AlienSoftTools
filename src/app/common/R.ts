@@ -49,6 +49,11 @@ export class R {
       static MODE_ALL = 2;
     };
   };
+  static SymbolTypes = class {
+    static TYPE_OBJECT = 1;
+    static TYPE_COLLECTION = 2;
+    static TYPE_VARIBLE = 0;
+  };
   static SERVER_URLS = class {
     static JS_TO_XML = 'http://localhost:8080/xml/jstoxml';
     static SAVE_XML = 'http://localhost:8080/xml/save';
@@ -62,11 +67,12 @@ export class R {
     static GET_SYMBOLS = 'http://localhost:8080/xml/getSymbols';
     static GET_DB_CONNECTION_INFO = 'http://localhost:8080/xml/GetDBConnectionInfo';
     static LOAD_PROJECT = 'http://localhost:8080/xml/LoadProject';
+    static GET_OBJECT_METHODS = 'http://localhost:8080/xml/GetObjectMethods';
   };
 
   static Initializer = class {
     static getCollection(): ICollection {
-      return {entity: '', name: '', objectField: '', dataType: ''};
+      return {entity: '', name: '', objectField: ''};
     }
 
     static getColumn(): IColumn {
