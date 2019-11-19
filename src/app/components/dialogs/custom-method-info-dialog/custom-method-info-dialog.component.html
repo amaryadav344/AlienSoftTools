@@ -42,12 +42,15 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
-          <tr [pSelectableRow]="rowData">
+          <tr>
             <td>
               <div class="ui-inputgroup">
-                <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="rowData.name"
-                                placeholder="Name"></p-autoComplete>
-                <button pButton type="button" icon="pi pi-align-justify" (click)="onEditParameters(rowData)"></button>
+                <p-autoComplete appendTo="body"
+                                [suggestions]="mFieldSuggestions" (completeMethod)="getData(rowData)"
+                                [(ngModel)]="rowData.name"
+                                [dropdown]="true"
+                                [size]="30" [minLength]="1">
+                </p-autoComplete>
               </div>
             </td>
             <td>

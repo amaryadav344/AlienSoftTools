@@ -5,6 +5,9 @@ import {ICustomMethod} from '../../../models/Enitity/ICustomMethod';
 import {ILoadMapping} from '../../../models/Enitity/ILoadMapping';
 import {ILoadParameter} from '../../../models/Enitity/ILoadParameter';
 import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load-paramter-info-dialog.component';
+import {WindowService} from '../../../services/window/window.service';
+import {IEntity} from '../../../models/Enitity/IEntity';
+import {EntityWindowComponent} from '../../entity/entity-window.component';
 
 @Component({
   selector: 'app-custom-method-info-dialog',
@@ -14,19 +17,23 @@ import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load
 
 })
 export class CustomMethodInfoDialogComponent implements OnInit {
-
+  mFieldSuggestions: string[];
   customMethod: ICustomMethod = R.Initializer.getCustomMethod();
   loadModes: string[] = R.LoadModes;
   selection: ILoadMapping;
   loadTypes: string[] = R.LoadTypes;
+  entity: IEntity = R.Initializer.getEntity();
 
-  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public dialogService: DialogService) {
+  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
+              public dialogService: DialogService, public windowService: WindowService) {
     if (config.data.mode === R.Constants.OpenMode.MODE_UPDATE) {
       Object.assign(this.customMethod, config.data.customMethod);
     }
   }
 
   ngOnInit() {
+    const EntityWindow = this.windowService.windowStore.getCurrentWindow().component.instance as EntityWindowComponent;
+    Object.assign(this.entity, EntityWindow.entity);
   }
 
   saveGroup() {
@@ -59,6 +66,12 @@ export class CustomMethodInfoDialogComponent implements OnInit {
       const index = this.customMethod.loadMapping.indexOf(this.selection);
       this.customMethod.loadMapping.splice(index, 1);
     }
+  }
+
+  getData() {
+    this.mFieldSuggestions = this.entity.businessObject.objectMethods.map((method) => {
+      return method.name;
+    });
   }
 
 }

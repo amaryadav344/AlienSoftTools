@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ICollection} from '../../../models/Enitity/ICollection';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {R} from '../../../common/R';
@@ -12,7 +12,7 @@ import {ISymbol} from '../../../models/Enitity/ISymbol';
   templateUrl: './collection-info-dialog.component.html',
   styleUrls: ['./collection-info-dialog.component.css']
 })
-export class CollectionInfoDialogComponent implements OnInit {
+export class CollectionInfoDialogComponent implements OnInit, AfterViewInit {
   collection: ICollection = R.Initializer.getCollection();
   Lists: string[];
   mFieldSuggestions: ISymbol[];
@@ -34,6 +34,10 @@ export class CollectionInfoDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    this.ObjectFieldAutoC.writeValue({name: this.collection.objectField});
   }
 
   saveColumn() {
