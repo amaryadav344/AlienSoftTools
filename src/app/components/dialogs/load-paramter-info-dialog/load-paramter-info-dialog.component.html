@@ -1,6 +1,7 @@
 <div class="ui-g ui-fluid">
   <div class="ui-g-12">
-    <p-table [value]="loadParameters">
+    <div *ngFor="let loadMapping of loadMappings" class="caption">{{loadMapping.name}}</div>
+    <p-table [value]="loadMapping.loadParameters">
       <ng-template pTemplate="header">
         <tr>
           <th>Parameter Name</th>

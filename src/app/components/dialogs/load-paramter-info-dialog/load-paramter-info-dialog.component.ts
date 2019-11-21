@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ILoadParameter} from '../../../models/Enitity/ILoadParameter';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
+import {ILoadMapping} from "../../../models/Enitity/ILoadMapping";
 
 @Component({
   selector: 'app-load-paramter-info-dialog',
@@ -9,16 +9,16 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 })
 export class LoadParamterInfoDialogComponent implements OnInit {
 
-  loadParameters: ILoadParameter[] = [];
+  loadMappings: ILoadMapping[] = [];
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
-    Object.assign(this.loadParameters, config.data.loadParameters);
+    Object.assign(this.loadMappings, config.data.loadMapping);
   }
 
   ngOnInit() {
   }
 
   saveLoadParameter() {
-    this.ref.close(this.loadParameters);
+    this.ref.close(this.loadMappings);
   }
 }

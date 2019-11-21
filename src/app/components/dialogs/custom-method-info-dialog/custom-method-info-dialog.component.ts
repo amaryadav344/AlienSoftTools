@@ -3,7 +3,6 @@ import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/api'
 import {R} from '../../../common/R';
 import {ICustomMethod} from '../../../models/Enitity/ICustomMethod';
 import {ILoadMapping} from '../../../models/Enitity/ILoadMapping';
-import {ILoadParameter} from '../../../models/Enitity/ILoadParameter';
 import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load-paramter-info-dialog.component';
 import {WindowService} from '../../../services/window/window.service';
 import {IEntity} from '../../../models/Enitity/IEntity';
@@ -40,19 +39,19 @@ export class CustomMethodInfoDialogComponent implements OnInit {
     this.ref.close(this.customMethod);
   }
 
-  onEditParameters(LoadParameters: ILoadParameter[]) {
+  onEditParameters() {
     const ref = this.dialogService.open(LoadParamterInfoDialogComponent, {
       data: {
-        loadParameters: LoadParameters,
+        loadMapping: this.customMethod.loadMapping,
       },
       header: 'Object Information',
       width: '50%',
       contentStyle: {'max-height': '700px', overflow: 'auto'}
     } as DynamicDialogConfig);
 
-    ref.onClose.subscribe((loadParameters: ILoadParameter[]) => {
-      if (loadParameters) {
-        Object.assign(LoadParameters, loadParameters);
+    ref.onClose.subscribe((loadMapping: ILoadMapping[]) => {
+      if (loadMapping) {
+        Object.assign(this.customMethod.loadMapping, loadMapping);
       }
     });
   }
@@ -68,10 +67,43 @@ export class CustomMethodInfoDialogComponent implements OnInit {
     }
   }
 
-  getData() {
-    this.mFieldSuggestions = this.entity.businessObject.objectMethods.map((method) => {
-      return method.name;
-    });
+  getData(loadMapping: ILoadMapping) {
+    switch (loadMapping.loadType) {
+      case R.LoadTypes[0]:
+        this.mFieldSuggestions = this.entity.queries.map((query) => {
+          return query.name;
+        });
+        break;
+      case R.LoadTypes[1]:
+        this.mFieldSuggestions = this.entity.businessObject.objectMethods.map((method) => {
+          return method.name;
+        });
+        break;
+      case R.LoadTypes[2]:
+        break;
+      case R.LoadTypes[3]:
+        break;
+    }
   }
+
+  onSelectLoadName(loadName: string) {
+    /*switch (loadMapping.loadType) {
+      case R.LoadTypes[0]:
+        this.mFieldSuggestions = this.entity.queries.map((query) => {
+          return query.name;
+        });
+        break;
+      case R.LoadTypes[1]:
+        this.mFieldSuggestions = this.entity.businessObject.objectMethods.map((method) => {
+          return method.name;
+        });
+        break;
+      case R.LoadTypes[2]:
+        break;
+      case R.LoadTypes[3]:
+        break;
+    }*/
+  }
+
 
 }

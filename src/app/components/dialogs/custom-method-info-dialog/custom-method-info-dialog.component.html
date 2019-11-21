@@ -29,6 +29,8 @@
           <button pButton type="button" icon="pi pi-minus" style="margin-right: 8px ;float: right"
                   pTooltip="Remove load mapping"
                   (click)="removeCustomMapping()"></button>
+          <button pButton type="button" icon="pi pi-pencil" pTooltip="Set parameters"
+                  (click)="onEditParameters()" style="float: right;margin-right: 8px ; "></button>
         </div>
       </p-header>
       <p-table [value]="customMethod.loadMapping" selectionMode="single" [resizableColumns]="true"
@@ -38,7 +40,6 @@
           <tr>
             <th>Name</th>
             <th>Load Type</th>
-            <th>Parameters</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
@@ -49,6 +50,7 @@
                                 [suggestions]="mFieldSuggestions" (completeMethod)="getData(rowData)"
                                 [(ngModel)]="rowData.name"
                                 [dropdown]="true"
+                                (onSelect)="onSelectLoadName($event)"
                                 [size]="30" [minLength]="1">
                 </p-autoComplete>
               </div>
@@ -56,14 +58,6 @@
             <td>
               <app-drop-down (OptionChange)="rowData.loadType=$event" [options]="loadTypes"
                              [model]="rowData.loadType"></app-drop-down>
-            </td>
-            <td>
-              <table>
-                <tr>
-                  <button pButton type="button" icon="pi pi-pencil" pTooltip="Edit parameters"
-                          (click)="onEditParameters(rowData.loadParameters)"></button>
-                </tr>
-              </table>
             </td>
           </tr>
         </ng-template>
