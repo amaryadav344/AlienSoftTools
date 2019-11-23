@@ -33,8 +33,8 @@
                   (click)="onEditParameters()" style="float: right;margin-right: 8px ; "></button>
         </div>
       </p-header>
-      <p-table [value]="customMethod.loadMapping" selectionMode="single" [resizableColumns]="true"
-               [(selection)]="selection" scrollHeight="200px"
+      <p-table [value]="customMethod.loadMapping" [resizableColumns]="true"
+               scrollHeight="200px"
                [scrollable]="true">
         <ng-template pTemplate="header">
           <tr>
@@ -50,6 +50,7 @@
                                 [suggestions]="mFieldSuggestions" (completeMethod)="getData(rowData)"
                                 [(ngModel)]="rowData.name"
                                 [dropdown]="true"
+                                (onDropdownClick)="selection=rowData"
                                 (onSelect)="onSelectLoadName($event)"
                                 [size]="30" [minLength]="1">
                 </p-autoComplete>

@@ -7,6 +7,7 @@ import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load
 import {WindowService} from '../../../services/window/window.service';
 import {IEntity} from '../../../models/Enitity/IEntity';
 import {EntityWindowComponent} from '../../entity/entity-window.component';
+import {ILoadParameter} from "../../../models/Enitity/ILoadParameter";
 
 @Component({
   selector: 'app-custom-method-info-dialog',
@@ -87,11 +88,15 @@ export class CustomMethodInfoDialogComponent implements OnInit {
   }
 
   onSelectLoadName(loadName: string) {
-    /*switch (loadMapping.loadType) {
+    switch (this.selection.loadType) {
       case R.LoadTypes[0]:
-        this.mFieldSuggestions = this.entity.queries.map((query) => {
-          return query.name;
-        });
+        if (this.selection.loadParameters === null) {
+          this.selection.loadParameters = [];
+        }
+        this.selection.loadParameters.push(...this.entity.queries.filter(x => x.name === loadName)[0]
+          .parameters.map((Parameters) => {
+            return {name: Parameters.name, entityField: ''} as ILoadParameter;
+          }));
         break;
       case R.LoadTypes[1]:
         this.mFieldSuggestions = this.entity.businessObject.objectMethods.map((method) => {
@@ -102,7 +107,7 @@ export class CustomMethodInfoDialogComponent implements OnInit {
         break;
       case R.LoadTypes[3]:
         break;
-    }*/
+    }
   }
 
 
