@@ -8,18 +8,10 @@
   <div class="ui-g-6">
     <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
-      <p-autoComplete appendTo="body" #auto
-                      [suggestions]="mFieldSuggestions" (completeMethod)="filterSymbols($event)" field="name"
-                      dataKey="name"
-                      (onSelect)="onObjectFieldSelected($event)" forceSelection="true" [dropdown]="true"
-                      [size]="30" [minLength]="1">
-        <ng-template let-symbol pTemplate="item">
-          <div class="ui-helper-clearfix">
-            <span *ngIf="symbol.type===2"><i class="fa fa-list" style="padding: 4px"></i>{{symbol.name}}</span>
-            <span *ngIf="symbol.type===1"><i class="fa fa-cube" style="padding: 4px"></i>{{symbol.name}}</span>
-          </div>
-        </ng-template>
-      </p-autoComplete>
+      <app-custom-auto-complete (Change)="filterSymbols($event)" [(text)]="object.objectField" [separator]="'.'"
+                                (textChange)="object.objectField=$event"
+                                [suggestions]="mFieldSuggestions"
+      ></app-custom-auto-complete>
     </div>
   </div>
   <div class="ui-g-6">

@@ -78,6 +78,7 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {MasterWindowComponent} from './components/master-window/master-window.component';
 import {MasterLoginWindowComponent} from './components/master-window/master-login-window/master-login-window.component';
 import {MasterIntitalLoadComponent} from './components/master-window/master-intital-load/master-intital-load.component';
+import {CustomAutoCompleteComponent} from './components/custom-auto-complete/custom-auto-complete.component';
 
 
 @NgModule({
@@ -119,6 +120,7 @@ import {MasterIntitalLoadComponent} from './components/master-window/master-inti
     MasterWindowComponent,
     MasterLoginWindowComponent,
     MasterIntitalLoadComponent,
+    CustomAutoCompleteComponent,
   ],
   imports: [
     RouterModule.forRoot([]),

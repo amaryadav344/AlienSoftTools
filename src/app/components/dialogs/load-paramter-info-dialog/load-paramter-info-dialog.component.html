@@ -12,8 +12,19 @@
           <tr>
             <td>{{rowData.name}}</td>
             <td>
-              <p-autoComplete appendTo="body" autocomplete="disabled" [(ngModel)]="rowData.entityField"
-                              placeholder="Name"></p-autoComplete>
+              <p-autoComplete appendTo="body"
+                              [suggestions]="mFieldSuggestions" (completeMethod)="filterEntityField($event)"
+                              field="name"
+                              dataKey="name"
+                              (onSelect)="onEntityFieldSelected($event,rowData)" forceSelection="true"
+                              [dropdown]="true"
+                              [size]="30" [minLength]="1">
+                <ng-template let-symbol pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <span><i class="fa fa-list" style="padding: 4px"></i>{{symbol.name}}</span>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
             </td>
           </tr>
         </ng-template>

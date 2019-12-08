@@ -88,24 +88,24 @@ export class CustomMethodInfoDialogComponent implements OnInit {
   }
 
   onSelectLoadName(loadName: string) {
+    if (this.selection.loadParameters === null) {
+      this.selection.loadParameters = [];
+    }
     switch (this.selection.loadType) {
       case R.LoadTypes[0]:
-        if (this.selection.loadParameters === null) {
-          this.selection.loadParameters = [];
-        }
-        this.selection.loadParameters.push(...this.entity.queries.filter(x => x.name === loadName)[0]
+        this.selection.loadParameters = this.entity.queries.filter(x => x.name === loadName)[0]
           .parameters.map((Parameters) => {
-            return {name: Parameters.name, entityField: ''} as ILoadParameter;
-          }));
+            return {name: Parameters.name, entityField: '', dataType: Parameters.dataType} as ILoadParameter;
+          });
         break;
       case R.LoadTypes[1]:
-        this.mFieldSuggestions = this.entity.businessObject.objectMethods.map((method) => {
-          return method.name;
+        this.selection.loadParameters = this.entity.businessObject.objectMethods.filter(x => x.name === loadName)[0].objectParameters.map((Parameter) => {
+          return {name: Parameter.name, entityField: '', dataType: Parameter.dataType} as ILoadParameter;
         });
         break;
-      case R.LoadTypes[2]:
+
         break;
-      case R.LoadTypes[3]:
+      case R.LoadTypes[2]:
         break;
     }
   }

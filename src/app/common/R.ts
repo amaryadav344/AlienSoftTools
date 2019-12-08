@@ -13,6 +13,7 @@ import {IDBConnectionInfo} from '../models/Enitity/IDBConnectionInfo';
 import {WindowItem} from './window-Item';
 import {IForm} from '../models/UI/IForm';
 import {ILabel} from '../models/UI/ILabel';
+import {ISymbol} from "../models/Enitity/ISymbol";
 
 export class R {
 
@@ -226,6 +227,11 @@ export class R {
             }
           }]
       };
+    }
+
+    static getSymbols(): ISymbol[] {
+      return [{name: 'person', entityName: 'personName', type: R.SymbolTypes.TYPE_VARIBLE},
+        {name: 'person', entityName: 'personName', type: R.SymbolTypes.TYPE_VARIBLE}];
     }
   };
 }
