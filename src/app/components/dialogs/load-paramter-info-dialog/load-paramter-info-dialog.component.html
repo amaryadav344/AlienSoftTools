@@ -12,7 +12,7 @@
           <tr>
             <td>{{rowData.name}}</td>
             <td>
-              <p-autoComplete appendTo="body"
+              <p-autoComplete #auto appendTo="body"
                               [suggestions]="mFieldSuggestions" (completeMethod)="filterEntityField($event)"
                               field="name"
                               dataKey="name"

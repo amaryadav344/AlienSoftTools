@@ -1,59 +1,9 @@
-<div
-  style="
-   border-color: rgba(0,0,255,0.25);border-style: solid;border-width: 1px; height:465px;min-width:60%">
-  <p-scrollPanel [style]="{width: '100%', height:'100%'}">
-    <div class="ui-g" *ngFor="let panel of form.panels">
-      <div class="ui-g-12">
-        <div class="c-panel">
-          <div class="c-panel-header">
-            <div class="ui-helper-clearfix">
-            <span class="ui-panel-title"
-                  style="font-size:16px;display:inline-block;margin-top:2px">{{panel.name}}</span>
-              <p-button type="button" icon="pi pi-plus" style="float: right;"
-                        (onClick)="openQueryInfo($event.option,0)"></p-button>
-            </div>
-          </div>
-          <div class="c-panel-content">
-            <div style="display: table">
-              <div style="display: table-row" *ngFor="let row of panel.table.rows">
-                <div class="cell" style="display: table-cell" *ngFor="let data of row.data">
-                 <span *ngFor="let control of data.controls">
-                 <span *ngIf="control.type=='label'" class="c-label">
-                   <input type="text" [value]="control.ID" size="10"/>
-                 </span>
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--  <p-panel>
-            <p-header>
-              <div class="ui-helper-clearfix">
-              <span class="ui-panel-title"
-                    style="font-size:16px;display:inline-block;margin-top:2px">{{panel.name}}</span>
-                <p-button type="button" icon="pi pi-plus" style="float: right;"
-                          (onClick)="openQueryInfo($event.option,0)"></p-button>
-              </div>
-            </p-header>
-            <div style="display: table">
-              <div style="display: table-row" *ngFor="let row of panel.table.rows">
-                <div class="cell" style="display: table-cell" *ngFor="let data of row.data">
-                   <span *ngFor="let control of data.controls">
-                   <span *ngIf="control.type=='label'" class="c-label">
-                     <input type="text" [value]="control.ID" size="10"/>
-                   </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </p-panel>-->
-      </div>
-    </div>
-  </p-scrollPanel>
+<div class="ui-g-5 ui-g-nopad">
+  <div
+    style="height: 466px;
+  border: 1px solid rgba(0,0,255,0.25);">
+
+  </div>
 </div>
-
-
-
 
 

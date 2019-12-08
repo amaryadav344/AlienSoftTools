@@ -9,7 +9,8 @@
     <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
       <app-custom-auto-complete (Change)="filterSymbols($event)" [(text)]="object.objectField" [separator]="'.'"
-                                (textChange)="object.objectField=$event"
+                                (Complete)="this.object.entity=$event.entityName;"
+
                                 [suggestions]="mFieldSuggestions"
       ></app-custom-auto-complete>
     </div>

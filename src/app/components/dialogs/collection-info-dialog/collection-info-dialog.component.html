@@ -8,7 +8,8 @@
   <div class="ui-g-6">
     <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
-      <app-custom-auto-complete (Change)="filterSymbols($event)"
+      <app-custom-auto-complete (Change)="filterSymbols($event)" [text]="collection.objectField"
+                                (Complete)="collection.entity=$event.entityName"
                                 [suggestions]="mFieldSuggestions"></app-custom-auto-complete>
     </div>
   </div>

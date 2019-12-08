@@ -3,10 +3,14 @@
     <div class="ui-g-12 ui-g-nopad">
       <app-uitoolbar></app-uitoolbar>
     </div>
-  </div>
-  <div style="width: 100%;display: inline-flex">
-    <app-side-bar></app-side-bar>
-    <app-form></app-form>
+    <div class="ui-g-12 ui-g-nopad">
+      <div class="ui-g-4">
+        <app-side-bar></app-side-bar>
+      </div>
+      <div class="ui-g-8">
+        <app-form></app-form>
+      </div>
+    </div>
   </div>
   <div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">
     <div style="height: 521px; width: 1365px">
