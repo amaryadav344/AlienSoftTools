@@ -1,9 +1,18 @@
-<div class="ui-g-5 ui-g-nopad">
-  <div
-    style="height: 466px;
-  border: 1px solid rgba(0,0,255,0.25);">
-
-  </div>
+<div class="ui-g-12 ui-g-nopad" style="border: 1px solid rgba(0,0,255,0.40);">
+  <p-scrollPanel
+    [style]="{height: '466px'}">
+    <div class="ui-g">
+      <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of form.grid.rows;let i = index">
+        <div [ngClass]="'ui-g-'+column.span" pDroppable
+             *ngFor="let column of row.columns;let j = index"
+             [id]="'row-'+i+'-column-'+j">
+          <div *ngFor="let control of column.controls" [ngClass]="calculateClasses(control)" style="padding: 5px">
+            {{control.ID}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-scrollPanel>
 </div>
 
 

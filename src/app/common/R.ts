@@ -12,8 +12,10 @@ import {IFile} from '../models/Enitity/IFile';
 import {IDBConnectionInfo} from '../models/Enitity/IDBConnectionInfo';
 import {WindowItem} from './window-Item';
 import {IForm} from '../models/UI/IForm';
-import {ILabel} from '../models/UI/ILabel';
-import {ISymbol} from "../models/Enitity/ISymbol";
+import {ISymbol} from '../models/Enitity/ISymbol';
+import {IGrid} from '../models/UI/IGrid';
+import {IButton} from '../models/UI/IButton';
+import {ICheckBox} from '../models/UI/ICheckBox';
 
 export class R {
 
@@ -131,101 +133,44 @@ export class R {
 
     static getForm(): IForm {
       return {
-        panels: [{
-          name: 'Search Criteria',
-          ID: 'pnlSearch',
-          collapsible: true,
-          table: {
-            rows: [
+        grid: {
+          rows: [{
+            columns: [{
+              controls: [
+                new IButton('btnClick'),
+                new ICheckBox('chkClick'),
+
+              ],
+              span: 6
+            },
               {
-                data: [
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  },
-                  {
-                    controls: [
-                      {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                    ]
-                  }
+                controls: [
+                  new IButton('btnClick'),
+                  new ICheckBox('chkClick'),
+
                 ],
+                span: 6
               }]
-          }
-        },
-          {
-            name: 'Search Criteria',
-            ID: 'pnlSearch',
-            collapsible: true,
-            table: {
-              rows: [
+          },
+            {
+              columns: [{
+                controls: [
+                  new IButton('btnClick'),
+                  new ICheckBox('chkClick'),
+
+                ],
+                span: 6
+              },
                 {
-                  data: [
-                    {
-                      controls: [
-                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel,
-                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                      ]
-                    }
-                  ]
-                },
-                {
-                  data: [
-                    {
-                      controls: [
-                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel,
-                        {ID: 'label', EntityField: 'PersonName', Visible: true, type: 'label'} as ILabel
-                      ]
-                    }
-                  ]
+                  controls: [
+                    new IButton('btnClick'),
+                    new ICheckBox('chkClick'),
+
+                  ],
+                  span: 6
                 }]
-            }
-          }]
+            }]
+        } as IGrid
       };
     }
 

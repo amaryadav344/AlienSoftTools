@@ -1,2 +1,4 @@
-export interface IControl {
+export class IControl {
+
+
 }

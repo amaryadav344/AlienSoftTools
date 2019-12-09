@@ -1,5 +1,6 @@
 import {IControl} from './IControl';
 
-export interface ITData {
+export interface IGColumn {
   controls: IControl[];
+  span: number;
 }

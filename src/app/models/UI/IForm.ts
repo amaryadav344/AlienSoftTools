@@ -1,5 +1,5 @@
-import {IPanel} from './IPanel';
+import {IGrid} from './IGrid';
 
 export interface IForm {
-  panels: IPanel[];
+  grid: IGrid;
 }
