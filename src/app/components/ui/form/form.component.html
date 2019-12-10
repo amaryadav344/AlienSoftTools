@@ -1,17 +1,26 @@
 <div class="ui-g-12 ui-g-nopad" style="border: 1px solid rgba(0,0,255,0.40);">
   <p-scrollPanel
     [style]="{height: '466px'}">
-    <div class="ui-g">
-      <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of form.grid.rows;let i = index">
-        <div [ngClass]="'ui-g-'+column.span" pDroppable
-             *ngFor="let column of row.columns;let j = index"
-             [id]="'row-'+i+'-column-'+j">
-          <div *ngFor="let control of column.controls" [ngClass]="calculateClasses(control)" style="padding: 5px">
-            {{control.ID}}
+    <div class="ui-g-12" style="margin: 8px" [id]="'view-group-'+i"
+         *ngFor="let ViewGroup of form.viewGroups;let i=index" (click)="selectControl($event)">
+      <div class="ui-g"
+           (click)="selectControl($event)" [id]="ViewGroup.ID" *ngIf="GetViewGroupType(ViewGroup)===0">
+        <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of ViewGroup.rows;let j = index">
+          <div [ngClass]="'ui-g-'+column.span" pDroppable (click)="selectControl($event)"
+               *ngFor="let column of row.columns;let k = index"
+               [id]="'view-group-'+i+'-row-'+j+'-column-'+k">
+            <div [id]="'view-group-'+i+'-row-'+j+'-column-'+k+'-control-'+ control.ID"
+                 *ngFor="let control of column.controls"
+                 [ngClass]="calculateClasses(control)"
+                 style="padding: 5px"
+                 (click)="selectControl($event)">
+              {{control.ID}}
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </p-scrollPanel>
 </div>
 

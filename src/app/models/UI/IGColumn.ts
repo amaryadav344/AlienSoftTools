@@ -1,6 +1,14 @@
-import {IControl} from './IControl';
+import {IView} from './IView';
+import {IViewGroup} from './IViewGroup';
 
-export interface IGColumn {
-  controls: IControl[];
+export class IGColumn extends IViewGroup {
   span: number;
+  controls: IView[];
+
+
+  constructor(span: number, controls: IView[]) {
+    super();
+    this.span = span;
+    this.controls = controls;
+  }
 }

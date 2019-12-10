@@ -2,3 +2,18 @@
   border: 1px solid rgba(0, 0, 1, 0.10);
   min-height: 50px;
 }
+
+.ui-g {
+  padding: 8px;
+  margin: 8px;
+  border: 1px solid rgba(0, 0, 1, 0.10);
+}
+
+.selected {
+  border: 2px solid rgb(255, 187, 44);
+}
+
+.selected-control {
+  border: 1px solid rgb(255, 187, 44);
+  color: rgb(255, 187, 44);
+}

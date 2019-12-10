@@ -1,5 +1,5 @@
-import {IGrid} from './IGrid';
+import {IViewGroup} from './IViewGroup';
 
-export interface IForm {
-  grid: IGrid;
+export class IForm extends IViewGroup {
+  viewGroups: IViewGroup[];
 }
