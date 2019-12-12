@@ -8,6 +8,7 @@ import {IViewGroup} from "../../../models/UI/IViewGroup";
 import {IGrid} from "../../../models/UI/IGrid";
 import {ILabel} from "../../../models/UI/ILabel";
 import {ICaption} from "../../../models/UI/ICaption";
+import {ISection} from "../../../models/UI/ISection";
 
 @Component({
   selector: 'app-form',
@@ -65,6 +66,8 @@ export class FormComponent implements OnInit {
   GetViewGroupType(ViewGroup: IViewGroup) {
     if (ViewGroup instanceof IGrid) {
       return 0;
+    } else if (ViewGroup instanceof ISection) {
+      return 1;
     }
   }
 

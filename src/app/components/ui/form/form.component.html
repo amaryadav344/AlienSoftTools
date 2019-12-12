@@ -3,8 +3,7 @@
     [style]="{height: '466px'}">
     <div class="ui-g-12" style="margin: 8px" [id]="'view-group-'+i"
          *ngFor="let ViewGroup of form.viewGroups;let i=index" (click)="selectControl($event)">
-      <div class="ui-g"
-           (click)="selectControl($event)" [id]="ViewGroup.ID" *ngIf="GetViewGroupType(ViewGroup)===0">
+      <ng-template [ngIf]="GetViewGroupType(ViewGroup)===0">
         <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of ViewGroup.rows;let j = index">
           <div [ngClass]="'ui-g-'+column.span" pDroppable (click)="selectControl($event)"
                *ngFor="let column of row.columns;let k = index"
@@ -18,9 +17,13 @@
             </div>
           </div>
         </div>
-      </div>
+      </ng-template>
+      <ng-template [ngIf]="GetViewGroupType(ViewGroup)===1">
+        <div class="ui-g-12">
+          {{ViewGroup.title}}
+        </div>
+      </ng-template>
     </div>
-
   </p-scrollPanel>
 </div>
 

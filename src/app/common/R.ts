@@ -18,6 +18,7 @@ import {IButton} from '../models/UI/IButton';
 import {ICheckBox} from '../models/UI/ICheckBox';
 import {ICaption} from '../models/UI/ICaption';
 import {ILabel} from '../models/UI/ILabel';
+import {ISection} from "../models/UI/ISection";
 
 export class R {
 
@@ -135,30 +136,31 @@ export class R {
 
     static getForm(): IForm {
       return {
-        viewGroups: [new IGrid([{
-          columns: [{
-            controls: [
-              new ICaption('cpCaption'),
-
-            ],
-            span: 12
-          }]
-        },
-          {
+        viewGroups: [new IGrid(
+          [{
             columns: [{
               controls: [
-                new ILabel('lblLabel'),
-              ],
-              span: 6
-            },
-              {
-                controls: [
-                  new IButton('btnClick'),
+                new ICaption('cpCaption'),
 
+              ],
+              span: 12
+            }]
+          },
+            {
+              columns: [{
+                controls: [
+                  new ILabel('lblLabel'),
                 ],
                 span: 6
-              }]
-          }], 'grdFirst'), new IGrid([{
+              },
+                {
+                  controls: [
+                    new IButton('btnClick'),
+
+                  ],
+                  span: 6
+                }]
+            }], 'grdFirst'), new IGrid([{
           columns: [{
             controls: [
               new IButton('btnClick'),
@@ -263,7 +265,43 @@ export class R {
                 ],
                 span: 6
               }]
-          }], 'grdFirst')]
+          }], 'grdFirst'),
+          new ISection('sctOne', 'title', new IGrid([{
+            columns: [{
+              controls: [
+                new IButton('btnClick'),
+                new ICheckBox('chkClick'),
+
+              ],
+              span: 6
+            },
+              {
+                controls: [
+                  new IButton('btnClick'),
+                  new ICheckBox('chkClick'),
+
+                ],
+                span: 6
+              }]
+          },
+            {
+              columns: [{
+                controls: [
+                  new IButton('btnClick'),
+                  new ICheckBox('chkClick'),
+
+                ],
+                span: 6
+              },
+                {
+                  controls: [
+                    new IButton('btnClick'),
+                    new ICheckBox('chkClick'),
+
+                  ],
+                  span: 6
+                }]
+            }], 'grdFirst'))]
       };
     }
 
