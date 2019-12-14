@@ -1,29 +1,38 @@
 <div class="ui-g-12 ui-g-nopad" style="border: 1px solid rgba(0,0,255,0.40);">
   <p-scrollPanel
     [style]="{height: '466px'}">
-    <div class="ui-g-12" style="margin: 8px" [id]="'view-group-'+i"
-         *ngFor="let ViewGroup of form.viewGroups;let i=index" (click)="selectControl($event)">
-      <ng-template [ngIf]="GetViewGroupType(ViewGroup)===0">
-        <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of ViewGroup.rows;let j = index">
-          <div [ngClass]="'ui-g-'+column.span" pDroppable (click)="selectControl($event)"
-               *ngFor="let column of row.columns;let k = index"
-               [id]="'view-group-'+i+'-row-'+j+'-column-'+k">
-            <div [id]="'view-group-'+i+'-row-'+j+'-column-'+k+'-control-'+ control.ID"
-                 *ngFor="let control of column.controls"
-                 [ngClass]="calculateClasses(control)"
-                 style="padding: 5px"
-                 (click)="selectControl($event)">
-              {{control.ID}}
+    <ng-template #ViewGroupTemplate let-ViewGroup let-i="i">
+      <div class="ui-g-12 cell" style="margin: 8px" [id]="'view-group-'+i"
+           (click)="singleClick($event,ViewGroup)" (dblclick)="doubleClick($event,ViewGroup)">
+        <ng-template [ngIf]="GetViewGroupType(ViewGroup)===0">
+          <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of ViewGroup.rows;let j = index">
+            <div [ngClass]="'ui-g-'+column.span+' cell'" pDroppable
+                 (onDrop)="dropControl($event,column)"
+                 (click)="singleClick($event,column)" (dblclick)="doubleClick($event,column)"
+                 *ngFor="let column of row.columns;let k = index"
+                 [id]="'view-group-'+i+'-row-'+j+'-column-'+k">
+              <div [id]="'view-group-'+i+'-row-'+j+'-column-'+k+'-control-'+ control.ID"
+                   *ngFor="let control of column.controls"
+                   [ngClass]="calculateClasses(control)"
+                   style="padding: 5px"
+                   (click)="singleClick($event,control)" (dblclick)="doubleClick($event,control)">
+                {{control.ID}}
+              </div>
             </div>
           </div>
-        </div>
-      </ng-template>
-      <ng-template [ngIf]="GetViewGroupType(ViewGroup)===1">
-        <div class="ui-g-12">
-          {{ViewGroup.title}}
-        </div>
-      </ng-template>
-    </div>
+        </ng-template>
+        <ng-template [ngIf]="GetViewGroupType(ViewGroup)===1">
+          <div class="ui-g-12">
+            {{ViewGroup.title}}
+          </div>
+          <ng-container
+            *ngTemplateOutlet="ViewGroupTemplate; context:{ $implicit: ViewGroup.grid, i:'grid'+'-'+i }"></ng-container>
+        </ng-template>
+      </div>
+    </ng-template>
+    <ng-template ngFor let-ViewGroup [ngForOf]="form.viewGroups" let-ind="index">
+      <ng-container *ngTemplateOutlet="ViewGroupTemplate; context:{ $implicit: ViewGroup, i:ind }"></ng-container>
+    </ng-template>
   </p-scrollPanel>
 </div>
 

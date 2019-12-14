@@ -5,10 +5,10 @@
     </div>
     <div class="ui-g-12 ui-g-nopad">
       <div class="ui-g-4">
-        <app-side-bar></app-side-bar>
+        <app-side-bar [PropertiesObject]="PropertiesObject"></app-side-bar>
       </div>
       <div class="ui-g-8">
-        <app-form></app-form>
+        <app-form (openPropertiesTab)="openPropertiesTab()" (openProperties)="openProperties($event)"></app-form>
       </div>
     </div>
   </div>

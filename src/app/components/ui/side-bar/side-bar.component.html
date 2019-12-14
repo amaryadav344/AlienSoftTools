@@ -1,31 +1,56 @@
-
-  <p-panel header="Controls" styleClass="ControlsPanel">
-    <div class="ui-g ui-fluid ui-g-nopad">
-      <div class="ui-g-6">
-        <div pDraggable pButton type="button" label="Label" class="ui-button-secondary button-hover"
-             icon="fa fa-language"></div>
+<p-panel header="Controls" styleClass="ControlsPanel">
+  <p-tabView [activeIndex]="CurrentTabIndex">
+    <p-tabPanel header="Controls">
+      <div class="ui-g ui-fluid ui-g-nopad">
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable id="Label" pButton type="button" label="Label"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-language"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton id="Caption" type="button" label="Caption"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-tag"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Input" label="Input"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-i-cursor"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Button" label="Button"
+               class="ui-button-secondary button-hover"
+               icon="pi pi-play"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Checkbox" label="Checkbox"
+               class="ui-button-secondary button-hover"
+               icon="pi pi-check-square"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Section" label="Section"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-window-maximize"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Grid" label="Grid"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-th-large"></div>
+        </div>
       </div>
-      <div class="ui-g-6">
-        <div pDraggable pButton type="button" label="Caption" class="ui-button-secondary button-hover"
-             icon="fa fa-tag"></div>
+    </p-tabPanel>
+    <p-tabPanel header="Properties">
+      <div class="ui-g ui-fluid ui-g-nopad">
+        <div class="ui-g-12 ui-g-nopad">
+          <div class="caption">ID</div>
+        </div>
+        <div class="ui-g-12 ui-g-nopad">
+          <input type="text" pInputText disabled="true" [ngModel]="PropertiesObject.ID"/>
+          <input type="text" pInputText [ngModel]="PropertiesObject.span"/>
+        </div>
       </div>
-      <div class="ui-g-6">
-        <div pDraggable pButton type="button" label="Secondary" class="ui-button-secondary button-hover"
-             icon="pi pi-plus"></div>
-      </div>
-      <div class="ui-g-6">
-        <div pDraggable pButton type="button" label="Secondary" class="ui-button-secondary button-hover"
-             icon="pi pi-plus"></div>
-      </div>
-      <div class="ui-g-6">
-        <div pDraggable pButton type="button" label="Secondary" class="ui-button-secondary button-hover"
-             icon="pi pi-plus"></div>
-      </div>
-      <div class="ui-g-6">
-        <div pDraggable pButton type="button" label="Secondary" class="ui-button-secondary button-hover"
-             icon="pi pi-plus"></div>
-      </div>
-    </div>
-  </p-panel>
+    </p-tabPanel>
+  </p-tabView>
+</p-panel>
 
 

@@ -18,7 +18,8 @@ import {IButton} from '../models/UI/IButton';
 import {ICheckBox} from '../models/UI/ICheckBox';
 import {ICaption} from '../models/UI/ICaption';
 import {ILabel} from '../models/UI/ILabel';
-import {ISection} from "../models/UI/ISection";
+import {ISection} from '../models/UI/ISection';
+import {IInput} from '../models/UI/IInput';
 
 export class R {
 
@@ -141,6 +142,7 @@ export class R {
             columns: [{
               controls: [
                 new ICaption('cpCaption'),
+                new IInput('inpInput')
 
               ],
               span: 12
@@ -160,112 +162,7 @@ export class R {
                   ],
                   span: 6
                 }]
-            }], 'grdFirst'), new IGrid([{
-          columns: [{
-            controls: [
-              new IButton('btnClick'),
-              new ICheckBox('chkClick'),
-
-            ],
-            span: 6
-          },
-            {
-              controls: [
-                new IButton('btnClick'),
-                new ICheckBox('chkClick'),
-
-              ],
-              span: 6
-            }]
-        },
-          {
-            columns: [{
-              controls: [
-                new IButton('btnClick'),
-                new ICheckBox('chkClick'),
-
-              ],
-              span: 6
-            },
-              {
-                controls: [
-                  new IButton('btnClick'),
-                  new ICheckBox('chkClick'),
-
-                ],
-                span: 6
-              }]
-          }], 'grdFirst'), new IGrid([{
-          columns: [{
-            controls: [
-              new IButton('btnClick'),
-              new ICheckBox('chkClick'),
-
-            ],
-            span: 6
-          },
-            {
-              controls: [
-                new IButton('btnClick'),
-                new ICheckBox('chkClick'),
-
-              ],
-              span: 6
-            }]
-        },
-          {
-            columns: [{
-              controls: [
-                new IButton('btnClick'),
-                new ICheckBox('chkClick'),
-
-              ],
-              span: 6
-            },
-              {
-                controls: [
-                  new IButton('btnClick'),
-                  new ICheckBox('chkClick'),
-
-                ],
-                span: 6
-              }]
-          }], 'grdFirst'), new IGrid([{
-          columns: [{
-            controls: [
-              new IButton('btnClick'),
-              new ICheckBox('chkClick'),
-
-            ],
-            span: 6
-          },
-            {
-              controls: [
-                new IButton('btnClick'),
-                new ICheckBox('chkClick'),
-
-              ],
-              span: 6
-            }]
-        },
-          {
-            columns: [{
-              controls: [
-                new IButton('btnClick'),
-                new ICheckBox('chkClick'),
-
-              ],
-              span: 6
-            },
-              {
-                controls: [
-                  new IButton('btnClick'),
-                  new ICheckBox('chkClick'),
-
-                ],
-                span: 6
-              }]
-          }], 'grdFirst'),
+            }], 'grdFirst'),
           new ISection('sctOne', 'title', new IGrid([{
             columns: [{
               controls: [
@@ -310,5 +207,15 @@ export class R {
         {name: 'person', entityName: 'personName', type: R.SymbolTypes.TYPE_VARIBLE}];
     }
   };
+  static Controls = class {
+    static TYPE_LABEL = 'Label';
+    static TYPE_CAPTION = 'Caption';
+    static TYPE_INPUT = 'Input';
+    static TYPE_BUTTON = 'Button';
+    static TYPE_CHECKBOX = 'Checkbox';
+    static TYPE_SECTION = 'Section';
+    static TYPE_GRID = 'Grid';
+  };
+
 }
 
