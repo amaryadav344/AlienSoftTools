@@ -1,7 +1,8 @@
 package com.webstudio.connectionhub.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.webstudio.connectionhub.models.*;
+import com.webstudio.connectionhub.models.Entity.*;
+import com.webstudio.connectionhub.models.IXMLBase;
 
 import java.io.IOException;
 import java.util.List;
@@ -81,6 +82,14 @@ public class ProjectStore {
             String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
             symbol.setEntityName(ModelName);
         }
+        return symbols;
+    }
+
+    public List<ISymbol> GetVariableSymbols(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
+        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        List<ISymbol> symbols = symbolProvider.getVariableSymbols(ClassPath, query);
         return symbols;
     }
 

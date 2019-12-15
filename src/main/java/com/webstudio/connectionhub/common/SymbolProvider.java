@@ -1,8 +1,8 @@
 package com.webstudio.connectionhub.common;
 
-import com.webstudio.connectionhub.models.IObjectMethod;
-import com.webstudio.connectionhub.models.IObjectParameter;
-import com.webstudio.connectionhub.models.ISymbol;
+import com.webstudio.connectionhub.models.Entity.IObjectMethod;
+import com.webstudio.connectionhub.models.Entity.IObjectParameter;
+import com.webstudio.connectionhub.models.Entity.ISymbol;
 import spoon.JarLauncher;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtParameter;
@@ -12,6 +12,7 @@ import spoon.reflect.reference.CtReference;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -122,6 +123,49 @@ public class SymbolProvider {
                     symbol.setName(ctFieldReference.getSimpleName());
                     symbol.setObjectType(ctFieldReference.getType().getActualTypeArguments().get(0).getSimpleName());
                     symbol.setType(Constants.SymbolTypes.TYPE_COLLECTION);
+                    return symbol;
+                }).collect(Collectors.toList());
+    }
+
+    public List<ISymbol> getVariableSymbols(String FullQualifiedName, String Query) {
+        CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
+        String LastSymbol = "";
+        String[] Symbols = Query.split("\\.");
+        for (String symbol : Symbols) {
+            if (LastType.getAllFields().stream().anyMatch(ctFieldReference ->
+                    ctFieldReference.getType().getActualTypeArguments().size() != 0 &&
+                            HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                            && ctFieldReference.getSimpleName().equals(symbol)
+                            && (ctFieldReference.getType().getQualifiedName().equals(Date.class.getCanonicalName()))
+                            || (ctFieldReference.getType().getQualifiedName().equals(String.class.getCanonicalName()))
+                            || (ctFieldReference.getType().getQualifiedName().equals(Integer.class.getCanonicalName())))) {
+                LastType = LastType.getAllFields().stream()
+
+                        .filter(ctFieldReference ->
+                                ctFieldReference.getType().getActualTypeArguments().size() != 0
+                                        && HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                                        && (ctFieldReference.getType().getQualifiedName().equals(Date.class.getCanonicalName()))
+                                        || (ctFieldReference.getType().getQualifiedName().equals(String.class.getCanonicalName()))
+                                        || (ctFieldReference.getType().getQualifiedName().equals(Integer.class.getCanonicalName()))
+                                        && ctFieldReference.getSimpleName().equals(symbol)).findFirst().get().getType();
+            } else {
+                LastSymbol = symbol;
+            }
+        }
+        String finalLastSymbol = LastSymbol.toLowerCase();
+
+        return LastType.getAllFields()
+                .stream().filter(ctFieldReference ->
+                        ctFieldReference.getType().getActualTypeArguments().size() != 0
+                                && ctFieldReference.getSimpleName().toLowerCase().contains(finalLastSymbol)
+                                && HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                                && (ctFieldReference.getType().getQualifiedName().equals(Date.class.getCanonicalName()))
+                                || (ctFieldReference.getType().getQualifiedName().equals(String.class.getCanonicalName()))
+                                || (ctFieldReference.getType().getQualifiedName().equals(Integer.class.getCanonicalName()))).map(ctFieldReference -> {
+                    ISymbol symbol = new ISymbol();
+                    symbol.setName(ctFieldReference.getSimpleName());
+                    symbol.setObjectType(ctFieldReference.getType().getActualTypeArguments().get(0).getSimpleName());
+                    symbol.setType(Constants.SymbolTypes.TYPE_VARIBLE);
                     return symbol;
                 }).collect(Collectors.toList());
     }

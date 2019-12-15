@@ -23,7 +23,7 @@ public class DataSourceBean {
                 .create()
                 .url(appConfigRepository.getAppConfig("databaseurl"))
                 .username(appConfigRepository.getAppConfig("databaseusername"))
-                .password(appConfigRepository.getAppConfig("databasepassword"))
+                .password("DEVPS")
                 .driverClassName(appConfigRepository.getAppConfig("databasedriver"))
                 .build();
     }

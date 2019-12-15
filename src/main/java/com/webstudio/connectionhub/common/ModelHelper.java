@@ -2,8 +2,8 @@ package com.webstudio.connectionhub.common;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
-import com.webstudio.connectionhub.models.IColumn;
-import com.webstudio.connectionhub.models.IEntity;
+import com.webstudio.connectionhub.models.Entity.IColumn;
+import com.webstudio.connectionhub.models.Entity.IEntity;
 
 import javax.lang.model.element.Modifier;
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.webstudio.connectionhub.models;
+package com.webstudio.connectionhub.models.Entity;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;

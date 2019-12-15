@@ -1,10 +1,11 @@
-package com.webstudio.connectionhub.models;
+package com.webstudio.connectionhub.models.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.webstudio.connectionhub.models.IXMLBase;
 
 @JsonPropertyOrder({"columns", "objects", "collections", "queries", "validation", "businessObject"})
 @JacksonXmlRootElement(localName = "entity")

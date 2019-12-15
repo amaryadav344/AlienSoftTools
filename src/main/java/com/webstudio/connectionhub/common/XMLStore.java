@@ -1,8 +1,8 @@
 package com.webstudio.connectionhub.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.webstudio.connectionhub.models.IEntity;
-import com.webstudio.connectionhub.models.IFile;
+import com.webstudio.connectionhub.models.Entity.IEntity;
+import com.webstudio.connectionhub.models.Entity.IFile;
 import com.webstudio.connectionhub.models.IXMLBase;
 
 import java.io.IOException;

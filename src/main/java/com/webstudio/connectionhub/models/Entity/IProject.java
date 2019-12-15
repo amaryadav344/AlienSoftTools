@@ -1,4 +1,4 @@
-package com.webstudio.connectionhub.models;
+package com.webstudio.connectionhub.models.Entity;
 
 public class IProject {
     String name;

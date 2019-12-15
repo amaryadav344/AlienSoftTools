@@ -4,7 +4,8 @@ package com.webstudio.connectionhub.controllers;
 import com.webstudio.connectionhub.common.Constants;
 import com.webstudio.connectionhub.common.FileHelper;
 import com.webstudio.connectionhub.common.ProjectStore;
-import com.webstudio.connectionhub.models.*;
+import com.webstudio.connectionhub.models.Entity.*;
+import com.webstudio.connectionhub.models.IXMLBase;
 import com.webstudio.connectionhub.repositories.AppConfigRepository;
 import com.webstudio.connectionhub.repositories.TableRepository;
 import com.webstudio.connectionhub.services.SystemSettingsService;
@@ -91,6 +92,10 @@ public class XMLController {
         } else if (SymbolType == Constants.SymbolTypes.TYPE_COLLECTION) {
             symbols.addAll(projectStore.GetObjectSymbols(file, query));
             symbols.addAll(projectStore.GetCollectionSymbols(file, query));
+        } else if (SymbolType == Constants.SymbolTypes.TYPE_VARIBLE) {
+            symbols.addAll(projectStore.GetObjectSymbols(file, query));
+            symbols.addAll(projectStore.GetVariableSymbols(file, query));
+
         }
         return new ResponseEntity<>(symbols.toArray(new ISymbol[symbols.size()]), HttpStatus.OK);
     }

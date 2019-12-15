@@ -1,8 +1,10 @@
-package com.webstudio.connectionhub.models;
+package com.webstudio.connectionhub.models.Entity;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-public class ICollection {
+@JacksonXmlRootElement(localName = "object")
+public class IObject {
     @JacksonXmlProperty(isAttribute = true)
     String name;
     @JacksonXmlProperty(isAttribute = true)
@@ -10,13 +12,7 @@ public class ICollection {
     @JacksonXmlProperty(isAttribute = true)
     String objectField;
 
-    public ICollection(String name, String entity, String objectField, String dataType) {
-        this.name = name;
-        this.entity = entity;
-        this.objectField = objectField;
-    }
-
-    public ICollection() {
+    public IObject() {
     }
 
     public String getName() {
@@ -43,4 +39,9 @@ public class ICollection {
         this.objectField = objectField;
     }
 
+    public IObject(String name, String entity, String objectField) {
+        this.name = name;
+        this.entity = entity;
+        this.objectField = objectField;
+    }
 }
