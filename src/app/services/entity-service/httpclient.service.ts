@@ -16,18 +16,18 @@ export class HttpClientService {
   constructor(public httpClient: HttpClient) {
   }
 
-  public getXMLFromJS(entity: IXMLBase) {
-    return this.httpClient.post(R.SERVER_URLS.JS_TO_XML, entity, {responseType: 'text'});
+  public getXMLFromJS(xml: IXMLBase) {
+    return this.httpClient.post(R.SERVER_URLS.JS_TO_XML, xml, {responseType: 'text'});
   }
 
   public getJSFromXML(xml: string) {
     return this.httpClient.post<IXMLBase>(R.SERVER_URLS.XML_TO_JS, xml, {responseType: 'json'});
   }
 
-  public saveXML(entity: IXMLBase, Path: string) {
+  public saveXML(xml: IXMLBase, Path: string) {
     let params = new HttpParams();
     params = params.append('path', Path);
-    return this.httpClient.post(R.SERVER_URLS.SAVE_XML, entity, {params, responseType: 'text'});
+    return this.httpClient.post(R.SERVER_URLS.SAVE_XML, xml, {params, responseType: 'text'});
   }
 
   public getFile(file: IFile) {

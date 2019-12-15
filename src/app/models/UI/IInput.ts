@@ -1,10 +1,10 @@
-import {IView} from './IView';
+import {R} from '../../common/R';
 
-export class IInput extends IView {
+export class IInput {
   ID: string;
+  type = R.Controls.TYPE_INPUT;
 
   constructor(ID: string) {
-    super();
     this.ID = ID;
   }
 }

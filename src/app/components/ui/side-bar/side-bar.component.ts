@@ -1,5 +1,4 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {IView} from '../../../models/UI/IView';
 
 @Component({
   selector: 'app-side-bar',
@@ -9,7 +8,7 @@ import {IView} from '../../../models/UI/IView';
 })
 export class SideBarComponent implements OnInit {
   @Input()
-  PropertiesObject: IView;
+  PropertiesObject: any;
   CurrentTabIndex = 0;
 
 

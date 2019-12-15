@@ -1,5 +1,6 @@
-import {IViewGroup} from './IViewGroup';
+import {IXMLBase} from '../IXMLBase';
 
-export class IForm extends IViewGroup {
-  viewGroups: IViewGroup[];
+export class IForm extends IXMLBase {
+  views: any[];
+  type = 'form';
 }

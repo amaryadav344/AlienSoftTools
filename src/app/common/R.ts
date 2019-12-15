@@ -137,9 +137,11 @@ export class R {
 
     static getForm(): IForm {
       return {
-        viewGroups: [new IGrid(
+        type: 'form',
+        views: [new IGrid(
           [{
             columns: [{
+              type: 'Column',
               controls: [
                 new ICaption('cpCaption'),
                 new IInput('inpInput')
@@ -150,12 +152,14 @@ export class R {
           },
             {
               columns: [{
+                type: 'Column',
                 controls: [
                   new ILabel('lblLabel'),
                 ],
                 span: 6
               },
                 {
+                  type: 'Column',
                   controls: [
                     new IButton('btnClick'),
 

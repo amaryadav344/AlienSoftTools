@@ -1,11 +1,11 @@
 <div class="ui-g-12 ui-g-nopad" style="border: 1px solid rgba(0,0,255,0.40);">
   <p-scrollPanel
     [style]="{height: '466px'}">
-    <ng-template #ViewGroupTemplate let-ViewGroup let-i="i">
+    <ng-template #ViewTemplate let-View let-i="i">
       <div class="ui-g-12 cell" style="margin: 8px" [id]="'view-group-'+i"
-           (click)="singleClick($event,ViewGroup)" (dblclick)="doubleClick($event,ViewGroup)">
-        <ng-template [ngIf]="GetViewGroupType(ViewGroup)===0">
-          <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of ViewGroup.rows;let j = index">
+           (click)="singleClick($event,View)" (dblclick)="doubleClick($event,View)">
+        <ng-template [ngIf]="GetViewGroupType(View)===0">
+          <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of View.rows;let j = index">
             <div [ngClass]="'ui-g-'+column.span+' cell'" pDroppable
                  (onDrop)="dropControl($event,column)"
                  (click)="singleClick($event,column)" (dblclick)="doubleClick($event,column)"
@@ -21,17 +21,17 @@
             </div>
           </div>
         </ng-template>
-        <ng-template [ngIf]="GetViewGroupType(ViewGroup)===1">
+        <ng-template [ngIf]="GetViewGroupType(View)===1">
           <div class="ui-g-12">
-            {{ViewGroup.title}}
+            {{View.title}}
           </div>
           <ng-container
-            *ngTemplateOutlet="ViewGroupTemplate; context:{ $implicit: ViewGroup.grid, i:'grid'+'-'+i }"></ng-container>
+            *ngTemplateOutlet="ViewTemplate; context:{ $implicit: View.grid, i:'grid'+'-'+i }"></ng-container>
         </ng-template>
       </div>
     </ng-template>
-    <ng-template ngFor let-ViewGroup [ngForOf]="form.viewGroups" let-ind="index">
-      <ng-container *ngTemplateOutlet="ViewGroupTemplate; context:{ $implicit: ViewGroup, i:ind }"></ng-container>
+    <ng-template ngFor let-View [ngForOf]="form.views" let-ind="index">
+      <ng-container *ngTemplateOutlet="ViewTemplate; context:{ $implicit: View, i:ind }"></ng-container>
     </ng-template>
   </p-scrollPanel>
 </div>

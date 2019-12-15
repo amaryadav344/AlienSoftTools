@@ -1,10 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {R} from '../../../common/R';
 import {IForm} from '../../../models/UI/IForm';
-import {IView} from '../../../models/UI/IView';
 import {IButton} from '../../../models/UI/IButton';
 import {ICheckBox} from '../../../models/UI/ICheckBox';
-import {IViewGroup} from '../../../models/UI/IViewGroup';
 import {IGrid} from '../../../models/UI/IGrid';
 import {ILabel} from '../../../models/UI/ILabel';
 import {ICaption} from '../../../models/UI/ICaption';
@@ -18,14 +16,14 @@ import {IGColumn} from '../../../models/UI/IGColumn';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-
-  form: IForm = R.Initializer.getForm();
+  @Input()
+  form: IForm;
   selection: any;
   preventSingleClick = false;
   timer: any;
   delay: number;
   @Output() openPropertiesTab = new EventEmitter();
-  @Output() openProperties = new EventEmitter<IView>();
+  @Output() openProperties = new EventEmitter<any>();
 
   constructor() {
 
@@ -35,7 +33,7 @@ export class FormComponent implements OnInit {
 
   }
 
-  calculateClasses(control: IView) {
+  calculateClasses(control: any) {
     let className = [];
     if (control instanceof IButton) {
       className = ['pi', 'pi-play'];
@@ -59,7 +57,7 @@ export class FormComponent implements OnInit {
     this.selection = null;
   }
 
-  selectControl(event, view: IView) {
+  selectControl(event, view: any) {
     const clicked = event.target;
     const currentID = clicked.id || null;
     if (this.selection != null && !(this.selection.id === currentID)) {
@@ -73,7 +71,7 @@ export class FormComponent implements OnInit {
 
   }
 
-  GetViewGroupType(ViewGroup: IViewGroup) {
+  GetViewGroupType(ViewGroup: any) {
     if (ViewGroup instanceof IGrid) {
       return 0;
     } else if (ViewGroup instanceof ISection) {
@@ -102,7 +100,7 @@ export class FormComponent implements OnInit {
     }
   }
 
-  singleClick(event, view: IView) {
+  singleClick(event, view: any) {
     event.stopPropagation();
     this.preventSingleClick = false;
     const delay = 200;
@@ -114,7 +112,7 @@ export class FormComponent implements OnInit {
     }, delay);
   }
 
-  doubleClick(event, view: IView) {
+  doubleClick(event, view: any) {
     this.preventSingleClick = true;
     clearTimeout(this.timer);
     this.selectControl(event, view);

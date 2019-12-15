@@ -1,5 +1,5 @@
 <p-panel header="Controls" styleClass="ControlsPanel">
-  <p-tabView [activeIndex]="CurrentTabIndex">
+  <p-tabView [(activeIndex)]="CurrentTabIndex">
     <p-tabPanel header="Controls">
       <div class="ui-g ui-fluid ui-g-nopad">
         <div class="ui-g-6">
@@ -46,7 +46,6 @@
         </div>
         <div class="ui-g-12 ui-g-nopad">
           <input type="text" pInputText disabled="true" [ngModel]="PropertiesObject.ID"/>
-          <input type="text" pInputText [ngModel]="PropertiesObject.span"/>
         </div>
       </div>
     </p-tabPanel>

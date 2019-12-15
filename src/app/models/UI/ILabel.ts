@@ -1,10 +1,11 @@
-import {IView} from './IView';
+import {R} from '../../common/R';
 
-export class ILabel extends IView {
+export class ILabel {
   ID: string;
+  type = R.Controls.TYPE_LABEL;
 
   constructor(ID: string) {
-    super();
-    this.ID = ID;
+    this
+      .ID = ID;
   }
 }

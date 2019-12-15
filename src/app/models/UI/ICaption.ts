@@ -1,10 +1,10 @@
-import {IView} from './IView';
+import {R} from '../../common/R';
 
-export class ICaption extends IView {
+export class ICaption {
   ID: string;
+  type = R.Controls.TYPE_CAPTION;
 
   constructor(ID: string) {
-    super();
     this.ID = ID;
   }
 }

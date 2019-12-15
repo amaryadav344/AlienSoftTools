@@ -1,13 +1,13 @@
 import {IGRow} from './IGRow';
-import {IViewGroup} from './IViewGroup';
+import {R} from '../../common/R';
 
-export class IGrid extends IViewGroup {
+export class IGrid {
   rows: IGRow[];
   ID: string;
+  type = R.Controls.TYPE_GRID;
 
 
   constructor(rows: IGRow[], ID: string) {
-    super();
     this.rows = rows;
     this.ID = ID;
   }

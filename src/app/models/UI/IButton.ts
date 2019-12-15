@@ -1,11 +1,11 @@
-import {IView} from './IView';
+import {R} from '../../common/R';
 
-export class IButton extends IView {
+export class IButton {
   ID: string;
+  type = R.Controls.TYPE_BUTTON;
 
 
   constructor(ID: string) {
-    super();
     this.ID = ID;
 
   }
