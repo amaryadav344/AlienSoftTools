@@ -1,12 +1,7 @@
 package com.webstudio.connectionhub.models.UI;
 
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
 public class IGRow {
-    @JacksonXmlProperty(localName = "Column")
-    @JacksonXmlElementWrapper(useWrapping = false)
     IGColumn[] columns;
 
 

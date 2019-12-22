@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "Button", value = IButton.class)
 })
 public class IView {
+
     public IView() {
     }
 }

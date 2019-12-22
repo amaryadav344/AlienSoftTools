@@ -1,17 +1,13 @@
 package com.webstudio.connectionhub.models.UI;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonIgnoreProperties({"type"})
 public class ISection extends IView {
     @JsonProperty("ID")
     @JacksonXmlProperty(localName = "ID", isAttribute = true)
     String id;
-    @JacksonXmlProperty(isAttribute = true)
     String title;
-    @JacksonXmlProperty(localName = "View")
     IGrid grid;
     String type;
 

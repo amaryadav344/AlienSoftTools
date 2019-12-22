@@ -1,19 +1,14 @@
 package com.webstudio.connectionhub.models.UI;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonIgnoreProperties({"type"})
 public class IGrid extends IView {
     @JsonProperty("ID")
     @JacksonXmlProperty(localName = "ID", isAttribute = true)
     String id;
     String type;
-    @JacksonXmlProperty(localName = "Row")
-    @JacksonXmlElementWrapper(useWrapping = false)
     IGRow[] rows;
 
 

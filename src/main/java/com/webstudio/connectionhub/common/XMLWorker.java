@@ -1,6 +1,7 @@
 package com.webstudio.connectionhub.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.webstudio.connectionhub.models.IXMLBase;
@@ -14,6 +15,8 @@ public class XMLWorker {
     private XMLWorker() {
         xmlMapper = new XmlMapper();
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
     }
 
     public static XMLWorker getInstance() {
