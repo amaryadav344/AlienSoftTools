@@ -16,10 +16,10 @@ import {ISymbol} from '../models/Enitity/ISymbol';
 import {IGrid} from '../models/UI/IGrid';
 import {IButton} from '../models/UI/IButton';
 import {ICheckBox} from '../models/UI/ICheckBox';
-import {ICaption} from '../models/UI/ICaption';
-import {ILabel} from '../models/UI/ILabel';
 import {ISection} from '../models/UI/ISection';
-import {IInput} from '../models/UI/IInput';
+import {ILabel} from "../models/UI/ILabel";
+import {ICaption} from "../models/UI/ICaption";
+import {IInput} from "../models/UI/IInput";
 
 export class R {
 
@@ -141,7 +141,6 @@ export class R {
         views: [new IGrid(
           [{
             columns: [{
-              type: 'Column',
               controls: [
                 new ICaption('cpCaption'),
                 new IInput('inpInput')
@@ -152,14 +151,12 @@ export class R {
           },
             {
               columns: [{
-                type: 'Column',
                 controls: [
                   new ILabel('lblLabel'),
                 ],
                 span: 6
               },
                 {
-                  type: 'Column',
                   controls: [
                     new IButton('btnClick'),
 

@@ -3,10 +3,8 @@ import {R} from '../../../common/R';
 import {IForm} from '../../../models/UI/IForm';
 import {IButton} from '../../../models/UI/IButton';
 import {ICheckBox} from '../../../models/UI/ICheckBox';
-import {IGrid} from '../../../models/UI/IGrid';
 import {ILabel} from '../../../models/UI/ILabel';
 import {ICaption} from '../../../models/UI/ICaption';
-import {ISection} from '../../../models/UI/ISection';
 import {IInput} from '../../../models/UI/IInput';
 import {IGColumn} from '../../../models/UI/IGColumn';
 
@@ -35,15 +33,15 @@ export class FormComponent implements OnInit {
 
   calculateClasses(control: any) {
     let className = [];
-    if (control instanceof IButton) {
+    if (control.type === R.Controls.TYPE_BUTTON) {
       className = ['pi', 'pi-play'];
-    } else if (control instanceof ICheckBox) {
+    } else if (control.type === R.Controls.TYPE_CHECKBOX) {
       className = ['pi', 'pi-check-square'];
-    } else if (control instanceof ILabel) {
+    } else if (control.type === R.Controls.TYPE_LABEL) {
       className = ['fa', 'fa-language'];
-    } else if (control instanceof ICaption) {
+    } else if (control.type === R.Controls.TYPE_CAPTION) {
       className = ['fa', 'fa-tag'];
-    } else if (control instanceof IInput) {
+    } else if (control.type === R.Controls.TYPE_INPUT) {
       className = ['fa', 'fa-i-cursor'];
     }
     return className;
@@ -72,9 +70,9 @@ export class FormComponent implements OnInit {
   }
 
   GetViewGroupType(ViewGroup: any) {
-    if (ViewGroup instanceof IGrid) {
+    if (ViewGroup.type === R.Controls.TYPE_GRID) {
       return 0;
-    } else if (ViewGroup instanceof ISection) {
+    } else if (ViewGroup.type === R.Controls.TYPE_SECTION) {
       return 1;
     }
   }

@@ -49,9 +49,9 @@ export class UserInterfaceComponent extends WindowBase implements OnInit {
   getJS() {
     this.httpClientService.getJSFromXML(this.xml).subscribe(
       form => {
-        this.form = form as IForm;
-        // this.checkForUndefined(this.entity);
         this.isTextView = !this.isTextView;
+        Object.assign(this.form, form);
+        // this.checkForUndefined(this.entity);
       },
       error => {
         console.log(error);
