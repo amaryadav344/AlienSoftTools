@@ -1,5 +1,6 @@
 package com.webstudio.connectionhub.models.UI;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -21,6 +22,7 @@ public class ILabel extends IView {
         this.id = id;
     }
 
+    @JsonIgnore()
     public String getType() {
         return type;
     }

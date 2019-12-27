@@ -1,6 +1,7 @@
 package com.webstudio.connectionhub.models.UI;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -23,6 +24,7 @@ public class IGrid extends IView {
         this.id = ID;
     }
 
+    @JsonIgnore()
     public String getType() {
         return type;
     }
