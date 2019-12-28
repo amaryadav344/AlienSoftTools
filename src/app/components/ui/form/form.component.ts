@@ -6,7 +6,8 @@ import {ICheckBox} from '../../../models/UI/ICheckBox';
 import {ILabel} from '../../../models/UI/ILabel';
 import {ICaption} from '../../../models/UI/ICaption';
 import {IInput} from '../../../models/UI/IInput';
-import {IGColumn} from '../../../models/UI/IGColumn';
+import {DragDropHelper} from '../../../common/DragDropHelper';
+import {StackLayout} from '../../../models/UI/StackLayout';
 
 @Component({
   selector: 'app-form',
@@ -22,6 +23,7 @@ export class FormComponent implements OnInit {
   delay: number;
   @Output() openPropertiesTab = new EventEmitter();
   @Output() openProperties = new EventEmitter<any>();
+  dragDropHelper: DragDropHelper = DragDropHelper.getInstance();
 
   constructor() {
 
@@ -69,6 +71,15 @@ export class FormComponent implements OnInit {
 
   }
 
+  allowDrop(event, Control) {
+    if (Control.type === R.Controls.TYPE_STACK_LAYOUT) {
+      event.preventDefault();
+    } else {
+      event.stopPropagation();
+
+    }
+  }
+
   GetViewGroupType(ViewGroup: any) {
     if (ViewGroup.type === R.Controls.TYPE_GRID) {
       return 0;
@@ -77,23 +88,27 @@ export class FormComponent implements OnInit {
     }
   }
 
-  dropControl(event, column: IGColumn) {
-    const id = event.dataTransfer.getData('Control');
-    switch (id) {
+  dropControl(event, layout: any) {
+    event.stopPropagation();
+    const Control = this.dragDropHelper.getControl();
+    switch (Control) {
       case R.Controls.TYPE_LABEL:
-        column.controls.push(new ILabel('lblLabel3'));
+        layout.controls.push(new ILabel('lblLabel3'));
         break;
       case R.Controls.TYPE_BUTTON:
-        column.controls.push(new IButton('lblLabel3'));
+        layout.controls.push(new IButton('btn123'));
         break;
       case R.Controls.TYPE_CAPTION:
-        column.controls.push(new ICaption('lblLabel3'));
+        layout.controls.push(new ICaption('lblLabel3'));
         break;
       case R.Controls.TYPE_CHECKBOX:
-        column.controls.push(new ICheckBox('lblLabel3'));
+        layout.controls.push(new ICheckBox('lblLabel3'));
         break;
       case R.Controls.TYPE_INPUT:
-        column.controls.push(new IInput('lblLabel3'));
+        layout.controls.push(new IInput('lblLabel3'));
+        break;
+      case R.Controls.TYPE_STACK_LAYOUT:
+        layout.controls.push(new StackLayout([], 'stkone'));
         break;
     }
   }

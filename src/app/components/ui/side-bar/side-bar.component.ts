@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {DragDropHelper} from '../../../common/DragDropHelper';
 
 @Component({
   selector: 'app-side-bar',
@@ -10,6 +11,7 @@ export class SideBarComponent implements OnInit {
   @Input()
   PropertiesObject: any;
   CurrentTabIndex = 0;
+  dragDropHelper: DragDropHelper = DragDropHelper.getInstance();
 
 
   constructor() {
@@ -19,7 +21,7 @@ export class SideBarComponent implements OnInit {
   }
 
   dragStart(event) {
-    event.dataTransfer.setData('Control', event.target.id);
+    this.dragDropHelper.setControl(event.target.id);
   }
 
   openPropertiesTab() {

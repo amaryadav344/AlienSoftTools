@@ -5,8 +5,8 @@ import {IFile} from '../../models/Enitity/IFile';
 import {IColumn} from '../../models/Enitity/IColumn';
 import {IXMLBase} from '../../models/IXMLBase';
 import {IDBConnectionInfo} from '../../models/Enitity/IDBConnectionInfo';
-import {ISymbol} from "../../models/Enitity/ISymbol";
-import {IObjectMethod} from "../../models/Enitity/IObjectMethod";
+import {ISymbol} from '../../models/Enitity/ISymbol';
+import {IObjectMethod} from '../../models/Enitity/IObjectMethod';
 
 @Injectable({
   providedIn: 'root'

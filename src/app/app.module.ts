@@ -79,6 +79,7 @@ import {MasterWindowComponent} from './components/master-window/master-window.co
 import {MasterLoginWindowComponent} from './components/master-window/master-login-window/master-login-window.component';
 import {MasterIntitalLoadComponent} from './components/master-window/master-intital-load/master-intital-load.component';
 import {CustomAutoCompleteComponent} from './components/custom-auto-complete/custom-auto-complete.component';
+import {NewFrameDialogComponent} from './components/dialogs/new-frame-dialog/new-frame-dialog.component';
 
 
 @NgModule({
@@ -121,6 +122,7 @@ import {CustomAutoCompleteComponent} from './components/custom-auto-complete/cus
     MasterLoginWindowComponent,
     MasterIntitalLoadComponent,
     CustomAutoCompleteComponent,
+    NewFrameDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -178,6 +180,7 @@ import {CustomAutoCompleteComponent} from './components/custom-auto-complete/cus
     ObjectMethodInfoDialogComponent,
     HomeWindowComponent,
     NewEntityDialogComponent,
+    NewFrameDialogComponent,
     EntityWindowComponent,
     EntityInfoDialogComponent,
     UserInterfaceComponent,

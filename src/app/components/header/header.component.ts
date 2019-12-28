@@ -14,10 +14,12 @@ export class HeaderComponent implements OnInit {
   files: IFile[] = [];
   selection: IFile = R.Initializer.getFile();
   EntityPopup = false;
+  FormPopup = false;
   WindowsPopup = false;
   windows: WindowItem[];
   selectedWindow: WindowItem = {data: {name: '', type: 0, path: ''}, component: null};
   EntityFiles: IFile[] = [];
+  FormFiles: IFile[] = [];
 
   constructor(public httpClientService: HttpClientService, public windowService: WindowService) {
   }
@@ -28,6 +30,7 @@ export class HeaderComponent implements OnInit {
       (res) => {
         this.files = res;
         this.EntityFiles = res.filter(x => x.name.includes('.ent.xml'));
+        this.FormFiles = res.filter(x => x.name.includes('.form.xml'));
       }, (err) => {
         console.log(err);
       }

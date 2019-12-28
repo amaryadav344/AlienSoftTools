@@ -6,6 +6,7 @@ import {HttpClientService} from '../../services/entity-service/httpclient.servic
 import {WindowService} from '../../services/window/window.service';
 import {WindowBase} from '../window/window-base/WindowBase';
 import {IFile} from '../../models/Enitity/IFile';
+import {NewFrameDialogComponent} from "../dialogs/new-frame-dialog/new-frame-dialog.component";
 
 @Component({
   selector: 'app-home-window',
@@ -25,6 +26,22 @@ export class HomeWindowComponent extends WindowBase implements OnInit {
     const ref = this.dialogService.open(NewEntityDialogComponent, {
       data: {},
       header: 'New Entity',
+      width: '50%',
+      contentStyle: {'max-height': '700px', overflow: 'auto'}
+    } as DynamicDialogConfig);
+
+    ref.onClose.subscribe((file: IFile) => {
+      if (file) {
+        this.windowService.Openwindow(file);
+        this.windowService.syncFiles(file);
+      }
+    });
+  }
+
+  CreateNewFrame() {
+    const ref = this.dialogService.open(NewFrameDialogComponent, {
+      data: {},
+      header: 'New Frame',
       width: '50%',
       contentStyle: {'max-height': '700px', overflow: 'auto'}
     } as DynamicDialogConfig);

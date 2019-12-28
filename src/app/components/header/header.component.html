@@ -4,7 +4,7 @@
       <p-toolbar [style]="{'border': 'none', 'background': '#333','border-radius': '0'}">
         <div class="ui-toolbar-group-left">
           <div class="popwrap">
-            <button pButton type="button" icon="pi pi-table" (click)="EntityPopup=!EntityPopup"
+            <button pButton type="button" icon="pi pi-table" (click)="FormPopup=false;EntityPopup=!EntityPopup"
                     label="Entity"></button>
             <div class="popup" *ngIf="EntityPopup">
               <p-table #tableEntityFiles [value]="EntityFiles" [scrollable]="true" scrollHeight="290px"
@@ -20,6 +20,36 @@
                         <input pInputText placeholder="Search Column"
                                (input)="tableEntityFiles.filterGlobal($event.target.value, 'contains')">
                         <p-button icon="pi pi-times" (click)="EntityPopup=false;">
+                        </p-button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                  <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.name}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div class="popwrap">
+            <button pButton type="button" icon="pi pi-table" (click)="EntityPopup=false;FormPopup=!FormPopup"
+                    label="Form"></button>
+            <div class="popup" *ngIf="FormPopup">
+              <p-table #tableEntityFiles [value]="FormFiles" [scrollable]="true" scrollHeight="290px"
+                       [style]="{width: '250px'}"
+                       [globalFilterFields]="['name']" selectionMode="single"
+                       [(selection)]="selection"
+                       (onRowSelect)="FormPopup=false;openFile($event)">
+
+                <ng-template pTemplate="caption">
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                      <div class="ui-inputgroup">
+                        <input pInputText placeholder="Search Column"
+                               (input)="tableEntityFiles.filterGlobal($event.target.value, 'contains')">
+                        <p-button icon="pi pi-times" (click)="FormPopup=false;">
                         </p-button>
                       </div>
                     </div>

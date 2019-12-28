@@ -1,1 +1,5 @@
-<button *ngIf="hidden" pButton type="button" icon="pi pi-plus" (click)="CreateNewEntity()"></button>
+<div *ngIf="hidden">
+  <button pButton type="button" icon="pi pi-plus" (click)="CreateNewEntity()"></button>
+  <button pButton type="button" icon="pi pi-plus" (click)="CreateNewFrame()"></button>
+</div>
+

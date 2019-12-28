@@ -6,6 +6,7 @@ import {IFile} from '../../models/Enitity/IFile';
 import {WindowItem} from '../../common/window-Item';
 import {WindowBase} from './window-base/WindowBase';
 import {UserInterfaceComponent} from '../ui/user-interface/user-interface.component';
+import {HomeWindowComponent} from '../home-window/home-window.component';
 
 @Component({
   selector: 'app-window',
@@ -46,7 +47,7 @@ export class WindowComponent implements OnInit, AfterViewInit {
   }
 
   loadHomeComponent() {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UserInterfaceComponent);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(HomeWindowComponent);
     const viewContainerRef = this.contentHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
@@ -68,9 +69,14 @@ export class WindowComponent implements OnInit, AfterViewInit {
         this.windowService.windowStore.setCurrentWindow(result);
         this.windowService.WindowChanged(result);
       } else {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntityWindowComponent);
+        let componentFactory;
+        if (file.type === 0) {
+          componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntityWindowComponent);
+        } else if (file.type === 1) {
+          componentFactory = this.componentFactoryResolver.resolveComponentFactory(UserInterfaceComponent);
+        }
         const componentRef = viewContainerRef.createComponent(componentFactory);
-        (componentRef.instance as EntityWindowComponent).file = file;
+        (componentRef.instance as WindowBase).file = file;
         const window = new WindowItem(componentRef, file);
         this.windowService.windowStore.addWindow(window);
         this.windowService.windowStore.setCurrentWindow(window);

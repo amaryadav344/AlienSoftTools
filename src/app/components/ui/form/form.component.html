@@ -1,38 +1,22 @@
 <div class="ui-g-12 ui-g-nopad" style="border: 1px solid rgba(0,0,255,0.40);">
   <p-scrollPanel
     [style]="{height: '466px'}">
-    <ng-template #ViewTemplate let-View let-i="i">
-      <div class="ui-g-12 cell" style="margin: 8px" [id]="'view-group-'+i"
-           (click)="singleClick($event,View)" (dblclick)="doubleClick($event,View)">
-        <ng-template [ngIf]="GetViewGroupType(View)===0">
-          <div class="ui-g-12 ui-g-nopad" *ngFor=" let row of View.rows;let j = index">
-            <div [ngClass]="'ui-g-'+column.span+' cell'" pDroppable
-                 (onDrop)="dropControl($event,column)"
-                 (click)="singleClick($event,column)" (dblclick)="doubleClick($event,column)"
-                 *ngFor="let column of row.columns;let k = index"
-                 [id]="'view-group-'+i+'-row-'+j+'-column-'+k">
-              <div [id]="'view-group-'+i+'-row-'+j+'-column-'+k+'-control-'+ control.ID"
-                   *ngFor="let control of column.controls"
-                   [ngClass]="calculateClasses(control)"
-                   style="padding: 5px"
-                   (click)="singleClick($event,control)" (dblclick)="doubleClick($event,control)">
-                {{control.ID}}
-              </div>
-            </div>
-          </div>
-        </ng-template>
-        <ng-template [ngIf]="GetViewGroupType(View)===1">
-          <div class="ui-g-12">
-            {{View.title}}
-          </div>
-          <ng-container
-            *ngTemplateOutlet="ViewTemplate; context:{ $implicit: View.grid, i:'grid'+'-'+i }"></ng-container>
-        </ng-template>
+    <ng-template #ControlTemplate let-Control let-Margin="Mar">
+      <div class="cell" (dragover)="allowDrop($event,Control)" (drop)="dropControl($event,Control)"
+           [style.marginLeft.px]="Margin"
+           (click)="singleClick($event,Control)"
+           (dblclick)="doubleClick($event,Control)">
+        <p-button icon="pi pi-plus"></p-button>
+        {{Control.ID}}
       </div>
+      <ng-template ngFor let-Con [ngForOf]="Control.controls">
+        <ng-container
+          *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Con,Mar:Margin+10}"></ng-container>
+      </ng-template>
     </ng-template>
-    <ng-template ngFor let-View [ngForOf]="form.views" let-ind="index">
-      <ng-container *ngTemplateOutlet="ViewTemplate; context:{ $implicit: View, i:ind }"></ng-container>
-    </ng-template>
+
+    <ng-container *ngTemplateOutlet="ControlTemplate; context:{ $implicit: form.control,Mar:10}"></ng-container>
+
   </p-scrollPanel>
 </div>
 

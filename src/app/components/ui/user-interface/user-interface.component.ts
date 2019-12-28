@@ -25,6 +25,12 @@ export class UserInterfaceComponent extends WindowBase implements OnInit {
   }
 
   ngOnInit() {
+    this.httpClientService.getFile(this.file).subscribe(
+      (form) => {
+        this.form = form as IForm;
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   openPropertiesTab() {

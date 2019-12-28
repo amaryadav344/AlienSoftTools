@@ -17,7 +17,7 @@ export class MasterWindowComponent implements OnInit, MasterWindowCallBacks {
   }
 
   ngOnInit() {
-    this.initMainAppComponent();
+    this.initLoadingComponent();
   }
 
   initLoginComponent() {

@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {IForm} from '../../../models/UI/IForm';
 
 @Component({
   selector: 'app-uitoolbar',
@@ -10,6 +11,7 @@ export class UIToolbarComponent implements OnInit {
   @Output() switchToUI = new EventEmitter<boolean>();
   @Output() closeWindow = new EventEmitter();
   @Output() saveXML = new EventEmitter();
+  @Input() form: IForm;
   view = false;
 
   constructor() {

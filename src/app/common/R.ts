@@ -13,13 +13,9 @@ import {IDBConnectionInfo} from '../models/Enitity/IDBConnectionInfo';
 import {WindowItem} from './window-Item';
 import {IForm} from '../models/UI/IForm';
 import {ISymbol} from '../models/Enitity/ISymbol';
-import {IGrid} from '../models/UI/IGrid';
 import {IButton} from '../models/UI/IButton';
-import {ICheckBox} from '../models/UI/ICheckBox';
-import {ISection} from '../models/UI/ISection';
-import {ILabel} from "../models/UI/ILabel";
-import {ICaption} from "../models/UI/ICaption";
-import {IInput} from "../models/UI/IInput";
+import {ILabel} from '../models/UI/ILabel';
+import {StackLayout} from '../models/UI/StackLayout';
 
 export class R {
 
@@ -136,71 +132,10 @@ export class R {
     }
 
     static getForm(): IForm {
-      return {
-        type: 'form',
-        views: [new IGrid(
-          [{
-            columns: [{
-              controls: [
-                new ICaption('cpCaption'),
-                new IInput('inpInput')
-
-              ],
-              span: 12
-            }]
-          },
-            {
-              columns: [{
-                controls: [
-                  new ILabel('lblLabel'),
-                ],
-                span: 6
-              },
-                {
-                  controls: [
-                    new IButton('btnClick'),
-
-                  ],
-                  span: 6
-                }]
-            }], 'grdFirst'),
-          new ISection('sctOne', 'title', new IGrid([{
-            columns: [{
-              controls: [
-                new IButton('btnClick'),
-                new ICheckBox('chkClick'),
-
-              ],
-              span: 6
-            },
-              {
-                controls: [
-                  new IButton('btnClick'),
-                  new ICheckBox('chkClick'),
-
-                ],
-                span: 6
-              }]
-          },
-            {
-              columns: [{
-                controls: [
-                  new IButton('btnClick'),
-                  new ICheckBox('chkClick'),
-
-                ],
-                span: 6
-              },
-                {
-                  controls: [
-                    new IButton('btnClick'),
-                    new ICheckBox('chkClick'),
-
-                  ],
-                  span: 6
-                }]
-            }], 'grdFirst'))]
-      };
+      return new IForm(new StackLayout([new IButton('btnNew'),
+          new StackLayout([new IButton('btnNew1'), new ILabel('lblNew')], 'stackLayout1'),
+          new StackLayout([new IButton('btnNew1'), new ILabel('lblNew')], 'stackLayout1')]
+        , 'stackLayout2'), 'entPerson', 'framePersonDetail');
     }
 
     static getSymbols(): ISymbol[] {
@@ -216,6 +151,7 @@ export class R {
     static TYPE_CHECKBOX = 'Checkbox';
     static TYPE_SECTION = 'Section';
     static TYPE_GRID = 'Grid';
+    static TYPE_STACK_LAYOUT = 'StackLayout';
   };
 
 }
