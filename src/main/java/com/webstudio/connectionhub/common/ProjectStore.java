@@ -3,6 +3,7 @@ package com.webstudio.connectionhub.common;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webstudio.connectionhub.models.Entity.*;
 import com.webstudio.connectionhub.models.IXMLBase;
+import com.webstudio.connectionhub.models.UI.IForm;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,6 +36,11 @@ public class ProjectStore {
             xmlStore.SaveXml(ixmlBase, entity.getName());
             xml = xmlStore.getXMLString(entity);
             FileHelper.WriteFile(iProject.getXMLPath() + Path, xml);
+        } else if (ixmlBase instanceof IForm) {
+            IForm form = (IForm) ixmlBase;
+            xmlStore.SaveXml(ixmlBase, form.getId());
+            xml = xmlStore.getXMLString(form);
+            FileHelper.WriteFile(iProject.getXMLPath() + Path, xml);
         }
         return xml;
     }
@@ -50,6 +56,11 @@ public class ProjectStore {
                         iProject.getBusinessModelPath());
             }
             xmlStore.SaveXml(ixmlBase, entity.getName());
+        } else if (ixmlBase instanceof IForm) {
+            IForm form = (IForm) ixmlBase;
+            String xml = xmlStore.getXMLString(form);
+            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + path + "/" + form.getId() + ".form.xml", xml);
+            xmlStore.SaveXml(ixmlBase, form.getId());
         }
     }
 
@@ -94,7 +105,13 @@ public class ProjectStore {
     }
 
     public IXMLBase GetXml(IFile file) {
-        return xmlStore.GetXml(file.getName());
+        String name = "";
+        if (file.getType() == 0) {
+            name = file.getName().replace(".ent.xml", "");
+        } else if (file.getType() == 1) {
+            name = file.getName().replace(".form.xml", "");
+        }
+        return xmlStore.GetXml(name);
     }
 
     public List<IFile> getFiles() {

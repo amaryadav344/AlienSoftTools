@@ -1,27 +1,33 @@
 package com.webstudio.connectionhub.models.UI;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class IGrid extends IView {
+public class IStackLayout extends IView {
     @JsonProperty("ID")
     @JacksonXmlProperty(localName = "ID", isAttribute = true)
     String id;
     String type;
-    IGRow[] rows;
+    IView[] controls;
 
+    public IStackLayout() {
+    }
 
-    public IGrid() {
+    public IView[] getControls() {
+        return controls;
+    }
+
+    public void setControls(IView[] controls) {
+        this.controls = controls;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String ID) {
-        this.id = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @JsonIgnore()
@@ -31,13 +37,5 @@ public class IGrid extends IView {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public IGRow[] getRows() {
-        return rows;
-    }
-
-    public void setRows(IGRow[] rows) {
-        this.rows = rows;
     }
 }

@@ -64,10 +64,15 @@ public class FileHelper {
             if (current.isDirectory()) {
                 ListF(current.getAbsolutePath(), replaceChar, files);
             } else {
-                if (current.getName().endsWith(".ent.xml")) {
+                if (current.getName().endsWith(".ent.xml") || current.getName().endsWith(".form.xml")) {
                     IFile iFile = new IFile();
                     iFile.setName(current.getName());
                     iFile.setPath(current.getAbsolutePath().replace(replaceChar, ""));
+                    if (current.getName().endsWith(".ent.xml")) {
+                        iFile.setType(0);
+                    } else if (current.getName().endsWith(".form.xml")) {
+                        iFile.setType(1);
+                    }
                     files.add(iFile);
                 }
             }

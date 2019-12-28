@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webstudio.connectionhub.models.Entity.IEntity;
 import com.webstudio.connectionhub.models.Entity.IFile;
 import com.webstudio.connectionhub.models.IXMLBase;
+import com.webstudio.connectionhub.models.UI.IForm;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,13 +27,12 @@ public class XMLStore {
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
             EntityModelMappings.put(entity.getModelName(), entity.getName());
-            EntityModelMappings.put(entity.getModelName(), entity.getName());
         }
 
     }
 
     public IXMLBase GetXml(String name) {
-        return stringIXMLBaseHashMap.get(name.replace(".ent.xml", ""));
+        return stringIXMLBaseHashMap.get(name);
     }
 
     public void LoadXML(List<IFile> files, String XMLPath) throws IOException {
@@ -45,6 +45,9 @@ public class XMLStore {
                 IEntity entity = (IEntity) value;
                 stringIXMLBaseHashMap.put(entity.getName(), value);
                 EntityModelMappings.put(entity.getModelName(), entity.getName());
+            } else if (value instanceof IForm) {
+                IForm form = (IForm) value;
+                stringIXMLBaseHashMap.put(form.getId(), value);
             }
         }
     }
