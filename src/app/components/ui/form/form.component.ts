@@ -136,4 +136,11 @@ export class FormComponent implements OnInit {
   exapand(event) {
   }
 
+  hasChildViews(Control) {
+    if (Control.controls) {
+      return true;
+    }
+    return false;
+  }
+
 }

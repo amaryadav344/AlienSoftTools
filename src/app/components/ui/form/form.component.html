@@ -2,17 +2,19 @@
   <p-scrollPanel
     [style]="{height: '410px'}">
     <ng-template #ControlTemplate let-Control let-Margin="Mar">
-      <div class="cell" (dragover)="allowDrop($event,Control)" (drop)="dropControl($event,Control)"
-           [style.marginLeft.px]="Margin"
+      <p-panel [header]="Control.ID" [toggleable]="true" [style]="{'margin-bottom':'20px'}"
+               *ngIf="hasChildViews(Control)" (dragover)="allowDrop($event,Control)"
+               (drop)="dropControl($event,Control)">
+        <ng-template ngFor let-Con [ngForOf]="Control.controls">
+          <ng-container
+            *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Con,Mar:Margin+10}"></ng-container>
+        </ng-template>
+      </p-panel>
+      <div class="cell" *ngIf="!hasChildViews(Control)"
            (click)="singleClick($event,Control)"
            (dblclick)="doubleClick($event,Control)">
-        <p-button icon="pi pi-plus" onclick="exapand($event)"></p-button>
         {{Control.ID}}
       </div>
-      <ng-template ngFor let-Con [ngForOf]="Control.controls">
-        <ng-container
-          *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Con,Mar:Margin+10}"></ng-container>
-      </ng-template>
     </ng-template>
 
     <ng-container *ngTemplateOutlet="ControlTemplate; context:{ $implicit: form.control,Mar:10}"></ng-container>
