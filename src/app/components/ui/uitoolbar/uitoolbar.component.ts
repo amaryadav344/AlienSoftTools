@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IForm} from '../../../models/UI/IForm';
+import {FormInfoDialogComponent} from '../../dialogs/form-info-dialog/form-info-dialog.component';
+import {DialogService, DynamicDialogConfig} from 'primeng/api';
 
 @Component({
   selector: 'app-uitoolbar',
@@ -14,10 +16,28 @@ export class UIToolbarComponent implements OnInit {
   @Input() form: IForm;
   view = false;
 
-  constructor() {
+
+  constructor(public dialogService: DialogService) {
   }
 
   ngOnInit() {
+  }
+
+  openFormInfo() {
+    const ref = this.dialogService.open(FormInfoDialogComponent, {
+      data: {
+        entity: this.form,
+      },
+      header: 'Form Information',
+      width: '40%',
+      contentStyle: {'max-height': '700px', overflow: 'auto'}
+    } as DynamicDialogConfig);
+
+    ref.onClose.subscribe((form: IForm) => {
+      if (form) {
+        Object.assign(this.form, form);
+      }
+    });
   }
 
 }

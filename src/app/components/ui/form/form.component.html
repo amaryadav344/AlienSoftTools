@@ -1,12 +1,12 @@
 <div class="ui-g-12 ui-g-nopad" style="border: 1px solid rgba(0,0,255,0.40);">
   <p-scrollPanel
-    [style]="{height: '466px'}">
+    [style]="{height: '410px'}">
     <ng-template #ControlTemplate let-Control let-Margin="Mar">
       <div class="cell" (dragover)="allowDrop($event,Control)" (drop)="dropControl($event,Control)"
            [style.marginLeft.px]="Margin"
            (click)="singleClick($event,Control)"
            (dblclick)="doubleClick($event,Control)">
-        <p-button icon="pi pi-plus"></p-button>
+        <p-button icon="pi pi-plus" onclick="exapand($event)"></p-button>
         {{Control.ID}}
       </div>
       <ng-template ngFor let-Con [ngForOf]="Control.controls">

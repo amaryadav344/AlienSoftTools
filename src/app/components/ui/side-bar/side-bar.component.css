@@ -1,9 +1,3 @@
-/* Style buttons */
-.control {
-  border: none; /* Remove borders */
-  padding: 4px 8px; /* Some padding */
-  cursor: pointer; /* Mouse pointer on hover */
-}
 
 .control i {
   padding: 10px;
@@ -13,6 +7,7 @@
   background-color: #c8c8c8 !important;
   color: #333333 !important;
   border-color: #c8c8c8 !important;
+  cursor: move;
 }
 
 .ControlsPanel .ui-panel-content {

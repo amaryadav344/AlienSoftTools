@@ -77,6 +77,12 @@ export class HttpClientService {
     });
   }
 
+  public listEntities(query: string) {
+    return this.httpClient.post<string[]>(R.SERVER_URLS.LIST_ENTITIES, query, {
+      responseType: 'json'
+    });
+  }
+
   public LoadProject() {
     return this.httpClient.get(R.SERVER_URLS.LOAD_PROJECT);
   }

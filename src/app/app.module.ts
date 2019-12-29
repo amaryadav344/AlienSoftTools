@@ -80,6 +80,7 @@ import {MasterLoginWindowComponent} from './components/master-window/master-logi
 import {MasterIntitalLoadComponent} from './components/master-window/master-intital-load/master-intital-load.component';
 import {CustomAutoCompleteComponent} from './components/custom-auto-complete/custom-auto-complete.component';
 import {NewFrameDialogComponent} from './components/dialogs/new-frame-dialog/new-frame-dialog.component';
+import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/form-info-dialog.component';
 
 
 @NgModule({
@@ -123,6 +124,7 @@ import {NewFrameDialogComponent} from './components/dialogs/new-frame-dialog/new
     MasterIntitalLoadComponent,
     CustomAutoCompleteComponent,
     NewFrameDialogComponent,
+    FormInfoDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -183,6 +185,7 @@ import {NewFrameDialogComponent} from './components/dialogs/new-frame-dialog/new
     NewFrameDialogComponent,
     EntityWindowComponent,
     EntityInfoDialogComponent,
+    FormInfoDialogComponent,
     UserInterfaceComponent,
     MasterLoginWindowComponent,
     MasterIntitalLoadComponent,

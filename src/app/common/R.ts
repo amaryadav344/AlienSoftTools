@@ -71,6 +71,7 @@ export class R {
     static GET_DB_CONNECTION_INFO = 'http://localhost:8080/xml/GetDBConnectionInfo';
     static LOAD_PROJECT = 'http://localhost:8080/xml/LoadProject';
     static GET_OBJECT_METHODS = 'http://localhost:8080/xml/GetObjectMethods';
+    static LIST_ENTITIES = 'http://localhost:8080/xml/ListEntities';
   };
 
   static Initializer = class {
