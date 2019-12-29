@@ -9,6 +9,7 @@ import com.webstudio.connectionhub.models.UI.IForm;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class XMLStore {
     private static XMLStore xmlStore;
@@ -67,5 +68,12 @@ public class XMLStore {
             return EntityModelMappings.get(modelName);
         }
         return EntityName;
+    }
+
+    public List<String> getEntitiesByQuery(String query) {
+        return stringIXMLBaseHashMap.values().stream()
+                .filter(ixmlBase -> ixmlBase instanceof IEntity && (query.isEmpty() || ((IEntity) ixmlBase).getName().toLowerCase().contains(query.toLowerCase()))).map(ixmlBase -> ((IEntity) ixmlBase).getName())
+                .collect(Collectors.toList());
+
     }
 }

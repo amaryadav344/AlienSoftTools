@@ -134,4 +134,8 @@ public class ProjectStore {
         List<IObjectMethod> symbols = symbolProvider.getAllMethods(ClassPath, query);
         return symbols;
     }
+
+    public List<String> getEntitiesByQuery(String query) {
+        return xmlStore.getEntitiesByQuery(query);
+    }
 }

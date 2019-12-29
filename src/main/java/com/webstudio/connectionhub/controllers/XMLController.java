@@ -113,6 +113,15 @@ public class XMLController {
         return new ResponseEntity<>(files.toArray(new IFile[files.size()]), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/xml/ListEntities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String[]> ListEntities(@RequestBody(required = false) String query) {
+        if (query == null) {
+            query = "";
+        }
+        List<String> entities = projectStore.getEntitiesByQuery(query);
+        return new ResponseEntity<>(entities.toArray(new String[entities.size()]), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/xml/GetDBConnectionInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IDBConnectionInfo> GetDBConnection() throws IOException {
         AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
