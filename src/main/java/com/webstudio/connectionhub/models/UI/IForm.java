@@ -1,7 +1,6 @@
 package com.webstudio.connectionhub.models.UI;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.webstudio.connectionhub.models.IXMLBase;
@@ -9,9 +8,8 @@ import com.webstudio.connectionhub.models.IXMLBase;
 
 @JacksonXmlRootElement(localName = "form")
 public class IForm extends IXMLBase {
-    @JsonProperty("ID")
-    @JacksonXmlProperty(localName = "ID", isAttribute = true)
-    String id;
+    @JacksonXmlProperty(isAttribute = true)
+    String name;
     @JacksonXmlProperty(isAttribute = true)
     String entity;
     String type;
@@ -37,12 +35,12 @@ public class IForm extends IXMLBase {
         this.control = control;
     }
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEntity() {

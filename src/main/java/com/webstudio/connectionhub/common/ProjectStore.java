@@ -38,7 +38,7 @@ public class ProjectStore {
             FileHelper.WriteFile(iProject.getXMLPath() + Path, xml);
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
-            xmlStore.SaveXml(ixmlBase, form.getId());
+            xmlStore.SaveXml(ixmlBase, form.getName());
             xml = xmlStore.getXMLString(form);
             FileHelper.WriteFile(iProject.getXMLPath() + Path, xml);
         }
@@ -59,8 +59,8 @@ public class ProjectStore {
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             String xml = xmlStore.getXMLString(form);
-            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + path + "/" + form.getId() + ".form.xml", xml);
-            xmlStore.SaveXml(ixmlBase, form.getId());
+            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + path + "/" + form.getName() + ".form.xml", xml);
+            xmlStore.SaveXml(ixmlBase, form.getName());
         }
     }
 

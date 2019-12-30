@@ -48,7 +48,7 @@ public class XMLStore {
                 EntityModelMappings.put(entity.getModelName(), entity.getName());
             } else if (value instanceof IForm) {
                 IForm form = (IForm) value;
-                stringIXMLBaseHashMap.put(form.getId(), value);
+                stringIXMLBaseHashMap.put(form.getName(), value);
             }
         }
     }
