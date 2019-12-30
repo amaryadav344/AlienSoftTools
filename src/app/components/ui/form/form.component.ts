@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange} from '@angular/core';
 import {R} from '../../../common/R';
 import {IForm} from '../../../models/UI/IForm';
 import {IButton} from '../../../models/UI/IButton';
@@ -8,13 +8,14 @@ import {ICaption} from '../../../models/UI/ICaption';
 import {IInput} from '../../../models/UI/IInput';
 import {DragDropHelper} from '../../../common/DragDropHelper';
 import {StackLayout} from '../../../models/UI/StackLayout';
+import {DynamicIDGenerator} from '../../../common/DynamicIDGenerator';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
   @Input()
   form: IForm;
   selection: any;
@@ -24,6 +25,7 @@ export class FormComponent implements OnInit {
   @Output() openPropertiesTab = new EventEmitter();
   @Output() openProperties = new EventEmitter<any>();
   dragDropHelper: DragDropHelper = DragDropHelper.getInstance();
+  dynamicIDGenerator: DynamicIDGenerator;
 
   constructor() {
 
@@ -133,14 +135,22 @@ export class FormComponent implements OnInit {
     event.stopPropagation();
   }
 
-  exapand(event) {
-  }
 
   hasChildViews(Control) {
     if (Control.controls) {
       return true;
     }
     return false;
+  }
+
+  LoadIDGenerator(form: IForm) {
+    this.dynamicIDGenerator = DynamicIDGenerator.getFor(this.form);
+  }
+
+  ngOnChanges(changes: { [propName: string]: SimpleChange }) {
+    if (changes.form) {
+      this.LoadIDGenerator(this.form);
+    }
   }
 
 }

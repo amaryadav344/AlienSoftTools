@@ -6,6 +6,7 @@ import {R} from '../../../common/R';
 import {IForm} from '../../../models/UI/IForm';
 import {MessageService} from 'primeng/api';
 import {WindowService} from '../../../services/window/window.service';
+import {FormComponent} from '../form/form.component';
 
 @Component({
   selector: 'app-user-interface',
@@ -15,6 +16,8 @@ import {WindowService} from '../../../services/window/window.service';
 export class UserInterfaceComponent extends WindowBase implements OnInit {
   @ViewChild(SideBarComponent, {static: false})
   sidebarComponent: SideBarComponent;
+  @ViewChild(FormComponent, {static: false})
+  formComponent: FormComponent;
   PropertiesObject: any = {};
   form: IForm = R.Initializer.getForm();
 
@@ -28,6 +31,7 @@ export class UserInterfaceComponent extends WindowBase implements OnInit {
     this.httpClientService.getFile(this.file).subscribe(
       (form) => {
         this.form = form as IForm;
+        //   this.formComponent.LoadIDGenerator(this.form);
       }, (error) => {
         console.log(error);
       });
@@ -57,6 +61,7 @@ export class UserInterfaceComponent extends WindowBase implements OnInit {
       form => {
         this.isTextView = !this.isTextView;
         Object.assign(this.form, form);
+        //  this.formComponent.LoadIDGenerator(this.form);
         // this.checkForUndefined(this.entity);
       },
       error => {

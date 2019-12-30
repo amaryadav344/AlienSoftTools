@@ -13,8 +13,6 @@ import {IDBConnectionInfo} from '../models/Enitity/IDBConnectionInfo';
 import {WindowItem} from './window-Item';
 import {IForm} from '../models/UI/IForm';
 import {ISymbol} from '../models/Enitity/ISymbol';
-import {IButton} from '../models/UI/IButton';
-import {ILabel} from '../models/UI/ILabel';
 import {StackLayout} from '../models/UI/StackLayout';
 
 export class R {
@@ -133,10 +131,7 @@ export class R {
     }
 
     static getForm(): IForm {
-      return new IForm(new StackLayout([new IButton('btnNew'),
-          new StackLayout([new IButton('btnNew1'), new ILabel('lblNew')], 'stackLayout1'),
-          new StackLayout([new IButton('btnNew1'), new ILabel('lblNew')], 'stackLayout1')]
-        , 'stackLayout2'), 'entPerson', 'framePersonDetail');
+      return new IForm(new StackLayout([], 'stackLayout2'), 'entPerson', 'framePersonDetail');
     }
 
     static getSymbols(): ISymbol[] {
