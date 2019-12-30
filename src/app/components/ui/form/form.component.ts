@@ -93,6 +93,9 @@ export class FormComponent implements OnInit, OnChanges {
   dropControl(event, layout: any) {
     event.stopPropagation();
     const Control = this.dragDropHelper.getControl();
+    if (layout.controls === null) {
+      layout.controls = [];
+    }
     switch (Control) {
       case R.Controls.TYPE_LABEL:
         layout.controls.push(new ILabel('lblLabel3'));
@@ -137,7 +140,7 @@ export class FormComponent implements OnInit, OnChanges {
 
 
   hasChildViews(Control) {
-    if (Control.controls) {
+    if (Control.type === R.Controls.TYPE_STACK_LAYOUT) {
       return true;
     }
     return false;

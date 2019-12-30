@@ -5,7 +5,9 @@ export class DynamicIDGenerator {
 
   private constructor(form: IForm) {
     this.ID.push(form.control.ID);
-    this.registerChilds(form.control.controls);
+    if (form.control.controls != null) {
+      this.registerChilds(form.control.controls);
+    }
   }
 
   public static getFor(form: IForm) {
@@ -13,10 +15,10 @@ export class DynamicIDGenerator {
   }
 
   registerChilds(Controls: any[]) {
-    for (const Control of Controls) {
-      this.ID.push(Control.ID);
-      if (Control.controls) {
-        this.registerChilds(Control.controls);
+    for (let i = 0; i < Controls.length; i++) {
+      this.ID.push(Controls[i].ID);
+      if (Controls[i].controls) {
+        this.registerChilds(Controls[i].controls);
       }
     }
 

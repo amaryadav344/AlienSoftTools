@@ -2,9 +2,13 @@
   <p-scrollPanel
     [style]="{height: '410px'}">
     <ng-template #ControlTemplate let-Control let-Margin="Mar">
-      <p-panel [header]="Control.ID" [toggleable]="true" [style]="{'margin-bottom':'20px','margin-top':'20px'}"
+      <p-panel [toggleable]="true" [style]="{'margin-bottom':'20px','margin-top':'20px'}"
                *ngIf="hasChildViews(Control)" (dragover)="allowDrop($event,Control)"
                (drop)="dropControl($event,Control)">
+        <p-header>
+            <span class="ui-panel-title"
+                  style="font-size:16px;display:inline-block;margin-top:2px">{{Control.ID}}</span>
+        </p-header>
         <ng-template ngFor let-Con [ngForOf]="Control.controls">
           <ng-container
             *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Con,Mar:Margin+10}"></ng-container>
