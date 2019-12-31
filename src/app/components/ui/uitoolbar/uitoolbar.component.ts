@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IForm} from '../../../models/UI/IForm';
 import {FormInfoDialogComponent} from '../../dialogs/form-info-dialog/form-info-dialog.component';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
+import {IEntity} from '../../../models/Enitity/IEntity';
 
 @Component({
   selector: 'app-uitoolbar',
@@ -14,6 +15,7 @@ export class UIToolbarComponent implements OnInit {
   @Output() closeWindow = new EventEmitter();
   @Output() saveXML = new EventEmitter();
   @Input() form: IForm;
+  @Input() entity: IEntity;
   view = false;
 
 
@@ -26,7 +28,8 @@ export class UIToolbarComponent implements OnInit {
   openFormInfo() {
     const ref = this.dialogService.open(FormInfoDialogComponent, {
       data: {
-        entity: this.form,
+        form: this.form,
+        entity: this.entity,
       },
       header: 'Form Information',
       width: '40%',

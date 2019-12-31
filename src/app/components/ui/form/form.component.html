@@ -7,6 +7,8 @@
                (drop)="dropControl($event,Control)">
         <p-header>
             <span class="ui-panel-title"
+                  (click)="singleClick($event,Control)"
+                  (dblclick)="doubleClick($event,Control)"
                   style="font-size:16px;display:inline-block;margin-top:2px">{{Control.ID}}</span>
         </p-header>
         <ng-template ngFor let-Con [ngForOf]="Control.controls">

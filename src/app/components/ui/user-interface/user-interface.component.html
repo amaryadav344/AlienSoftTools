@@ -1,7 +1,8 @@
 <div *ngIf="hidden">
   <div class="ui-g ui-g-nopad">
     <div class="ui-g-12 ui-g-nopad">
-      <app-uitoolbar (switchToXMl)="getJS();" (closeWindow)="closeWindow()" (saveXML)="saveXML()" [form]="form"
+      <app-uitoolbar (switchToXMl)="getJS();" (closeWindow)="closeWindow()" (saveXML)="saveXML()"
+                     [form]="form" [entity]="entity"
                      (switchToUI)="getXML()"></app-uitoolbar>
     </div>
     <div class="ui-g-12 ui-g-nopad" *ngIf="!isTextView">

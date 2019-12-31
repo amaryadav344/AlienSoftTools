@@ -7,7 +7,7 @@ import {LoadParamterInfoDialogComponent} from '../load-paramter-info-dialog/load
 import {WindowService} from '../../../services/window/window.service';
 import {IEntity} from '../../../models/Enitity/IEntity';
 import {EntityWindowComponent} from '../../entity/entity-window.component';
-import {ILoadParameter} from "../../../models/Enitity/ILoadParameter";
+import {ILoadParameter} from '../../../models/Enitity/ILoadParameter';
 
 @Component({
   selector: 'app-custom-method-info-dialog',

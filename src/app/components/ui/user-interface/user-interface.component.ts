@@ -6,6 +6,7 @@ import {R} from '../../../common/R';
 import {IForm} from '../../../models/UI/IForm';
 import {MessageService} from 'primeng/api';
 import {WindowService} from '../../../services/window/window.service';
+import {IEntity} from '../../../models/Enitity/IEntity';
 
 @Component({
   selector: 'app-user-interface',
@@ -17,6 +18,7 @@ export class UserInterfaceComponent extends WindowBase implements OnInit {
   sidebarComponent: SideBarComponent;
   PropertiesObject: any = {};
   form: IForm = R.Initializer.getForm();
+  entity: IEntity;
 
   constructor(public httpClientService: HttpClientService,
               public windowService: WindowService,
@@ -28,6 +30,10 @@ export class UserInterfaceComponent extends WindowBase implements OnInit {
     this.httpClientService.getFile(this.file).subscribe(
       (form) => {
         this.form = form as IForm;
+        this.httpClientService.getFile({name: this.form.entity, type: 0, path: ''})
+          .toPromise().then((enitity) => {
+          this.entity = enitity as IEntity;
+        });
       }, (error) => {
         console.log(error);
       });

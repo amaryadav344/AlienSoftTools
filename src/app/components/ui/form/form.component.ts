@@ -98,22 +98,22 @@ export class FormComponent implements OnInit, OnChanges {
     }
     switch (Control) {
       case R.Controls.TYPE_LABEL:
-        layout.controls.push(new ILabel('lblLabel3'));
+        layout.controls.push(new ILabel(this.dynamicIDGenerator.getNextID(Control, 1)));
         break;
       case R.Controls.TYPE_BUTTON:
-        layout.controls.push(new IButton('btn123'));
+        layout.controls.push(new IButton(this.dynamicIDGenerator.getNextID(Control, 1)));
         break;
       case R.Controls.TYPE_CAPTION:
-        layout.controls.push(new ICaption('lblLabel3'));
+        layout.controls.push(new ICaption(this.dynamicIDGenerator.getNextID(Control, 1)));
         break;
       case R.Controls.TYPE_CHECKBOX:
-        layout.controls.push(new ICheckBox('lblLabel3'));
+        layout.controls.push(new ICheckBox(this.dynamicIDGenerator.getNextID(Control, 1)));
         break;
       case R.Controls.TYPE_INPUT:
-        layout.controls.push(new IInput('lblLabel3'));
+        layout.controls.push(new IInput(this.dynamicIDGenerator.getNextID(Control, 1)));
         break;
       case R.Controls.TYPE_STACK_LAYOUT:
-        layout.controls.push(new StackLayout([], 'stkone'));
+        layout.controls.push(new StackLayout([], this.dynamicIDGenerator.getNextID(Control, 1)));
         break;
     }
   }

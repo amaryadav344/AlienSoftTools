@@ -1,4 +1,5 @@
 import {IForm} from '../models/UI/IForm';
+import {R} from "./R";
 
 export class DynamicIDGenerator {
   ID: string[] = [];
@@ -22,6 +23,41 @@ export class DynamicIDGenerator {
       }
     }
 
+  }
+
+  getNextID(control: string, index: number) {
+    let ID = '';
+    switch (control) {
+      case R.Controls.TYPE_STACK_LAYOUT:
+        ID = R.Controls.TYPE_STACK_LAYOUT + index;
+        break;
+      case R.Controls.TYPE_INPUT:
+        ID = R.Controls.TYPE_INPUT + index;
+        break;
+      case R.Controls.TYPE_CAPTION:
+        ID = R.Controls.TYPE_CAPTION + index;
+        break;
+      case R.Controls.TYPE_LABEL:
+        ID = R.Controls.TYPE_LABEL + index;
+        break;
+      case R.Controls.TYPE_CHECKBOX:
+        ID = R.Controls.TYPE_CHECKBOX + index;
+        break;
+      case R.Controls.TYPE_BUTTON:
+        ID = R.Controls.TYPE_BUTTON + index;
+        break;
+      case R.Controls.TYPE_SECTION:
+        ID = R.Controls.TYPE_SECTION + index;
+        break;
+      case R.Controls.TYPE_GRID:
+        ID = R.Controls.TYPE_GRID + index;
+        break;
+    }
+    if (this.ID.filter(x => x === ID).length > 0) {
+      return this.getNextID(control, index + 1);
+    }
+    this.ID.push(ID);
+    return ID;
   }
 
 }
