@@ -22,8 +22,8 @@ public class ModelBuilder {
         return this;
     }
 
-    public ModelBuilder setSuperClass(String SuperClass) {
-        this.builder.superclass(ClassName.get(PackageName, SuperClass));
+    public ModelBuilder setSuperClass(ClassName SuperClass) {
+        this.builder.superclass(SuperClass);
         return this;
     }
 

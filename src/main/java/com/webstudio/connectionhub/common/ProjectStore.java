@@ -1,6 +1,7 @@
 package com.webstudio.connectionhub.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.squareup.javapoet.ClassName;
 import com.webstudio.connectionhub.models.Entity.*;
 import com.webstudio.connectionhub.models.IXMLBase;
 import com.webstudio.connectionhub.models.UI.IForm;
@@ -51,7 +52,7 @@ public class ProjectStore {
             String xml = xmlStore.getXMLString(entity);
             FileHelper.CreateAndWriteFile(iProject.getXMLPath() + path + "/" + entity.getName() + ".ent.xml", xml);
             if (createModel) {
-                ModelHelper.createModel(path, entity,
+                ModelHelper.createModel(ClassName.get(iProject.getPackageName(), "BusBase"), entity,
                         iProject.getPackageName() + "." + path.replace("/", "."),
                         iProject.getBusinessModelPath());
             }

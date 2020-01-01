@@ -11,12 +11,13 @@ import java.io.IOException;
 import java.util.Date;
 
 public class ModelHelper {
-    public static void createModel(String path, IEntity entity, String PackageName, String BSModelPath) throws IOException {
+    public static void createModel(ClassName Base, IEntity entity, String PackageName, String BSModelPath) throws IOException {
         String cdoClassName = "cdo" + entity.getModelName();
         String doClassName = "do" + entity.getModelName();
         String modelClassName = entity.getModelName();
         ModelBuilder modelBuilder = new ModelBuilder(modelClassName)
                 .setPackageName(PackageName)
+                .setSuperClass(Base)
                 .setModifier(Modifier.PUBLIC);
         ModelBuilder cdoModelBuilder = new ModelBuilder(cdoClassName).setPackageName(PackageName)
                 .setModifier(Modifier.PUBLIC);
@@ -33,7 +34,7 @@ public class ModelHelper {
                 doModelBuilder.addField(ClassName.get(Date.class), column.getName(), Modifier.PUBLIC, true);
             }
         }
-        cdoModelBuilder.setSuperClass(doClassName);
+        cdoModelBuilder.setSuperClass(ClassName.get(PackageName, doClassName));
         modelBuilder.addField(ClassName.get(PackageName, cdoClassName), "i" + cdoClassName, Modifier.PUBLIC, true);
         JavaFile javaFiledo = doModelBuilder.build();
         JavaFile javfilecdo = cdoModelBuilder.build();

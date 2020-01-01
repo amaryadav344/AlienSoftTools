@@ -3,6 +3,7 @@ package com.webstudio.connectionhub.models.UI;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.webstudio.connectionhub.models.Entity.ICustomMethod;
 import com.webstudio.connectionhub.models.IXMLBase;
 
 
@@ -13,6 +14,7 @@ public class IForm extends IXMLBase {
     @JacksonXmlProperty(isAttribute = true)
     String entity;
     String type;
+    ICustomMethod loadMethod;
     IView control;
 
     public IForm() {
@@ -49,5 +51,13 @@ public class IForm extends IXMLBase {
 
     public void setEntity(String entity) {
         this.entity = entity;
+    }
+
+    public ICustomMethod getLoadMethod() {
+        return loadMethod;
+    }
+
+    public void setLoadMethod(ICustomMethod loadMethod) {
+        this.loadMethod = loadMethod;
     }
 }
