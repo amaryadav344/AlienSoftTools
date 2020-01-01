@@ -5,7 +5,7 @@
         <div class="caption">Table Name</div>
         <div class="ui-inputgroup">
           <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
-                          (ngModelChange)="entity.name=entity.tableName;entity.modelName=entity.name"
+                          (ngModelChange)="TableNameChnage()"
                           [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
                           [size]="30" [minLength]="1" [dropdown]="true"
                           (onDropdownClick)="getMatchingTableNames('')"></p-autoComplete>
@@ -44,6 +44,7 @@
       <div class="ui-g-6" *ngIf="createJavaClass">
         <div class="caption">Model Name</div>
         <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">bus</span>
           <input type="text" pInputText [(ngModel)]="entity.modelName"/>
         </div>
       </div>

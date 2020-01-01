@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="ui-g-12">
-            <div class="ui-g-6">
+            <div class="ui-g-12">
               <div class="caption">Path</div>
               <div class="ui-inputgroup">
                 <input type="text" pInputText [(ngModel)]="file.path" [disabled]="true"/>
@@ -35,15 +35,18 @@
           <div class="ui-g-12">
             <div class="caption">Load Method</div>
             <p-autoComplete
-              [(ngModel)]="method"
+              [(ngModel)]="form.loadMethod"
               [suggestions]="mFieldSuggestions"
               (completeMethod)="filterLoadMethods($event.query)"
               [dropdown]="true"
               (onDropdownClick)="filterLoadMethods('')"
+              field="name"
               placeholder="Load Method" [minLength]="1"></p-autoComplete>
           </div>
-          <div class="ui-g-12">
-            <!--<p-message severity="error" text="Name is required" *ngIf="group.name===''"></p-message>-->
+          <div class="ui-g-12" *ngIf="form.loadMethod">
+            <div *ngFor="let LoadMapping of form.loadMethod.loadMapping">
+              {{LoadMapping.name}}
+            </div>
           </div>
         </div>
       </p-tabPanel>

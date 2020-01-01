@@ -38,6 +38,8 @@ export class HeaderComponent implements OnInit {
     this.windowService.SyncFiles$.subscribe((file) => {
       this.files.push(file);
       this.files = [...this.files];
+      this.EntityFiles = this.files.filter(x => x.name.includes('.ent.xml'));
+      this.FormFiles = this.files.filter(x => x.name.includes('.form.xml'));
     });
   }
 

@@ -131,7 +131,7 @@ export class R {
     }
 
     static getForm(): IForm {
-      return new IForm(new StackLayout([], 'stackLayout2'), 'entPerson', 'framePersonDetail');
+      return new IForm(new StackLayout([], 'stackLayout'), '', '', R.Initializer.getCustomMethod());
     }
 
     static getSymbols(): ISymbol[] {

@@ -30,6 +30,7 @@ export class NewEntityDialogComponent implements OnInit {
 
   OpenNextStep() {
     this.entity.databaseObjectField = 'icdo' + this.entity.modelName;
+    this.entity.modelName = 'bus' + this.entity.modelName
     this.httpClientService.getColumns(this.entity.tableName).subscribe(
       (columns) => {
         this.entity.columns = columns;
@@ -85,6 +86,21 @@ export class NewEntityDialogComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  TableNameChnage() {
+    this.entity.name = this.toPascalCase(this.entity.tableName);
+    this.entity.modelName = this.toPascalCase(this.entity.name);
+  }
+
+
+  toPascalCase(str) {
+    const arr = str.split(/\s|_/);
+    for (let i = 0, l = arr.length; i < l; i++) {
+      arr[i] = arr[i].substr(0, 1).toUpperCase() +
+        (arr[i].length > 1 ? arr[i].substr(1).toLowerCase() : '');
+    }
+    return arr.join('');
   }
 
 

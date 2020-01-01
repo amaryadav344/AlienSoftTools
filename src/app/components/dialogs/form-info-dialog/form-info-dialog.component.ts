@@ -6,6 +6,7 @@ import {HttpClientService} from '../../../services/entity-service/httpclient.ser
 import {WindowService} from '../../../services/window/window.service';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/api';
 import {IEntity} from '../../../models/Enitity/IEntity';
+import {ICustomMethod} from "../../../models/Enitity/ICustomMethod";
 
 @Component({
   selector: 'app-form-info-dialog',
@@ -16,8 +17,7 @@ export class FormInfoDialogComponent implements OnInit {
   form: IForm = R.Initializer.getForm();
   entity: IEntity = R.Initializer.getEntity();
   file: IFile = R.Initializer.getFile();
-  mFieldSuggestions: string[] = [];
-  method: string;
+  mFieldSuggestions: ICustomMethod[] = [];
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
               public windowService: WindowService, public httpClientService: HttpClientService) {
@@ -30,14 +30,12 @@ export class FormInfoDialogComponent implements OnInit {
   }
 
   closeDialog() {
-    this.ref.close();
+    this.ref.close(this.form);
   }
 
   filterLoadMethods(event: string) {
     this.mFieldSuggestions = [...this.entity.businessObject.customMethods
-      .filter(x => event === '' || x.name.toLowerCase().includes(event.toLowerCase()))
-      .map(value => value.name)];
-
+      .filter(x => event === '' || x.name.toLowerCase().includes(event.toLowerCase()))];
   }
 
 }
