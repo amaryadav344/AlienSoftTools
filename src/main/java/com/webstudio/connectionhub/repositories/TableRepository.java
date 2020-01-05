@@ -1,6 +1,6 @@
 package com.webstudio.connectionhub.repositories;
 
-import com.webstudio.connectionhub.models.Entity.IColumn;
+import com.business.utils.models.Entity.IColumn;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.internal.SessionFactoryImpl;

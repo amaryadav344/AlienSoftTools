@@ -1,10 +1,11 @@
 package com.webstudio.connectionhub.common;
 
+import com.business.utils.FileHelper;
+import com.business.utils.models.Entity.*;
+import com.business.utils.models.IXMLBase;
+import com.business.utils.models.UI.IForm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.javapoet.ClassName;
-import com.webstudio.connectionhub.models.Entity.*;
-import com.webstudio.connectionhub.models.IXMLBase;
-import com.webstudio.connectionhub.models.UI.IForm;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProjectStore {
 
     public void LoadProject(IProject iProject) throws IOException {
         this.iProject = iProject;
-        symbolProvider.LoadJar(iProject.getBinPath() + "/BusinessObjects.jar");
+        symbolProvider.LoadJar(iProject.getBasePath() + iProject.getBinPath() + "/BusinessObjects.jar");
         fileStore.LoadFilesAndFolders(iProject.getXMLPath());
         xmlStore.LoadXML(fileStore.getFiles(), iProject.getXMLPath());
     }
@@ -36,12 +37,12 @@ public class ProjectStore {
             IEntity entity = (IEntity) ixmlBase;
             xmlStore.SaveXml(ixmlBase, entity.getName());
             xml = xmlStore.getXMLString(entity);
-            FileHelper.WriteFile(iProject.getXMLPath() + Path, xml);
+            FileHelper.WriteFile(iProject.getXMLPath() + "/" + Path, xml);
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             xmlStore.SaveXml(ixmlBase, form.getName());
             xml = xmlStore.getXMLString(form);
-            FileHelper.WriteFile(iProject.getXMLPath() + Path, xml);
+            FileHelper.WriteFile(iProject.getXMLPath() + "/" + Path, xml);
         }
         return xml;
     }
@@ -50,17 +51,17 @@ public class ProjectStore {
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
             String xml = xmlStore.getXMLString(entity);
-            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + path + "/" + entity.getName() + ".ent.xml", xml);
+            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + "/" + path + "/" + entity.getName() + ".ent.xml", xml);
             if (createModel) {
                 ModelHelper.createModel(ClassName.get(iProject.getPackageName(), "BusBase"), entity,
                         iProject.getPackageName() + "." + path.replace("/", "."),
-                        iProject.getBusinessModelPath());
+                        iProject.getBasePath() + iProject.getBusinessModelPath());
             }
             xmlStore.SaveXml(ixmlBase, entity.getName());
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             String xml = xmlStore.getXMLString(form);
-            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + path + "/" + form.getName() + ".form.xml", xml);
+            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + "/" + path + "/" + form.getName() + ".form.xml", xml);
             xmlStore.SaveXml(ixmlBase, form.getName());
         }
     }

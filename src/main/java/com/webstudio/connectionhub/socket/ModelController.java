@@ -1,9 +1,9 @@
 package com.webstudio.connectionhub.socket;
 
+import com.business.utils.models.Entity.IEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.webstudio.connectionhub.models.Entity.IEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

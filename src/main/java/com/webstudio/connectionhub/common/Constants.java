@@ -6,4 +6,5 @@ public class Constants {
         public static int TYPE_COLLECTION = 2;
         public static int TYPE_VARIBLE = 0;
     }
+
 }

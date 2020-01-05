@@ -1,6 +1,8 @@
 package com.webstudio.connectionhub.common;
 
-import com.webstudio.connectionhub.models.Entity.IFile;
+
+import com.business.utils.FileHelper;
+import com.business.utils.models.Entity.IFile;
 
 import java.util.List;
 

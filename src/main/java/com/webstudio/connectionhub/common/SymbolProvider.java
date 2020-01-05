@@ -1,8 +1,8 @@
 package com.webstudio.connectionhub.common;
 
-import com.webstudio.connectionhub.models.Entity.IObjectMethod;
-import com.webstudio.connectionhub.models.Entity.IObjectParameter;
-import com.webstudio.connectionhub.models.Entity.ISymbol;
+import com.business.utils.models.Entity.IObjectMethod;
+import com.business.utils.models.Entity.IObjectParameter;
+import com.business.utils.models.Entity.ISymbol;
 import spoon.JarLauncher;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtParameter;

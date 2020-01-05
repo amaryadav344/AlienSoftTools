@@ -1,12 +1,12 @@
 package com.webstudio.connectionhub.controllers;
 
 
+import com.business.utils.AppConfigRepository;
+import com.business.utils.FileHelper;
+import com.business.utils.models.Entity.*;
+import com.business.utils.models.IXMLBase;
 import com.webstudio.connectionhub.common.Constants;
-import com.webstudio.connectionhub.common.FileHelper;
 import com.webstudio.connectionhub.common.ProjectStore;
-import com.webstudio.connectionhub.models.Entity.*;
-import com.webstudio.connectionhub.models.IXMLBase;
-import com.webstudio.connectionhub.repositories.AppConfigRepository;
 import com.webstudio.connectionhub.repositories.TableRepository;
 import com.webstudio.connectionhub.services.SystemSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,19 +126,21 @@ public class XMLController {
     public ResponseEntity<IDBConnectionInfo> GetDBConnection() throws IOException {
         AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
         IDBConnectionInfo idbConnectionInfo = new IDBConnectionInfo();
-        idbConnectionInfo.setDBUrl(appConfigRepository.getAppConfig("databaseurl"));
-        idbConnectionInfo.setDBUserName(appConfigRepository.getAppConfig("databaseusername"));
+        idbConnectionInfo.setDBUrl(appConfigRepository.getAppConfig(AppConfigRepository.DATABASE_URL));
+        idbConnectionInfo.setDBUserName(appConfigRepository.getAppConfig(AppConfigRepository.DATABASE_USERNAME));
         return new ResponseEntity<>(idbConnectionInfo, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/xml/LoadProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity LoadProject() throws IOException {
+        AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
         IProject iProject = new IProject();
-        iProject.setBinPath(systemSettingsService.getBinPath());
-        iProject.setXMLPath(systemSettingsService.getXmlBasePath());
-        iProject.setPackageName(systemSettingsService.getPackageName());
-        iProject.setBusinessModelPath(systemSettingsService.getBusinessModelPath());
+        iProject.setBinPath(appConfigRepository.getAppConfig(AppConfigRepository.BIN_RELATIVE_PATH));
+        iProject.setXMLPath(appConfigRepository.getAppConfig(AppConfigRepository.XML_RELATIVE_PATH));
+        iProject.setPackageName(appConfigRepository.getAppConfig(AppConfigRepository.PACKAGE_NAME));
+        iProject.setBusinessModelPath(appConfigRepository.getAppConfig(AppConfigRepository.BUSINESS_MODELS_RELATIVE_PATH));
+        iProject.setBasePath(appConfigRepository.getAppConfig(AppConfigRepository.BASE_DIRECTORY));
         projectStore.LoadProject(iProject);
         return new ResponseEntity(HttpStatus.OK);
     }
