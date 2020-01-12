@@ -7,7 +7,7 @@
     </div>
     <div class="ui-g-12 ui-g-nopad" *ngIf="!isTextView">
       <div class="ui-g-4">
-        <app-side-bar [PropertiesObject]="PropertiesObject"></app-side-bar>
+        <app-side-bar [PropertyInfo]="PropertyInfo"></app-side-bar>
       </div>
       <div class="ui-g-8">
         <app-form [form]="form" (openPropertiesTab)="openPropertiesTab()"

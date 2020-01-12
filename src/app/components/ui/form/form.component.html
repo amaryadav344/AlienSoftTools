@@ -1,29 +1,29 @@
 <div class="ui-g-12 ui-g-nopad" style="border: 1px solid rgba(0,0,255,0.40);">
   <p-scrollPanel
     [style]="{height: '410px'}">
-    <ng-template #ControlTemplate let-Control let-Margin="Mar">
+    <ng-template #ControlTemplate let-Control let-Parent="Parent">
       <p-panel [toggleable]="true" [style]="{'margin-bottom':'20px','margin-top':'20px'}"
                *ngIf="hasChildViews(Control)" (dragover)="allowDrop($event,Control)"
                (drop)="dropControl($event,Control)">
         <p-header>
             <span class="ui-panel-title"
-                  (click)="singleClick($event,Control)"
-                  (dblclick)="doubleClick($event,Control)"
+                  (click)="singleClick($event,Control,Parent)"
+                  (dblclick)="doubleClick($event,Control,Parent)"
                   style="font-size:16px;display:inline-block;margin-top:2px">{{Control.ID}}</span>
         </p-header>
         <ng-template ngFor let-Con [ngForOf]="Control.controls">
           <ng-container
-            *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Con,Mar:Margin+10}"></ng-container>
+            *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Con,Parent:Control}"></ng-container>
         </ng-template>
       </p-panel>
       <div class="cell" *ngIf="!hasChildViews(Control)"
-           (click)="singleClick($event,Control)"
-           (dblclick)="doubleClick($event,Control)">
+           (click)="singleClick($event,Control,Parent)"
+           (dblclick)="doubleClick($event,Control,Parent)">
         {{Control.ID}}
       </div>
     </ng-template>
 
-    <ng-container *ngTemplateOutlet="ControlTemplate; context:{ $implicit: form.control,Mar:10}"></ng-container>
+    <ng-container *ngTemplateOutlet="ControlTemplate; context:{ $implicit: form.control,Parent:form}"></ng-container>
 
   </p-scrollPanel>
 </div>

@@ -7,6 +7,7 @@ import {IForm} from '../../../models/UI/IForm';
 import {MessageService} from 'primeng/api';
 import {WindowService} from '../../../services/window/window.service';
 import {IEntity} from '../../../models/Enitity/IEntity';
+import {PropertyInfo} from '../../../common/PropertyInfo';
 
 @Component({
   selector: 'app-user-interface',
@@ -16,7 +17,7 @@ import {IEntity} from '../../../models/Enitity/IEntity';
 export class UserInterfaceComponent extends WindowBase implements OnInit {
   @ViewChild(SideBarComponent, {static: false})
   sidebarComponent: SideBarComponent;
-  PropertiesObject: any = {};
+  PropertyInfo: PropertyInfo = {PropertiesObject: {}, ParentObject: {}};
   form: IForm = R.Initializer.getForm();
   entity: IEntity;
 
@@ -43,8 +44,8 @@ export class UserInterfaceComponent extends WindowBase implements OnInit {
     this.sidebarComponent.openPropertiesTab();
   }
 
-  openProperties(view: any) {
-    this.PropertiesObject = view;
+  openProperties(propertyInfo: any) {
+    this.PropertyInfo = propertyInfo;
   }
 
   getXML() {

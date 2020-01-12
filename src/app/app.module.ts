@@ -24,6 +24,7 @@ import {
   ProgressSpinnerModule,
   RadioButtonModule,
   ScrollPanelModule,
+  SpinnerModule,
   SplitButtonModule,
   TabMenuModule,
   TabViewModule,
@@ -166,6 +167,7 @@ import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/for
     ConfirmDialogModule,
     ToastModule,
     BreadcrumbModule,
+    SpinnerModule,
     ProgressSpinnerModule
   ],
   providers: [],

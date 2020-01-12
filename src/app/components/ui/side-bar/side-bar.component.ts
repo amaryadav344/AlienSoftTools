@@ -1,5 +1,7 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {DragDropHelper} from '../../../common/DragDropHelper';
+import {R} from '../../../common/R';
+import {PropertyInfo} from '../../../common/PropertyInfo';
 
 @Component({
   selector: 'app-side-bar',
@@ -9,9 +11,17 @@ import {DragDropHelper} from '../../../common/DragDropHelper';
 })
 export class SideBarComponent implements OnInit {
   @Input()
-  PropertiesObject: any;
+  PropertyInfo: PropertyInfo;
   CurrentTabIndex = 0;
   dragDropHelper: DragDropHelper = DragDropHelper.getInstance();
+  TextAlignmentOptions = R.TextAlignments;
+  TextDecorationsOptions = R.TextDecorations;
+  TextTransformsOptions = R.TextTransforms;
+  WhiteSpacesOptions = R.WhiteSpaces;
+  BoolenValuesOptions = R.BoolenValues;
+  OrientationOptions = R.Orientations;
+  VerticalAlignmentOptions = R.VerticalAlignments;
+  HorizontalAlignmentOptions = R.HorizontalAlignments;
 
 
   constructor() {

@@ -43,6 +43,51 @@ export class R {
     'Update',
     'All'
   ];
+  static TextAlignments: string[] = [
+    'initial',
+    'left',
+    'center',
+    'right'
+  ];
+  static TextDecorations: string[] = [
+    'none',
+    'underline',
+    'line-through',
+  ];
+  static TextTransforms: string[] = [
+    'initial',
+    'none',
+    'capitalize',
+    'uppercase',
+    'lowercase',
+  ];
+  static WhiteSpaces: string[] = [
+    'initial',
+    'normal',
+    'nowrap',
+  ];
+  static BoolenValues: string[] = [
+    'true',
+    'false',
+  ];
+  static Orientations: string[] = [
+    'vertical',
+    'horizontal',
+  ];
+  static VerticalAlignments: string[] = [
+    'top',
+    'center',
+    'bottom',
+    'stretch',
+  ];
+  static HorizontalAlignments: string[] = [
+    'left',
+    'center',
+    'right',
+    'stretch',
+  ];
+
+
   static Constants = class {
     static OpenMode = class {
       static MODE_NEW = 0;

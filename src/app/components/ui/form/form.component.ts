@@ -9,6 +9,7 @@ import {IInput} from '../../../models/UI/IInput';
 import {DragDropHelper} from '../../../common/DragDropHelper';
 import {StackLayout} from '../../../models/UI/StackLayout';
 import {DynamicIDGenerator} from '../../../common/DynamicIDGenerator';
+import {PropertyInfo} from '../../../common/PropertyInfo';
 
 @Component({
   selector: 'app-form',
@@ -23,7 +24,7 @@ export class FormComponent implements OnInit, OnChanges {
   timer: any;
   delay: number;
   @Output() openPropertiesTab = new EventEmitter();
-  @Output() openProperties = new EventEmitter<any>();
+  @Output() openProperties = new EventEmitter<PropertyInfo>();
   dragDropHelper: DragDropHelper = DragDropHelper.getInstance();
   dynamicIDGenerator: DynamicIDGenerator;
 
@@ -59,7 +60,7 @@ export class FormComponent implements OnInit, OnChanges {
     this.selection = null;
   }
 
-  selectControl(event, view: any) {
+  selectControl(event, view: any, Parent: any) {
     const clicked = event.target;
     const currentID = clicked.id || null;
     if (this.selection != null && !(this.selection.id === currentID)) {
@@ -69,7 +70,7 @@ export class FormComponent implements OnInit, OnChanges {
       clicked.classList.add('selected');
       this.selection = clicked;
     }
-    this.openProperties.emit(view);
+    this.openProperties.emit({PropertiesObject: view, ParentObject: Parent});
 
   }
 
@@ -118,22 +119,22 @@ export class FormComponent implements OnInit, OnChanges {
     }
   }
 
-  singleClick(event, view: any) {
+  singleClick(event, view: any, Parent: any) {
     event.stopPropagation();
     this.preventSingleClick = false;
     const delay = 200;
     this.timer = setTimeout(() => {
       if (!this.preventSingleClick) {
-        this.selectControl(event, view);
+        this.selectControl(event, view, Parent);
 
       }
     }, delay);
   }
 
-  doubleClick(event, view: any) {
+  doubleClick(event, view: any, Parent: any) {
     this.preventSingleClick = true;
     clearTimeout(this.timer);
-    this.selectControl(event, view);
+    this.selectControl(event, view, Parent);
     this.openPropertiesTab.emit();
     event.stopPropagation();
   }
