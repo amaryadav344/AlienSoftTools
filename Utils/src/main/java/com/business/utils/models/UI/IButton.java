@@ -9,6 +9,8 @@ class IButton extends IView {
     @JacksonXmlProperty(localName = "ID", isAttribute = true)
     String id;
     String type;
+    @JacksonXmlProperty(isAttribute = true)
+    String text;
 
 
     public IButton() {
@@ -34,5 +36,13 @@ class IButton extends IView {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
