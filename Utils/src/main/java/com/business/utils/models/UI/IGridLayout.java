@@ -1,27 +1,22 @@
 package com.business.utils.models.UI;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class IStackLayout extends IView {
+public class IGridLayout extends IView {
     @JsonProperty("ID")
     @JacksonXmlProperty(localName = "ID", isAttribute = true)
     String id;
-    String type;
     @JacksonXmlProperty(isAttribute = true)
-    String orientation;
+    String columns;
+    @JacksonXmlProperty(isAttribute = true)
+    String rows;
+    String type;
     IView[] controls;
 
-    public IStackLayout() {
-    }
-
-    public IView[] getControls() {
-        return controls;
-    }
-
-    public void setControls(IView[] controls) {
-        this.controls = controls;
+    public IGridLayout() {
     }
 
     public String getId() {
@@ -30,6 +25,22 @@ public class IStackLayout extends IView {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getColumns() {
+        return columns;
+    }
+
+    public void setColumns(String columns) {
+        this.columns = columns;
+    }
+
+    public String getRows() {
+        return rows;
+    }
+
+    public void setRows(String rows) {
+        this.rows = rows;
     }
 
     @JsonIgnore()
@@ -41,11 +52,11 @@ public class IStackLayout extends IView {
         this.type = type;
     }
 
-    public String getOrientation() {
-        return orientation;
+    public IView[] getControls() {
+        return controls;
     }
 
-    public void setOrientation(String orientation) {
-        this.orientation = orientation;
+    public void setControls(IView[] controls) {
+        this.controls = controls;
     }
 }

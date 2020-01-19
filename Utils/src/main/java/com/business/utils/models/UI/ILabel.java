@@ -29,17 +29,6 @@ public class ILabel extends IView {
     String whiteSpace;
     @JacksonXmlProperty(isAttribute = true)
     String entityField;
-    @JacksonXmlProperty(isAttribute = true)
-    String width;
-    @JacksonXmlProperty(isAttribute = true)
-    String height;
-    @JacksonXmlProperty(isAttribute = true)
-    String backgroundColor;
-    @JacksonXmlProperty(isAttribute = true)
-    String horizontalAlignment;
-    @JacksonXmlProperty(isAttribute = true)
-    String verticalAlignment;
-
 
     public ILabel() {
     }
@@ -61,115 +50,93 @@ public class ILabel extends IView {
         this.type = type;
     }
 
+
     public int getLetterSpacing() {
         return letterSpacing;
     }
+
 
     public void setLetterSpacing(int letterSpacing) {
         this.letterSpacing = letterSpacing;
     }
 
+
     public int getLineHeight() {
         return lineHeight;
     }
+
 
     public void setLineHeight(int lineHeight) {
         this.lineHeight = lineHeight;
     }
 
+
     public String getText() {
         return text;
     }
+
 
     public void setText(String text) {
         this.text = text;
     }
 
+
     public String getTextAlignment() {
         return textAlignment;
     }
+
 
     public void setTextAlignment(String textAlignment) {
         this.textAlignment = textAlignment;
     }
 
+
     public String getTextDecoration() {
         return textDecoration;
     }
+
 
     public void setTextDecoration(String textDecoration) {
         this.textDecoration = textDecoration;
     }
 
+
     public String getTextTransform() {
         return textTransform;
     }
+
 
     public void setTextTransform(String textTransform) {
         this.textTransform = textTransform;
     }
 
+
     public boolean isTextWrap() {
         return textWrap;
     }
+
 
     public void setTextWrap(boolean textWrap) {
         this.textWrap = textWrap;
     }
 
+
     public String getWhiteSpace() {
         return whiteSpace;
     }
+
 
     public void setWhiteSpace(String whiteSpace) {
         this.whiteSpace = whiteSpace;
     }
 
+
     public String getEntityField() {
         return entityField;
     }
 
+
     public void setEntityField(String entityField) {
         this.entityField = entityField;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
-    }
-
-    public String getWidth() {
-        return width;
-    }
-
-    public void setWidth(String width) {
-        this.width = width;
-    }
-
-    public String getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public void setBackgroundColor(String backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-
-    public String getHorizontalAlignment() {
-        return horizontalAlignment;
-    }
-
-    public void setHorizontalAlignment(String horizontalAlignment) {
-        this.horizontalAlignment = horizontalAlignment;
-    }
-
-    public String getVerticalAlignment() {
-        return verticalAlignment;
-    }
-
-    public void setVerticalAlignment(String verticalAlignment) {
-        this.verticalAlignment = verticalAlignment;
     }
 }

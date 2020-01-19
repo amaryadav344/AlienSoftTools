@@ -1,6 +1,7 @@
 package com.business.utils;
 
 import com.business.utils.models.IXMLBase;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -16,6 +17,7 @@ public class XMLWorker {
         xmlMapper = new XmlMapper();
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
         xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        xmlMapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);
 
     }
 
