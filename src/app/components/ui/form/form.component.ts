@@ -10,6 +10,8 @@ import {DragDropHelper} from '../../../common/DragDropHelper';
 import {StackLayout} from '../../../models/UI/StackLayout';
 import {DynamicIDGenerator} from '../../../common/DynamicIDGenerator';
 import {PropertyInfo} from '../../../common/PropertyInfo';
+import {GridLayout} from "../../../models/UI/GridLayout";
+import {ScrollView} from "../../../models/UI/ScrollView";
 
 @Component({
   selector: 'app-form',
@@ -75,7 +77,7 @@ export class FormComponent implements OnInit, OnChanges {
   }
 
   allowDrop(event, Control) {
-    if (Control.type === R.Controls.TYPE_STACK_LAYOUT) {
+    if (Control.type === R.Controls.TYPE_STACK_LAYOUT || R.Controls.TYPE_GRID_LAYOUT || R.Controls.TYPE_SCROLL_VIEW) {
       event.preventDefault();
     } else {
       event.stopPropagation();
@@ -97,25 +99,39 @@ export class FormComponent implements OnInit, OnChanges {
     if (layout.controls === null) {
       layout.controls = [];
     }
+    let control = null;
     switch (Control) {
       case R.Controls.TYPE_LABEL:
-        layout.controls.push(new ILabel(this.dynamicIDGenerator.getNextID(Control, 1)));
+        control = new ILabel(this.dynamicIDGenerator.getNextID(Control, 1));
         break;
       case R.Controls.TYPE_BUTTON:
-        layout.controls.push(new IButton(this.dynamicIDGenerator.getNextID(Control, 1)));
+        control = new IButton(this.dynamicIDGenerator.getNextID(Control, 1));
         break;
       case R.Controls.TYPE_CAPTION:
-        layout.controls.push(new ICaption(this.dynamicIDGenerator.getNextID(Control, 1)));
+        control = new ICaption(this.dynamicIDGenerator.getNextID(Control, 1));
         break;
       case R.Controls.TYPE_CHECKBOX:
-        layout.controls.push(new ICheckBox(this.dynamicIDGenerator.getNextID(Control, 1)));
+        control = new ICheckBox(this.dynamicIDGenerator.getNextID(Control, 1));
         break;
       case R.Controls.TYPE_INPUT:
-        layout.controls.push(new IInput(this.dynamicIDGenerator.getNextID(Control, 1)));
+        control = new IInput(this.dynamicIDGenerator.getNextID(Control, 1));
         break;
       case R.Controls.TYPE_STACK_LAYOUT:
-        layout.controls.push(new StackLayout([], this.dynamicIDGenerator.getNextID(Control, 1)));
+        control = new StackLayout([], this.dynamicIDGenerator.getNextID(Control, 1));
         break;
+      case R.Controls.TYPE_GRID_LAYOUT:
+        control = new GridLayout([], this.dynamicIDGenerator.getNextID(Control, 1));
+        break;
+      case R.Controls.TYPE_SCROLL_VIEW:
+        control = new ScrollView(this.dynamicIDGenerator.getNextID(Control, 1));
+        break;
+    }
+    if (control != null) {
+      if (layout.type === R.Controls.TYPE_SCROLL_VIEW) {
+        layout.control = control;
+      } else {
+        layout.controls.push(control);
+      }
     }
   }
 
@@ -141,7 +157,8 @@ export class FormComponent implements OnInit, OnChanges {
 
 
   hasChildViews(Control) {
-    if (Control.type === R.Controls.TYPE_STACK_LAYOUT) {
+    if (Control.type === R.Controls.TYPE_STACK_LAYOUT || Control.type === R.Controls.TYPE_GRID_LAYOUT
+      || Control.type === R.Controls.TYPE_SCROLL_VIEW) {
       return true;
     }
     return false;

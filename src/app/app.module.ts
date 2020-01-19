@@ -9,6 +9,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {EntityWindowComponent} from './components/entity/entity-window.component';
 import {TabModule} from 'angular-tabs-component';
 import {
+  AccordionModule,
   AutoCompleteModule,
   BreadcrumbModule,
   CheckboxModule,
@@ -29,7 +30,7 @@ import {
   TabMenuModule,
   TabViewModule,
   ToolbarModule,
-  TooltipModule
+  TooltipModule,
 } from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {DataViewModule} from 'primeng/dataview';
@@ -168,7 +169,8 @@ import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/for
     ToastModule,
     BreadcrumbModule,
     SpinnerModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    AccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent],

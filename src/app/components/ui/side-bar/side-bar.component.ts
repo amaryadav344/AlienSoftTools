@@ -22,6 +22,7 @@ export class SideBarComponent implements OnInit {
   OrientationOptions = R.Orientations;
   VerticalAlignmentOptions = R.VerticalAlignments;
   HorizontalAlignmentOptions = R.HorizontalAlignments;
+  VisibilityOptions = R.Visibility;
 
 
   constructor() {
@@ -36,6 +37,18 @@ export class SideBarComponent implements OnInit {
 
   openPropertiesTab() {
     this.CurrentTabIndex = 1;
+  }
+
+  isStackLayout(view: any): boolean {
+    return view.type === R.Controls.TYPE_STACK_LAYOUT;
+  }
+
+  isGridLayout(view: any): boolean {
+    return view.type === R.Controls.TYPE_GRID_LAYOUT;
+  }
+
+  isScrollView(view: any): boolean {
+    return view.type === R.Controls.TYPE_SCROLL_VIEW;
   }
 
 }

@@ -86,6 +86,11 @@ export class R {
     'right',
     'stretch',
   ];
+  static Visibility: string[] = [
+    'visible',
+    'collapse',
+    'hidden',
+  ];
 
 
   static Constants = class {
@@ -193,6 +198,8 @@ export class R {
     static TYPE_SECTION = 'Section';
     static TYPE_GRID = 'Grid';
     static TYPE_STACK_LAYOUT = 'StackLayout';
+    static TYPE_GRID_LAYOUT = 'GridLayout';
+    static TYPE_SCROLL_VIEW = 'ScrollView';
   };
 
 }

@@ -1,24 +1,21 @@
 import {R} from '../../common/R';
+import {IView} from './IView';
 
-export class ILabel {
+export class ILabel extends IView {
   ID: string;
   letterSpacing: number;
   lineHeight: number;
-  text = '';
-  textAlignment = '';
-  textDecoration = '';
-  textTransform = '';
+  text: string;
+  textAlignment: string;
+  textDecoration: string;
+  textTransform: string;
   textWrap: boolean;
-  whiteSpace = '';
-  entityField = '';
-  width: number;
-  height: number;
-  backgroundColor: string;
-  verticalAlignment: string;
-  horizontalAlignment: string;
+  whiteSpace: string;
+  entityField: string;
   type = R.Controls.TYPE_LABEL;
 
   constructor(ID: string) {
+    super();
     this.ID = ID;
   }
 }

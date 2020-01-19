@@ -15,6 +15,10 @@
           <ng-container
             *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Con,Parent:Control}"></ng-container>
         </ng-template>
+        <ng-template [ngIf]="Control.control">
+          <ng-container
+            *ngTemplateOutlet="ControlTemplate; context:{ $implicit: Control.control,Parent:Control}"></ng-container>
+        </ng-template>
       </p-panel>
       <div class="cell" *ngIf="!hasChildViews(Control)"
            (click)="singleClick($event,Control,Parent)"

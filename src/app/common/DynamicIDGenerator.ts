@@ -52,6 +52,12 @@ export class DynamicIDGenerator {
       case R.Controls.TYPE_GRID:
         ID = R.Controls.TYPE_GRID + index;
         break;
+      case R.Controls.TYPE_GRID_LAYOUT:
+        ID = R.Controls.TYPE_GRID_LAYOUT + index;
+        break;
+      case R.Controls.TYPE_SCROLL_VIEW:
+        ID = R.Controls.TYPE_SCROLL_VIEW + index;
+        break;
     }
     if (this.ID.filter(x => x === ID).length > 0) {
       return this.getNextID(control, index + 1);

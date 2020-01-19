@@ -1,4 +1,5 @@
 <select style="width: 100%;" id="dropdown" name="dropdown" [(ngModel)]="model" [disabled]="disabled"
         (ngModelChange)="onChange($event)">
+  <option [ngValue]="null"></option>
   <option *ngFor="let option of options" [value]="option">{{option}}</option>
 </select>
