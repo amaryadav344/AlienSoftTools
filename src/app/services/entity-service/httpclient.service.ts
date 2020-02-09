@@ -7,6 +7,7 @@ import {IXMLBase} from '../../models/IXMLBase';
 import {IDBConnectionInfo} from '../../models/Enitity/IDBConnectionInfo';
 import {ISymbol} from '../../models/Enitity/ISymbol';
 import {IObjectMethod} from '../../models/Enitity/IObjectMethod';
+import {NavigationParameter} from "../../models/UI/NavigationParameter";
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,19 @@ export class HttpClientService {
   public getFiles() {
     return this.httpClient.post<IFile[]>(R.SERVER_URLS.GET_FILES, ' ', {responseType: 'json'});
   }
+
+  public getForms(query: string) {
+    return this.httpClient.post<string[]>(R.SERVER_URLS.GET_FORMS, query, {
+      responseType: 'json'
+    });
+  }
+
+  public getNavigationParameters(form: string) {
+    return this.httpClient.post<NavigationParameter[]>(R.SERVER_URLS.GET_NAVIGATION_PARAMETER_BY_FORM, form, {
+      responseType: 'json'
+    });
+  }
+
 
   public getDBConnectionInfo() {
     return this.httpClient.post<IDBConnectionInfo>(R.SERVER_URLS.GET_DB_CONNECTION_INFO, ' ', {responseType: 'json'});

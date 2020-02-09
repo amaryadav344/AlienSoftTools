@@ -17,7 +17,7 @@ body, html {
 }
 
 .caption {
-  padding: 0 0 12px 0;
+  padding: 12px 0 12px 0;
   font-size: 16px;
   font-family: roboto-regular, 'arial', sans-serif;
 }

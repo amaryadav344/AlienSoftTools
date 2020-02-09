@@ -178,6 +178,73 @@
                 </div>
               </div>
             </ng-container>
+            <ng-container *ngIf="isButton(PropertyInfo.PropertiesObject)">
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">On Click</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.onClick=$event"
+                                 [model]="PropertyInfo.PropertiesObject.onClick"
+                                 [options]="ButtonTypes"></app-drop-down>
+                </div>
+              </div>
+              <ng-container *ngIf="isButtonOpenFormType(PropertyInfo.PropertiesObject)">
+                <div class="ui-g ui-fluid ui-g-nopad">
+                  <div class="ui-g-12 ui-g-nopad">
+                    <div class="caption">Form Name</div>
+                  </div>
+                  <div class="ui-g-12 ui-g-nopad">
+                    <p-autoComplete appendTo="body" autocomplete="disabled"
+                                    [(ngModel)]="PropertyInfo.PropertiesObject.form"
+                                    [suggestions]="mFormSuggestions"
+                                    [dropdown]="true"
+                                    (completeMethod)="getForms($event)"
+                                    (onSelect)="getNavigationParameters($event)"
+                                    [size]="30"
+                                    placeholder="Form" [minLength]="1"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="ui-g ui-fluid ui-g-nopad">
+                  <div class="ui-g-12 ui-g-nopad">
+                    <div class="caption">Navigation Parameters</div>
+                  </div>
+                  <div class="ui-g-12 ui-g-nopad">
+                    <div class="ui-g-4 ui-g-nopad">
+                      Name
+                    </div>
+                    <div class="ui-g-4 ui-g-nopad">
+                      Value
+                    </div>
+                    <div class="ui-g-4 ui-g-nopad">
+                      Constant
+                    </div>
+                  </div>
+                  <div class="ui-g-12 ui-g-nopad"
+                       *ngFor="let Param of PropertyInfo.PropertiesObject.navigationParameters">
+                    <div class="ui-g-4 ui-g-nopad">
+                      {{Param.name}}
+                    </div>
+                    <div class="ui-g-4 ui-g-nopad">
+                      <input type="text" pInputText [(ngModel)]="Param.value"/>
+                    </div>
+                    <div class="ui-g-4 ui-g-nopad">
+                      <p-checkbox [(ngModel)]="Param.isConstant" binary="true"></p-checkbox>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="isButtonExecuteBusinessMethod(PropertyInfo.PropertiesObject)">
+                <div class="ui-g ui-fluid ui-g-nopad">
+                  <div class="ui-g-12 ui-g-nopad">
+                    <div class="caption">Custom Method</div>
+                  </div>
+                  <div class="ui-g-12 ui-g-nopad">
+                    <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.method"/>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
           </p-accordionTab>
           <p-accordionTab header="Layout">
             <div class="ui-g ui-fluid ui-g-nopad">

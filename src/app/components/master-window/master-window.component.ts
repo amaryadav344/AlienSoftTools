@@ -3,7 +3,7 @@ import {ContentDirective} from '../../directives/content.directive';
 import {MasterLoginWindowComponent} from './master-login-window/master-login-window.component';
 import {MasterIntitalLoadComponent} from './master-intital-load/master-intital-load.component';
 import {MasterWindowCallBacks} from '../../common/MasterWindowCallBacks';
-import {MainAppComponent} from "../main-app/main-app.component";
+import {MainAppComponent} from '../main-app/main-app.component';
 
 @Component({
   selector: 'app-master-window',
