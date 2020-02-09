@@ -4,6 +4,7 @@ import com.business.utils.FileHelper;
 import com.business.utils.models.Entity.*;
 import com.business.utils.models.IXMLBase;
 import com.business.utils.models.UI.IForm;
+import com.business.utils.models.UI.NavigationParameter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.javapoet.ClassName;
 
@@ -120,6 +121,10 @@ public class ProjectStore {
         return fileStore.getFiles();
     }
 
+    public List<String> getForms(String query) {
+        return xmlStore.getFormsByQuery(query);
+    }
+
 
     public String getXMLString(IXMLBase ixmlBase) throws JsonProcessingException {
         return xmlStore.getXMLString(ixmlBase);
@@ -139,5 +144,9 @@ public class ProjectStore {
 
     public List<String> getEntitiesByQuery(String query) {
         return xmlStore.getEntitiesByQuery(query);
+    }
+
+    public List<NavigationParameter> GetNavigationParameterByForm(String form) {
+        return xmlStore.GetNavigationParameterByForm(form);
     }
 }

@@ -5,6 +5,7 @@ import com.business.utils.AppConfigRepository;
 import com.business.utils.FileHelper;
 import com.business.utils.models.Entity.*;
 import com.business.utils.models.IXMLBase;
+import com.business.utils.models.UI.NavigationParameter;
 import com.webstudio.connectionhub.common.Constants;
 import com.webstudio.connectionhub.common.ProjectStore;
 import com.webstudio.connectionhub.repositories.TableRepository;
@@ -112,6 +113,22 @@ public class XMLController {
         List<IFile> files = projectStore.getFiles();
         return new ResponseEntity<>(files.toArray(new IFile[files.size()]), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/xml/GetForms", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String[]> GetForms(@RequestBody(required = false) String query) {
+        if (query == null) {
+            query = "";
+        }
+        List<String> files = projectStore.getForms(query);
+        return new ResponseEntity<>(files.toArray(new String[files.size()]), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/xml/GetNavigationParameterByForm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NavigationParameter[]> GetNavigationParameterByForm(@RequestBody(required = false) String form) {
+        List<NavigationParameter> navigationParameters = projectStore.GetNavigationParameterByForm(form);
+        return new ResponseEntity<>(navigationParameters.toArray(new NavigationParameter[navigationParameters.size()]), HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/xml/ListEntities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String[]> ListEntities(@RequestBody(required = false) String query) {

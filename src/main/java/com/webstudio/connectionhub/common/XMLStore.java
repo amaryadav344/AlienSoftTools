@@ -4,11 +4,15 @@ import com.business.utils.FileHelper;
 import com.business.utils.XMLWorker;
 import com.business.utils.models.Entity.IEntity;
 import com.business.utils.models.Entity.IFile;
+import com.business.utils.models.Entity.ILoadMapping;
+import com.business.utils.models.Entity.ILoadParameter;
 import com.business.utils.models.IXMLBase;
 import com.business.utils.models.UI.IForm;
+import com.business.utils.models.UI.NavigationParameter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +40,34 @@ public class XMLStore {
 
     public IXMLBase GetXml(String name) {
         return stringIXMLBaseHashMap.get(name);
+    }
+
+    public List<String> getFormsByQuery(String query) {
+        return stringIXMLBaseHashMap.values().stream()
+                .filter(ixmlBase -> ixmlBase instanceof IForm && (query.isEmpty() || ((IForm) ixmlBase)
+                        .getName()
+                        .toLowerCase()
+                        .contains(query.toLowerCase())))
+                .map(ixmlBase -> ((IForm) ixmlBase).getName())
+                .collect(Collectors.toList());
+    }
+
+    public List<NavigationParameter> GetNavigationParameterByForm(String form) {
+        List<NavigationParameter> navigationParameters = new ArrayList<>();
+        IForm form1 = (IForm) stringIXMLBaseHashMap.values().stream()
+                .filter(ixmlBase -> ixmlBase instanceof IForm && (((IForm) ixmlBase)
+                        .getName()
+                        .toLowerCase()
+                        .equals(form.toLowerCase()))).findFirst().get();
+        for (ILoadMapping loadMapping : form1.getLoadMethod().getLoadMapping()) {
+            for (ILoadParameter loadParameter : loadMapping.getLoadParameters()) {
+                NavigationParameter navigationParameter = new NavigationParameter();
+                navigationParameter.setName(loadParameter.getName());
+                navigationParameter.setValue(loadParameter.getEntityField());
+                navigationParameters.add(navigationParameter);
+            }
+        }
+        return navigationParameters;
     }
 
     public void LoadXML(List<IFile> files, String XMLPath) throws IOException {
