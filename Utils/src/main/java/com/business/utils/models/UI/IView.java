@@ -1,5 +1,6 @@
 package com.business.utils.models.UI;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
         @JsonSubTypes.Type(name = "GridLayout", value = IGridLayout.class),
         @JsonSubTypes.Type(name = "ScrollView", value = IScrollView.class),
 })
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class IView {
     @JacksonXmlProperty(isAttribute = true)
     String width;

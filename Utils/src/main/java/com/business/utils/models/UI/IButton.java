@@ -1,9 +1,11 @@
 package com.business.utils.models.UI;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 class IButton extends IView {
     @JsonProperty("ID")
     @JacksonXmlProperty(localName = "ID", isAttribute = true)

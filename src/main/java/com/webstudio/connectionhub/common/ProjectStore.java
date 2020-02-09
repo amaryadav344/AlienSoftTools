@@ -132,7 +132,7 @@ public class ProjectStore {
     public List<IObjectMethod> ListObjectMethods(IFile file, String query) throws IOException {
         String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        String ClassPath = (iProject.getPackageName() + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName()).replace("\\", ".");
         List<IObjectMethod> symbols = symbolProvider.getAllMethods(ClassPath, query);
         return symbols;
     }
