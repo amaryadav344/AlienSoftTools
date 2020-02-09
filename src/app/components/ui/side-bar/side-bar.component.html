@@ -160,6 +160,24 @@
                                [options]="OrientationOptions"></app-drop-down>
               </div>
             </div>
+            <ng-container *ngIf="isGridLayout(PropertyInfo.PropertiesObject)">
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Rows</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.rows"/>
+                </div>
+              </div>
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Columns</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.columns"/>
+                </div>
+              </div>
+            </ng-container>
           </p-accordionTab>
           <p-accordionTab header="Layout">
             <div class="ui-g ui-fluid ui-g-nopad">
@@ -329,24 +347,6 @@
                 </div>
                 <div class="ui-g-12 ui-g-nopad">
                   <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.colSpan"/>
-                </div>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="isGridLayout(PropertyInfo.PropertiesObject)">
-              <div class="ui-g ui-fluid ui-g-nopad">
-                <div class="ui-g-12 ui-g-nopad">
-                  <div class="caption">Rows</div>
-                </div>
-                <div class="ui-g-12 ui-g-nopad">
-                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.rows"/>
-                </div>
-              </div>
-              <div class="ui-g ui-fluid ui-g-nopad">
-                <div class="ui-g-12 ui-g-nopad">
-                  <div class="caption">Columns</div>
-                </div>
-                <div class="ui-g-12 ui-g-nopad">
-                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.columns"/>
                 </div>
               </div>
             </ng-container>
