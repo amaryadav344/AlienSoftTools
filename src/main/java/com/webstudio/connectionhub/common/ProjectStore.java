@@ -78,7 +78,7 @@ public class ProjectStore {
     public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
         String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getObjectSymbols(ClassPath, query);
         for (ISymbol symbol : symbols) {
             String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
@@ -90,7 +90,7 @@ public class ProjectStore {
     public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
         String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getCollectionSymbols(ClassPath, query);
         for (ISymbol symbol : symbols) {
             String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
@@ -102,7 +102,7 @@ public class ProjectStore {
     public List<ISymbol> GetVariableSymbols(IFile file, String query) throws IOException {
         String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getVariableSymbols(ClassPath, query);
         return symbols;
     }

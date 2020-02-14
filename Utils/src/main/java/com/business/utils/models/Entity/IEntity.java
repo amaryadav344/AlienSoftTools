@@ -8,7 +8,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 
-@JsonPropertyOrder({"columns", "objects", "collections", "queries", "validation", "businessObject"})
+@JsonPropertyOrder({"columns", "property", "objects", "collections", "queries", "validation", "businessObject"})
 @JacksonXmlRootElement(localName = "entity")
 @JsonIgnoreProperties({"type"})
 public class IEntity extends IXMLBase {
@@ -26,6 +26,9 @@ public class IEntity extends IXMLBase {
     @JacksonXmlElementWrapper(localName = "columns")
     @JacksonXmlProperty(localName = "column")
     IColumn[] columns;
+    @JacksonXmlElementWrapper(localName = "properties")
+    @JacksonXmlProperty(localName = "property")
+    IProperty[] properties;
     @JacksonXmlElementWrapper(localName = "objects")
     @JacksonXmlProperty(localName = "object")
     IObject[] objects;
@@ -148,5 +151,13 @@ public class IEntity extends IXMLBase {
 
     public void setDatabaseObjectField(String databaseObjectField) {
         this.databaseObjectField = databaseObjectField;
+    }
+
+    public IProperty[] getProperties() {
+        return properties;
+    }
+
+    public void setProperties(IProperty[] properties) {
+        this.properties = properties;
     }
 }
