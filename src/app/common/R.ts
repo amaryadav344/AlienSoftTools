@@ -14,6 +14,7 @@ import {WindowItem} from './window-Item';
 import {IForm} from '../models/UI/IForm';
 import {ISymbol} from '../models/Enitity/ISymbol';
 import {StackLayout} from '../models/UI/StackLayout';
+import {IProperty} from '../models/Enitity/IProperty';
 
 export class R {
 
@@ -148,10 +149,21 @@ export class R {
 
     static getEntity(): IEntity {
       return {
-        name: '', modelName: '', databaseObjectField: '', type: 'entity', parentEntity: '', tableName: '', validation: {
+        name: '',
+        modelName: '',
+        databaseObjectField: '',
+        type: 'entity',
+        parentEntity: '',
+        tableName: '',
+        validation: {
           rules: [], groupRules: [], hardErrors: [], softErrors: [], initialLoad: [], updateRules: [], deleteRules: []
         },
-        queries: [], collections: [], objects: [], columns: [], businessObject: {customMethods: [], objectMethods: []}
+        queries: [],
+        collections: [],
+        objects: [],
+        columns: [],
+        properties: [],
+        businessObject: {customMethods: [], objectMethods: []}
       };
     }
 
@@ -161,6 +173,10 @@ export class R {
 
     static getObject(): IObject {
       return {name: '', entity: '', objectField: ''};
+    }
+
+    static getProperty(): IProperty {
+      return {name: '', dataType: '', objectField: ''};
     }
 
     static getObjectMethod(): IObjectMethod {

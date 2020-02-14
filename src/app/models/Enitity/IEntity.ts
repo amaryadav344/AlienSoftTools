@@ -5,6 +5,7 @@ import {IQuery} from './IQuery';
 import {IValidation} from './IValidation';
 import {IBusinessObject} from './IBusinessObject';
 import {IXMLBase} from '../IXMLBase';
+import {IProperty} from './IProperty';
 
 export interface IEntity extends IXMLBase {
   name: string;
@@ -14,6 +15,7 @@ export interface IEntity extends IXMLBase {
   parentEntity: string;
   tableName: string;
   columns: IColumn[];
+  properties: IProperty[];
   objects: IObject[];
   collections: ICollection[];
   queries: IQuery[];

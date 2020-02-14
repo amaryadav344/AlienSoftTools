@@ -5,7 +5,8 @@
 
     <p-tabPanel header="Attributes">
       <app-attributes-tab [(columns)]="entity.columns" [(objects)]="entity.objects"
-                          [(collections)]="entity.collections"></app-attributes-tab>
+                          [(collections)]="entity.collections"
+                          [(properties)]="entity.properties"></app-attributes-tab>
     </p-tabPanel>
     <p-tabPanel header="Query" style="height: 400px">
       <app-query-tab [(queries)]="entity.queries"></app-query-tab>

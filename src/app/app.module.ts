@@ -83,6 +83,8 @@ import {MasterIntitalLoadComponent} from './components/master-window/master-inti
 import {CustomAutoCompleteComponent} from './components/custom-auto-complete/custom-auto-complete.component';
 import {NewFrameDialogComponent} from './components/dialogs/new-frame-dialog/new-frame-dialog.component';
 import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/form-info-dialog.component';
+import {PropertiesTabComponent} from './components/entity/attributes-tab/properties-tab/properties-tab.component';
+import {PropertyInfoDialogComponent} from './components/dialogs/property-info-dialog/property-info-dialog.component';
 
 
 @NgModule({
@@ -127,6 +129,8 @@ import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/for
     CustomAutoCompleteComponent,
     NewFrameDialogComponent,
     FormInfoDialogComponent,
+    PropertiesTabComponent,
+    PropertyInfoDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -186,6 +190,7 @@ import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/for
     ObjectMethodInfoDialogComponent,
     HomeWindowComponent,
     NewEntityDialogComponent,
+    PropertyInfoDialogComponent,
     NewFrameDialogComponent,
     EntityWindowComponent,
     EntityInfoDialogComponent,

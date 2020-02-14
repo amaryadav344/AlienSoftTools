@@ -75,6 +75,9 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
     if (!this.entity.columns) {
       this.entity.columns = [];
     }
+    if (!this.entity.properties) {
+      this.entity.properties = [];
+    }
     if (!this.entity.objects) {
       this.entity.objects = [];
     }
