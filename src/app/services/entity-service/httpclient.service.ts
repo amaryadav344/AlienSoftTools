@@ -100,4 +100,10 @@ export class HttpClientService {
   public LoadProject() {
     return this.httpClient.get(R.SERVER_URLS.LOAD_PROJECT);
   }
+
+  public getEntityFields(entity: string, query: string) {
+    let params = new HttpParams();
+    params = params.append('query', query);
+    return this.httpClient.post<string[]>(R.SERVER_URLS.GET_ENTITY_FIELDS, entity, {params, responseType: 'json'});
+  }
 }

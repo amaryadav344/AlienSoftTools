@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="popup" *ngIf="showAutoComplete">
-        <div class="item" *ngFor="let symbol of suggestions">
+        <div class="item" *ngFor="let symbol of suggestions" style="background-color: #aeafad">
           <div (click)="onSelectSymbol(symbol)">
             <span *ngIf="symbol.type===2"><i class="fa fa-list" style="padding: 4px"></i>{{symbol.name}}</span>
             <span *ngIf="symbol.type===1"><i class="fa fa-cube" style="padding: 4px"></i>{{symbol.name}}</span>

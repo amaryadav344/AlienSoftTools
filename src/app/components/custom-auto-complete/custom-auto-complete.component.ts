@@ -29,6 +29,9 @@ export class CustomAutoCompleteComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    if (!this.text) {
+      this.text = '';
+    }
     const selections = this.text.split(this.separator);
     if (!(selections === null)) {
       selections.forEach(value2 => this.selections.push({
@@ -42,14 +45,19 @@ export class CustomAutoCompleteComponent implements OnInit, DoCheck {
   onChange() {
     this.Loading = true;
     this.Change.emit(this.text);
-    if (!(this.selections === null)) {
-      const selections = this.text.split(this.separator);
-      selections.forEach((selection, index) => {
-        if (!(this.selections[index].name === selection)) {
-          this.selections.splice(index, this.selections.length - index);
-        }
-      });
+    if (this.text !== '') {
+      if (!(this.selections === null)) {
+        const selections = this.text.split(this.separator);
+        selections.forEach((selection, index) => {
+          if (!(this.selections[index].name === selection)) {
+            this.selections.splice(index, this.selections.length - index);
+          }
+        });
+      }
+    } else {
+      this.selections = [];
     }
+
   }
 
   ngDoCheck() {

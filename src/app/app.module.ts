@@ -13,6 +13,7 @@ import {
   AutoCompleteModule,
   BreadcrumbModule,
   CheckboxModule,
+  ColorPickerModule,
   ConfirmDialogModule,
   ContextMenuModule,
   DragDropModule,
@@ -85,6 +86,7 @@ import {NewFrameDialogComponent} from './components/dialogs/new-frame-dialog/new
 import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/form-info-dialog.component';
 import {PropertiesTabComponent} from './components/entity/attributes-tab/properties-tab/properties-tab.component';
 import {PropertyInfoDialogComponent} from './components/dialogs/property-info-dialog/property-info-dialog.component';
+import {EntityFieldDialogComponent} from './components/dialogs/entity-field-dialog/entity-field-dialog.component';
 
 
 @NgModule({
@@ -131,6 +133,7 @@ import {PropertyInfoDialogComponent} from './components/dialogs/property-info-di
     FormInfoDialogComponent,
     PropertiesTabComponent,
     PropertyInfoDialogComponent,
+    EntityFieldDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -174,7 +177,8 @@ import {PropertyInfoDialogComponent} from './components/dialogs/property-info-di
     BreadcrumbModule,
     SpinnerModule,
     ProgressSpinnerModule,
-    AccordionModule
+    AccordionModule,
+    ColorPickerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -198,7 +202,8 @@ import {PropertyInfoDialogComponent} from './components/dialogs/property-info-di
     UserInterfaceComponent,
     MasterLoginWindowComponent,
     MasterIntitalLoadComponent,
-    MainAppComponent
+    MainAppComponent,
+    EntityFieldDialogComponent
 
 
   ]

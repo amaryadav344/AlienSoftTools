@@ -96,7 +96,7 @@ export class FormComponent implements OnInit, OnChanges {
   dropControl(event, layout: any) {
     event.stopPropagation();
     const Control = this.dragDropHelper.getControl();
-    if (layout.controls === null) {
+    if (!layout.controls) {
       layout.controls = [];
     }
     let control = null;

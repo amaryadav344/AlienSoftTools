@@ -124,6 +124,7 @@ export class R {
     static GET_FORMS = 'http://192.168.0.120:8080/xml/GetForms';
     static GET_NAVIGATION_PARAMETER_BY_FORM = 'http://192.168.0.120:8080/xml/GetNavigationParameterByForm';
     static GET_SYMBOLS = 'http://192.168.0.120:8080/xml/getSymbols';
+    static GET_ENTITY_FIELDS = 'http://192.168.0.120:8080/xml/getEntityFields';
     static GET_DB_CONNECTION_INFO = 'http://192.168.0.120:8080/xml/GetDBConnectionInfo';
     static LOAD_PROJECT = 'http://192.168.0.120:8080/xml/LoadProject';
     static GET_OBJECT_METHODS = 'http://192.168.0.120:8080/xml/GetObjectMethods';

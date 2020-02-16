@@ -71,7 +71,12 @@
                 <div class="caption">Entity Field</div>
               </div>
               <div class="ui-g-12 ui-g-nopad">
-                <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.entityField"/>
+                <div class="ui-inputgroup">
+                  <input type="text" pInputText placeholder="Entity Field" disabled="true"
+                         [(ngModel)]="PropertyInfo.PropertiesObject.entityField">
+                  <button pButton type="button" icon="pi pi-angle-double-right" class="ui-button-success"
+                          pTooltip="Set Entity Field" (click)="LoadEntityFieldDialog()"></button>
+                </div>
               </div>
             </div>
             <div class="ui-g ui-fluid ui-g-nopad"
@@ -357,7 +362,10 @@
               <div class="ui-g-12 ui-g-nopad">
                 <div class="caption">Background Color</div>
               </div>
-              <div class="ui-g-12 ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad ui-inputgroup">
+                 <span class="ui-inputgroup-addon">
+                   <p-colorPicker [(ngModel)]="PropertyInfo.PropertiesObject.backgroundColor"></p-colorPicker>
+                 </span>
                 <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.backgroundColor"/>
               </div>
             </div>

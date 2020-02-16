@@ -3,6 +3,10 @@ import {DragDropHelper} from '../../../common/DragDropHelper';
 import {R} from '../../../common/R';
 import {PropertyInfo} from '../../../common/PropertyInfo';
 import {HttpClientService} from '../../../services/entity-service/httpclient.service';
+import {WindowService} from '../../../services/window/window.service';
+import {DialogService, DynamicDialogConfig} from 'primeng/api';
+import {EntityFieldDialogComponent} from '../../dialogs/entity-field-dialog/entity-field-dialog.component';
+import {IForm} from '../../../models/UI/IForm';
 
 @Component({
   selector: 'app-side-bar',
@@ -13,6 +17,8 @@ import {HttpClientService} from '../../../services/entity-service/httpclient.ser
 export class SideBarComponent implements OnInit {
   @Input()
   PropertyInfo: PropertyInfo;
+  @Input()
+  form: IForm;
   CurrentTabIndex = 0;
   dragDropHelper: DragDropHelper = DragDropHelper.getInstance();
   TextAlignmentOptions = R.TextAlignments;
@@ -26,9 +32,10 @@ export class SideBarComponent implements OnInit {
   VisibilityOptions = R.Visibility;
   ButtonTypes = R.ButtonTypes;
   mFormSuggestions: string[];
+  mFieldSuggestions: any;
 
-
-  constructor(public httpClientService: HttpClientService) {
+  constructor(public httpClientService: HttpClientService, public windowService: WindowService,
+              public dialogService: DialogService,) {
   }
 
   ngOnInit() {
@@ -75,11 +82,45 @@ export class SideBarComponent implements OnInit {
   }
 
   getNavigationParameters(event) {
+    this.PropertyInfo.PropertiesObject.navigationParameters = [];
     this.httpClientService.getNavigationParameters(event)
       .toPromise()
       .then((result) => {
         this.PropertyInfo.PropertiesObject.navigationParameters = result;
       });
+  }
+
+  filterSymbols(event) {
+    this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, event, R.SymbolTypes.TYPE_VARIBLE).subscribe(
+      (res) => {
+        this.mFieldSuggestions = res;
+      }, (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  LoadEntityFieldDialog() {
+    const ref = this.dialogService.open(EntityFieldDialogComponent, {
+      data: {
+        entity: this.form.entity,
+        entityField: this.PropertyInfo.PropertiesObject.entityField,
+      },
+      header: 'Collection Information',
+      width:
+        '40%',
+      contentStyle:
+        {
+          'max-height':
+            '700px', overflow:
+          'auto'
+        }
+    }as DynamicDialogConfig);
+    ref.onClose.subscribe((value: string) => {
+      if (value) {
+        this.PropertyInfo.PropertiesObject.entityField = value;
+      }
+    });
   }
 
 }
