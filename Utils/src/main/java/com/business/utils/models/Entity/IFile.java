@@ -16,6 +16,12 @@ public class IFile {
     public IFile() {
     }
 
+    public IFile(String path, int type, String name) {
+        this.path = path;
+        this.type = type;
+        this.name = name;
+    }
+
     public String getPath() {
         return path;
     }

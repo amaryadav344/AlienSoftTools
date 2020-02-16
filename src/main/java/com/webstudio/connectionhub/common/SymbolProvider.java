@@ -131,31 +131,27 @@ public class SymbolProvider {
         CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
         String LastSymbol = "";
         String[] Symbols = Query.split("\\.");
-        if (Query != "") {
-            for (String symbol : Symbols) {
-                if (LastType.getAllFields().stream().anyMatch(ctFieldReference ->
-                        ctFieldReference.getType().getActualTypeArguments().size() != 0 &&
-                                HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
-                                && ctFieldReference.getSimpleName().equals(symbol)
-                                && (ctFieldReference.getType().getQualifiedName().equals(Date.class.getCanonicalName()))
-                                || (ctFieldReference.getType().getQualifiedName().equals(String.class.getCanonicalName()))
-                                || (ctFieldReference.getType().getQualifiedName().equals(Integer.class.getCanonicalName())))) {
-                    LastType = LastType.getAllFields().stream()
 
-                            .filter(ctFieldReference ->
-                                    ctFieldReference.getType().getActualTypeArguments().size() != 0
-                                            && HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
-                                            && (ctFieldReference.getType().getQualifiedName().equals(Date.class.getCanonicalName()))
-                                            || (ctFieldReference.getType().getQualifiedName().equals(String.class.getCanonicalName()))
-                                            || (ctFieldReference.getType().getQualifiedName().equals(Integer.class.getCanonicalName()))
-                                            && ctFieldReference.getSimpleName().equals(symbol)).findFirst().get().getType();
-                } else {
-                    LastSymbol = symbol;
-                }
+        for (String symbol : Symbols) {
+            if (LastType.getAllFields().stream().anyMatch(ctFieldReference ->
+                    ctFieldReference.getType().getActualTypeArguments().size() != 0 &&
+                            HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                            && ctFieldReference.getSimpleName().equals(symbol)
+                            && ctFieldReference.getType().getQualifiedName().equals(List.class.getCanonicalName()))) {
+                LastType = LastType.getAllFields().stream()
+
+                        .filter(ctFieldReference ->
+                                ctFieldReference.getType().getActualTypeArguments().size() != 0
+                                        && HasBaseSuperClass((ctFieldReference.getType().getActualTypeArguments().get(0)))
+                                        && ctFieldReference.getType().getQualifiedName().equals(List.class.getCanonicalName())
+                                        && ctFieldReference.getSimpleName().equals(symbol)).findFirst().get().getType();
+            } else {
+                LastSymbol = symbol;
             }
         }
 
         String finalLastSymbol = LastSymbol.toLowerCase();
+
 
         return LastType.getAllFields()
                 .stream().filter(ctFieldReference ->

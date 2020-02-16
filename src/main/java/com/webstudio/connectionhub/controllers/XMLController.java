@@ -5,6 +5,7 @@ import com.business.utils.AppConfigRepository;
 import com.business.utils.FileHelper;
 import com.business.utils.models.Entity.*;
 import com.business.utils.models.IXMLBase;
+import com.business.utils.models.UI.IForm;
 import com.business.utils.models.UI.NavigationParameter;
 import com.webstudio.connectionhub.common.Constants;
 import com.webstudio.connectionhub.common.ProjectStore;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -88,6 +91,12 @@ public class XMLController {
     @RequestMapping(value = "/xml/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ISymbol[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query, @RequestParam(name = "type", required = false) int SymbolType) throws IOException {
         List<ISymbol> symbols = new ArrayList<>();
+        if (file.getName().endsWith(".form.xml")) {
+            ResponseEntity<IXMLBase> form = getXml(file);
+            IForm iForm = (IForm) form.getBody();
+            String entity = iForm.getEntity() + ".ent.xml";
+            file = projectStore.getFiles().stream().filter(iFile -> iFile.getName().equals(entity)).findFirst().get();
+        }
         if (SymbolType == Constants.SymbolTypes.TYPE_OBJECT) {
             symbols.addAll(projectStore.GetObjectSymbols(file, query));
         } else if (SymbolType == Constants.SymbolTypes.TYPE_COLLECTION) {
@@ -99,6 +108,27 @@ public class XMLController {
 
         }
         return new ResponseEntity<>(symbols.toArray(new ISymbol[symbols.size()]), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/xml/getEntityFields", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String[]> getEntityFields(@RequestBody String entity, @RequestParam(name = "query", required = false) String query) throws IOException {
+        if (query == null) {
+            query = "";
+        }
+        List<String> Rfields = new ArrayList<>();
+        String[] fields = query.split(".");
+        IEntity Last = (IEntity) getXml(new IFile("", 0, entity)).getBody();
+        for (String field : fields) {
+            if (Arrays.stream(Last.getObjects()).anyMatch(object -> object.getName().equals(field))) {
+                IObject Iobject = Arrays.stream(Last.getObjects()).filter(object -> object.getName().equals(field)).findFirst().get();
+                Last = (IEntity) getXml(new IFile(Iobject.getEntity(), 0, "")).getBody();
+            }
+        }
+        Rfields.addAll(Arrays.stream(Last.getColumns()).map(IColumn::getName).collect(Collectors.toList()));
+        Rfields.addAll(Arrays.stream(Last.getObjects()).map(IObject::getName).collect(Collectors.toList()));
+        Rfields.addAll(Arrays.stream(Last.getProperties()).map(IProperty::getName).collect(Collectors.toList()));
+        return new ResponseEntity<>(Rfields.toArray(new String[Rfields.size()]), HttpStatus.OK);
+
     }
 
     @RequestMapping(value = "/xml/GetObjectMethods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

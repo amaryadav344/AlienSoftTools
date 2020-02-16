@@ -7,4 +7,8 @@ public class Constants {
         public static int TYPE_VARIBLE = 0;
     }
 
+    public static class FileType {
+
+    }
+
 }
