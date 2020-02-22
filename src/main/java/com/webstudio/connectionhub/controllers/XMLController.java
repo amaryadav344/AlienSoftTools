@@ -51,7 +51,7 @@ public class XMLController {
     }
 
     @RequestMapping(value = "/xml/getxml", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IXMLBase> getXml(@RequestBody IFile file) throws IOException {
+    public ResponseEntity<IXMLBase> getXml(@RequestBody IFile file) {
         IXMLBase value = projectStore.GetXml(file);
         return new ResponseEntity<>(value, HttpStatus.OK);
     }
@@ -111,23 +111,28 @@ public class XMLController {
     }
 
     @RequestMapping(value = "/xml/getEntityFields", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String[]> getEntityFields(@RequestBody String entity, @RequestParam(name = "query", required = false) String query) throws IOException {
+    public ResponseEntity<ISymbol[]> getEntityFields(@RequestBody String entity, @RequestParam(name = "query", required = false) String query) throws IOException {
         if (query == null) {
             query = "";
         }
-        List<String> Rfields = new ArrayList<>();
-        String[] fields = query.split(".");
+        List<ISymbol> Rfields = new ArrayList<>();
+        String[] fields = query.split("\\.");
         IEntity Last = (IEntity) getXml(new IFile("", 0, entity)).getBody();
         for (String field : fields) {
             if (Arrays.stream(Last.getObjects()).anyMatch(object -> object.getName().equals(field))) {
                 IObject Iobject = Arrays.stream(Last.getObjects()).filter(object -> object.getName().equals(field)).findFirst().get();
-                Last = (IEntity) getXml(new IFile(Iobject.getEntity(), 0, "")).getBody();
+                Last = (IEntity) getXml(new IFile("", 0, Iobject.getEntity())).getBody();
             }
         }
-        Rfields.addAll(Arrays.stream(Last.getColumns()).map(IColumn::getName).collect(Collectors.toList()));
-        Rfields.addAll(Arrays.stream(Last.getObjects()).map(IObject::getName).collect(Collectors.toList()));
-        Rfields.addAll(Arrays.stream(Last.getProperties()).map(IProperty::getName).collect(Collectors.toList()));
-        return new ResponseEntity<>(Rfields.toArray(new String[Rfields.size()]), HttpStatus.OK);
+        if (Last.getColumns() != null)
+            Rfields.addAll(Arrays.stream(Last.getColumns()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+        if (Last.getObjects() != null)
+            Rfields.addAll(Arrays.stream(Last.getObjects()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+        if (Last.getProperties() != null)
+            Rfields.addAll(Arrays.stream(Last.getProperties()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+        if (Last.getCollections() != null)
+            Rfields.addAll(Arrays.stream(Last.getCollections()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+        return new ResponseEntity<>(Rfields.toArray(new ISymbol[Rfields.size()]), HttpStatus.OK);
 
     }
 
@@ -191,6 +196,4 @@ public class XMLController {
         projectStore.LoadProject(iProject);
         return new ResponseEntity(HttpStatus.OK);
     }
-
-
 }

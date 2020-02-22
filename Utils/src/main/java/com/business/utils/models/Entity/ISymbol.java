@@ -10,6 +10,13 @@ public class ISymbol {
     public ISymbol() {
     }
 
+    public ISymbol(String name, int type, String entityName, String objectType) {
+        this.name = name;
+        this.type = type;
+        this.entityName = entityName;
+        this.objectType = objectType;
+    }
+
     public String getEntityName() {
         return entityName;
     }
