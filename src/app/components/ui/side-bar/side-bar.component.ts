@@ -7,6 +7,7 @@ import {WindowService} from '../../../services/window/window.service';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {EntityFieldDialogComponent} from '../../dialogs/entity-field-dialog/entity-field-dialog.component';
 import {IForm} from '../../../models/UI/IForm';
+import {ISymbol} from "../../../models/Enitity/ISymbol";
 
 @Component({
   selector: 'app-side-bar',
@@ -90,14 +91,13 @@ export class SideBarComponent implements OnInit {
       });
   }
 
+
   filterSymbols(event) {
-    this.httpClientService.getSymbols(this.windowService.windowStore.getCurrentWindow().data, event, R.SymbolTypes.TYPE_VARIBLE).subscribe(
-      (res) => {
-        this.mFieldSuggestions = res;
-      }, (err) => {
-        console.log(err);
-      }
-    );
+    this.httpClientService.getEntityFields(this.form.entity, event)
+      .toPromise()
+      .then((result) => {
+        this.mFieldSuggestions = result as  ISymbol[];
+      });
   }
 
   LoadEntityFieldDialog() {

@@ -104,6 +104,6 @@ export class HttpClientService {
   public getEntityFields(entity: string, query: string) {
     let params = new HttpParams();
     params = params.append('query', query);
-    return this.httpClient.post<string[]>(R.SERVER_URLS.GET_ENTITY_FIELDS, entity, {params, responseType: 'json'});
+    return this.httpClient.post<ISymbol[]>(R.SERVER_URLS.GET_ENTITY_FIELDS, entity, {params, responseType: 'json'});
   }
 }
