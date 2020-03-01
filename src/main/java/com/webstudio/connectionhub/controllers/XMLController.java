@@ -119,9 +119,11 @@ public class XMLController {
         String[] fields = query.split("\\.");
         IEntity Last = (IEntity) getXml(new IFile("", 0, entity)).getBody();
         for (String field : fields) {
-            if (Arrays.stream(Last.getObjects()).anyMatch(object -> object.getName().equals(field))) {
-                IObject Iobject = Arrays.stream(Last.getObjects()).filter(object -> object.getName().equals(field)).findFirst().get();
-                Last = (IEntity) getXml(new IFile("", 0, Iobject.getEntity())).getBody();
+            if (Last.getObjects() != null) {
+                if (Arrays.stream(Last.getObjects()).anyMatch(object -> object.getName().equals(field))) {
+                    IObject Iobject = Arrays.stream(Last.getObjects()).filter(object -> object.getName().equals(field)).findFirst().get();
+                    Last = (IEntity) getXml(new IFile("", 0, Iobject.getEntity())).getBody();
+                }
             }
         }
         if (Last.getColumns() != null)
@@ -186,6 +188,19 @@ public class XMLController {
 
     @RequestMapping(value = "/xml/LoadProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity LoadProject() throws IOException {
+        AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
+        IProject iProject = new IProject();
+        iProject.setBinPath(appConfigRepository.getAppConfig(AppConfigRepository.BIN_RELATIVE_PATH));
+        iProject.setXMLPath(appConfigRepository.getAppConfig(AppConfigRepository.XML_RELATIVE_PATH));
+        iProject.setPackageName(appConfigRepository.getAppConfig(AppConfigRepository.PACKAGE_NAME));
+        iProject.setBusinessModelPath(appConfigRepository.getAppConfig(AppConfigRepository.BUSINESS_MODELS_RELATIVE_PATH));
+        iProject.setBasePath(appConfigRepository.getAppConfig(AppConfigRepository.BASE_DIRECTORY));
+        projectStore.LoadProject(iProject);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/xml/RefreshMetaData", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity RefreshMetaData() throws IOException {
         AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
         IProject iProject = new IProject();
         iProject.setBinPath(appConfigRepository.getAppConfig(AppConfigRepository.BIN_RELATIVE_PATH));

@@ -20,6 +20,8 @@ public class IEntity extends IXMLBase {
     @JacksonXmlProperty(isAttribute = true)
     String modelName;
     @JacksonXmlProperty(isAttribute = true)
+    boolean isWrapper;
+    @JacksonXmlProperty(isAttribute = true)
     String databaseObjectField;
     @JacksonXmlProperty(isAttribute = true)
     String tableName;
@@ -159,5 +161,13 @@ public class IEntity extends IXMLBase {
 
     public void setProperties(IProperty[] properties) {
         this.properties = properties;
+    }
+
+    public boolean getIsWrapper() {
+        return isWrapper;
+    }
+
+    public void setWrapper(boolean wrapper) {
+        isWrapper = wrapper;
     }
 }

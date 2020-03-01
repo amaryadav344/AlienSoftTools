@@ -15,6 +15,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
         @JsonSubTypes.Type(name = "StackLayout", value = IStackLayout.class),
         @JsonSubTypes.Type(name = "GridLayout", value = IGridLayout.class),
         @JsonSubTypes.Type(name = "ScrollView", value = IScrollView.class),
+        @JsonSubTypes.Type(name = "ListView", value = IScrollView.class),
 })
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class IView {
