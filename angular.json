@@ -38,6 +38,7 @@
               "./node_modules/primeng/resources/primeng.css"
             ],
             "scripts": [
+              "./node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {

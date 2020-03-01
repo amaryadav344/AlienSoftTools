@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
-import {DialogService, DynamicDialogConfig} from 'primeng/api';
-import {NewEntityDialogComponent} from '../dialogs/new-entity-dialog/new-entity-dialog.component';
+import {DialogService} from 'primeng/api';
 import {HttpClientService} from '../../services/entity-service/httpclient.service';
 import {WindowService} from '../../services/window/window.service';
 import {WindowBase} from '../window/window-base/WindowBase';
-import {IFile} from '../../models/Enitity/IFile';
-import {NewFrameDialogComponent} from "../dialogs/new-frame-dialog/new-frame-dialog.component";
 
 @Component({
   selector: 'app-home-window',
@@ -15,43 +12,31 @@ import {NewFrameDialogComponent} from "../dialogs/new-frame-dialog/new-frame-dia
   providers: [DialogService, HttpClientService],
 })
 export class HomeWindowComponent extends WindowBase implements OnInit {
+  data: any;
+
   constructor(public dialogService: DialogService, public windowService: WindowService) {
     super();
+    this.data = {
+      labels: ['Entity', 'Forms'],
+      datasets: [
+        {
+          data: [55, 55],
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+          ],
+          hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+          ]
+        }]
+    };
   }
 
   ngOnInit() {
   }
 
-  CreateNewEntity() {
-    const ref = this.dialogService.open(NewEntityDialogComponent, {
-      data: {},
-      header: 'New Entity',
-      width: '50%',
-      contentStyle: {'max-height': '700px', overflow: 'auto'}
-    } as DynamicDialogConfig);
-
-    ref.onClose.subscribe((file: IFile) => {
-      if (file) {
-        this.windowService.Openwindow(file);
-        this.windowService.syncFiles(file);
-      }
-    });
-  }
-
-  CreateNewFrame() {
-    const ref = this.dialogService.open(NewFrameDialogComponent, {
-      data: {},
-      header: 'New Frame',
-      width: '50%',
-      contentStyle: {'max-height': '700px', overflow: 'auto'}
-    } as DynamicDialogConfig);
-
-    ref.onClose.subscribe((file: IFile) => {
-      if (file) {
-        this.windowService.Openwindow(file);
-        this.windowService.syncFiles(file);
-      }
-    });
-  }
 
 }

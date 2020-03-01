@@ -10,8 +10,9 @@ import {DragDropHelper} from '../../../common/DragDropHelper';
 import {StackLayout} from '../../../models/UI/StackLayout';
 import {DynamicIDGenerator} from '../../../common/DynamicIDGenerator';
 import {PropertyInfo} from '../../../common/PropertyInfo';
-import {GridLayout} from "../../../models/UI/GridLayout";
-import {ScrollView} from "../../../models/UI/ScrollView";
+import {GridLayout} from '../../../models/UI/GridLayout';
+import {ScrollView} from '../../../models/UI/ScrollView';
+import {IListView} from "../../../models/UI/IListView";
 
 @Component({
   selector: 'app-form',
@@ -125,9 +126,12 @@ export class FormComponent implements OnInit, OnChanges {
       case R.Controls.TYPE_SCROLL_VIEW:
         control = new ScrollView(this.dynamicIDGenerator.getNextID(Control, 1));
         break;
+      case R.Controls.TYPE_LIST_VIEW:
+        control = new IListView(this.dynamicIDGenerator.getNextID(Control, 1));
+        break;
     }
     if (control != null) {
-      if (layout.type === R.Controls.TYPE_SCROLL_VIEW) {
+      if (layout.type === R.Controls.TYPE_SCROLL_VIEW || layout.type === R.Controls.TYPE_LIST_VIEW) {
         layout.control = control;
       } else {
         layout.controls.push(control);
@@ -158,7 +162,7 @@ export class FormComponent implements OnInit, OnChanges {
 
   hasChildViews(Control) {
     if (Control.type === R.Controls.TYPE_STACK_LAYOUT || Control.type === R.Controls.TYPE_GRID_LAYOUT
-      || Control.type === R.Controls.TYPE_SCROLL_VIEW) {
+      || Control.type === R.Controls.TYPE_SCROLL_VIEW || Control.type === R.Controls.TYPE_LIST_VIEW) {
       return true;
     }
     return false;

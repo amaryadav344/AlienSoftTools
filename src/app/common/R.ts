@@ -129,6 +129,7 @@ export class R {
     static LOAD_PROJECT = 'http://192.168.0.120:8080/xml/LoadProject';
     static GET_OBJECT_METHODS = 'http://192.168.0.120:8080/xml/GetObjectMethods';
     static LIST_ENTITIES = 'http://192.168.0.120:8080/xml/ListEntities';
+    static REFRESH_META_DATA = 'http://192.168.0.120:8080/xml/RefreshMetaData';
   };
 
   static Initializer = class {
@@ -154,6 +155,7 @@ export class R {
         modelName: '',
         databaseObjectField: '',
         type: 'entity',
+        isWrapper: false,
         parentEntity: '',
         tableName: '',
         validation: {
@@ -224,6 +226,7 @@ export class R {
     static TYPE_STACK_LAYOUT = 'StackLayout';
     static TYPE_GRID_LAYOUT = 'GridLayout';
     static TYPE_SCROLL_VIEW = 'ScrollView';
+    static TYPE_LIST_VIEW = 'ListView';
   };
 
 }

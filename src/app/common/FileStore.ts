@@ -28,5 +28,13 @@ export class FileStore {
     this.files = [...this.files];
   }
 
+  getEntityFiles() {
+    return this.getFiles().filter(x => x.name.includes('.ent.xml'));
+  }
+
+  getFormFiles() {
+    return this.getFiles().filter(x => x.name.includes('.form.xml'));
+  }
+
 }
 

@@ -8,7 +8,7 @@
   <div class="ui-g-6">
     <div class="caption">Object Field</div>
     <div class="ui-inputgroup">
-      <app-custom-auto-complete (Change)="filterSymbols($event)" [text]="collection.objectField"
+      <app-custom-auto-complete (Change)="filterSymbols($event)" [(text)]="collection.objectField"
                                 (Complete)="collection.entity=$event.entityName"
                                 [suggestions]="mFieldSuggestions"></app-custom-auto-complete>
     </div>
@@ -22,7 +22,6 @@
   <div class="ui-g-12">
     <p-message severity="error" text="Name is required" *ngIf="collection.name===''"></p-message>
     <p-message severity="error" text="Object Field is required" *ngIf="collection.objectField===''"></p-message>
-    <p-message severity="error" text="Collection Type is required" *ngIf="collection.dataType===''"></p-message>
   </div>
   <div class="ui-g-12">
     <div style="float: right">

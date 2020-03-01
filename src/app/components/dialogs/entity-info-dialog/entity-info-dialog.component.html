@@ -35,13 +35,13 @@
     <div class="ui-g-6">
       <div class="caption">Model Name</div>
       <div class="ui-inputgroup">
-        <input type="text" pInputText [(ngModel)]="entity.modelName"/>
+        <input type="text" pInputText [(ngModel)]="entity.modelName" disabled/>
       </div>
     </div>
     <div class="ui-g-6">
       <div class="caption">Database Object Field</div>
       <div class="ui-inputgroup">
-        <input type="text" pInputText [(ngModel)]="entity.databaseObjectField" [disabled]/>
+        <input type="text" pInputText [(ngModel)]="entity.databaseObjectField" [disabled]="entity.isWrapper"/>
       </div>
     </div>
   </div>

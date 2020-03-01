@@ -7,7 +7,7 @@ export class IButton extends IView {
   text = '';
   onClick: string;
   method: string;
-  navigationParameters: NavigationParameter[] = [{name: 'aaa', value: '', isConstant: false}];
+  navigationParameters: NavigationParameter[];
   form: string;
   type = R.Controls.TYPE_BUTTON;
 

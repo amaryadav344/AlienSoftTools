@@ -106,4 +106,8 @@ export class HttpClientService {
     params = params.append('query', query);
     return this.httpClient.post<ISymbol[]>(R.SERVER_URLS.GET_ENTITY_FIELDS, entity, {params, responseType: 'json'});
   }
+
+  public RefreshMetaData() {
+    return this.httpClient.get(R.SERVER_URLS.REFRESH_META_DATA);
+  }
 }

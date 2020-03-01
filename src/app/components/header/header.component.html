@@ -34,7 +34,8 @@
             </div>
           </div>
           <div class="popwrap">
-            <button pButton type="button" icon="pi pi-table" (click)="EntityPopup=false;FormPopup=!FormPopup"
+            <button style="margin-left:.50em" pButton type="button" icon="pi pi-table"
+                    (click)="EntityPopup=false;FormPopup=!FormPopup"
                     label="Form"></button>
             <div class="popup" *ngIf="FormPopup">
               <p-table #tableEntityFiles [value]="FormFiles" [scrollable]="true" scrollHeight="290px"
@@ -65,10 +66,26 @@
           </div>
         </div>
         <div class="ui-toolbar-group-right">
-          <button pButton type="button" icon="pi pi-search"></button>
+          <div class="popwrap">
+            <button pButton type="button" icon="pi pi-plus" (click)="NewItemPopup=!NewItemPopup"
+                    style="margin-left:.50em"></button>
+            <div class="popup" style="right:0 " *ngIf="NewItemPopup">
+              <p-table [value]="items" [scrollable]="true" scrollHeight="290px" [style]="{width: '250px'}"
+                       selectionMode="none">
+                <ng-template pTemplate="body" let-rowData>
+                  <tr [pSelectableRow]="rowData" (click)="NewItemPopup=false;CreateNewItem(rowData)">
+                    <td>{{rowData}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <button pButton type="button" icon="pi pi-refresh" (click)="refreshMetaData()"
+                  style="margin-left:.50em"></button>
+          <button pButton type="button" icon="pi pi-search" style="margin-left:.50em"></button>
           <div class="popwrap">
             <button pButton type="button" icon="pi pi-list" (click)="WindowsPopup=!WindowsPopup"
-                    style="margin-right: .25em;margin-left:.25em"></button>
+                    style="margin-left:.50em"></button>
             <div class="popup" style="right:0 " *ngIf="WindowsPopup">
               <p-table [value]="windows" [scrollable]="true" scrollHeight="290px" [style]="{width: '250px'}"
                        selectionMode="single"

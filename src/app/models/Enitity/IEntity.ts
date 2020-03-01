@@ -12,6 +12,7 @@ export interface IEntity extends IXMLBase {
   type: string;
   modelName: string;
   databaseObjectField: string;
+  isWrapper: boolean;
   parentEntity: string;
   tableName: string;
   columns: IColumn[];

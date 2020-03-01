@@ -1,5 +1,8 @@
 <div *ngIf="hidden">
-  <button pButton type="button" icon="pi pi-plus" (click)="CreateNewEntity()"></button>
-  <button pButton type="button" icon="pi pi-plus" (click)="CreateNewFrame()"></button>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-6" style=" border: solid 1px black;padding: 16px;margin: 16px">
+      <p-chart type="doughnut" [data]="data"></p-chart>
+    </div>
+  </div>
 </div>
 

@@ -5,9 +5,10 @@ import {PropertyInfo} from '../../../common/PropertyInfo';
 import {HttpClientService} from '../../../services/entity-service/httpclient.service';
 import {WindowService} from '../../../services/window/window.service';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
-import {EntityFieldDialogComponent} from '../../dialogs/entity-field-dialog/entity-field-dialog.component';
 import {IForm} from '../../../models/UI/IForm';
-import {ISymbol} from "../../../models/Enitity/ISymbol";
+import {ISymbol} from '../../../models/Enitity/ISymbol';
+import {NavigationParameterDialogComponent} from '../../dialogs/navigation-parameter-dialog/navigation-parameter-dialog.component';
+import {NavigationParameter} from '../../../models/UI/NavigationParameter';
 
 @Component({
   selector: 'app-side-bar',
@@ -36,7 +37,7 @@ export class SideBarComponent implements OnInit {
   mFieldSuggestions: any;
 
   constructor(public httpClientService: HttpClientService, public windowService: WindowService,
-              public dialogService: DialogService,) {
+              public dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -100,13 +101,13 @@ export class SideBarComponent implements OnInit {
       });
   }
 
-  LoadEntityFieldDialog() {
-    const ref = this.dialogService.open(EntityFieldDialogComponent, {
+  OpenNavigationParameterDialog() {
+    const ref = this.dialogService.open(NavigationParameterDialogComponent, {
       data: {
         entity: this.form.entity,
-        entityField: this.PropertyInfo.PropertiesObject.entityField,
+        navigationParameters: this.PropertyInfo.PropertiesObject.navigationParameters,
       },
-      header: 'Collection Information',
+      header: 'Set navigation parameters',
       width:
         '40%',
       contentStyle:
@@ -116,11 +117,15 @@ export class SideBarComponent implements OnInit {
           'auto'
         }
     }as DynamicDialogConfig);
-    ref.onClose.subscribe((value: string) => {
+    ref.onClose.subscribe((value: NavigationParameter[]) => {
       if (value) {
-        this.PropertyInfo.PropertiesObject.entityField = value;
+        this.PropertyInfo.PropertiesObject.navigationParameters = value;
       }
     });
+  }
+
+  visibleEntityField() {
+    return this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_LABEL || R.Controls.TYPE_INPUT;
   }
 
 }

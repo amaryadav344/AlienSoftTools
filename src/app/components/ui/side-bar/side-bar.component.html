@@ -52,6 +52,11 @@
                class="ui-button-secondary button-hover"
                icon="fa fa-th-large"></div>
         </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="ListView" label="ListView"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-th-large"></div>
+        </div>
       </div>
     </p-tabPanel>
     <p-tabPanel header="Properties">
@@ -66,7 +71,7 @@
                 <input type="text" pInputText disabled="true" [ngModel]="PropertyInfo.PropertiesObject.ID"/>
               </div>
             </div>
-            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="visibleEntityField()">
               <div class="ui-g-12 ui-g-nopad">
                 <div class="caption">Entity Field</div>
               </div>
@@ -197,42 +202,19 @@
                     <div class="caption">Form Name</div>
                   </div>
                   <div class="ui-g-12 ui-g-nopad">
-                    <p-autoComplete appendTo="body" autocomplete="disabled"
-                                    [(ngModel)]="PropertyInfo.PropertiesObject.form"
-                                    [suggestions]="mFormSuggestions"
-                                    [dropdown]="true"
-                                    (completeMethod)="getForms($event)"
-                                    (onSelect)="getNavigationParameters($event)"
-                                    [size]="30"
-                                    placeholder="Form" [minLength]="1"></p-autoComplete>
-                  </div>
-                </div>
-                <div class="ui-g ui-fluid ui-g-nopad">
-                  <div class="ui-g-12 ui-g-nopad">
-                    <div class="caption">Navigation Parameters</div>
-                  </div>
-                  <div class="ui-g-12 ui-g-nopad">
-                    <div class="ui-g-4 ui-g-nopad">
-                      Name
+                    <div class="input-group">
+                      <p-autoComplete appendTo="body" autocomplete="disabled"
+                                      [(ngModel)]="PropertyInfo.PropertiesObject.form"
+                                      [suggestions]="mFormSuggestions"
+                                      [dropdown]="true"
+                                      (completeMethod)="getForms($event)"
+                                      (onSelect)="getNavigationParameters($event)"
+                                      [size]="30"
+                                      placeholder="Form" [minLength]="1"></p-autoComplete>
+                      <button pButton type="button" icon="pi pi-chevron-right"
+                              (click)="OpenNavigationParameterDialog()"></button>
                     </div>
-                    <div class="ui-g-4 ui-g-nopad">
-                      Value
-                    </div>
-                    <div class="ui-g-4 ui-g-nopad">
-                      Constant
-                    </div>
-                  </div>
-                  <div class="ui-g-12 ui-g-nopad"
-                       *ngFor="let Param of PropertyInfo.PropertiesObject.navigationParameters">
-                    <div class="ui-g-4 ui-g-nopad">
-                      {{Param.name}}
-                    </div>
-                    <div class="ui-g-4 ui-g-nopad">
-                      <input type="text" pInputText [(ngModel)]="Param.value"/>
-                    </div>
-                    <div class="ui-g-4 ui-g-nopad">
-                      <p-checkbox [(ngModel)]="Param.isConstant" binary="true"></p-checkbox>
-                    </div>
+
                   </div>
                 </div>
               </ng-container>

@@ -87,6 +87,8 @@ import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/for
 import {PropertiesTabComponent} from './components/entity/attributes-tab/properties-tab/properties-tab.component';
 import {PropertyInfoDialogComponent} from './components/dialogs/property-info-dialog/property-info-dialog.component';
 import {EntityFieldDialogComponent} from './components/dialogs/entity-field-dialog/entity-field-dialog.component';
+import {ChartModule} from "primeng/chart";
+import {NavigationParameterDialogComponent} from './components/dialogs/navigation-parameter-dialog/navigation-parameter-dialog.component';
 
 
 @NgModule({
@@ -134,6 +136,7 @@ import {EntityFieldDialogComponent} from './components/dialogs/entity-field-dial
     PropertiesTabComponent,
     PropertyInfoDialogComponent,
     EntityFieldDialogComponent,
+    NavigationParameterDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -178,7 +181,8 @@ import {EntityFieldDialogComponent} from './components/dialogs/entity-field-dial
     SpinnerModule,
     ProgressSpinnerModule,
     AccordionModule,
-    ColorPickerModule
+    ColorPickerModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -203,7 +207,8 @@ import {EntityFieldDialogComponent} from './components/dialogs/entity-field-dial
     MasterLoginWindowComponent,
     MasterIntitalLoadComponent,
     MainAppComponent,
-    EntityFieldDialogComponent
+    EntityFieldDialogComponent,
+    NavigationParameterDialogComponent
 
 
   ]

@@ -29,8 +29,12 @@ export class NewEntityDialogComponent implements OnInit {
   }
 
   OpenNextStep() {
-    this.entity.databaseObjectField = 'icdo' + this.entity.modelName;
-    this.entity.modelName = 'bus' + this.entity.modelName
+    if (this.entity.tableName === null || this.entity.tableName === '') {
+      this.entity.isWrapper = true;
+    } else {
+      this.entity.databaseObjectField = 'icdo' + this.entity.modelName;
+    }
+    this.entity.modelName = 'bus' + this.entity.modelName;
     this.httpClientService.getColumns(this.entity.tableName).subscribe(
       (columns) => {
         this.entity.columns = columns;
@@ -56,7 +60,7 @@ export class NewEntityDialogComponent implements OnInit {
     this.httpClientService.createNewXml(this.entity, this.path, this.createJavaClass).subscribe(
       (res) => {
         this.ref.close({
-          path: this.path + '/' + this.entity.name + '.ent.xml',
+          path: '\\' + this.path + '\\' + this.entity.name + '.ent.xml',
           name: this.entity.name + '.ent.xml',
           type: 0
         });
