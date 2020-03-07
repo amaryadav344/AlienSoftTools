@@ -1,6 +1,7 @@
 package com.business.utils.models.UI;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -15,10 +16,13 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
         @JsonSubTypes.Type(name = "StackLayout", value = IStackLayout.class),
         @JsonSubTypes.Type(name = "GridLayout", value = IGridLayout.class),
         @JsonSubTypes.Type(name = "ScrollView", value = IScrollView.class),
-        @JsonSubTypes.Type(name = "ListView", value = IScrollView.class),
+        @JsonSubTypes.Type(name = "ListView", value = IListView.class),
 })
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class IView {
+    @JsonProperty("ID")
+    @JacksonXmlProperty(localName = "ID", isAttribute = true)
+    String id;
     @JacksonXmlProperty(isAttribute = true)
     String width;
     @JacksonXmlProperty(isAttribute = true)
@@ -62,6 +66,16 @@ public class IView {
 
     public IView() {
     }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getHeight() {
         return height;

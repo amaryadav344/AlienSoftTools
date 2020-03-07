@@ -125,6 +125,12 @@ public class XMLController {
                     Last = (IEntity) getXml(new IFile("", 0, Iobject.getEntity())).getBody();
                 }
             }
+            if (Last.getCollections() != null) {
+                if (Arrays.stream(Last.getCollections()).anyMatch(collection -> collection.getName().equals(field))) {
+                    ICollection collection = Arrays.stream(Last.getCollections()).filter(col -> col.getName().equals(field)).findFirst().get();
+                    Last = (IEntity) getXml(new IFile("", 0, collection.getEntity())).getBody();
+                }
+            }
         }
         if (Last.getColumns() != null)
             Rfields.addAll(Arrays.stream(Last.getColumns()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));

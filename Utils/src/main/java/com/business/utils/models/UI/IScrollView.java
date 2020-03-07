@@ -3,16 +3,12 @@ package com.business.utils.models.UI;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class IScrollView extends IView {
     @JacksonXmlProperty(isAttribute = true)
     String orientation;
-    @JsonProperty("ID")
-    @JacksonXmlProperty(localName = "ID", isAttribute = true)
-    String id;
     IView control;
     String type;
 
@@ -34,15 +30,6 @@ public class IScrollView extends IView {
     public void setControl(IView control) {
         this.control = control;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     @JsonIgnore()
     public String getType() {
         return type;

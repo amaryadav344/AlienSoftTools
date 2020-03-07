@@ -1,27 +1,17 @@
 package com.business.utils.models.UI;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class IListView extends IView {
-    @JsonProperty("ID")
-    @JacksonXmlProperty(localName = "ID", isAttribute = true)
-    String id;
     IView control;
     String type;
+    @JacksonXmlProperty(isAttribute = true)
+    String entityField;
 
     public IListView() {
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public IView getControl() {
@@ -36,7 +26,16 @@ public class IListView extends IView {
         return type;
     }
 
+    @JsonIgnore()
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getEntityField() {
+        return entityField;
+    }
+
+    public void setEntityField(String entityField) {
+        this.entityField = entityField;
     }
 }
