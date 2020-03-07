@@ -94,11 +94,19 @@ export class SideBarComponent implements OnInit {
 
 
   filterSymbols(event) {
-    this.httpClientService.getEntityFields(this.form.entity, event)
-      .toPromise()
-      .then((result) => {
-        this.mFieldSuggestions = result as  ISymbol[];
-      });
+    if (this.PropertyInfo.ParentObject.type === R.Controls.TYPE_LIST_VIEW) {
+      this.httpClientService.getEntityFields(this.form.entity, this.PropertyInfo.ParentObject.entityField + '.' + event)
+        .toPromise()
+        .then((result) => {
+          this.mFieldSuggestions = result as  ISymbol[];
+        });
+    } else {
+      this.httpClientService.getEntityFields(this.form.entity, event)
+        .toPromise()
+        .then((result) => {
+          this.mFieldSuggestions = result as  ISymbol[];
+        });
+    }
   }
 
   OpenNavigationParameterDialog() {
@@ -125,7 +133,8 @@ export class SideBarComponent implements OnInit {
   }
 
   visibleEntityField() {
-    return this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_LABEL || R.Controls.TYPE_INPUT;
+    return this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_LABEL ||
+      this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_INPUT;
   }
 
 }
