@@ -134,7 +134,8 @@ export class SideBarComponent implements OnInit {
 
   visibleEntityField() {
     return this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_LABEL ||
-      this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_INPUT;
+      this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_INPUT ||
+      this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_LIST_VIEW;
   }
 
 }
