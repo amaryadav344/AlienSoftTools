@@ -1,6 +1,6 @@
 <p-table #tableColumn [value]="columns" [scrollable]="true" scrollHeight="290px"
          [globalFilterFields]="['name','dataType','objectField']" selectionMode="single"
-         [(selection)]="selection" (onRowSelect)="onColumnSelect($event)">
+         [(selection)]="selection" (onRowSelect)="onColumnSelect()">
 
   <ng-template pTemplate="caption">
     <div class="ui-g ui-fluid">

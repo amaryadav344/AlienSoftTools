@@ -10,7 +10,7 @@
         </div>
       </p-header>
       <p-table #tableRules [value]="validation.rules" selectionMode="single" [(contextMenuSelection)]="selection"
-               [contextMenu]="cm" (onRowSelect)="onIVRuleSelected($event)"
+               [contextMenu]="cm" (onRowSelect)="onIVRuleSelected()"
                contextMenuSelectionMode="joint" [globalFilterFields]="['name']"
                [(selection)]="selection" scrollHeight="200px">
         <ng-template pTemplate="caption">
@@ -81,7 +81,7 @@
         </div>
         <div class="ui-md-12 ui-g-nopad">
           <div class="ui-g-2">
-            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropInitialLoad($event)">
+            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropInitialLoad()">
               <p-header>
                 <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
@@ -89,7 +89,7 @@
                 </div>
               </p-header>
               <p-table [value]="validation.initialLoad" selectionMode="single"
-                       (onRowSelect)="onIRuleSelected($event)"
+                       (onRowSelect)="onIRuleSelected()"
                        [(contextMenuSelection)]="IRuleSelection"
                        [contextMenu]="cmInitialLoad"
                        contextMenuSelectionMode="joint"
@@ -105,7 +105,7 @@
             </p-panel>
           </div>
           <div class="ui-g-2">
-            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropSoftError($event)">
+            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropSoftError()">
               <p-header>
                 <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
@@ -115,7 +115,7 @@
               <p-table [value]="validation.softErrors" selectionMode="single"
                        [(contextMenuSelection)]="IRuleSelection"
                        [contextMenu]="cmSofterror"
-                       (onRowSelect)="onIRuleSelected($event)"
+                       (onRowSelect)="onIRuleSelected()"
                        contextMenuSelectionMode="joint"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
                 <ng-template pTemplate="body" let-rowData>
@@ -128,7 +128,7 @@
             </p-panel>
           </div>
           <div class="ui-g-2">
-            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropHardError($event)">
+            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropHardError()">
               <p-header>
                 <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
@@ -139,7 +139,7 @@
                        [(contextMenuSelection)]="IRuleSelection"
                        [contextMenu]="cmHardError"
                        contextMenuSelectionMode="joint"
-                       (onRowSelect)="onIRuleSelected($event)"
+                       (onRowSelect)="onIRuleSelected()"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
                 <ng-template pTemplate="body" let-rowData>
                   <tr [pSelectableRow]="rowData" [pContextMenuRow]="rowData">
@@ -152,7 +152,7 @@
             </p-panel>
           </div>
           <div class="ui-g-2">
-            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropUpdateRule($event)">
+            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropUpdateRule()">
               <p-header>
                 <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
@@ -160,7 +160,7 @@
                 </div>
               </p-header>
               <p-table [value]="validation.updateRules" selectionMode="single"
-                       (onRowSelect)="onIRuleSelected($event)"
+                       (onRowSelect)="onIRuleSelected()"
                        [(contextMenuSelection)]="IRuleSelection"
                        [contextMenu]="cmUpdateRule"
                        contextMenuSelectionMode="joint"
@@ -176,7 +176,7 @@
             </p-panel>
           </div>
           <div class="ui-g-2">
-            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropDeleteRule($event)">
+            <p-panel styleClass="InitalLoadPanel" pDroppable (onDrop)="dropDeleteRule()">
               <p-header>
                 <div class="ui-helper-clearfix">
             <span class="ui-panel-title"
@@ -186,7 +186,7 @@
               <p-table [value]="validation.deleteRules" selectionMode="single"
                        [(contextMenuSelection)]="IRuleSelection"
                        [contextMenu]="cmDeleteRule"
-                       (onRowSelect)="onIRuleSelected($event)"
+                       (onRowSelect)="onIRuleSelected()"
                        contextMenuSelectionMode="joint"
                        [(selection)]="IRuleSelection" scrollHeight="200px">
                 <ng-template pTemplate="body" let-rowData>
