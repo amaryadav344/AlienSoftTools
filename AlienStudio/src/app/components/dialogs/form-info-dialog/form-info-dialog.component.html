@@ -1,0 +1,61 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <p-tabView styleClass="ui-g-nopad">
+      <p-tabPanel header="Form Information" styleClass="ui-g-nopad">
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12">
+            <div class="ui-g-6">
+              <div class="caption">Frame Name</div>
+              <div class="ui-inputgroup">
+                <input type="text" pInputText [(ngModel)]="form.name" [disabled]="true"/>
+              </div>
+            </div>
+            <div class="ui-g-6">
+              <div class="caption">Entity</div>
+              <div class="ui-inputgroup">
+                <input type="text" pInputText [(ngModel)]="form.entity" [disabled]="true"/>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-12">
+              <div class="caption">Path</div>
+              <div class="ui-inputgroup">
+                <input type="text" pInputText [(ngModel)]="file.path" [disabled]="true"/>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <!--<p-message severity="error" text="Name is required" *ngIf="group.name===''"></p-message>-->
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Load Information">
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12">
+            <div class="caption">Load Method</div>
+            <p-autoComplete
+              [(ngModel)]="form.loadMethod"
+              [suggestions]="mFieldSuggestions"
+              (completeMethod)="filterLoadMethods($event.query)"
+              [dropdown]="true"
+              (onDropdownClick)="filterLoadMethods('')"
+              field="name"
+              placeholder="Load Method" [minLength]="1"></p-autoComplete>
+          </div>
+          <div class="ui-g-12" *ngIf="form.loadMethod">
+            <div *ngFor="let LoadMapping of form.loadMethod.loadMapping">
+              {{LoadMapping.name}}
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <p-button [disabled]="form.ID===''" style="width: 90px;" label="OK"
+                (click)="closeDialog()"></p-button>
+    </div>
+  </div>
+</div>

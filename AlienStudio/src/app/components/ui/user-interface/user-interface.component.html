@@ -1,0 +1,23 @@
+<div *ngIf="hidden">
+  <div class="ui-g ui-g-nopad">
+    <div class="ui-g-12 ui-g-nopad">
+      <app-uitoolbar (switchToXMl)="getJS();" (closeWindow)="closeWindow()" (saveXML)="saveXML()"
+                     [form]="form" [entity]="entity"
+                     (switchToUI)="getXML()"></app-uitoolbar>
+    </div>
+    <div class="ui-g-12 ui-g-nopad" *ngIf="!isTextView">
+      <div class="ui-g-4">
+        <app-side-bar [PropertyInfo]="PropertyInfo" [form]="form"></app-side-bar>
+      </div>
+      <div class="ui-g-8">
+        <app-form [form]="form" (openPropertiesTab)="openPropertiesTab()"
+                  (openProperties)="openProperties($event)"></app-form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isTextView" class="ui-g ui-g-nopad ui-fluid" style="width: 100%">
+    <div style="height: 521px; width: 1365px">
+      <app-code-editor [code]="xml" language="xml" (CodeChanged)="xml=$event"></app-code-editor>
+    </div>
+  </div>
+</div>

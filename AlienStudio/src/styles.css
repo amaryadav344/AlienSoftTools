@@ -1,0 +1,46 @@
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+
+}
+
+@font-face {
+  font-family: roboto-bold;
+  src: url(assets/assets/Roboto-Bold.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: roboto-regular;
+  src: url(assets/assets/Roboto-Regular.ttf) format("opentype");
+}
+
+.caption {
+  padding: 12px 0 12px 0;
+  font-size: 16px;
+  font-family: roboto-regular, 'arial', sans-serif;
+}
+
+.ui-widget {
+  font-family: roboto-regular, 'arial', sans-serif !important;
+}
+
+body {
+  font-family: roboto-regular, 'arial', sans-serif;;
+}
+
+.ui-tabview-nav li a, .ui-panel-title {
+  font-family: roboto-bold, 'arial', sans-serif;;
+}
+
+.window-content {
+  height: 100%;
+}
+
+.vertical-container {
+  margin: 0;
+  height: 100%;
+  background: #efefef;
+  border-radius: 4px;
+}

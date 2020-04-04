@@ -1,0 +1,59 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <div class="caption">Table Name</div>
+      <div class="ui-inputgroup">
+        <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
+                        [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingTableNames('')"></p-autoComplete>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="caption">Entity Name</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.name"/>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <div class="caption">Path</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="file.path" [disabled]="true"/>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="caption">Parent Entity</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.parentEntity"/>
+        <button pButton type="button" icon="pi pi-refresh"></button>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <div class="caption">Model Name</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.modelName" disabled/>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="caption">Database Object Field</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="entity.databaseObjectField" [disabled]="entity.isWrapper"/>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <p-message severity="error" text="Name is required" *ngIf="entity.name===''"></p-message>
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
+              [disabled]="(entity.name==='')"
+              (click)="saveEntity()"></button>
+      <p-button style="width: 90px;" label="Cancel" (click)="this.ref.close();"></p-button>
+    </div>
+  </div>
+</div>

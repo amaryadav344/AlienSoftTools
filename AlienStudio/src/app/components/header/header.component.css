@@ -1,0 +1,40 @@
+#head {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+}
+
+.popup {
+  position: absolute;
+  z-index: 10;
+}
+
+.popwrap {
+  position: static;
+  display: inline-block;
+}
+
+.popwrap a {
+  display: inline-block;
+  vertical-align: top; /* Adjust if multi-line text */
+  width: 50px;
+  cursor: pointer;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+}
+
+.popwrap a i {
+  display: block;
+  margin: auto;
+  border: 0;
+}
+
+.popwrap a span {
+  display: block;
+}
+
+.selected {
+  background-color: blue;
+}
+

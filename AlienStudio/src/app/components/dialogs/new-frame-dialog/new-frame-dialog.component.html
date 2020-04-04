@@ -1,0 +1,39 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <div class="caption">Frame Name</div>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText [(ngModel)]="form.name"/>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="caption">Entity</div>
+      <div class="ui-inputgroup">
+        <p-autoComplete appendTo="body" [(ngModel)]="form.entity"
+                        [suggestions]="entities" (completeMethod)="getMatchingEntities($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingEntities('')"></p-autoComplete>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <div class="caption">Path</div>
+      <div class="ui-inputgroup">
+        <p-autoComplete appendTo="body" [(ngModel)]="path"
+                        [suggestions]="folders" (completeMethod)="getMatchingFolders($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingFolders('')"></p-autoComplete>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <!--<p-message severity="error" text="Name is required" *ngIf="group.name===''"></p-message>-->
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <p-button [disabled]="form.ID===''" style="width: 90px;" label="Finish"
+                (click)="OnWizFinish()"></p-button>
+    </div>
+  </div>
+</div>

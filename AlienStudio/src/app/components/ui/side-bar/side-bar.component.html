@@ -1,0 +1,414 @@
+<p-panel header="Controls" styleClass="ControlsPanel">
+  <p-tabView [(activeIndex)]="CurrentTabIndex">
+    <p-tabPanel header="Controls">
+      <div class="ui-g ui-fluid ui-g-nopad">
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable id="Label" pButton type="button" label="Label"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-language"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton id="Caption" type="button" label="Caption"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-tag"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Input" label="Input"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-i-cursor"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Button" label="Button"
+               class="ui-button-secondary button-hover"
+               icon="pi pi-play"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Checkbox" label="Checkbox"
+               class="ui-button-secondary button-hover"
+               icon="pi pi-check-square"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Section" label="Section"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-window-maximize"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="Grid" label="Grid"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-th-large"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="StackLayout" label="StackLayout"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-th-large"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="GridLayout" label="GridLayout"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-th-large"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="ScrollView" label="ScrollView"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-th-large"></div>
+        </div>
+        <div class="ui-g-6">
+          <div (onDragStart)="dragStart($event)" pDraggable pButton type="button" id="ListView" label="ListView"
+               class="ui-button-secondary button-hover"
+               icon="fa fa-th-large"></div>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="Properties">
+      <p-scrollPanel [style]="{width: '100%', height: '350px'}">
+        <p-accordion [multiple]="true">
+          <p-accordionTab header="Control">
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">ID</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <input type="text" pInputText disabled="true" [ngModel]="PropertyInfo.PropertiesObject.ID"/>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="visibleEntityField()">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Entity Field</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-custom-auto-complete (Change)="filterSymbols($event)"
+                                          [(text)]="PropertyInfo.PropertiesObject.entityField"
+                                          [suggestions]="mFieldSuggestions"></app-custom-auto-complete>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad"
+                 *ngIf="PropertyInfo.PropertiesObject.type=='Button'||PropertyInfo.PropertiesObject.type=='Caption'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Text</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.text"/>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Letter Spacing</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.letterSpacing"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Line Height</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.lineHeight"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Text Alignment</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.textAlignment=$event"
+                               [model]="PropertyInfo.PropertiesObject.textAlignment"
+                               [options]="TextAlignmentOptions"></app-drop-down>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Text Decoration</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.textDecoration=$event"
+                               [model]="PropertyInfo.PropertiesObject.textDecoration"
+                               [options]="TextDecorationsOptions"></app-drop-down>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Text Transform</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.textTransform=$event"
+                               [model]="PropertyInfo.PropertiesObject.textTransform"
+                               [options]="TextTransformsOptions"></app-drop-down>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Text Wrap</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.textWrap=$event"
+                               [model]="PropertyInfo.PropertiesObject.textWrap"
+                               [options]="BoolenValuesOptions"></app-drop-down>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad" *ngIf="PropertyInfo.PropertiesObject.type=='Label'">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">White Space</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.whiteSpace=$event"
+                               [model]="PropertyInfo.PropertiesObject.whiteSpace"
+                               [options]="WhiteSpacesOptions"></app-drop-down>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad"
+                 *ngIf="isStackLayout(PropertyInfo.PropertiesObject)||isScrollView(PropertyInfo.PropertiesObject)">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Orientation</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.orientation=$event"
+                               [model]="PropertyInfo.PropertiesObject.orientation"
+                               [options]="OrientationOptions"></app-drop-down>
+              </div>
+            </div>
+            <ng-container *ngIf="isGridLayout(PropertyInfo.PropertiesObject)">
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Rows</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.rows"/>
+                </div>
+              </div>
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Columns</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.columns"/>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="isButton(PropertyInfo.PropertiesObject)">
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">On Click</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.onClick=$event"
+                                 [model]="PropertyInfo.PropertiesObject.onClick"
+                                 [options]="ButtonTypes"></app-drop-down>
+                </div>
+              </div>
+              <ng-container *ngIf="isButtonOpenFormType(PropertyInfo.PropertiesObject)">
+                <div class="ui-g ui-fluid ui-g-nopad">
+                  <div class="ui-g-12 ui-g-nopad">
+                    <div class="caption">Form Name</div>
+                  </div>
+                  <div class="ui-g-12 ui-g-nopad">
+                    <div class="input-group">
+                      <p-autoComplete appendTo="body" autocomplete="disabled"
+                                      [(ngModel)]="PropertyInfo.PropertiesObject.form"
+                                      [suggestions]="mFormSuggestions"
+                                      [dropdown]="true"
+                                      (completeMethod)="getForms($event)"
+                                      (onSelect)="getNavigationParameters($event)"
+                                      [size]="30"
+                                      placeholder="Form" [minLength]="1"></p-autoComplete>
+                      <button pButton type="button" icon="pi pi-chevron-right"
+                              (click)="OpenNavigationParameterDialog()"></button>
+                    </div>
+
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="isButtonExecuteBusinessMethod(PropertyInfo.PropertiesObject)">
+                <div class="ui-g ui-fluid ui-g-nopad">
+                  <div class="ui-g-12 ui-g-nopad">
+                    <div class="caption">Custom Method</div>
+                  </div>
+                  <div class="ui-g-12 ui-g-nopad">
+                    <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.method"/>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </p-accordionTab>
+          <p-accordionTab header="Layout">
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Width</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.width"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Height</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.height"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Minimum Width</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.minWidth"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Minimum Height</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.minHeight"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Visibility</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.visibility=$event"
+                               [model]="PropertyInfo.PropertiesObject.visibility"
+                               [options]="VisibilityOptions"></app-drop-down>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Margin Top</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.marginTop"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Margin Right</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.marginRight"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Margin Left</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.marginLeft"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Margin Bottom</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.marginBottom"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Padding Top</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.paddingTop"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Padding Right</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.paddingRight"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Padding Left</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.paddingLeft"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Padding Bottom</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <p-spinner size="30" [(ngModel)]="PropertyInfo.PropertiesObject.paddingBottom"></p-spinner>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Background Color</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad ui-inputgroup">
+                 <span class="ui-inputgroup-addon">
+                   <p-colorPicker [(ngModel)]="PropertyInfo.PropertiesObject.backgroundColor"></p-colorPicker>
+                 </span>
+                <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.backgroundColor"/>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Horizontal Alignment</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.horizontalAlignment=$event"
+                               [model]="PropertyInfo.PropertiesObject.horizontalAlignment"
+                               [options]="HorizontalAlignmentOptions"></app-drop-down>
+              </div>
+            </div>
+            <div class="ui-g ui-fluid ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad">
+                <div class="caption">Vertical Alignment</div>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <app-drop-down (OptionChange)="PropertyInfo.PropertiesObject.verticalAlignment=$event"
+                               [model]="PropertyInfo.PropertiesObject.verticalAlignment"
+                               [options]="VerticalAlignmentOptions"></app-drop-down>
+              </div>
+            </div>
+          </p-accordionTab>
+          <p-accordionTab header="Parent Position">
+            <ng-container *ngIf="isGridLayout(PropertyInfo.ParentObject)">
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Row</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.row"/>
+                </div>
+              </div>
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Column</div>
+                  <div class="ui-g-12 ui-g-nopad">
+                    <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.col"/>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Row Span</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.rowSpan"/>
+                </div>
+              </div>
+              <div class="ui-g ui-fluid ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad">
+                  <div class="caption">Column Span</div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                  <input type="text" pInputText [(ngModel)]="PropertyInfo.PropertiesObject.colSpan"/>
+                </div>
+              </div>
+            </ng-container>
+          </p-accordionTab>
+        </p-accordion>
+      </p-scrollPanel>
+    </p-tabPanel>
+  </p-tabView>
+</p-panel>
+
+

@@ -1,0 +1,106 @@
+<div class="ui-g ui-fluid">
+  <div class="STEP_ENTITY_INFO" *ngIf="currentStep===STEP_ENTITY_INFO">
+    <div class="ui-g-12">
+      <div class="ui-g-6">
+        <div class="caption">Table Name</div>
+        <div class="ui-inputgroup">
+          <p-autoComplete appendTo="body" [(ngModel)]="entity.tableName"
+                          (ngModelChange)="TableNameChnage()"
+                          [suggestions]="tables" (completeMethod)="getMatchingTableNames($event.query)"
+                          [size]="30" [minLength]="1" [dropdown]="true"
+                          (onDropdownClick)="getMatchingTableNames('')"></p-autoComplete>
+        </div>
+      </div>
+      <div class="ui-g-6">
+        <div class="caption">Entity Name</div>
+        <div class="ui-inputgroup">
+          <input type="text" pInputText [(ngModel)]="entity.name" (ngModelChange)="entity.modelName=entity.name"/>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-6">
+        <div class="caption">Folder</div>
+        <div class="ui-inputgroup">
+          <p-autoComplete appendTo="body" [(ngModel)]="path"
+                          [suggestions]="folders" (completeMethod)="getMatchingFolders($event.query)"
+                          [size]="30" [minLength]="1" [dropdown]="true"
+                          (onDropdownClick)="getMatchingFolders('')"></p-autoComplete>
+        </div>
+      </div>
+      <div class="ui-g-6">
+        <div class="caption">Parent Entity</div>
+        <div class="ui-inputgroup">
+          <input type="text" pInputText [(ngModel)]="entity.parentEntity"/>
+          <button pButton type="button" icon="pi pi-refresh"></button>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-6">
+        <div class="caption">Model</div>
+        <p-checkbox [(ngModel)]="createJavaClass" binary="true" label="Create model"></p-checkbox>
+      </div>
+      <div class="ui-g-6" *ngIf="createJavaClass">
+        <div class="caption">Model Name</div>
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">bus</span>
+          <input type="text" pInputText [(ngModel)]="entity.modelName"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="STEP_COLUMN_INFO" *ngIf="currentStep===STEP_COLUMN_INFO">
+    <p-table [value]="entity.columns" [resizableColumns]="true" scrollHeight="200px"
+             [scrollable]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th [pSortableColumn]="'name'">
+            Name
+            <p-sortIcon [field]="'name'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'dataType'">
+            Data Type
+            <p-sortIcon [field]="'dataType'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'objectField'">
+            Object Field
+            <p-sortIcon [field]="'objectField'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'maxLength'">
+            Length
+            <p-sortIcon [field]="'maxLength'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'canBeNull'">
+            Is Null
+            <p-sortIcon [field]="'canBeNull'"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td>{{rowData.name}}</td>
+          <td>{{rowData.dataType}}</td>
+          <td>{{rowData.objectField}}</td>
+          <td>{{rowData.maxLength}}</td>
+          <td>{{rowData.canBeNull}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="ui-g-12">
+    <!--<p-message severity="error" text="Name is required" *ngIf="group.name===''"></p-message>-->
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="Previous"
+              [disabled]="isPreviousDisabled"
+              (click)="OpenPreviousStep()"></button>
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="Next"
+              [disabled]="isNextDisabled||entity.name===''"
+              (click)="OpenNextStep()"></button>
+      <p-button [disabled]="isFinishDisabled" style="width: 90px;" label="Finish"
+                (click)="OnWizFinish()"></p-button>
+    </div>
+  </div>
+</div>

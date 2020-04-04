@@ -1,0 +1,42 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <div *ngFor="let loadMapping of loadMappings" class="caption">{{loadMapping.name}}
+      <p-table [value]="loadMapping.loadParameters">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Parameter Name</th>
+            <th>Entity Field</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+          <tr>
+            <td>{{rowData.name}}</td>
+            <td>
+              <p-autoComplete #auto appendTo="body"
+                              [suggestions]="mFieldSuggestions" (completeMethod)="filterEntityField($event)"
+                              field="name"
+                              dataKey="name"
+                              (onSelect)="onEntityFieldSelected($event,rowData)" forceSelection="true"
+                              [dropdown]="true"
+                              [size]="30" [minLength]="1">
+                <ng-template let-symbol pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <span><i class="fa fa-list" style="padding: 4px"></i>{{symbol.name}}</span>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
+              (click)="saveLoadParameter()"></button>
+      <p-button style="width: 90px;" label="Cancel" (click)="this.ref.close();"></p-button>
+    </div>
+  </div>
+</div>
+

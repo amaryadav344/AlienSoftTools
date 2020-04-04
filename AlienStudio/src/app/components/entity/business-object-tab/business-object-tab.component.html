@@ -1,0 +1,60 @@
+<div class="ui-g ui-g-nopad ui-fluid">
+  <div class="ui-g-12 ui-g-nopad">
+    <div class="ui-g-6">
+      <p-panel styleClass="CustomMethodsPanel">
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title"
+                  style="font-size:16px;display:inline-block;margin-top:2px">Custom Methods</span>
+            <p-button type="button" icon="pi pi-plus" style="float: right"
+                      (onClick)="onCustomMethodSelect(0)" pTooltip="Add new custom method"></p-button>
+          </div>
+        </p-header>
+        <p-table [value]="businessObject.customMethods" selectionMode="single"
+                 [(selection)]="selection" (onRowSelect)="onCustomMethodSelect(1)" scrollHeight="200px">
+          <ng-template pTemplate="body" let-rowData>
+            <tr [pSelectableRowDblClick]="rowData">
+              <td>{{rowData.name}}</td>
+              <td>
+                <button pButton type="button" icon="pi pi-trash" (click)="deleteCustomMethod(rowData)"
+                        pTooltip="Delete custom method"
+                        style="margin-right: 8px" class="ui-button-danger"></button>
+                <button pButton type="button" icon="pi pi-pencil" (click)="selection=rowData;onCustomMethodSelect(1)"
+                        pTooltip="Edit custom method"
+                        class="ui-button-success margin-left"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-panel>
+    </div>
+    <div class="ui-g-6">
+      <p-panel styleClass="ObjectMethodsPanel">
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title"
+                  style="font-size:16px;display:inline-block;margin-top:2px">Object Methods</span>
+            <button pButton type="button" icon="pi pi-plus" style="float: right" pTooltip="Add new object method"
+                    (click)="onObjectMethodSelect(0)"></button>
+          </div>
+        </p-header>
+        <p-table [value]="businessObject.objectMethods" selectionMode="single"
+                 [(selection)]="selection" (onRowSelect)="onObjectMethodSelect(1)" scrollHeight="200px">
+          <ng-template pTemplate="body" let-rowData>
+            <tr [pSelectableRowDblClick]="rowData">
+              <td>{{rowData.name}}</td>
+              <td>
+                <button pButton type="button" icon="pi pi-trash" (click)="deleteObjectMethod(rowData)"
+                        pTooltip="Delete object method"
+                        style="margin-right: 8px" class="ui-button-danger"></button>
+                <button pButton type="button" icon="pi pi-pencil" (click)="selection=rowData;onObjectMethodSelect(1)"
+                        pTooltip="Edit obejct method"
+                        class="ui-button-success margin-left"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-panel>
+    </div>
+  </div>
+</div>

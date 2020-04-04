@@ -1,0 +1,25 @@
+<div class="ui-g ui-fluid ui-g-nopad">
+  <div class="ui-g-12 ui-g-nopad">
+    <div class="popwrap">
+      <div class="ui-g ui-fluid ui-g-nopad">
+        <div class="ui-g-12 ui-g-nopad">
+          <div class="ui-inputgroup">
+            <input type="text" pInputText [(ngModel)]="text" (ngModelChange)="onChange()">
+            <span class="ui-inputgroup-addon" style="padding: 0" *ngIf="Loading">
+             <i style="padding: 4px;" class="pi pi-spin pi-spinner"></i></span>
+            <button pButton type="button" icon="pi pi-caret-down" (click)="onChange()"></button>
+          </div>
+        </div>
+      </div>
+      <div class="popup" *ngIf="showAutoComplete">
+        <div class="item" *ngFor="let symbol of suggestions" style="background-color: #aeafad">
+          <div (click)="onSelectSymbol(symbol)">
+            <span *ngIf="symbol.type===2"><i class="fa fa-list" style="padding: 4px"></i>{{symbol.name}}</span>
+            <span *ngIf="symbol.type===1"><i class="fa fa-cube" style="padding: 4px"></i>{{symbol.name}}</span>
+            <span *ngIf="symbol.type===0"><i class="fa fa-cube" style="padding: 4px"></i>{{symbol.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <div class="ui-g-8">
+      <div class="caption">Name</div>
+      <div class="ui-inputgroup">
+        <p-autoComplete appendTo="body" [(ngModel)]="objectMethod" field="name"
+                        [suggestions]="suggectionMethods" (completeMethod)="getMatchingMethods($event.query)"
+                        [size]="30" [minLength]="1" [dropdown]="true"
+                        (onDropdownClick)="getMatchingMethods('')"></p-autoComplete>
+      </div>
+    </div>
+    <div class="ui-g-4">
+      <div class="caption">Return Type</div>
+      <div class="ui-inputgroup">
+        <div>{{objectMethod.returnType}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <p-panel styleClass="ParameterPanel">
+      <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title"
+                  style="font-size:16px;display:inline-block;margin-top:2px">Method Parameters</span>
+          <button pButton type="button" icon="pi pi-refresh" style="float: right" pTooltip="Refresh parameters"
+                  (click)="refreshObjectMethodParameter()"></button>
+        </div>
+      </p-header>
+      <p-table [value]="objectMethod.objectParameters" [resizableColumns]="true"
+               [(selection)]="selection" scrollHeight="200px"
+               [scrollable]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Parameter Name</th>
+            <th>Data Type</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+          <tr>
+            <td>{{rowData.name}}</td>
+            <td>{{rowData.dataType}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+
+  </div>
+  <div class="ui-g-12">
+    <!--<p-message severity="error" text="Name is required" *ngIf="group.label===''"></p-message>-->
+  </div>
+  <div class="ui-g-12">
+    <div style="float: right">
+      <button pButton style="width: 90px; margin-right: 16px;" class="margin" label="ok"
+              (click)="saveObjectMethod()"></button>
+      <p-button style="width: 90px;" label="Cancel" (click)="this.ref.close();"></p-button>
+    </div>
+  </div>
+</div>

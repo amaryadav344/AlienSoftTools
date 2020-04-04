@@ -1,0 +1,19 @@
+
+.control i {
+  padding: 10px;
+}
+
+.button-hover:hover {
+  background-color: #c8c8c8 !important;
+  color: #333333 !important;
+  border-color: #c8c8c8 !important;
+  cursor: move;
+}
+
+.ControlsPanel .ui-panel-content {
+  height: 430px;
+}
+
+.sideBar {
+
+}

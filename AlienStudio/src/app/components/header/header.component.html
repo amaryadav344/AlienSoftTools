@@ -1,0 +1,106 @@
+<div style="position: absolute;width: 100%;box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);">
+  <div class="ui-g ui-g-nopad">
+    <div class="ui-g-12  ui-g-nopad">
+      <p-toolbar [style]="{'border': 'none', 'background': '#333','border-radius': '0'}">
+        <div class="ui-toolbar-group-left">
+          <div class="popwrap">
+            <button pButton type="button" icon="pi pi-table" (click)="FormPopup=false;EntityPopup=!EntityPopup"
+                    label="Entity"></button>
+            <div class="popup" *ngIf="EntityPopup">
+              <p-table #tableEntityFiles [value]="EntityFiles" [scrollable]="true" scrollHeight="290px"
+                       [style]="{width: '250px'}"
+                       [globalFilterFields]="['name']" selectionMode="single"
+                       [(selection)]="selection"
+                       (onRowSelect)="EntityPopup=false;openFile($event)">
+
+                <ng-template pTemplate="caption">
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                      <div class="ui-inputgroup">
+                        <input pInputText placeholder="Search Column"
+                               (input)="tableEntityFiles.filterGlobal($event.target.value, 'contains')">
+                        <p-button icon="pi pi-times" (click)="EntityPopup=false;">
+                        </p-button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                  <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.name}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div class="popwrap">
+            <button style="margin-left:.50em" pButton type="button" icon="pi pi-table"
+                    (click)="EntityPopup=false;FormPopup=!FormPopup"
+                    label="Form"></button>
+            <div class="popup" *ngIf="FormPopup">
+              <p-table #tableEntityFiles [value]="FormFiles" [scrollable]="true" scrollHeight="290px"
+                       [style]="{width: '250px'}"
+                       [globalFilterFields]="['name']" selectionMode="single"
+                       [(selection)]="selection"
+                       (onRowSelect)="FormPopup=false;openFile($event)">
+
+                <ng-template pTemplate="caption">
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                      <div class="ui-inputgroup">
+                        <input pInputText placeholder="Search Column"
+                               (input)="tableEntityFiles.filterGlobal($event.target.value, 'contains')">
+                        <p-button icon="pi pi-times" (click)="FormPopup=false;">
+                        </p-button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                  <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.name}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+        <div class="ui-toolbar-group-right">
+          <div class="popwrap">
+            <button pButton type="button" icon="pi pi-plus" (click)="NewItemPopup=!NewItemPopup"
+                    style="margin-left:.50em"></button>
+            <div class="popup" style="right:0 " *ngIf="NewItemPopup">
+              <p-table [value]="items" [scrollable]="true" scrollHeight="290px" [style]="{width: '250px'}"
+                       selectionMode="none">
+                <ng-template pTemplate="body" let-rowData>
+                  <tr [pSelectableRow]="rowData" (click)="NewItemPopup=false;CreateNewItem(rowData)">
+                    <td>{{rowData}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <button pButton type="button" icon="pi pi-refresh" (click)="refreshMetaData()"
+                  style="margin-left:.50em"></button>
+          <button pButton type="button" icon="pi pi-search" style="margin-left:.50em"></button>
+          <div class="popwrap">
+            <button pButton type="button" icon="pi pi-list" (click)="WindowsPopup=!WindowsPopup"
+                    style="margin-left:.50em"></button>
+            <div class="popup" style="right:0 " *ngIf="WindowsPopup">
+              <p-table [value]="windows" [scrollable]="true" scrollHeight="290px" [style]="{width: '250px'}"
+                       selectionMode="single"
+                       [(selection)]="selectedWindow"
+                       (onRowSelect)="WindowsPopup=false;openWindow()">
+                <ng-template pTemplate="body" let-rowData>
+                  <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.data.name}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </p-toolbar>
+    </div>
+  </div>
+</div>
