@@ -20,7 +20,7 @@ public class AppConfigRepository {
     AppConfig appConfig;
 
     private AppConfigRepository() throws IOException {
-        appConfig = new XmlMapper().readValue(new File("C:\\Users\\Amardeep Yadav\\IdeaProjects\\bin\\AppConfig.xml"), AppConfig.class);
+        appConfig = new XmlMapper().readValue(new File("C:\\Users\\Amardeep Yadav\\WebstormProjects\\Sourcecontrolroot\\AlienSoftDev\\bin\\AppConfig.xml"), AppConfig.class);
     }
 
     public static AppConfigRepository getInstance() throws IOException {
