@@ -1,4 +1,4 @@
-package com.webstudio.connectionhub.common;
+package com.webstudio.connectionhub.models;
 
 import javax.persistence.*;
 

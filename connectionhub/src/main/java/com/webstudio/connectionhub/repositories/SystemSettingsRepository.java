@@ -1,7 +1,7 @@
 package com.webstudio.connectionhub.repositories;
 
 
-import com.webstudio.connectionhub.common.SystemSetting;
+import com.webstudio.connectionhub.models.SystemSetting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

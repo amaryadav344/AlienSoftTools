@@ -1,20 +1,8 @@
-<Hub>
+<HubConfig>
     <DatabaseConnection>
         <DatabaseUrl>jdbc:sqlserver://DESKTOP-0IB7S30;databaseName=ALIEN_STUDIO</DatabaseUrl>
         <DatabaseUsername>DEVUSER</DatabaseUsername>
         <DatabasePassword>DEVPS</DatabasePassword>
         <DatabaseDriver>com.microsoft.sqlserver.jdbc.SQLServerDriver</DatabaseDriver>
     </DatabaseConnection>
-    <projects>
-        <project defalut="true" name="LEVEL_1"
-                 path="C:\Users\Amardeep Yadav\WebstormProjects\Sourcecontrolroot\AlienSoftDev\LEVEL_1">
-            <PackageName>com.business.businessobjects</PackageName>
-            <XMLDirectory>C:\Users\Amardeep Yadav\WebstormProjects\Sourcecontrolroot\AlienSoftDev\LEVEL_1\files\xml
-            </XMLDirectory>
-            <BusinessObjectPath>
-                C:\Users\Amardeep
-                Yadav\WebstormProjects\Sourcecontrolroot\AlienSoftDev\LEVEL_1\app\ProAlienSoftBusiness\BusinessObject\src\main\java
-            </BusinessObjectPath>
-        </project>
-    </projects>
-</Hub>
+</HubConfig>
