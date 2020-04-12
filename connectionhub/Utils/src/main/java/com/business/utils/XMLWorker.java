@@ -33,4 +33,7 @@ public class XMLWorker {
     }
 
 
+    public <T> T readCustomType(String xml, Class<T> valueType) throws IOException {
+        return xmlMapper.readValue(xml, valueType);
+    }
 }

@@ -1,8 +1,0 @@
-<HubConfig>
-    <DatabaseConnection>
-        <DatabaseUrl>jdbc:sqlserver://DESKTOP-0IB7S30;databaseName=ALIEN_STUDIO</DatabaseUrl>
-        <DatabaseUsername>DEVUSER</DatabaseUsername>
-        <DatabasePassword>DEVPS</DatabasePassword>
-        <DatabaseDriver>com.microsoft.sqlserver.jdbc.SQLServerDriver</DatabaseDriver>
-    </DatabaseConnection>
-</HubConfig>
