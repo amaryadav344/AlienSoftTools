@@ -2,7 +2,6 @@ package com.business.utils.models.Entity;
 
 public class IProject {
     String name;
-    String BasePath;
     String XMLPath;
     String BinPath;
     String PackageName;
@@ -19,9 +18,6 @@ public class IProject {
         this.name = name;
     }
 
-    public String getXMLPath() {
-        return BasePath + XMLPath;
-    }
 
     public void setXMLPath(String XMLPath) {
         this.XMLPath = XMLPath;
@@ -51,11 +47,4 @@ public class IProject {
         BusinessModelPath = businessModelPath;
     }
 
-    public String getBasePath() {
-        return BasePath;
-    }
-
-    public void setBasePath(String basePath) {
-        BasePath = basePath;
-    }
 }

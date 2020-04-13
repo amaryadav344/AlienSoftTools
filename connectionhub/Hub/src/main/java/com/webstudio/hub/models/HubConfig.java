@@ -23,16 +23,19 @@ public class HubConfig {
 
 
     @JsonIgnore
-    public static HubConfig getInstance() throws IOException, URISyntaxException {
-        if (mHubConfig == null) {
-            String content = FileHelper.ReadCompleteFile(getHubConfigFilePath());
-            mHubConfig = XMLWorker.getInstance().readCustomType(content, HubConfig.class);
-        }
+    public static HubConfig getInstance() {
         return mHubConfig;
     }
 
     private HubConfig() {
 
+    }
+
+    public static void InitializeeConfig() throws IOException {
+        if (mHubConfig == null) {
+            String content = FileHelper.ReadCompleteFile(getHubConfigFilePath());
+            mHubConfig = XMLWorker.getInstance().readCustomType(content, HubConfig.class);
+        }
     }
 
     @JacksonXmlElementWrapper(localName = "DatabaseConnection")

@@ -22,6 +22,7 @@ public class DataSourceBean {
     @Bean
     @Primary
     public DataSource getDataSource() throws IOException, URISyntaxException {
+        HubConfig.InitializeeConfig();
         HubConfig hubConfig = HubConfig.getInstance();
         logger.info(hubConfig.getDatabaseConnection().getDatabaseUsername());
         return DataSourceBuilder

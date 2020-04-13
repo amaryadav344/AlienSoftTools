@@ -6,8 +6,10 @@ import com.business.utils.models.IXMLBase;
 import com.business.utils.models.UI.IForm;
 import com.business.utils.models.UI.NavigationParameter;
 import com.webstudio.hub.common.Constants;
-import com.webstudio.hub.repositories.TableRepository;
 import com.webstudio.hub.common.ProjectStore;
+import com.webstudio.hub.models.Branch;
+import com.webstudio.hub.models.HubConfig;
+import com.webstudio.hub.repositories.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -177,39 +180,37 @@ public class XMLController {
         return new ResponseEntity<>(entities.toArray(new String[entities.size()]), HttpStatus.OK);
     }
 
-  /*  @RequestMapping(value = "/xml/GetDBConnectionInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/xml/GetDBConnectionInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IDBConnectionInfo> GetDBConnection() throws IOException {
-*//*        AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
+        HubConfig hubConfig = HubConfig.getInstance();
+        Optional<Branch> optionalBranch = hubConfig.getBranches().stream().filter(Branch::isDefault).findFirst();
         IDBConnectionInfo idbConnectionInfo = new IDBConnectionInfo();
-        idbConnectionInfo.setDBUrl(appConfigRepository.getAppConfig(AppConfigRepository.DATABASE_URL));
-        idbConnectionInfo.setDBUserName(appConfigRepository.getAppConfig(AppConfigRepository.DATABASE_USERNAME));
-        return new ResponseEntity<>(idbConnectionInfo, HttpStatus.OK);*//*
-    }*/
+        idbConnectionInfo.setDBUrl(hubConfig.getDatabaseConnection().getDatabaseUrl());
+        idbConnectionInfo.setDBUserName(hubConfig.getDatabaseConnection().getDatabaseUsername());
+        return new ResponseEntity<>(idbConnectionInfo, HttpStatus.OK);
+    }
 
 
     @RequestMapping(value = "/xml/LoadProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity LoadProject() throws IOException {
-       /* AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
-        IProject iProject = new IProject();
-        iProject.setBinPath(appConfigRepository.getAppConfig(AppConfigRepository.BIN_RELATIVE_PATH));
-        iProject.setXMLPath(appConfigRepository.getAppConfig(AppConfigRepository.XML_RELATIVE_PATH));
-        iProject.setPackageName(appConfigRepository.getAppConfig(AppConfigRepository.PACKAGE_NAME));
-        iProject.setBusinessModelPath(appConfigRepository.getAppConfig(AppConfigRepository.BUSINESS_MODELS_RELATIVE_PATH));
-        iProject.setBasePath(appConfigRepository.getAppConfig(AppConfigRepository.BASE_DIRECTORY));
-        projectStore.LoadProject(iProject);*/
+        HubConfig hubConfig = HubConfig.getInstance();
+        Optional<Branch> optionalBranch = hubConfig.getBranches().stream().filter(Branch::isDefault).findFirst();
+        if (optionalBranch.isPresent()){
+            Branch CurrentBranch = optionalBranch.get();
+            projectStore.LoadProject(CurrentBranch);
+        }
+
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/RefreshMetaData", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity RefreshMetaData() throws IOException {
-       /* AppConfigRepository appConfigRepository = AppConfigRepository.getInstance();
-        IProject iProject = new IProject();
-        iProject.setBinPath(appConfigRepository.getAppConfig(AppConfigRepository.BIN_RELATIVE_PATH));
-        iProject.setXMLPath(appConfigRepository.getAppConfig(AppConfigRepository.XML_RELATIVE_PATH));
-        iProject.setPackageName(appConfigRepository.getAppConfig(AppConfigRepository.PACKAGE_NAME));
-        iProject.setBusinessModelPath(appConfigRepository.getAppConfig(AppConfigRepository.BUSINESS_MODELS_RELATIVE_PATH));
-        iProject.setBasePath(appConfigRepository.getAppConfig(AppConfigRepository.BASE_DIRECTORY));
-        projectStore.LoadProject(iProject);*/
+        HubConfig hubConfig = HubConfig.getInstance();
+        Optional<Branch> optionalBranch = hubConfig.getBranches().stream().filter(Branch::isDefault).findFirst();
+        if (optionalBranch.isPresent()){
+            Branch CurrentBranch = optionalBranch.get();
+            projectStore.LoadProject(CurrentBranch);
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 }

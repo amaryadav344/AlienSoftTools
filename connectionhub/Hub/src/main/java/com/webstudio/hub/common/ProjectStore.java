@@ -7,6 +7,7 @@ import com.business.utils.models.UI.IForm;
 import com.business.utils.models.UI.NavigationParameter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.javapoet.ClassName;
+import com.webstudio.hub.models.Branch;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ProjectStore {
     private XMLStore xmlStore = XMLStore.getInstance();
     private FileStore fileStore = FileStore.getInstance();
     private SymbolProvider symbolProvider = SymbolProvider.getInstance();
-    private IProject iProject;
+    private Branch branch;
 
     public static ProjectStore getInstance() {
         if (mProjectStore == null)
@@ -24,11 +25,11 @@ public class ProjectStore {
         return mProjectStore;
     }
 
-    public void LoadProject(IProject iProject) throws IOException {
-        this.iProject = iProject;
-        symbolProvider.LoadJar(iProject.getBasePath() + iProject.getBinPath() + "/BusinessObjects.jar");
-        fileStore.LoadFilesAndFolders(iProject.getXMLPath());
-        xmlStore.LoadXML(fileStore.getFiles(), iProject.getXMLPath());
+    public void LoadProject(Branch branch) throws IOException {
+        this.branch = branch;
+        symbolProvider.LoadJar(branch.getBusinessObject().get(0));
+        fileStore.LoadFilesAndFolders(branch.getXMLPath());
+        xmlStore.LoadXML(fileStore.getFiles(), branch.getXMLPath());
     }
 
 
@@ -38,12 +39,12 @@ public class ProjectStore {
             IEntity entity = (IEntity) ixmlBase;
             xmlStore.SaveXml(ixmlBase, entity.getName());
             xml = xmlStore.getXMLString(entity);
-            FileHelper.WriteFile(iProject.getXMLPath() + "/" + Path, xml);
+            FileHelper.WriteFile(branch.getXMLPath() + "/" + Path, xml);
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             xmlStore.SaveXml(ixmlBase, form.getName());
             xml = xmlStore.getXMLString(form);
-            FileHelper.WriteFile(iProject.getXMLPath() + "/" + Path, xml);
+            FileHelper.WriteFile(branch.getXMLPath() + "/" + Path, xml);
         }
         return xml;
     }
@@ -52,34 +53,34 @@ public class ProjectStore {
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
             String xml = xmlStore.getXMLString(entity);
-            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + "/" + path + "/" + entity.getName() + ".ent.xml", xml);
+            FileHelper.CreateAndWriteFile(branch.getXMLPath() + "/" + path + "/" + entity.getName() + ".ent.xml", xml);
             if (createModel) {
-                ModelHelper.createModel(ClassName.get(iProject.getPackageName(), "BusBase"),
-                        ClassName.get(iProject.getPackageName(), "DoBase"), entity,
-                        iProject.getPackageName() + "." + path.replace("/", "."),
-                        iProject.getBasePath() + iProject.getBusinessModelPath());
+                ModelHelper.createModel(ClassName.get(branch.getPackageName(), "BusBase"),
+                        ClassName.get(branch.getPackageName(), "DoBase"), entity,
+                        branch.getPackageName() + "." + path.replace("/", "."),
+                        branch.getSourcePath() + branch.getSourcePath());
             }
             xmlStore.SaveXml(ixmlBase, entity.getName());
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             String xml = xmlStore.getXMLString(form);
-            FileHelper.CreateAndWriteFile(iProject.getXMLPath() + "/" + path + "/" + form.getName() + ".form.xml", xml);
+            FileHelper.CreateAndWriteFile(branch.getXMLPath() + "/" + path + "/" + form.getName() + ".form.xml", xml);
             xmlStore.SaveXml(ixmlBase, form.getName());
         }
     }
 
     public List<String> GetSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
         List<String> symbols = symbolProvider.getMatchingSymbols(ClassPath, query);
         return symbols;
     }
 
     public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
+        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getObjectSymbols(ClassPath, query);
         for (ISymbol symbol : symbols) {
             String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
@@ -89,9 +90,9 @@ public class ProjectStore {
     }
 
     public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
+        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getCollectionSymbols(ClassPath, query);
         for (ISymbol symbol : symbols) {
             String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
@@ -101,9 +102,9 @@ public class ProjectStore {
     }
 
     public List<ISymbol> GetVariableSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = iProject.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
+        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getVariableSymbols(ClassPath, query);
         return symbols;
     }
@@ -136,9 +137,9 @@ public class ProjectStore {
     }
 
     public List<IObjectMethod> ListObjectMethods(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(iProject.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = (iProject.getPackageName() + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName()).replace("\\", ".");
+        String ClassPath = (branch.getPackageName() + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName()).replace("\\", ".");
         List<IObjectMethod> symbols = symbolProvider.getAllMethods(ClassPath, query);
         return symbols;
     }
