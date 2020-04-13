@@ -9,6 +9,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 
 public class Main {
     static Process proc;
@@ -22,7 +23,7 @@ public class Main {
 
     private static void startPorcess() throws IOException, BadLocationException {
         ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", "java -jar \"C:\\Users\\Amardeep Yadav\\WebstormProjects\\Sourcecontrolroot\\AlienSoftDev\\LEVEL_1\\hub\\hub-0.0.1-SNAPSHOT.jar\"");
+                "cmd.exe", "/c", "java -jar \"" + getJarPath());
         proc = builder.start();
 
         BufferedReader stdInput = new BufferedReader(new
@@ -30,16 +31,13 @@ public class Main {
 
         BufferedReader stdError = new BufferedReader(new
                 InputStreamReader(proc.getErrorStream()));
-// Read the output from the command
-        System.out.println("Here is the standard output of the command:\n");
         String s = null;
         while ((s = stdInput.readLine()) != null) {
             jTextPane.appendANSI("\n" + s);
-            System.out.println(s);
         }
         System.out.println("Here is the standard error of the command (if any):\n");
         while ((s = stdError.readLine()) != null) {
-            System.out.println(s);
+            jTextPane.appendANSI("\n" + s);
         }
     }
 
@@ -78,5 +76,17 @@ public class Main {
                 }
             }
         });
+    }
+
+    public static String getJarPath() {
+        String dirtyPath = Main.class.getResource("").toString();
+        String jarPath = dirtyPath.replaceAll("^.*file:/", ""); //removes file:/ and everything before it
+        jarPath = jarPath.replaceAll("jar!.*", "jar"); //removes everything after .jar, if .jar exists in dirtyPath
+        jarPath = jarPath.replaceAll("%20", " "); //necessary if path has spaces within
+        if (!jarPath.endsWith(".jar")) { // this is needed if you plan to run the app using Spring Tools Suit play button.
+            jarPath = jarPath.replaceAll("/classes/.*", "/classes/");
+        }
+        String directoryPath = Paths.get(jarPath).getParent().toString(); //Paths - from java 8
+        return directoryPath + "\\hub-0.0.1-SNAPSHOT.jar";
     }
 }
