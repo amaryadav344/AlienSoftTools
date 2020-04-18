@@ -52,7 +52,7 @@ public class DBMetaDataRepository {
         return db_name;
     }
 
-    public String getDataTypeFromDBDataType(String DBDataType) {
+    private String getDataTypeFromDBDataType(String DBDataType) {
         String DataType = "String";
         switch (DBDataType.toLowerCase()) {
             case "char":

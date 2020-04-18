@@ -12,6 +12,7 @@ import com.webstudio.hub.models.Branch;
 import com.webstudio.hub.models.HubConfig;
 import com.webstudio.hub.repositories.DBMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class XMLController {
+    @Autowired
+    @Qualifier("DefaultBranch")
     Branch CurrentBranch;
     @Autowired
     DBMetaDataRepository DBMetaDataRepository;
@@ -195,12 +198,7 @@ public class XMLController {
 
     @RequestMapping(value = "/xml/LoadProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity LoadProject() throws IOException {
-        HubConfig hubConfig = HubConfig.getInstance();
-        Optional<Branch> optionalBranch = hubConfig.getBranches().stream().filter(Branch::isDefault).findFirst();
-        if (optionalBranch.isPresent()) {
-            CurrentBranch = optionalBranch.get();
-            projectStore.LoadProject(CurrentBranch);
-        }
+        projectStore.LoadProject(CurrentBranch);
         return new ResponseEntity(HttpStatus.OK);
     }
 
