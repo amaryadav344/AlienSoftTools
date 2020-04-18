@@ -11,11 +11,15 @@ import java.io.IOException;
 import java.util.Date;
 
 public class ModelHelper {
-    public static void createModel(ClassName busBase, ClassName doBase, IEntity entity, String PackageName, String BSModelPath) throws IOException {
+    public static void createModel(IEntity entity, String PackageName, String Path, String destinationPath) throws IOException {
+
+        ClassName busBase = ClassName.get(PackageName, "BusBase");
+        ClassName doBase = ClassName.get(PackageName, "DoBase");
+        PackageName = PackageName + "." + destinationPath.replace("\\", ".");
         String cdoClassName = "cdo" + entity.getModelName().substring(3);
         String doClassName = "do" + entity.getModelName().substring(3);
         String modelClassName = entity.getModelName();
-        File file = new File(BSModelPath);
+        File file = new File(Path);
         ModelBuilder modelBuilder = new ModelBuilder(modelClassName)
                 .setPackageName(PackageName)
                 .setSuperClass(busBase)

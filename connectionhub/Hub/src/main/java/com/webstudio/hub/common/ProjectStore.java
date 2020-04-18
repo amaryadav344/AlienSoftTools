@@ -55,10 +55,8 @@ public class ProjectStore {
             String xml = xmlStore.getXMLString(entity);
             FileHelper.CreateAndWriteFile(branch.getXMLPath() + "/" + path + "/" + entity.getName() + ".ent.xml", xml);
             if (createModel) {
-                ModelHelper.createModel(ClassName.get(branch.getPackageName(), "BusBase"),
-                        ClassName.get(branch.getPackageName(), "DoBase"), entity,
-                        branch.getPackageName() + "." + path.replace("/", "."),
-                        branch.getSourcePath() + branch.getSourcePath());
+                ModelHelper.createModel(entity, branch.getPackageName(),
+                        branch.getSourcePath(),path);
             }
             xmlStore.SaveXml(ixmlBase, entity.getName());
         } else if (ixmlBase instanceof IForm) {

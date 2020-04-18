@@ -6,17 +6,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
+@Component(value = "HubConfig")
 @JacksonXmlRootElement(localName = "HubConfig")
-public class HubConfig {
+public class HubConfig implements DisposableBean {
     public static Logger logger = Logger.getLogger(HubConfig.class.getName());
-    DatabaseConnection DatabaseConnection;
+    Database Database;
     List<Branch> branches;
     @JsonIgnore
     private static HubConfig mHubConfig;
@@ -31,6 +34,7 @@ public class HubConfig {
 
     }
 
+    @PostConstruct
     public static void InitializeeConfig() throws IOException {
         if (mHubConfig == null) {
             String content = FileHelper.ReadCompleteFile(getHubConfigFilePath());
@@ -38,13 +42,13 @@ public class HubConfig {
         }
     }
 
-    @JacksonXmlElementWrapper(localName = "DatabaseConnection")
-    public DatabaseConnection getDatabaseConnection() {
-        return DatabaseConnection;
+    @JacksonXmlElementWrapper(localName = "Database")
+    public Database getDatabaseConnection() {
+        return Database;
     }
 
-    public void setDatabaseConnection(DatabaseConnection databaseConnection) {
-        DatabaseConnection = databaseConnection;
+    public void setDatabaseConnection(Database databaseConnection) {
+        Database = databaseConnection;
     }
 
     @JacksonXmlElementWrapper(localName = "Branches")
@@ -68,5 +72,10 @@ public class HubConfig {
         }
         String directoryPath = Paths.get(jarPath).getParent().toString(); //Paths - from java 8
         return directoryPath + "\\HubConfig.xml";
+    }
+
+    @Override
+    public void destroy() {
+        logger.info("stopping the aplication please note it down");
     }
 }

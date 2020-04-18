@@ -1,6 +1,7 @@
 package com.webstudio.hub.controllers;
 
 
+import com.business.utils.FileHelper;
 import com.business.utils.models.Entity.*;
 import com.business.utils.models.IXMLBase;
 import com.business.utils.models.UI.IForm;
@@ -9,7 +10,7 @@ import com.webstudio.hub.common.Constants;
 import com.webstudio.hub.common.ProjectStore;
 import com.webstudio.hub.models.Branch;
 import com.webstudio.hub.models.HubConfig;
-import com.webstudio.hub.repositories.TableRepository;
+import com.webstudio.hub.repositories.DBMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,8 +27,9 @@ import java.util.stream.Collectors;
 
 @RestController
 public class XMLController {
+    Branch CurrentBranch;
     @Autowired
-    TableRepository tableRepository;
+    DBMetaDataRepository DBMetaDataRepository;
     ProjectStore projectStore = ProjectStore.getInstance();
 
     @RequestMapping(value = "/xml/jstoxml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
@@ -54,28 +56,28 @@ public class XMLController {
         return new ResponseEntity<>(value, HttpStatus.OK);
     }
 
-    /*@RequestMapping(value = "/xml/getMatchingFolders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/xml/getMatchingFolders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String[]> getMatchingFolders(@RequestBody(required = false) String query) {
         query = query == null ? "" : query;
-        List<String> folders = FileHelper.ListAllFolders(systemSettingsService.getXmlBasePath(), "", query);
+        List<String> folders = FileHelper.ListAllFolders(CurrentBranch.getXMLPath(), "", query);
         return new ResponseEntity<>(folders.toArray(new String[folders.size()]), HttpStatus.OK);
-    }*/
+    }
 
     @RequestMapping(value = "/xml/getMatchingTableNames", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String[]> getMatchingTableNames(@RequestBody(required = false) String query) {
         query = query == null ? "" : query;
-        List<String> tables = tableRepository.getAllTables(query);
+        List<String> tables = DBMetaDataRepository.getAllTables(query);
         return new ResponseEntity<>(tables.toArray(new String[tables.size()]), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/isTablePresent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> isTablePresent(@RequestBody String tableName) {
-        return new ResponseEntity<>(tableRepository.getIsTablePresent(tableName), HttpStatus.OK);
+        return new ResponseEntity<>(DBMetaDataRepository.getIsTablePresent(tableName), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/getColumns", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IColumn[]> GetColumns(@RequestBody String tableName) {
-        List<IColumn> columns = tableRepository.getColumns(tableName);
+        List<IColumn> columns = DBMetaDataRepository.getColumns(tableName);
         return new ResponseEntity<>(columns.toArray(new IColumn[columns.size()]), HttpStatus.OK);
     }
 
@@ -195,22 +197,16 @@ public class XMLController {
     public ResponseEntity LoadProject() throws IOException {
         HubConfig hubConfig = HubConfig.getInstance();
         Optional<Branch> optionalBranch = hubConfig.getBranches().stream().filter(Branch::isDefault).findFirst();
-        if (optionalBranch.isPresent()){
-            Branch CurrentBranch = optionalBranch.get();
+        if (optionalBranch.isPresent()) {
+            CurrentBranch = optionalBranch.get();
             projectStore.LoadProject(CurrentBranch);
         }
-
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/xml/RefreshMetaData", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity RefreshMetaData() throws IOException {
-        HubConfig hubConfig = HubConfig.getInstance();
-        Optional<Branch> optionalBranch = hubConfig.getBranches().stream().filter(Branch::isDefault).findFirst();
-        if (optionalBranch.isPresent()){
-            Branch CurrentBranch = optionalBranch.get();
-            projectStore.LoadProject(CurrentBranch);
-        }
+        projectStore.LoadProject(CurrentBranch);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

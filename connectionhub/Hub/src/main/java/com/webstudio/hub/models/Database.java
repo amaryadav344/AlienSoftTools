@@ -2,11 +2,7 @@ package com.webstudio.hub.models;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class DatabaseConnection {
-    public static String DATABASE_URL = "DatabaseUrl";
-    public static String DATABASE_USERNAME = "DatabaseUsername";
-    public static String DATABASE_PASSWORD = "DatabasePassword";
-    public static String DATABASE_DRIVER = "DatabaseDriver";
+public class Database {
     @JacksonXmlProperty(localName = "DatabaseUrl")
     private String DatabaseUrl;
     @JacksonXmlProperty(localName = "DatabaseUsername")
@@ -16,8 +12,6 @@ public class DatabaseConnection {
     @JacksonXmlProperty(localName = "DatabaseDriver")
     private String DatabaseDriver;
 
-    public DatabaseConnection() {
-    }
 
     public String getDatabaseUrl() {
         return DatabaseUrl;
