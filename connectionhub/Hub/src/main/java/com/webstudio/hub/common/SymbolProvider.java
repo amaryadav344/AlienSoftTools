@@ -3,6 +3,7 @@ package com.webstudio.hub.common;
 import com.business.utils.models.Entity.IObjectMethod;
 import com.business.utils.models.Entity.IObjectParameter;
 import com.business.utils.models.Entity.ISymbol;
+import org.springframework.stereotype.Component;
 import spoon.JarLauncher;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtParameter;
@@ -17,21 +18,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Component
 public class SymbolProvider {
-    private static SymbolProvider mSymbolProvider = null;
     private Factory factory;
     private HashMap<String, List<CtFieldReference<?>>> SymbolStore;
 
     private SymbolProvider() {
         this.SymbolStore = new HashMap<>();
-    }
-
-    public static SymbolProvider getInstance() {
-        if (mSymbolProvider == null) {
-            mSymbolProvider = new SymbolProvider();
-        }
-        return mSymbolProvider;
     }
 
     public void LoadJar(String JarFilePath) {

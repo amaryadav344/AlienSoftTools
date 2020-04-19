@@ -7,18 +7,20 @@ import java.util.List;
 
 public class Branch {
     @JacksonXmlProperty(localName = "Name", isAttribute = true)
-    String Name;
+    private String Name;
     @JacksonXmlProperty(localName = "Default", isAttribute = true)
-    boolean Default;
+    private boolean Default;
     @JacksonXmlProperty(localName = "XMLPath")
-    String XMLPath;
+    private String XMLPath;
     @JacksonXmlProperty(localName = "PackageName")
-    String PackageName;
+    private String PackageName;
     @JacksonXmlProperty(localName = "SourcePath")
-    String SourcePath;
+    private String SourcePath;
+    @JacksonXmlProperty(localName = "BusinessConfigPath")
+    private String BusinessConfigPath;
     @JacksonXmlElementWrapper(localName = "BusinessObjects")
     @JacksonXmlProperty(localName = "BusinessObject")
-    List<String> BusinessObject;
+    private List<String> BusinessObject;
 
     public Branch() {
     }
@@ -69,5 +71,13 @@ public class Branch {
 
     public void setBusinessObject(List<String> businessObject) {
         BusinessObject = businessObject;
+    }
+
+    public String getBusinessConfigPath() {
+        return BusinessConfigPath;
+    }
+
+    public void setBusinessConfigPath(String businessConfigPath) {
+        BusinessConfigPath = businessConfigPath;
     }
 }

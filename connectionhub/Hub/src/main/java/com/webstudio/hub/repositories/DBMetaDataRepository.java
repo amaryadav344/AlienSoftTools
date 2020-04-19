@@ -42,16 +42,6 @@ public class DBMetaDataRepository {
 
     }
 
-    public String getConnectionString() {
-        String db_name = "";
-        try {
-            db_name = jdbcTemplateBusinessDB.getDataSource().getConnection().getMetaData().getURL();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return db_name;
-    }
-
     private String getDataTypeFromDBDataType(String DBDataType) {
         String DataType = "String";
         switch (DBDataType.toLowerCase()) {

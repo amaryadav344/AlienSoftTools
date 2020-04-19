@@ -8,8 +8,8 @@ import com.business.utils.models.UI.IForm;
 import com.business.utils.models.UI.NavigationParameter;
 import com.webstudio.hub.common.Constants;
 import com.webstudio.hub.common.ProjectStore;
+import com.webstudio.hub.config.AppConfig;
 import com.webstudio.hub.models.Branch;
-import com.webstudio.hub.models.HubConfig;
 import com.webstudio.hub.repositories.DBMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -33,7 +32,10 @@ public class XMLController {
     Branch CurrentBranch;
     @Autowired
     DBMetaDataRepository DBMetaDataRepository;
-    ProjectStore projectStore = ProjectStore.getInstance();
+    @Autowired
+    AppConfig appConfig;
+    @Autowired
+    ProjectStore projectStore;
 
     @RequestMapping(value = "/xml/jstoxml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> getXmlFromObject(@RequestBody IXMLBase entity) throws IOException {
@@ -186,12 +188,10 @@ public class XMLController {
     }
 
     @RequestMapping(value = "/xml/GetDBConnectionInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IDBConnectionInfo> GetDBConnection() throws IOException {
-        HubConfig hubConfig = HubConfig.getInstance();
-        Optional<Branch> optionalBranch = hubConfig.getBranches().stream().filter(Branch::isDefault).findFirst();
+    public ResponseEntity<IDBConnectionInfo> GetDBConnection() {
         IDBConnectionInfo idbConnectionInfo = new IDBConnectionInfo();
-        idbConnectionInfo.setDBUrl(hubConfig.getDatabaseConnection().getDatabaseUrl());
-        idbConnectionInfo.setDBUserName(hubConfig.getDatabaseConnection().getDatabaseUsername());
+        idbConnectionInfo.setDBUrl(appConfig.getBusinessConfig().getDatabaseConnection().getDatabaseUrl());
+        idbConnectionInfo.setDBUserName(appConfig.getBusinessConfig().getDatabaseConnection().getDatabaseUsername());
         return new ResponseEntity<>(idbConnectionInfo, HttpStatus.OK);
     }
 

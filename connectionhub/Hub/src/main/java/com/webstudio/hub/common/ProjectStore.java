@@ -10,28 +10,38 @@ import com.business.utils.models.UI.IForm;
 import com.business.utils.models.UI.NavigationParameter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webstudio.hub.models.Branch;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
+@Component
 public class ProjectStore {
-    private static ProjectStore mProjectStore;
-    private XMLStore xmlStore = XMLStore.getInstance();
-    private FileStore fileStore = FileStore.getInstance();
-    private SymbolProvider symbolProvider = SymbolProvider.getInstance();
-    private Branch branch;
-
-    public static ProjectStore getInstance() {
-        if (mProjectStore == null)
-            mProjectStore = new ProjectStore();
-        return mProjectStore;
-    }
+    @Autowired
+    private XMLStore xmlStore;
+    @Autowired
+    FileStore fileStore;
+    @Autowired
+    private SymbolProvider symbolProvider;
+    @Autowired
+    @Qualifier("DefaultBranch")
+    Branch DefaultBranch;
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     public void LoadProject(Branch branch) throws IOException {
-        this.branch = branch;
         symbolProvider.LoadJar(branch.getBusinessObject().get(0));
         fileStore.LoadFilesAndFolders(branch.getXMLPath());
         xmlStore.LoadXML(fileStore.getFiles(), branch.getXMLPath());
+    }
+
+    @PostConstruct
+    public void LoadDefaultProject() throws IOException {
+        logger.info("Loading Default Branch " + DefaultBranch.getName());
+        LoadProject(DefaultBranch);
     }
 
 
@@ -41,12 +51,12 @@ public class ProjectStore {
             IEntity entity = (IEntity) ixmlBase;
             xmlStore.SaveXml(ixmlBase, entity.getName());
             xml = xmlStore.getXMLString(entity);
-            FileHelper.WriteFile(branch.getXMLPath() + "/" + Path, xml);
+            FileHelper.WriteFile(DefaultBranch.getXMLPath() + "/" + Path, xml);
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             xmlStore.SaveXml(ixmlBase, form.getName());
             xml = xmlStore.getXMLString(form);
-            FileHelper.WriteFile(branch.getXMLPath() + "/" + Path, xml);
+            FileHelper.WriteFile(DefaultBranch.getXMLPath() + "/" + Path, xml);
         }
         return xml;
     }
@@ -55,32 +65,32 @@ public class ProjectStore {
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
             String xml = xmlStore.getXMLString(entity);
-            FileHelper.CreateAndWriteFile(branch.getXMLPath() + "/" + path + "/" + entity.getName() + ".ent.xml", xml);
+            FileHelper.CreateAndWriteFile(DefaultBranch.getXMLPath() + "/" + path + "/" + entity.getName() + ".ent.xml", xml);
             if (createModel) {
-                ModelHelper.createModel(entity, branch.getPackageName(),
-                        branch.getSourcePath(),path);
+                ModelHelper.createModel(entity, DefaultBranch.getPackageName(),
+                        DefaultBranch.getSourcePath(), path);
             }
             xmlStore.SaveXml(ixmlBase, entity.getName());
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             String xml = xmlStore.getXMLString(form);
-            FileHelper.CreateAndWriteFile(branch.getXMLPath() + "/" + path + "/" + form.getName() + ".form.xml", xml);
+            FileHelper.CreateAndWriteFile(DefaultBranch.getXMLPath() + "/" + path + "/" + form.getName() + ".form.xml", xml);
             xmlStore.SaveXml(ixmlBase, form.getName());
         }
     }
 
     public List<String> GetSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
         List<String> symbols = symbolProvider.getMatchingSymbols(ClassPath, query);
         return symbols;
     }
 
     public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
+        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getObjectSymbols(ClassPath, query);
         for (ISymbol symbol : symbols) {
             String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
@@ -90,9 +100,9 @@ public class ProjectStore {
     }
 
     public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
+        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getCollectionSymbols(ClassPath, query);
         for (ISymbol symbol : symbols) {
             String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
@@ -102,9 +112,9 @@ public class ProjectStore {
     }
 
     public List<ISymbol> GetVariableSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = branch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
+        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
         List<ISymbol> symbols = symbolProvider.getVariableSymbols(ClassPath, query);
         return symbols;
     }
@@ -137,9 +147,9 @@ public class ProjectStore {
     }
 
     public List<IObjectMethod> ListObjectMethods(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(branch.getXMLPath() + file.getPath());
+        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = (branch.getPackageName() + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName()).replace("\\", ".");
+        String ClassPath = (DefaultBranch.getPackageName() + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName()).replace("\\", ".");
         List<IObjectMethod> symbols = symbolProvider.getAllMethods(ClassPath, query);
         return symbols;
     }

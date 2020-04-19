@@ -10,6 +10,7 @@ import com.business.utils.models.IXMLBase;
 import com.business.utils.models.UI.IForm;
 import com.business.utils.models.UI.NavigationParameter;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,17 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class XMLStore {
-    private static XMLStore xmlStore;
     private HashMap<String, IXMLBase> stringIXMLBaseHashMap;
     private XMLWorker xmlWorker = XMLWorker.getInstance();
     private HashMap<String, String> EntityModelMappings;
 
-    public static XMLStore getInstance() {
-        if (xmlStore == null)
-            xmlStore = new XMLStore();
-        return xmlStore;
-    }
 
     public void SaveXml(IXMLBase ixmlBase, String name) {
         stringIXMLBaseHashMap.put(name, ixmlBase);
