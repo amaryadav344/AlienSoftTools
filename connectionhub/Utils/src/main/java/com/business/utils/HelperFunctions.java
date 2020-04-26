@@ -1,14 +1,13 @@
-package com.webstudio.hub.common;
+package com.business.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.webstudio.hub.config.HubConfig;
 
 import java.nio.file.Paths;
 
 public class HelperFunctions {
     @JsonIgnore
-    public static String getHubConfigFilePath() {
-        String dirtyPath = HubConfig.class.getResource("").toString();
+    public static String getExecutableHomePath(Class c, String fileName) {
+        String dirtyPath = c.getResource("").toString();
         String jarPath = dirtyPath.replaceAll("^.*file:/", ""); //removes file:/ and everything before it
         jarPath = jarPath.replaceAll("jar!.*", "jar"); //removes everything after .jar, if .jar exists in dirtyPath
         jarPath = jarPath.replaceAll("%20", " "); //necessary if path has spaces within
@@ -16,6 +15,6 @@ public class HelperFunctions {
             jarPath = jarPath.replaceAll("/classes/.*", "/classes/");
         }
         String directoryPath = Paths.get(jarPath).getParent().toString(); //Paths - from java 8
-        return directoryPath + "\\HubConfig.xml";
+        return directoryPath + "\\" + fileName;
     }
 }

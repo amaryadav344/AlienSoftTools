@@ -1,19 +1,20 @@
-package com.webstudio.hub.config;
+package com.business.utils.config;
 
+import com.business.utils.models.common.Config;
+import com.business.utils.models.common.Database;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.webstudio.hub.models.Config;
-import com.webstudio.hub.models.Database;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @JacksonXmlRootElement(localName = "BusinessConfig")
 public class BusinessConfig {
-    private static Logger logger = Logger.getLogger(HubConfig.class.getName());
-    private com.webstudio.hub.models.Database Database;
-    List<Config> Configs;
+    private Database Database;
+    private List<Config> Configs;
+    private HashMap<String, String> ConfigMap;
 
     @JacksonXmlElementWrapper(localName = "Database")
     public Database getDatabaseConnection() {
@@ -26,12 +27,19 @@ public class BusinessConfig {
 
     @JacksonXmlElementWrapper(localName = "Configs")
     @JacksonXmlProperty(localName = "Config")
-    public List<Config> getConfigs() {
+    private List<Config> getConfigs() {
         return Configs;
     }
 
     public void setConfigs(List<Config> branches) {
         this.Configs = branches;
+        this.ConfigMap = new HashMap<>();
+        this.ConfigMap = (HashMap<String, String>) Configs.stream().collect(Collectors.toMap(Config::getKey, Config::getValue));
+
+    }
+
+    public String getConfigValue(String Key) {
+        return this.ConfigMap.get(Key);
     }
 
 

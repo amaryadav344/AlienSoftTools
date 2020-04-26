@@ -1,4 +1,4 @@
-package com.webstudio.hub.models;
+package com.business.utils.models.common;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 

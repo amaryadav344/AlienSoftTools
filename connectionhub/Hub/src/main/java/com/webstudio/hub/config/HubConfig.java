@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.webstudio.hub.models.Branch;
-import com.webstudio.hub.models.Database;
+import com.business.utils.models.common.Database;
 import org.springframework.beans.factory.DisposableBean;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 @JacksonXmlRootElement(localName = "HubConfig")
 public class HubConfig implements DisposableBean {
     private static Logger logger = Logger.getLogger(HubConfig.class.getName());
-    private com.webstudio.hub.models.Database Database;
+    private com.business.utils.models.common.Database Database;
     private List<Branch> branches;
 
     @JacksonXmlElementWrapper(localName = "Database")
