@@ -35,7 +35,7 @@ public class ProjectStore {
     public void LoadProject(Branch branch) throws IOException {
         symbolProvider.LoadJar(branch.getBusinessObject().get(0));
         fileStore.LoadFilesAndFolders(branch.getXMLPath());
-        xmlStore.LoadXML(fileStore.getFiles(), branch.getXMLPath());
+        xmlStore.LoadXML(fileStore.getFiles());
     }
 
     @PostConstruct
@@ -51,21 +51,23 @@ public class ProjectStore {
             IEntity entity = (IEntity) ixmlBase;
             xmlStore.SaveXml(ixmlBase, entity.getName());
             xml = xmlStore.getXMLString(entity);
-            FileHelper.WriteFile(DefaultBranch.getXMLPath() + "/" + Path, xml);
+            FileHelper.WriteFile(Path, xml);
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             xmlStore.SaveXml(ixmlBase, form.getName());
             xml = xmlStore.getXMLString(form);
-            FileHelper.WriteFile(DefaultBranch.getXMLPath() + "/" + Path, xml);
+            FileHelper.WriteFile(Path, xml);
         }
         return xml;
     }
 
-    public void CreateEntity(IXMLBase ixmlBase, String path, boolean createModel) throws IOException {
+    public String CreateEntity(IXMLBase ixmlBase, String path, boolean createModel) throws IOException {
+        String Path = "";
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
             String xml = xmlStore.getXMLString(entity);
-            FileHelper.CreateAndWriteFile(DefaultBranch.getXMLPath() + "/" + path + "/" + entity.getName() + ".ent.xml", xml);
+            Path = DefaultBranch.getXMLPath() + "\\" + path + "\\" + entity.getName() + ".ent.xml";
+            FileHelper.CreateAndWriteFile(Path, xml);
             if (createModel) {
                 ModelHelper.createModel(entity, DefaultBranch.getPackageName(),
                         DefaultBranch.getSourcePath(), path);
@@ -74,9 +76,11 @@ public class ProjectStore {
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             String xml = xmlStore.getXMLString(form);
-            FileHelper.CreateAndWriteFile(DefaultBranch.getXMLPath() + "/" + path + "/" + form.getName() + ".form.xml", xml);
+            Path = DefaultBranch.getXMLPath() + "\\" + path + "\\" + form.getName() + ".form.xml";
+            FileHelper.CreateAndWriteFile(Path, xml);
             xmlStore.SaveXml(ixmlBase, form.getName());
         }
+        return Path;
     }
 
     public List<String> GetSymbols(IFile file, String query) throws IOException {

@@ -14,7 +14,7 @@ public class FileStore {
 
 
     public void LoadFilesAndFolders(String path) {
-        files = FileHelper.ListAllFiles(path, path);
+        files = FileHelper.ListAllFiles(path);
         folders = FileHelper.ListAllFolders(path, "", "");
     }
 

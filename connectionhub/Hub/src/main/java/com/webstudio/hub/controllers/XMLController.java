@@ -87,9 +87,9 @@ public class XMLController {
     }
 
     @RequestMapping(value = "/xml/CreateNewXml/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity CreateNewXml(@RequestBody IXMLBase ixmlBase, @RequestParam("path") String path, @RequestParam("createModel") boolean createModel) throws IOException {
-        projectStore.CreateEntity(ixmlBase, path, createModel);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<String> CreateNewXml(@RequestBody IXMLBase ixmlBase, @RequestParam("path") String path, @RequestParam("createModel") boolean createModel) throws IOException {
+        String Path = projectStore.CreateEntity(ixmlBase, path, createModel);
+        return new ResponseEntity<>(Path, HttpStatus.OK);
     }
 
 

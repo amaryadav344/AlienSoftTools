@@ -66,11 +66,11 @@ public class XMLStore {
         return navigationParameters;
     }
 
-    public void LoadXML(List<IFile> files, String XMLPath) throws IOException {
+    public void LoadXML(List<IFile> files) throws IOException {
         stringIXMLBaseHashMap = new HashMap<>();
         EntityModelMappings = new HashMap<>();
         for (IFile file : files) {
-            String xmlString = FileHelper.ReadCompleteFile(XMLPath + file.getPath());
+            String xmlString = FileHelper.ReadCompleteFile(file.getPath());
             IXMLBase value = xmlWorker.getXMLObjectFromString(xmlString);
             if (value instanceof IEntity) {
                 IEntity entity = (IEntity) value;

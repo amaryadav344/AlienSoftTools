@@ -31,9 +31,9 @@ public class FileHelper {
         return new String(data, StandardCharsets.UTF_8);
     }
 
-    public static List<IFile> ListAllFiles(String directory, String replaceChar) {
+    public static List<IFile> ListAllFiles(String directory) {
         List<IFile> files = new ArrayList<>();
-        ListF(directory, replaceChar, files);
+        ListF(directory, files);
         return files;
     }
 
@@ -58,17 +58,17 @@ public class FileHelper {
         });
     }
 
-    private static void ListF(String directory, String replaceChar, List<IFile> files) {
+    private static void ListF(String directory, List<IFile> files) {
         File file = new File(directory);
         file.listFiles((file1, s) -> {
             File current = new File(file1, s);
             if (current.isDirectory()) {
-                ListF(current.getAbsolutePath(), replaceChar, files);
+                ListF(current.getAbsolutePath(), files);
             } else {
                 if (current.getName().endsWith(".ent.xml") || current.getName().endsWith(".form.xml")) {
                     IFile iFile = new IFile();
                     iFile.setName(current.getName());
-                    iFile.setPath(current.getAbsolutePath().replace(replaceChar, ""));
+                    iFile.setPath(current.getAbsolutePath());
                     if (current.getName().endsWith(".ent.xml")) {
                         iFile.setType(0);
                     } else if (current.getName().endsWith(".form.xml")) {
