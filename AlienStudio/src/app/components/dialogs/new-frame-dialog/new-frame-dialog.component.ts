@@ -48,7 +48,7 @@ export class NewFrameDialogComponent implements OnInit {
     this.httpClientService.createNewXml(this.form, this.path, false).subscribe(
       (res) => {
         this.ref.close({
-          path: this.path + '/' + this.form.name + '.form.xml',
+          path: res,
           name: this.form.name + '.form.xml',
           type: 1
         });

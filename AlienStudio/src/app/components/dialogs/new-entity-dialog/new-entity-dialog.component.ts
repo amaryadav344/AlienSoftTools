@@ -60,7 +60,7 @@ export class NewEntityDialogComponent implements OnInit {
     this.httpClientService.createNewXml(this.entity, this.path, this.createJavaClass).subscribe(
       (res) => {
         this.ref.close({
-          path: '\\' + this.path + '\\' + this.entity.name + '.ent.xml',
+          path: res,
           name: this.entity.name + '.ent.xml',
           type: 0
         });

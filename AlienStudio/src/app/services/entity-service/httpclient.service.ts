@@ -51,7 +51,7 @@ export class HttpClientService {
     let params = new HttpParams();
     params = params.append('path', Path);
     params = params.append('createModel', createModel.toString());
-    return this.httpClient.post(R.SERVER_URLS.CREATE_NEW_XML, entity, {params, responseType: 'json'});
+    return this.httpClient.post(R.SERVER_URLS.CREATE_NEW_XML, entity, {params, responseType: 'text'});
   }
 
   public getFiles() {
