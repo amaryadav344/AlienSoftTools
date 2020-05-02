@@ -36,7 +36,7 @@ public class DBMetaDataRepository {
         return Count != 0;
     }
 
-    public List getColumns(String tableName) {
+    public List<IColumn> getColumns(String tableName) {
         String q = "SELECT COLUMN_NAME as name,DATA_TYPE as dataType,IS_NULLABLE as canBeNull,CAST(COALESCE (CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION,'') AS VARCHAR) as maxLength,COLUMN_NAME as objectField FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?";
         return jdbcTemplateBusinessDB.query(q, new Object[]{tableName}, new ColumnRowMapper());
 

@@ -1,8 +1,11 @@
 package com.webstudio.hub.common;
 
-import com.business.utils.models.Entity.IObjectMethod;
-import com.business.utils.models.Entity.IObjectParameter;
-import com.business.utils.models.Entity.ISymbol;
+import com.business.utils.FileHelper;
+import com.business.utils.models.Entity.*;
+import com.business.utils.models.IXMLBase;
+import com.webstudio.hub.models.Branch;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import spoon.JarLauncher;
 import spoon.reflect.declaration.CtExecutable;
@@ -12,6 +15,7 @@ import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtReference;
 import spoon.reflect.reference.CtTypeReference;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,6 +24,11 @@ import java.util.stream.Collectors;
 
 @Component
 public class SymbolProvider {
+    @Autowired
+    XMLStore xmlStore;
+    @Autowired
+    @Qualifier("DefaultBranch")
+    Branch DefaultBranch;
     private Factory factory;
     private HashMap<String, List<CtFieldReference<?>>> SymbolStore;
 
@@ -193,4 +202,61 @@ public class SymbolProvider {
 
         return HasBaseSuperClass(superClass);
     }
+
+    public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(file.getPath());
+        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
+        String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
+        List<ISymbol> symbols = getObjectSymbols(ClassPath, query);
+        for (ISymbol symbol : symbols) {
+            String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
+            symbol.setEntityName(ModelName);
+        }
+        return symbols;
+    }
+
+    public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(file.getPath());
+        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
+        String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
+        List<ISymbol> symbols = getCollectionSymbols(ClassPath, query);
+        for (ISymbol symbol : symbols) {
+            String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
+            symbol.setEntityName(ModelName);
+        }
+        return symbols;
+    }
+
+    public List<ISymbol> GetVariableSymbols(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(file.getPath());
+        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
+        String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
+        List<ISymbol> symbols = getVariableSymbols(ClassPath, query);
+        return symbols;
+    }
+
+    public String GetFullyQualifiedModelName(IFile file, String modelName) {
+        String RelativeFilePath = file.getPath().replace(DefaultBranch.getXMLPath(), "");
+        String ModelRelativePath = RelativeFilePath.replace(file.getName(), modelName);
+        return DefaultBranch.getPackageName() + ModelRelativePath.replace("\\", ".");
+
+    }
+
+    public List<IObjectMethod> ListObjectMethods(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(file.getPath());
+        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
+        String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
+        List<IObjectMethod> symbols = getAllMethods(ClassPath, query);
+        return symbols;
+    }
+    /*public IXMLBase GetXml(IFile file) {
+        String name = "";
+        if (file.getType() == 0) {
+            name = file.getName().replace(".ent.xml", "");
+        } else if (file.getType() == 1) {
+            name = file.getName().replace(".form.xml", "");
+        }
+        return xmlStore.GetXml(name);
+    }*/
+
 }

@@ -49,8 +49,12 @@ export class CustomAutoCompleteComponent implements OnInit, DoCheck {
       if (!(this.selections === null)) {
         const selections = this.text.split(this.separator);
         selections.forEach((selection, index) => {
-          if (!(this.selections[index].name === selection)) {
-            this.selections.splice(index, this.selections.length - index);
+          if (this.selections[index]) {
+            if (!(this.selections[index].name === selection)) {
+              this.selections.splice(index, this.selections.length - index);
+            }
+          } else {
+
           }
         });
       }
@@ -58,6 +62,10 @@ export class CustomAutoCompleteComponent implements OnInit, DoCheck {
       this.selections = [];
     }
 
+  }
+
+  onTextChange(ChangedText) {
+    this.text = ChangedText;
   }
 
   ngDoCheck() {

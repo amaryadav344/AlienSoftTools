@@ -45,21 +45,7 @@ public class ProjectStore {
     }
 
 
-    public String SaveXml(IXMLBase ixmlBase, String Path) throws IOException {
-        String xml = "";
-        if (ixmlBase instanceof IEntity) {
-            IEntity entity = (IEntity) ixmlBase;
-            xmlStore.SaveXml(ixmlBase, entity.getName());
-            xml = xmlStore.getXMLString(entity);
-            FileHelper.WriteFile(Path, xml);
-        } else if (ixmlBase instanceof IForm) {
-            IForm form = (IForm) ixmlBase;
-            xmlStore.SaveXml(ixmlBase, form.getName());
-            xml = xmlStore.getXMLString(form);
-            FileHelper.WriteFile(Path, xml);
-        }
-        return xml;
-    }
+
 
     public String CreateEntity(IXMLBase ixmlBase, String path, boolean createModel) throws IOException {
         String Path = "";
@@ -83,59 +69,15 @@ public class ProjectStore {
         return Path;
     }
 
-    public List<String> GetSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
+    /*public List<String> GetSymbols(IFile file, String query) throws IOException {
+        String xmlString = FileHelper.ReadCompleteFile(file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName();
+        String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
         List<String> symbols = symbolProvider.getMatchingSymbols(ClassPath, query);
         return symbols;
-    }
+    }*/
 
-    public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
-        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
-        List<ISymbol> symbols = symbolProvider.getObjectSymbols(ClassPath, query);
-        for (ISymbol symbol : symbols) {
-            String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
-            symbol.setEntityName(ModelName);
-        }
-        return symbols;
-    }
 
-    public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
-        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
-        List<ISymbol> symbols = symbolProvider.getCollectionSymbols(ClassPath, query);
-        for (ISymbol symbol : symbols) {
-            String ModelName = xmlStore.getEntityNameByModelName(symbol.getObjectType());
-            symbol.setEntityName(ModelName);
-        }
-        return symbols;
-    }
-
-    public List<ISymbol> GetVariableSymbols(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
-        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = DefaultBranch.getPackageName() + "." + file.getPath().replace("\\" + file.getName(), "").replace("\\", "") + "." + value.getModelName();
-        List<ISymbol> symbols = symbolProvider.getVariableSymbols(ClassPath, query);
-        return symbols;
-    }
-
-    public IXMLBase GetXml(IFile file) {
-        String name = "";
-        if (file.getType() == 0) {
-            name = file.getName().replace(".ent.xml", "");
-        } else if (file.getType() == 1) {
-            name = file.getName().replace(".form.xml", "");
-        }
-        return xmlStore.GetXml(name);
-    }
-
-    public List<IFile> getFiles() {
-        return fileStore.getFiles();
-    }
 
     public List<String> getForms(String query) {
         return xmlStore.getFormsByQuery(query);
@@ -150,19 +92,11 @@ public class ProjectStore {
         return xmlStore.getXMLObjectFromString(xml);
     }
 
-    public List<IObjectMethod> ListObjectMethods(IFile file, String query) throws IOException {
-        String xmlString = FileHelper.ReadCompleteFile(DefaultBranch.getXMLPath() + file.getPath());
-        IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
-        String ClassPath = (DefaultBranch.getPackageName() + file.getPath().replace("\\" + file.getName(), "") + "." + value.getModelName()).replace("\\", ".");
-        List<IObjectMethod> symbols = symbolProvider.getAllMethods(ClassPath, query);
-        return symbols;
-    }
 
-    public List<String> getEntitiesByQuery(String query) {
-        return xmlStore.getEntitiesByQuery(query);
-    }
+
 
     public List<NavigationParameter> GetNavigationParameterByForm(String form) {
         return xmlStore.GetNavigationParameterByForm(form);
     }
+
 }

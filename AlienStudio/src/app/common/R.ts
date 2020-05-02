@@ -112,24 +112,24 @@ export class R {
     static TYPE_VARIBLE = 0;
   };
   static SERVER_URLS = class {
-    static JS_TO_XML = 'http://localhost:8080/xml/jstoxml';
-    static SAVE_XML = 'http://localhost:8080/xml/save';
-    static XML_TO_JS = 'http://localhost:8080/xml/xmltojs';
-    static GET_FILE = 'http://localhost:8080/xml/getxml';
-    static GET_MATCHING_FOLDERS = 'http://localhost:8080/xml/getMatchingFolders';
-    static GET_MATCHING_TABLES = 'http://localhost:8080/xml/getMatchingTableNames';
-    static GET_COLUMNS = 'http://localhost:8080/xml/getColumns';
-    static CREATE_NEW_XML = 'http://localhost:8080/xml/CreateNewXml/';
-    static GET_FILES = 'http://localhost:8080/xml/GetFiles';
-    static GET_FORMS = 'http://localhost:8080/xml/GetForms';
+    static JS_TO_XML = 'http://localhost:8080/XML/jstoxml';
+    static SAVE_XML = 'http://localhost:8080/XML/save';
+    static XML_TO_JS = 'http://localhost:8080/XML/xmltojs';
+    static GET_FILE = 'http://localhost:8080/XML/getxml';
+    static GET_MATCHING_FOLDERS = 'http://localhost:8080/Common/getMatchingFolders';
+    static GET_MATCHING_TABLES = 'http://localhost:8080/Common/getMatchingTableNames';
+    static GET_COLUMNS = 'http://localhost:8080/Common/getColumns';
+    static CREATE_NEW_XML = 'http://localhost:8080/XML/CreateNewXml/';
+    static GET_FILES = 'http://localhost:8080/File/GetFiles';
+    static GET_FORMS = 'http://localhost:8080/XML/GetForms';
     static GET_NAVIGATION_PARAMETER_BY_FORM = 'http://localhost:8080/xml/GetNavigationParameterByForm';
-    static GET_SYMBOLS = 'http://localhost:8080/xml/getSymbols';
-    static GET_ENTITY_FIELDS = 'http://localhost:8080/xml/getEntityFields';
-    static GET_DB_CONNECTION_INFO = 'http://localhost:8080/xml/GetDBConnectionInfo';
-    static LOAD_PROJECT = 'http://localhost:8080/xml/LoadProject';
-    static GET_OBJECT_METHODS = 'http://localhost:8080/xml/GetObjectMethods';
-    static LIST_ENTITIES = 'http://localhost:8080/xml/ListEntities';
-    static REFRESH_META_DATA = 'http://localhost:8080/xml/RefreshMetaData';
+    static GET_SYMBOLS = 'http://localhost:8080/Code/getSymbols';
+    static GET_ENTITY_FIELDS = 'http://localhost:8080/XML/getEntityFields';
+    static GET_DB_CONNECTION_INFO = 'http://localhost:8080/Common/GetDBConnectionInfo';
+    static LOAD_PROJECT = 'http://localhost:8080/Project/LoadProject';
+    static GET_OBJECT_METHODS = 'http://localhost:8080/Code/GetObjectMethods';
+    static LIST_ENTITIES = 'http://localhost:8080/XML/ListEntities';
+    static REFRESH_META_DATA = 'http://localhost:8080/Project/RefreshMetaData';
   };
 
   static Initializer = class {

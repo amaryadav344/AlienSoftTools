@@ -94,19 +94,82 @@ export class SideBarComponent implements OnInit {
 
 
   filterSymbols(event) {
-    if (this.PropertyInfo.ParentObject.type === R.Controls.TYPE_LIST_VIEW) {
-      this.httpClientService.getEntityFields(this.form.entity, this.PropertyInfo.ParentObject.entityField + '.' + event)
-        .toPromise()
-        .then((result) => {
-          this.mFieldSuggestions = result as  ISymbol[];
-        });
+    this.httpClientService.getEntityFields(this.form.entity, this.FindParentEntityFieldForControl(this.PropertyInfo.PropertiesObject) + event)
+      .toPromise()
+      .then((result) => {
+        this.mFieldSuggestions = result as  ISymbol[];
+      });
+
+  }
+
+  FindParentEntityFieldForControl(child) {
+    const ListControl = [];
+    this.CheckControl(this.form.control, ListControl);
+
+    if (ListControl.length > 0) {
+      for (const control of ListControl) {
+        if (this.CheckIfControlHasChild(control, child)) {
+          return control.entityField + '.';
+        }
+      }
     } else {
-      this.httpClientService.getEntityFields(this.form.entity, event)
-        .toPromise()
-        .then((result) => {
-          this.mFieldSuggestions = result as  ISymbol[];
-        });
+      return '';
     }
+    return '';
+  }
+
+  CheckIfControlHasChild(control: any, child: any) {
+    if (control === child && child.type !== R.Controls.TYPE_LIST_VIEW) {
+      return true;
+    } else {
+      if (control.control) {
+        if (this.CheckIfControlHasChild(control.control, child)) {
+          return true;
+        }
+      }
+      if (control.controls) {
+        for (const con of control.controls) {
+          if (this.CheckIfControlHasChild(con, child)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+
+  }
+
+  CheckControl(control, ListControl) {
+    if (control.type === R.Controls.TYPE_LIST_VIEW) {
+      ListControl.push(control);
+    } else {
+      if (control.control) {
+        this.CheckControl(control, ListControl);
+      }
+      if (control.controls) {
+        for (const con of control.controls) {
+          this.CheckControl(con, ListControl);
+        }
+      }
+    }
+
+  }
+
+
+  CheckListHasControl(ListView, child) {
+    let hascontrol;
+    if (ListView.control === child) {
+      hascontrol = true;
+    } else {
+      for (const control of ListView.control.controls) {
+        if (control === child) {
+          hascontrol = true;
+          break;
+        }
+        hascontrol = this.CheckListHasControl(control, child);
+      }
+    }
+    return hascontrol;
   }
 
   OpenNavigationParameterDialog() {
@@ -137,5 +200,6 @@ export class SideBarComponent implements OnInit {
       this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_INPUT ||
       this.PropertyInfo.PropertiesObject.type === R.Controls.TYPE_LIST_VIEW;
   }
+
 
 }

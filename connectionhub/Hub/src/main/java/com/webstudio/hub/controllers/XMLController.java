@@ -4,13 +4,9 @@ package com.webstudio.hub.controllers;
 import com.business.utils.FileHelper;
 import com.business.utils.models.Entity.*;
 import com.business.utils.models.IXMLBase;
-import com.business.utils.models.UI.IForm;
 import com.business.utils.models.UI.NavigationParameter;
-import com.webstudio.hub.common.Constants;
-import com.webstudio.hub.common.ProjectStore;
-import com.webstudio.hub.config.AppConfig;
+import com.webstudio.hub.common.XMLStore;
 import com.webstudio.hub.models.Branch;
-import com.webstudio.hub.repositories.DBMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -26,96 +22,47 @@ import java.util.stream.Collectors;
 
 
 @RestController
+@RequestMapping("XML")
 public class XMLController {
     @Autowired
     @Qualifier("DefaultBranch")
     Branch CurrentBranch;
     @Autowired
-    DBMetaDataRepository DBMetaDataRepository;
-    @Autowired
-    AppConfig appConfig;
-    @Autowired
-    ProjectStore projectStore;
+    XMLStore xmlStore;
 
-    @RequestMapping(value = "/xml/jstoxml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/jstoxml", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> getXmlFromObject(@RequestBody IXMLBase entity) throws IOException {
-        String xml = projectStore.getXMLString(entity);
+        String xml = xmlStore.getXMLString(entity);
         return new ResponseEntity<>(xml, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/xml/xmltojs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/xmltojs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IXMLBase> getObjectFromXMl(@RequestBody String xml) throws IOException {
-        IXMLBase value = projectStore.getXMLObjectFromString(xml);
+        IXMLBase value = xmlStore.getXMLObjectFromString(xml);
         return new ResponseEntity<>(value, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/xml/save", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> saveXml(@RequestBody IXMLBase entity, @RequestParam("path") String path) throws IOException {
-        String xml = projectStore.SaveXml(entity, path);
+        String xml = xmlStore.Save(entity, path);
         return new ResponseEntity<>(xml, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/xml/getxml", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getxml", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IXMLBase> getXml(@RequestBody IFile file) {
-        IXMLBase value = projectStore.GetXml(file);
+        IXMLBase value = xmlStore.GetXml(file);
         return new ResponseEntity<>(value, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/xml/getMatchingFolders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String[]> getMatchingFolders(@RequestBody(required = false) String query) {
-        query = query == null ? "" : query;
-        List<String> folders = FileHelper.ListAllFolders(CurrentBranch.getXMLPath(), "", query);
-        return new ResponseEntity<>(folders.toArray(new String[folders.size()]), HttpStatus.OK);
-    }
 
-    @RequestMapping(value = "/xml/getMatchingTableNames", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String[]> getMatchingTableNames(@RequestBody(required = false) String query) {
-        query = query == null ? "" : query;
-        List<String> tables = DBMetaDataRepository.getAllTables(query);
-        return new ResponseEntity<>(tables.toArray(new String[tables.size()]), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/xml/isTablePresent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> isTablePresent(@RequestBody String tableName) {
-        return new ResponseEntity<>(DBMetaDataRepository.getIsTablePresent(tableName), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/xml/getColumns", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IColumn[]> GetColumns(@RequestBody String tableName) {
-        List<IColumn> columns = DBMetaDataRepository.getColumns(tableName);
-        return new ResponseEntity<>(columns.toArray(new IColumn[columns.size()]), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/xml/CreateNewXml/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/CreateNewXml/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> CreateNewXml(@RequestBody IXMLBase ixmlBase, @RequestParam("path") String path, @RequestParam("createModel") boolean createModel) throws IOException {
-        String Path = projectStore.CreateEntity(ixmlBase, path, createModel);
+        String Path = xmlStore.CreateEntity(ixmlBase, path, createModel, CurrentBranch);
         return new ResponseEntity<>(Path, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/xml/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ISymbol[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query, @RequestParam(name = "type", required = false) int SymbolType) throws IOException {
-        List<ISymbol> symbols = new ArrayList<>();
-        if (file.getName().endsWith(".form.xml")) {
-            ResponseEntity<IXMLBase> form = getXml(file);
-            IForm iForm = (IForm) form.getBody();
-            String entity = iForm.getEntity() + ".ent.xml";
-            file = projectStore.getFiles().stream().filter(iFile -> iFile.getName().equals(entity)).findFirst().get();
-        }
-        if (SymbolType == Constants.SymbolTypes.TYPE_OBJECT) {
-            symbols.addAll(projectStore.GetObjectSymbols(file, query));
-        } else if (SymbolType == Constants.SymbolTypes.TYPE_COLLECTION) {
-            symbols.addAll(projectStore.GetObjectSymbols(file, query));
-            symbols.addAll(projectStore.GetCollectionSymbols(file, query));
-        } else if (SymbolType == Constants.SymbolTypes.TYPE_VARIBLE) {
-            symbols.addAll(projectStore.GetObjectSymbols(file, query));
-            symbols.addAll(projectStore.GetVariableSymbols(file, query));
-
-        }
-        return new ResponseEntity<>(symbols.toArray(new ISymbol[symbols.size()]), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/xml/getEntityFields", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getEntityFields", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ISymbol[]> getEntityFields(@RequestBody String entity, @RequestParam(name = "query", required = false) String query) throws IOException {
         if (query == null) {
             query = "";
@@ -136,75 +83,59 @@ public class XMLController {
                     Last = (IEntity) getXml(new IFile("", 0, collection.getEntity())).getBody();
                 }
             }
+            if (Last != null) {
+                if (Last.getColumns() != null) {
+                    if (Arrays.stream(Last.getColumns()).anyMatch(iColumn -> iColumn.getName().equals(field))) {
+                        Last = null;
+                    } else {
+                        if (Last.getProperties() != null) {
+                            if (Arrays.stream(Last.getProperties()).anyMatch(iProperty -> iProperty.getName().equals(field))) {
+                                Last = null;
+                            }
+                        }
+                    }
+
+                }
+            }
         }
-        if (Last.getColumns() != null)
-            Rfields.addAll(Arrays.stream(Last.getColumns()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
-        if (Last.getObjects() != null)
-            Rfields.addAll(Arrays.stream(Last.getObjects()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
-        if (Last.getProperties() != null)
-            Rfields.addAll(Arrays.stream(Last.getProperties()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
-        if (Last.getCollections() != null)
-            Rfields.addAll(Arrays.stream(Last.getCollections()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+        if (Last != null) {
+            if (Last.getColumns() != null)
+                Rfields.addAll(Arrays.stream(Last.getColumns()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+            if (Last.getObjects() != null)
+                Rfields.addAll(Arrays.stream(Last.getObjects()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+            if (Last.getProperties() != null)
+                Rfields.addAll(Arrays.stream(Last.getProperties()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+            if (Last.getCollections() != null)
+                Rfields.addAll(Arrays.stream(Last.getCollections()).map(iColumn -> new ISymbol(iColumn.getName(), 0, "", "")).collect(Collectors.toList()));
+        }
         return new ResponseEntity<>(Rfields.toArray(new ISymbol[Rfields.size()]), HttpStatus.OK);
 
     }
 
-    @RequestMapping(value = "/xml/GetObjectMethods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IObjectMethod[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query) throws IOException {
-        List<IObjectMethod> symbols = new ArrayList<>();
-        symbols = projectStore.ListObjectMethods(file, query);
-        return new ResponseEntity<>(symbols.toArray(new IObjectMethod[symbols.size()]), HttpStatus.OK);
-    }
 
-    @RequestMapping(value = "/xml/GetFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IFile[]> GetFiles() {
-        List<IFile> files = projectStore.getFiles();
-        return new ResponseEntity<>(files.toArray(new IFile[files.size()]), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/xml/GetForms", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/GetForms", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String[]> GetForms(@RequestBody(required = false) String query) {
         if (query == null) {
             query = "";
         }
-        List<String> files = projectStore.getForms(query);
+        List<String> files = xmlStore.getFormsByQuery(query);
         return new ResponseEntity<>(files.toArray(new String[files.size()]), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/xml/GetNavigationParameterByForm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/GetNavigationParameterByForm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NavigationParameter[]> GetNavigationParameterByForm(@RequestBody(required = false) String form) {
-        List<NavigationParameter> navigationParameters = projectStore.GetNavigationParameterByForm(form);
+        List<NavigationParameter> navigationParameters = xmlStore.GetNavigationParameterByForm(form);
         return new ResponseEntity<>(navigationParameters.toArray(new NavigationParameter[navigationParameters.size()]), HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/xml/ListEntities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/ListEntities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String[]> ListEntities(@RequestBody(required = false) String query) {
         if (query == null) {
             query = "";
         }
-        List<String> entities = projectStore.getEntitiesByQuery(query);
+        List<String> entities = xmlStore.getEntitiesByQuery(query);
         return new ResponseEntity<>(entities.toArray(new String[entities.size()]), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/xml/GetDBConnectionInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IDBConnectionInfo> GetDBConnection() {
-        IDBConnectionInfo idbConnectionInfo = new IDBConnectionInfo();
-        idbConnectionInfo.setDBUrl(appConfig.getBusinessConfig().getDatabaseConnection().getDatabaseUrl());
-        idbConnectionInfo.setDBUserName(appConfig.getBusinessConfig().getDatabaseConnection().getDatabaseUsername());
-        return new ResponseEntity<>(idbConnectionInfo, HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "/xml/LoadProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity LoadProject() throws IOException {
-        projectStore.LoadProject(CurrentBranch);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/xml/RefreshMetaData", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity RefreshMetaData() throws IOException {
-        projectStore.LoadProject(CurrentBranch);
-        return new ResponseEntity(HttpStatus.OK);
-    }
 }

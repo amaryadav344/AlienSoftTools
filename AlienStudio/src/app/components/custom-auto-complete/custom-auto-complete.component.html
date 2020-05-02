@@ -4,7 +4,8 @@
       <div class="ui-g ui-fluid ui-g-nopad">
         <div class="ui-g-12 ui-g-nopad">
           <div class="ui-inputgroup">
-            <input type="text" pInputText [(ngModel)]="text" (ngModelChange)="onChange()">
+            <input type="text" pInputText [(ngModel)]="text" (ngModelChange)="onChange()"
+                   (input)="onTextChange($event.target.value)">
             <span class="ui-inputgroup-addon" style="padding: 0" *ngIf="Loading">
              <i style="padding: 4px;" class="pi pi-spin pi-spinner"></i></span>
             <button pButton type="button" icon="pi pi-caret-down" (click)="onChange()"></button>
