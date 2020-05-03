@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 public class HelperFunctions {
     @JsonIgnore
     public static String getExecutableHomePath(Class c, String fileName) {
-        String dirtyPath = c.getResource("").toString();
+        String dirtyPath = c.getResource("\\").toString();
         String jarPath = dirtyPath.replaceAll("^.*file:/", ""); //removes file:/ and everything before it
         jarPath = jarPath.replaceAll("jar!.*", "jar"); //removes everything after .jar, if .jar exists in dirtyPath
         jarPath = jarPath.replaceAll("%20", " "); //necessary if path has spaces within

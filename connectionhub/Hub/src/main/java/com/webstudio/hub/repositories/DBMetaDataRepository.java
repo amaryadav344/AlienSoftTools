@@ -24,7 +24,7 @@ public class DBMetaDataRepository {
                     (rs, rowNum) -> rs.getString(1));
         } else {
             tables = jdbcTemplateBusinessDB.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE lower(TABLE_NAME) LIKE lower(?)",
-                    new Object[]{query},
+                    new Object[]{query + "%"},
                     (rs, rowNum) -> rs.getString(1));
         }
         return tables;

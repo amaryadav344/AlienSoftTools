@@ -1,5 +1,6 @@
 package com.webstudio.hub.config;
 
+import com.webstudio.hub.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -12,12 +13,11 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@DependsOn("AppConfig")
+@DependsOn(Constants.ApplicationBeans.APP_CONFIG)
 public class DatabaseConfig {
-    @Autowired
     private AppConfig appConfig;
 
-    @Bean(name = "HubDataSource")
+    @Bean(name = Constants.ApplicationBeans.HUB_DATASOURCE)
     public DataSource HubDataSource() {
         return DataSourceBuilder.create()
                 .driverClassName(appConfig.getHubConfig().getDatabaseConnection().getDatabaseDriver())
@@ -27,12 +27,12 @@ public class DatabaseConfig {
                 .build();
     }
 
-    @Bean(name = "HubDB")
-    public JdbcTemplate HubDB(@Qualifier("HubDataSource") DataSource ds) {
+    @Bean(name = Constants.ApplicationBeans.HUB_DB)
+    public JdbcTemplate HubDB(@Qualifier(Constants.ApplicationBeans.HUB_DATASOURCE) DataSource ds) {
         return new JdbcTemplate(ds);
     }
 
-    @Bean(name = "BusinessDataSource")
+    @Bean(name = Constants.ApplicationBeans.BUSINESS_DATASOURCE)
     public DataSource BusinessDataSource() {
         return DataSourceBuilder.create()
                 .driverClassName(appConfig.getBusinessConfig().getDatabaseConnection().getDatabaseDriver())
@@ -42,9 +42,13 @@ public class DatabaseConfig {
                 .build();
     }
 
-    @Bean(name = "BusinessDB")
-    public JdbcTemplate BusinessDB(@Qualifier("BusinessDataSource") DataSource ds) {
+    @Bean(name = Constants.ApplicationBeans.BUSINESS_DB)
+    public JdbcTemplate BusinessDB(@Qualifier(Constants.ApplicationBeans.BUSINESS_DATASOURCE) DataSource ds) {
         return new JdbcTemplate(ds);
     }
 
+    @Autowired
+    public void setAppConfig(AppConfig appConfig) {
+        this.appConfig = appConfig;
+    }
 }

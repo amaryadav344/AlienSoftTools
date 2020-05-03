@@ -2,7 +2,6 @@ package com.webstudio.hub.common;
 
 import com.business.utils.FileHelper;
 import com.business.utils.models.Entity.*;
-import com.business.utils.models.IXMLBase;
 import com.webstudio.hub.models.Branch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,29 +10,21 @@ import spoon.JarLauncher;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.factory.Factory;
-import spoon.reflect.reference.CtFieldReference;
-import spoon.reflect.reference.CtReference;
 import spoon.reflect.reference.CtTypeReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class SymbolProvider {
-    @Autowired
-    XMLStore xmlStore;
-    @Autowired
-    @Qualifier("DefaultBranch")
-    Branch DefaultBranch;
+    private XMLStore xmlStore;
+    private Branch DefaultBranch;
     private Factory factory;
-    private HashMap<String, List<CtFieldReference<?>>> SymbolStore;
 
     private SymbolProvider() {
-        this.SymbolStore = new HashMap<>();
     }
 
     public void LoadJar(String JarFilePath) {
@@ -42,33 +33,10 @@ public class SymbolProvider {
         this.factory = launcher.getFactory();
     }
 
-    private List<CtFieldReference<?>> getSymbols(CtTypeReference<?> type) {
-        return (List<CtFieldReference<?>>) type.getAllFields();
-    }
-
-    public List<String> getMatchingSymbols(String FullQualifiedName, String Query) {
-        CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
-        String[] Symbols = Query.split("\\.");
-        for (String symbol : Symbols) {
-            List<CtFieldReference<?>> fieldReferences;
-            if (SymbolStore.containsKey(LastType.getQualifiedName())) {
-                fieldReferences = SymbolStore.get(LastType.getQualifiedName());
-            } else {
-                fieldReferences = getSymbols(LastType);
-                SymbolStore.put(LastType.getQualifiedName(), fieldReferences);
-            }
-            if (fieldReferences.stream().anyMatch(ctField -> ctField.getSimpleName().equals(symbol))) {
-                LastType = fieldReferences.stream().filter(ctField -> ctField.getSimpleName().equals(symbol)).findFirst().get().getType();
-            }
-        }
-        List<CtFieldReference<?>> fieldReferences = SymbolStore.containsKey(LastType.getQualifiedName()) ?
-                SymbolStore.get(LastType.getQualifiedName()) : getSymbols(LastType);
-        return fieldReferences.stream().map(CtReference::getSimpleName).collect(Collectors.toList());
-    }
 
     public List<ISymbol> getObjectSymbols(String FullQualifiedName, String Query) {
         CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
-        String LastSymbol = "";
+        String LastSymbol = Constants.Common.EMPTY_STRING;
         String[] Symbols = Query.split("\\.");
         for (String symbol : Symbols) {
 
@@ -94,7 +62,7 @@ public class SymbolProvider {
 
     public List<ISymbol> getCollectionSymbols(String FullQualifiedName, String Query) {
         CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
-        String LastSymbol = "";
+        String LastSymbol = Constants.Common.EMPTY_STRING;
         String[] Symbols = Query.split("\\.");
         for (String symbol : Symbols) {
             if (LastType.getAllFields().stream().anyMatch(ctFieldReference ->
@@ -131,7 +99,7 @@ public class SymbolProvider {
 
     public List<ISymbol> getVariableSymbols(String FullQualifiedName, String Query) {
         CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
-        String LastSymbol = "";
+        String LastSymbol = Constants.Common.EMPTY_STRING;
         String[] Symbols = Query.split("\\.");
 
         for (String symbol : Symbols) {
@@ -166,7 +134,7 @@ public class SymbolProvider {
                     ISymbol symbol = new ISymbol();
                     symbol.setName(ctFieldReference.getSimpleName());
                     symbol.setObjectType(ctFieldReference.getType().getSimpleName());
-                    symbol.setType(Constants.SymbolTypes.TYPE_VARIBLE);
+                    symbol.setType(Constants.SymbolTypes.TYPE_VARIABLE);
                     return symbol;
                 }).collect(Collectors.toList());
     }
@@ -231,14 +199,13 @@ public class SymbolProvider {
         String xmlString = FileHelper.ReadCompleteFile(file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
         String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
-        List<ISymbol> symbols = getVariableSymbols(ClassPath, query);
-        return symbols;
+        return getVariableSymbols(ClassPath, query);
     }
 
     public String GetFullyQualifiedModelName(IFile file, String modelName) {
-        String RelativeFilePath = file.getPath().replace(DefaultBranch.getXMLPath(), "");
+        String RelativeFilePath = file.getPath().replace(DefaultBranch.getXMLPath(), Constants.Common.EMPTY_STRING);
         String ModelRelativePath = RelativeFilePath.replace(file.getName(), modelName);
-        return DefaultBranch.getPackageName() + ModelRelativePath.replace("\\", ".");
+        return DefaultBranch.getPackageName() + ModelRelativePath.replace(Constants.Common.FOLDER_SEPARATOR, ".");
 
     }
 
@@ -246,17 +213,26 @@ public class SymbolProvider {
         String xmlString = FileHelper.ReadCompleteFile(file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
         String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
-        List<IObjectMethod> symbols = getAllMethods(ClassPath, query);
-        return symbols;
+        return getAllMethods(ClassPath, query);
     }
+
     /*public IXMLBase GetXml(IFile file) {
-        String name = "";
+        String name = Constants.Common.EMPTY_STRING;
         if (file.getType() == 0) {
-            name = file.getName().replace(".ent.xml", "");
+            name = file.getName().replace(".ent.xml", Constants.Common.EMPTY_STRING);
         } else if (file.getType() == 1) {
-            name = file.getName().replace(".form.xml", "");
+            name = file.getName().replace(".form.xml", Constants.Common.EMPTY_STRING);
         }
         return xmlStore.GetXml(name);
     }*/
+    @Autowired
+    @Qualifier(Constants.ApplicationBeans.DEFAULT_BRANCH)
+    public void setDefaultBranch(Branch defaultBranch) {
+        DefaultBranch = defaultBranch;
+    }
 
+    @Autowired
+    public void setXmlStore(XMLStore xmlStore) {
+        this.xmlStore = xmlStore;
+    }
 }

@@ -26,21 +26,29 @@ public class XMLStore {
     private HashMap<String, String> EntityModelMappings;
 
 
-    public void SaveXml(IXMLBase ixmlBase, String name) {
-        stringIXMLBaseHashMap.put(name, ixmlBase);
+    public String SaveXml(IXMLBase ixmlBase, String Path) throws IOException {
+        String xml = Constants.Common.EMPTY_STRING;
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
+            xml = getXMLString(entity);
+            FileHelper.WriteFile(Path, xml);
+            stringIXMLBaseHashMap.put(entity.getName(), ixmlBase);
             EntityModelMappings.put(entity.getModelName(), entity.getName());
+        } else if (ixmlBase instanceof IForm) {
+            IForm form = (IForm) ixmlBase;
+            xml = getXMLString(form);
+            FileHelper.WriteFile(Path, xml);
+            stringIXMLBaseHashMap.put(form.getName(), ixmlBase);
         }
-
+        return xml;
     }
 
     public IXMLBase GetXml(IFile file) {
-        String name = "";
+        String name = Constants.Common.EMPTY_STRING;
         if (file.getType() == 0) {
-            name = file.getName().replace(".ent.xml", "");
+            name = file.getName().replace(".ent.xml", Constants.Common.EMPTY_STRING);
         } else if (file.getType() == 1) {
-            name = file.getName().replace(".form.xml", "");
+            name = file.getName().replace(".form.xml", Constants.Common.EMPTY_STRING);
         }
         return stringIXMLBaseHashMap.get(name);
     }
@@ -100,7 +108,7 @@ public class XMLStore {
     }
 
     public String getEntityNameByModelName(String modelName) {
-        String EntityName = "";
+        String EntityName = Constants.Common.EMPTY_STRING;
         if (EntityModelMappings.containsKey(modelName)) {
             return EntityModelMappings.get(modelName);
         }
@@ -115,11 +123,11 @@ public class XMLStore {
     }
 
     public String CreateEntity(IXMLBase ixmlBase, String path, boolean createModel, Branch DefaultBranch) throws IOException {
-        String Path = "";
+        String Path = Constants.Common.EMPTY_STRING;
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
             String xml = getXMLString(entity);
-            Path = DefaultBranch.getXMLPath() + "\\" + path + "\\" + entity.getName() + ".ent.xml";
+            Path = DefaultBranch.getXMLPath() + Constants.Common.FOLDER_SEPARATOR + path + Constants.Common.FOLDER_SEPARATOR + entity.getName() + ".ent.xml";
             FileHelper.CreateAndWriteFile(Path, xml);
             if (createModel) {
                 ModelHelper.createModel(entity, DefaultBranch.getPackageName(),
@@ -129,27 +137,11 @@ public class XMLStore {
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             String xml = getXMLString(form);
-            Path = DefaultBranch.getXMLPath() + "\\" + path + "\\" + form.getName() + ".form.xml";
+            Path = DefaultBranch.getXMLPath() + Constants.Common.FOLDER_SEPARATOR + path + Constants.Common.FOLDER_SEPARATOR + form.getName() + ".form.xml";
             FileHelper.CreateAndWriteFile(Path, xml);
             SaveXml(ixmlBase, form.getName());
         }
         return Path;
-    }
-
-    public String Save(IXMLBase ixmlBase, String Path) throws IOException {
-        String xml = "";
-        if (ixmlBase instanceof IEntity) {
-            IEntity entity = (IEntity) ixmlBase;
-            SaveXml(ixmlBase, entity.getName());
-            xml = getXMLString(entity);
-            FileHelper.WriteFile(Path, xml);
-        } else if (ixmlBase instanceof IForm) {
-            IForm form = (IForm) ixmlBase;
-            SaveXml(ixmlBase, form.getName());
-            xml = getXMLString(form);
-            FileHelper.WriteFile(Path, xml);
-        }
-        return xml;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.webstudio.hub.controllers;
 
+import com.webstudio.hub.common.Constants;
 import com.webstudio.hub.common.ProjectStore;
 import com.webstudio.hub.models.Branch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("Project")
+@RequestMapping(Constants.ProjectRequestMapping.PROJECT)
 public class ProjectController {
-    @Autowired
-    @Qualifier("DefaultBranch")
-    Branch CurrentBranch;
-    @Autowired
-    ProjectStore projectStore;
+    private Branch CurrentBranch;
+    private ProjectStore projectStore;
 
 
-    @RequestMapping(value = "/LoadProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = Constants.ProjectRequestMapping.LOAD_PROJECT, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity LoadProject() throws IOException {
         projectStore.LoadProject(CurrentBranch);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/RefreshMetaData", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = Constants.ProjectRequestMapping.REFRESH_METADATA, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity RefreshMetaData() throws IOException {
         projectStore.LoadProject(CurrentBranch);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @Autowired
+    @Qualifier(Constants.ApplicationBeans.DEFAULT_BRANCH)
+    public void setCurrentBranch(Branch currentBranch) {
+        CurrentBranch = currentBranch;
+    }
+
+    @Autowired
+    public void setProjectStore(ProjectStore projectStore) {
+        this.projectStore = projectStore;
     }
 }

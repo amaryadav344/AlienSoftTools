@@ -15,7 +15,7 @@ public class ModelHelper {
 
         ClassName busBase = ClassName.get(PackageName, "BusBase");
         ClassName doBase = ClassName.get(PackageName, "DoBase");
-        PackageName = PackageName + "." + destinationPath.replace("\\", ".");
+        PackageName = PackageName + "." + destinationPath.replace(Constants.Common.FOLDER_SEPARATOR, ".");
         String cdoClassName = "cdo" + entity.getModelName().substring(3);
         String doClassName = "do" + entity.getModelName().substring(3);
         String modelClassName = entity.getModelName();

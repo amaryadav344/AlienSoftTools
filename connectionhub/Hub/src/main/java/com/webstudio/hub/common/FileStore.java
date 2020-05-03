@@ -10,19 +10,14 @@ import java.util.List;
 @Component
 public class FileStore {
     private List<IFile> files;
-    private List<String> folders;
 
 
-    public void LoadFilesAndFolders(String path) {
+    void LoadFilesAndFolders(String path) {
         files = FileHelper.ListAllFiles(path);
-        folders = FileHelper.ListAllFolders(path, "", "");
     }
 
     public List<IFile> getFiles() {
         return files;
     }
 
-    public List<String> getFolders() {
-        return folders;
-    }
 }

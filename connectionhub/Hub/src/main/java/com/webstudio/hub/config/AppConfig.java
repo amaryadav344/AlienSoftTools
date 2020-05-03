@@ -1,16 +1,17 @@
 package com.webstudio.hub.config;
 
 import com.business.utils.FileHelper;
+import com.business.utils.HelperFunctions;
 import com.business.utils.XMLWorker;
 import com.business.utils.config.BusinessConfig;
-import com.business.utils.HelperFunctions;
+import com.webstudio.hub.common.Constants;
 import com.webstudio.hub.models.Branch;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-@Component("AppConfig")
+@Component(Constants.ApplicationBeans.APP_CONFIG)
 public class AppConfig {
     private BusinessConfig businessConfig;
     private HubConfig hubConfig;
@@ -19,15 +20,15 @@ public class AppConfig {
         return businessConfig;
     }
 
-    public void setBusinessConfig(BusinessConfig businessConfig) {
+    private void setBusinessConfig(BusinessConfig businessConfig) {
         this.businessConfig = businessConfig;
     }
 
-    public HubConfig getHubConfig() {
+    HubConfig getHubConfig() {
         return hubConfig;
     }
 
-    public void setHubConfig(HubConfig hubConfig) {
+    private void setHubConfig(HubConfig hubConfig) {
         this.hubConfig = hubConfig;
     }
 

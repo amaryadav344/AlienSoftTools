@@ -4,30 +4,30 @@ import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
 
-public class ModelBuilder {
+class ModelBuilder {
     private TypeSpec.Builder builder;
     private String PackageName;
 
-    public ModelBuilder(String ClassName) {
+    ModelBuilder(String ClassName) {
         this.builder = TypeSpec.classBuilder(ClassName);
     }
 
-    public ModelBuilder setPackageName(String packageName) {
+    ModelBuilder setPackageName(String packageName) {
         PackageName = packageName;
         return this;
     }
 
-    public ModelBuilder setModifier(Modifier modifier) {
+    ModelBuilder setModifier(Modifier modifier) {
         builder.addModifiers(modifier);
         return this;
     }
 
-    public ModelBuilder setSuperClass(ClassName SuperClass) {
+    ModelBuilder setSuperClass(ClassName SuperClass) {
         this.builder.superclass(SuperClass);
         return this;
     }
 
-    public ModelBuilder addField(TypeName type, String name, Modifier modifier, boolean creatGetterSetters) {
+    ModelBuilder addField(TypeName type, String name, Modifier modifier, boolean creatGetterSetters) {
         FieldSpec fieldSpec = FieldSpec.builder(type, name, modifier).build();
         builder.addField(fieldSpec);
         if (creatGetterSetters) {
@@ -47,7 +47,7 @@ public class ModelBuilder {
         return this;
     }
 
-    public JavaFile build() {
+    JavaFile build() {
         return JavaFile.builder(PackageName, builder.build()).build();
     }
 

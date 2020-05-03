@@ -16,12 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("Code")
+@RequestMapping(Constants.CodeSymbolRequestMapping.CODE)
 public class CodeSymbolController {
-    @Autowired
-    SymbolProvider symbolProvider;
+    private SymbolProvider symbolProvider;
 
-    @RequestMapping(value = "/getSymbols", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = Constants.CodeSymbolRequestMapping.GET_SYMBOLS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ISymbol[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query, @RequestParam(name = "type", required = false) int SymbolType) throws IOException {
         List<ISymbol> symbols = new ArrayList<>();
         if (SymbolType == Constants.SymbolTypes.TYPE_OBJECT) {
@@ -29,18 +28,22 @@ public class CodeSymbolController {
         } else if (SymbolType == Constants.SymbolTypes.TYPE_COLLECTION) {
             symbols.addAll(symbolProvider.GetObjectSymbols(file, query));
             symbols.addAll(symbolProvider.GetCollectionSymbols(file, query));
-        } else if (SymbolType == Constants.SymbolTypes.TYPE_VARIBLE) {
+        } else if (SymbolType == Constants.SymbolTypes.TYPE_VARIABLE) {
             symbols.addAll(symbolProvider.GetObjectSymbols(file, query));
             symbols.addAll(symbolProvider.GetVariableSymbols(file, query));
 
         }
-        return new ResponseEntity<>(symbols.toArray(new ISymbol[symbols.size()]), HttpStatus.OK);
+        return new ResponseEntity<>(symbols.toArray(new ISymbol[0]), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/GetObjectMethods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = Constants.CodeSymbolRequestMapping.GET_OBJECT_METHODS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IObjectMethod[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query) throws IOException {
-        List<IObjectMethod> symbols = new ArrayList<>();
-        symbols = symbolProvider.ListObjectMethods(file, query);
-        return new ResponseEntity<>(symbols.toArray(new IObjectMethod[symbols.size()]), HttpStatus.OK);
+        List<IObjectMethod> symbols = symbolProvider.ListObjectMethods(file, query);
+        return new ResponseEntity<>(symbols.toArray(new IObjectMethod[0]), HttpStatus.OK);
+    }
+
+    @Autowired
+    public void setSymbolProvider(SymbolProvider symbolProvider) {
+        this.symbolProvider = symbolProvider;
     }
 }
