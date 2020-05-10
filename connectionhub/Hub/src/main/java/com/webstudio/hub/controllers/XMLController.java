@@ -5,6 +5,7 @@ import com.business.utils.models.Entity.*;
 import com.business.utils.models.IXMLBase;
 import com.business.utils.models.UI.NavigationParameter;
 import com.webstudio.hub.common.Constants;
+import com.webstudio.hub.common.ProjectStore;
 import com.webstudio.hub.common.XMLStore;
 import com.webstudio.hub.models.Branch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,10 @@ public class XMLController {
 
     private Branch CurrentBranch;
     private XMLStore xmlStore;
+    private ProjectStore projectStore;
 
     @RequestMapping(value = Constants.XMLRequestMapping.JS_TO_XML, method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+
     public ResponseEntity<String> getXmlFromObject(@RequestBody IXMLBase entity) throws IOException {
         String xml = xmlStore.getXMLString(entity);
         return new ResponseEntity<>(xml, HttpStatus.OK);
@@ -56,11 +59,12 @@ public class XMLController {
     @RequestMapping(value = Constants.XMLRequestMapping.CREATE_NEW_XML, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> CreateNewXml(@RequestBody IXMLBase ixmlBase, @RequestParam("path") String path, @RequestParam("createModel") boolean createModel) throws IOException {
         String Path = xmlStore.CreateEntity(ixmlBase, path, createModel, CurrentBranch);
+        projectStore.LoadProject(CurrentBranch);
         return new ResponseEntity<>(Path, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = Constants.XMLRequestMapping.GET_ENTITY_FIELDS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+   /* @RequestMapping(value = Constants.XMLRequestMapping.GET_ENTITY_FIELDS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ISymbol[]> getEntityFields(@RequestBody String entity, @RequestParam(name = "query", required = false) String query) throws IOException {
         if (query == null) {
             query = Constants.Common.EMPTY_STRING;
@@ -110,7 +114,7 @@ public class XMLController {
         }
         return new ResponseEntity<>(Rfields.toArray(new ISymbol[0]), HttpStatus.OK);
 
-    }
+    }*/
 
 
     @RequestMapping(value = Constants.XMLRequestMapping.GET_FORMS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -147,5 +151,10 @@ public class XMLController {
     @Autowired
     public void setXmlStore(XMLStore xmlStore) {
         this.xmlStore = xmlStore;
+    }
+
+    @Autowired
+    public void setProjectStore(ProjectStore projectStore) {
+        this.projectStore = projectStore;
     }
 }

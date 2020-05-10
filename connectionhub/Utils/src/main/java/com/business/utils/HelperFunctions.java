@@ -17,4 +17,15 @@ public class HelperFunctions {
         String directoryPath = Paths.get(jarPath).getParent().toString(); //Paths - from java 8
         return directoryPath + "\\" + fileName;
     }
+
+    public static String SnakeCaseToCamelCase(String input) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : input.split("_")) {
+            sb.append(Character.toUpperCase(s.charAt(0)));
+            if (s.length() > 1) {
+                sb.append(s.substring(1, s.length()).toLowerCase());
+            }
+        }
+        return sb.toString();
+    }
 }

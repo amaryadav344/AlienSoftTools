@@ -1,0 +1,20 @@
+<entity type="entity" name="Home" parentEntity="" modelName="busHome" isWrapper="true" databaseObjectField="" tableName="">
+  <columns/>
+  <properties/>
+  <objects/>
+  <collections/>
+  <queries/>
+  <validation>
+    <rules/>
+    <initialLoads/>
+    <softErrors/>
+    <hardErrors/>
+    <updateRules/>
+    <deleteRules/>
+    <groupRules/>
+  </validation>
+  <businessObject>
+    <customMethods/>
+    <objectMethods/>
+  </businessObject>
+</entity>

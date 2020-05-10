@@ -1,7 +1,6 @@
 package com.webstudio.hub.controllers;
 
 import com.business.utils.models.Entity.IFile;
-import com.business.utils.models.Entity.IObjectMethod;
 import com.business.utils.models.Entity.ISymbol;
 import com.webstudio.hub.common.Constants;
 import com.webstudio.hub.common.SymbolProvider;
@@ -20,7 +19,7 @@ import java.util.List;
 public class CodeSymbolController {
     private SymbolProvider symbolProvider;
 
-    @RequestMapping(value = Constants.CodeSymbolRequestMapping.GET_SYMBOLS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+   /* @RequestMapping(value = Constants.CodeSymbolRequestMapping.GET_SYMBOLS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ISymbol[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query, @RequestParam(name = "type", required = false) int SymbolType) throws IOException {
         List<ISymbol> symbols = new ArrayList<>();
         if (SymbolType == Constants.SymbolTypes.TYPE_OBJECT) {
@@ -40,7 +39,7 @@ public class CodeSymbolController {
     public ResponseEntity<IObjectMethod[]> getSymbols(@RequestBody IFile file, @RequestParam(name = "query", required = false) String query) throws IOException {
         List<IObjectMethod> symbols = symbolProvider.ListObjectMethods(file, query);
         return new ResponseEntity<>(symbols.toArray(new IObjectMethod[0]), HttpStatus.OK);
-    }
+    }*/
 
     @Autowired
     public void setSymbolProvider(SymbolProvider symbolProvider) {

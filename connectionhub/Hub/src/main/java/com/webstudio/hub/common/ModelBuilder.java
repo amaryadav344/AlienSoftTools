@@ -3,6 +3,7 @@ package com.webstudio.hub.common;
 import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
+import java.lang.reflect.Type;
 
 class ModelBuilder {
     private TypeSpec.Builder builder;
@@ -10,6 +11,12 @@ class ModelBuilder {
 
     ModelBuilder(String ClassName) {
         this.builder = TypeSpec.classBuilder(ClassName);
+    }
+
+    ModelBuilder(String ClassName, boolean IsInterface) {
+        if (IsInterface) {
+            this.builder = TypeSpec.interfaceBuilder(ClassName);
+        }
     }
 
     ModelBuilder setPackageName(String packageName) {
@@ -27,9 +34,53 @@ class ModelBuilder {
         return this;
     }
 
-    ModelBuilder addField(TypeName type, String name, Modifier modifier, boolean creatGetterSetters) {
-        FieldSpec fieldSpec = FieldSpec.builder(type, name, modifier).build();
-        builder.addField(fieldSpec);
+    ModelBuilder setSuperClass(ParameterizedTypeName SuperClass) {
+        this.builder.superclass(SuperClass);
+        return this;
+    }
+
+    ModelBuilder setSuperInterface(ParameterizedTypeName SuperClass) {
+        this.builder.addSuperinterface(SuperClass);
+        return this;
+    }
+
+    ModelBuilder addAnnotation(ClassName className, String MemberName, String value) {
+        AnnotationSpec annotationSpec = AnnotationSpec.builder(className)
+                .addMember(MemberName, "$S", value)
+                .build();
+        this.builder.addAnnotation(annotationSpec);
+        return this;
+    }
+
+    ModelBuilder addAnnotation(ClassName className) {
+        AnnotationSpec annotationSpec = AnnotationSpec.builder(className)
+                .build();
+        this.builder.addAnnotation(annotationSpec);
+        return this;
+    }
+
+    ModelBuilder addAnnotation(Class type, String MemberName, String value) {
+        AnnotationSpec annotationSpec = AnnotationSpec.builder(type)
+                .addMember(MemberName, "$S", value)
+                .build();
+        this.builder.addAnnotation(annotationSpec);
+        return this;
+    }
+
+    ModelBuilder addAnnotation(Class type) {
+        AnnotationSpec annotationSpec = AnnotationSpec.builder(type)
+                .build();
+        this.builder.addAnnotation(annotationSpec);
+        return this;
+    }
+
+
+    ModelBuilder addField(TypeName type, String name, Modifier modifier, boolean creatGetterSetters, boolean PrimaryKey) {
+        FieldSpec.Builder fieldSpecBuilder = FieldSpec.builder(type, name, Modifier.PRIVATE);
+        if (PrimaryKey) {
+            fieldSpecBuilder.addAnnotation(ClassName.get("javax.persistence", "Id"));
+        }
+        builder.addField(fieldSpecBuilder.build());
         if (creatGetterSetters) {
             MethodSpec methodSpecGetter = MethodSpec.methodBuilder("get" + name)
                     .addModifiers(Modifier.PUBLIC)
@@ -44,6 +95,11 @@ class ModelBuilder {
                     .build();
             builder.addMethod(methodSpecSetter);
         }
+        return this;
+    }
+
+    ModelBuilder addMethod(MethodSpec methodSpec) {
+        builder.addMethod(methodSpec);
         return this;
     }
 

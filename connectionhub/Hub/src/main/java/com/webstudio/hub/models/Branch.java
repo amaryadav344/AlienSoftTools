@@ -1,9 +1,6 @@
 package com.webstudio.hub.models;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
-import java.util.List;
 
 public class Branch {
     @JacksonXmlProperty(localName = "Name", isAttribute = true)
@@ -18,9 +15,38 @@ public class Branch {
     private String SourcePath;
     @JacksonXmlProperty(localName = "BusinessConfigPath")
     private String BusinessConfigPath;
-    @JacksonXmlElementWrapper(localName = "BusinessObjects")
-    @JacksonXmlProperty(localName = "BusinessObject")
-    private List<String> BusinessObject;
+    @JacksonXmlProperty(localName = "BusinessObjectBase")
+    private String BusinessObjectBase;
+    @JacksonXmlProperty(localName = "ServiceBase")
+    private String ServiceBase;
+    @JacksonXmlProperty(localName = "RepositoryBase")
+    private String RepositoryBase;
+
+
+    public String getBusinessObjectBase() {
+        return BusinessObjectBase;
+    }
+
+    public void setBusinessObjectBase(String businessObjectBase) {
+        BusinessObjectBase = businessObjectBase;
+    }
+
+
+    public String getServiceBase() {
+        return ServiceBase;
+    }
+
+    public void setServiceBase(String serviceBase) {
+        ServiceBase = serviceBase;
+    }
+
+    public String getRepositoryBase() {
+        return RepositoryBase;
+    }
+
+    public void setRepositoryBase(String repositoryBase) {
+        RepositoryBase = repositoryBase;
+    }
 
     public Branch() {
     }
@@ -65,14 +91,6 @@ public class Branch {
         SourcePath = sourcePath;
     }
 
-    public List<String> getBusinessObject() {
-        return BusinessObject;
-    }
-
-    public void setBusinessObject(List<String> businessObject) {
-        BusinessObject = businessObject;
-    }
-
     public String getBusinessConfigPath() {
         return BusinessConfigPath;
     }
@@ -80,4 +98,5 @@ public class Branch {
     public void setBusinessConfigPath(String businessConfigPath) {
         BusinessConfigPath = businessConfigPath;
     }
+
 }

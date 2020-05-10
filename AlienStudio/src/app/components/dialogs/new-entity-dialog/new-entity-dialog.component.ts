@@ -32,12 +32,10 @@ export class NewEntityDialogComponent implements OnInit {
     if (this.entity.tableName === null || this.entity.tableName === '') {
       this.entity.isWrapper = true;
     } else {
-      this.entity.databaseObjectField = 'icdo' + this.entity.modelName;
     }
-    this.entity.modelName = 'bus' + this.entity.modelName;
     this.httpClientService.getColumns(this.entity.tableName).subscribe(
-      (columns) => {
-        this.entity.columns = columns;
+      (attributes) => {
+        this.entity.attributes = attributes;
       },
       (err) => {
         console.log(err);
@@ -93,8 +91,10 @@ export class NewEntityDialogComponent implements OnInit {
   }
 
   TableNameChnage() {
-    this.entity.name = this.toPascalCase(this.entity.tableName);
-    this.entity.modelName = this.toPascalCase(this.entity.name);
+    const name = this.toPascalCase(this.entity.tableName).replace('Ast', '');
+    this.entity.name = name;
+    this.entity.serviceName = name + 'Service';
+    this.entity.businessObject = name;
   }
 
 

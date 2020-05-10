@@ -1,6 +1,8 @@
 package com.webstudio.hub.repositories;
 
-import com.business.utils.models.Entity.IColumn;
+import com.business.utils.HelperFunctions;
+import com.business.utils.models.Entity.IAttribute;
+import com.webstudio.hub.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,9 +38,22 @@ public class DBMetaDataRepository {
         return Count != 0;
     }
 
-    public List<IColumn> getColumns(String tableName) {
-        String q = "SELECT COLUMN_NAME as name,DATA_TYPE as dataType,IS_NULLABLE as canBeNull,CAST(COALESCE (CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION,'') AS VARCHAR) as maxLength,COLUMN_NAME as objectField FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?";
-        return jdbcTemplateBusinessDB.query(q, new Object[]{tableName}, new ColumnRowMapper());
+    public List<IAttribute> getColumns(String tableName) {
+        String q = "SELECT COLUMN_NAME as name,\n" +
+                "       CASE\n" +
+                "           WHEN (SELECT COLUMN_NAME\n" +
+                "                 FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE\n" +
+                "                 WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + QUOTENAME(CONSTRAINT_NAME)), 'IsPrimaryKey') =\n" +
+                "                       1\n" +
+                "                   AND TABLE_NAME = ?) = COLUMN_NAME\n" +
+                "               THEN 'Y'\n" +
+                "           ELSE\n" +
+                "               'N'\n" +
+                "           END     AS IS_PRIMERY_KEY,\n" +
+                "       DATA_TYPE   as dataType\n" +
+                "FROM INFORMATION_SCHEMA.COLUMNS\n" +
+                "where TABLE_NAME = ?";
+        return jdbcTemplateBusinessDB.query(q, new Object[]{tableName, tableName}, new ColumnRowMapper());
 
     }
 
@@ -77,11 +92,11 @@ public class DBMetaDataRepository {
 
     class ColumnRowMapper implements RowMapper {
         @Override
-        public IColumn mapRow(ResultSet resultSet, int i) throws SQLException {
-            return new IColumn(resultSet.getString(1),
-                    resultSet.getString(5),
-                    getDataTypeFromDBDataType(resultSet.getString(2)),
-                    resultSet.getString(4), resultSet.getString(3));
+        public IAttribute mapRow(ResultSet resultSet, int i) throws SQLException {
+            return new IAttribute(HelperFunctions.SnakeCaseToCamelCase(resultSet.getString(1)),
+                    HelperFunctions.SnakeCaseToCamelCase(resultSet.getString(1)),
+                    getDataTypeFromDBDataType(resultSet.getString(3)),
+                    null, resultSet.getString(2).equals("Y"), Constants.AttributeTypes.PROPERTY);
         }
     }
 

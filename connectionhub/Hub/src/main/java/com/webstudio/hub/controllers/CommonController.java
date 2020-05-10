@@ -1,7 +1,7 @@
 package com.webstudio.hub.controllers;
 
 import com.business.utils.FileHelper;
-import com.business.utils.models.Entity.IColumn;
+import com.business.utils.models.Entity.IAttribute;
 import com.business.utils.models.Entity.IDBConnectionInfo;
 import com.webstudio.hub.common.Constants;
 import com.webstudio.hub.config.AppConfig;
@@ -40,9 +40,9 @@ public class CommonController {
     }
 
     @RequestMapping(value = Constants.CommonRequestMapping.GET_COLUMNS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<IColumn[]> GetColumns(@RequestBody String tableName) {
-        List<IColumn> columns = DBMetaDataRepository.getColumns(tableName);
-        return new ResponseEntity<>(columns.toArray(new IColumn[0]), HttpStatus.OK);
+    public ResponseEntity<IAttribute[]> GetColumns(@RequestBody String tableName) {
+        List<IAttribute> columns = DBMetaDataRepository.getColumns(tableName);
+        return new ResponseEntity<>(columns.toArray(new IAttribute[0]), HttpStatus.OK);
     }
 
     @RequestMapping(value = Constants.CommonRequestMapping.GET_DB_CONNECTION_INFO, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,0 +1,9 @@
+<entity type="entity" name="OrderItem" businessObject="OrderItem" isWrapper="false" tableName="AST_ORDER_ITEM" serviceName="OrderItemService">
+  <attributes>
+    <attribute name="Id" objectField="Id" dataType="Integer" isPrimaryKey="true" type="property"/>
+    <attribute name="Orderid" objectField="Orderid" dataType="Integer" isPrimaryKey="false" type="property"/>
+    <attribute name="Productid" objectField="Productid" dataType="Integer" isPrimaryKey="false" type="property"/>
+    <attribute name="Unitprice" objectField="Unitprice" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="Quantity" objectField="Quantity" dataType="Integer" isPrimaryKey="false" type="property"/>
+  </attributes>
+</entity>

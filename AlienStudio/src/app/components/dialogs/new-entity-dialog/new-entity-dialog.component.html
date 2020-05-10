@@ -45,13 +45,13 @@
         <div class="caption">Model Name</div>
         <div class="ui-inputgroup">
           <span class="ui-inputgroup-addon">bus</span>
-          <input type="text" pInputText [(ngModel)]="entity.modelName"/>
+          <input type="text" pInputText [(ngModel)]="entity.businessObject"/>
         </div>
       </div>
     </div>
   </div>
   <div class="STEP_COLUMN_INFO" *ngIf="currentStep===STEP_COLUMN_INFO">
-    <p-table [value]="entity.columns" [resizableColumns]="true" scrollHeight="200px"
+    <p-table [value]="entity.attributes" [resizableColumns]="true" scrollHeight="200px"
              [scrollable]="true">
       <ng-template pTemplate="header">
         <tr>
@@ -67,13 +67,9 @@
             Object Field
             <p-sortIcon [field]="'objectField'"></p-sortIcon>
           </th>
-          <th [pSortableColumn]="'maxLength'">
-            Length
-            <p-sortIcon [field]="'maxLength'"></p-sortIcon>
-          </th>
-          <th [pSortableColumn]="'canBeNull'">
-            Is Null
-            <p-sortIcon [field]="'canBeNull'"></p-sortIcon>
+          <th [pSortableColumn]="'type'">
+            Type
+            <p-sortIcon [field]="'type'"></p-sortIcon>
           </th>
         </tr>
       </ng-template>
@@ -82,8 +78,7 @@
           <td>{{rowData.name}}</td>
           <td>{{rowData.dataType}}</td>
           <td>{{rowData.objectField}}</td>
-          <td>{{rowData.maxLength}}</td>
-          <td>{{rowData.canBeNull}}</td>
+          <td>{{rowData.type}}</td>
         </tr>
       </ng-template>
     </p-table>

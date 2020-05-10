@@ -7,7 +7,6 @@ import {WindowService} from '../../../services/window/window.service';
 import {DialogService, DynamicDialogConfig} from 'primeng/api';
 import {IForm} from '../../../models/UI/IForm';
 import {ISymbol} from '../../../models/Enitity/ISymbol';
-import {NavigationParameterDialogComponent} from '../../dialogs/navigation-parameter-dialog/navigation-parameter-dialog.component';
 import {NavigationParameter} from '../../../models/UI/NavigationParameter';
 
 @Component({
@@ -173,7 +172,7 @@ export class SideBarComponent implements OnInit {
   }
 
   OpenNavigationParameterDialog() {
-    const ref = this.dialogService.open(NavigationParameterDialogComponent, {
+    /*const ref = this.dialogService.open(NavigationParameterDialogComponent, {
       data: {
         entity: this.form.entity,
         navigationParameters: this.PropertyInfo.PropertiesObject.navigationParameters,
@@ -192,7 +191,7 @@ export class SideBarComponent implements OnInit {
       if (value) {
         this.PropertyInfo.PropertiesObject.navigationParameters = value;
       }
-    });
+    });*/
   }
 
   visibleEntityField() {

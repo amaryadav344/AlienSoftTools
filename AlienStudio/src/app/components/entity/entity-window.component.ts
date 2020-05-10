@@ -72,64 +72,8 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
   }
 
   checkForUndefined(entity: IEntity) {
-    if (!this.entity.columns) {
-      this.entity.columns = [];
-    }
-    if (!this.entity.properties) {
-      this.entity.properties = [];
-    }
-    if (!this.entity.objects) {
-      this.entity.objects = [];
-    }
-    if (!this.entity.collections) {
-      this.entity.collections = [];
-    }
-    if (!this.entity.validation) {
-      this.entity.validation = {
-        rules: [],
-        groupRules: [],
-        deleteRules: [],
-        hardErrors: [],
-        softErrors: [],
-        initialLoad: [],
-        updateRules: []
-      };
-    }
-    if (!this.entity.validation.rules) {
-      this.entity.validation.rules = [];
-    }
-    if (!this.entity.validation.deleteRules) {
-      this.entity.validation.deleteRules = [];
-    }
-    if (!this.entity.validation.updateRules) {
-      this.entity.validation.updateRules = [];
-    }
-    if (!this.entity.validation.initialLoad) {
-      this.entity.validation.initialLoad = [];
-    }
-    if (!this.entity.validation.softErrors) {
-      this.entity.validation.softErrors = [];
-    }
-    if (!this.entity.validation.hardErrors) {
-      this.entity.validation.hardErrors = [];
-    }
-    if (!this.entity.validation.deleteRules) {
-      this.entity.validation.deleteRules = [];
-    }
-    if (!this.entity.validation.groupRules) {
-      this.entity.validation.groupRules = [];
-    }
-    if (!this.entity.queries) {
-      this.entity.queries = [];
-    }
-    if (!this.entity.businessObject) {
-      this.entity.businessObject = {customMethods: [], objectMethods: []};
-    }
-    if (!this.entity.businessObject.objectMethods) {
-      this.entity.businessObject.objectMethods = [];
-    }
-    if (!this.entity.businessObject.customMethods) {
-      this.entity.businessObject.customMethods = [];
+    if (!this.entity.attributes) {
+      this.entity.attributes = [];
     }
   }
 

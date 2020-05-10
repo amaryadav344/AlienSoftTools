@@ -2,12 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {R} from '../../common/R';
 import {IFile} from '../../models/Enitity/IFile';
-import {IColumn} from '../../models/Enitity/IColumn';
 import {IXMLBase} from '../../models/IXMLBase';
 import {IDBConnectionInfo} from '../../models/Enitity/IDBConnectionInfo';
 import {ISymbol} from '../../models/Enitity/ISymbol';
-import {IObjectMethod} from '../../models/Enitity/IObjectMethod';
-import {NavigationParameter} from "../../models/UI/NavigationParameter";
+import {NavigationParameter} from '../../models/UI/NavigationParameter';
+import {IAttribute} from "../../models/Enitity/IAttribute";
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +43,7 @@ export class HttpClientService {
   }
 
   public getColumns(table: string) {
-    return this.httpClient.post<IColumn[]>(R.SERVER_URLS.GET_COLUMNS, table, {responseType: 'json'});
+    return this.httpClient.post<IAttribute[]>(R.SERVER_URLS.GET_COLUMNS, table, {responseType: 'json'});
   }
 
   public createNewXml(entity: IXMLBase, Path: string, createModel: boolean) {
@@ -80,15 +79,6 @@ export class HttpClientService {
     params = params.append('query', query);
     params = params.append('type', SymbolType.toString());
     return this.httpClient.post<ISymbol[]>(R.SERVER_URLS.GET_SYMBOLS, file, {params, responseType: 'json'});
-  }
-
-  public getObjectMethods(file: IFile, query: string) {
-    let params = new HttpParams();
-    params = params.append('query', query);
-    return this.httpClient.post<IObjectMethod[]>(R.SERVER_URLS.GET_OBJECT_METHODS, file, {
-      params,
-      responseType: 'json'
-    });
   }
 
   public listEntities(query: string) {

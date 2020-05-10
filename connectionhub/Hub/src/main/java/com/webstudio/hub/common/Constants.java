@@ -7,6 +7,12 @@ public class Constants {
         public static int TYPE_VARIABLE = 0;
     }
 
+    public static class AttributeTypes {
+        public static final String OBJECT = "object";
+        public static final String COLLECTION = "collection";
+        public static final String PROPERTY = "property";
+    }
+
     public static class FileType {
 
     }
@@ -53,6 +59,7 @@ public class Constants {
     public static class Common {
         public static final String EMPTY_STRING = "";
         public static final String FOLDER_SEPARATOR = "\\";
+        public static final String FULL_STOP = ".";
     }
 
     public static class ApplicationBeans {

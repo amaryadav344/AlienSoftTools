@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webstudio.hub.models.Branch;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class XMLStore {
             xml = getXMLString(entity);
             FileHelper.WriteFile(Path, xml);
             stringIXMLBaseHashMap.put(entity.getName(), ixmlBase);
-            EntityModelMappings.put(entity.getModelName(), entity.getName());
+            EntityModelMappings.put(entity.getServiceName(), entity.getName());
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             xml = getXMLString(form);
@@ -90,7 +91,7 @@ public class XMLStore {
             if (value instanceof IEntity) {
                 IEntity entity = (IEntity) value;
                 stringIXMLBaseHashMap.put(entity.getName(), value);
-                EntityModelMappings.put(entity.getModelName(), entity.getName());
+                EntityModelMappings.put(entity.getServiceName(), entity.getName());
             } else if (value instanceof IForm) {
                 IForm form = (IForm) value;
                 stringIXMLBaseHashMap.put(form.getName(), value);
@@ -123,25 +124,28 @@ public class XMLStore {
     }
 
     public String CreateEntity(IXMLBase ixmlBase, String path, boolean createModel, Branch DefaultBranch) throws IOException {
-        String Path = Constants.Common.EMPTY_STRING;
+        String TargetPath = Constants.Common.EMPTY_STRING;
         if (ixmlBase instanceof IEntity) {
             IEntity entity = (IEntity) ixmlBase;
             String xml = getXMLString(entity);
-            Path = DefaultBranch.getXMLPath() + Constants.Common.FOLDER_SEPARATOR + path + Constants.Common.FOLDER_SEPARATOR + entity.getName() + ".ent.xml";
-            FileHelper.CreateAndWriteFile(Path, xml);
+            File file = new File(DefaultBranch.getXMLPath() + Constants.Common.FOLDER_SEPARATOR + path);
+            if (!file.exists()) {
+                file.mkdir();
+            }
+            TargetPath = DefaultBranch.getXMLPath() + Constants.Common.FOLDER_SEPARATOR + path + Constants.Common.FOLDER_SEPARATOR + entity.getName() + ".ent.xml";
+            FileHelper.CreateAndWriteFile(TargetPath, xml);
             if (createModel) {
-                ModelHelper.createModel(entity, DefaultBranch.getPackageName(),
-                        DefaultBranch.getSourcePath(), path);
+                ModelHelper.createModel(entity, DefaultBranch, path);
             }
             SaveXml(ixmlBase, entity.getName());
         } else if (ixmlBase instanceof IForm) {
             IForm form = (IForm) ixmlBase;
             String xml = getXMLString(form);
-            Path = DefaultBranch.getXMLPath() + Constants.Common.FOLDER_SEPARATOR + path + Constants.Common.FOLDER_SEPARATOR + form.getName() + ".form.xml";
-            FileHelper.CreateAndWriteFile(Path, xml);
+            TargetPath = DefaultBranch.getXMLPath() + Constants.Common.FOLDER_SEPARATOR + path + Constants.Common.FOLDER_SEPARATOR + form.getName() + ".form.xml";
+            FileHelper.CreateAndWriteFile(TargetPath, xml);
             SaveXml(ixmlBase, form.getName());
         }
-        return Path;
+        return TargetPath;
     }
 
 }

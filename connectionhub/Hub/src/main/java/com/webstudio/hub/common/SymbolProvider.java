@@ -1,21 +1,22 @@
 package com.webstudio.hub.common;
 
 import com.business.utils.FileHelper;
+import com.business.utils.HelperFunctions;
 import com.business.utils.models.Entity.*;
 import com.webstudio.hub.models.Branch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import spoon.JarLauncher;
+import spoon.IncrementalLauncher;
+import spoon.Launcher;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtTypeReference;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,12 +28,14 @@ public class SymbolProvider {
     private SymbolProvider() {
     }
 
-    public void LoadJar(String JarFilePath) {
-        JarLauncher launcher = new JarLauncher(JarFilePath);
+    public void LoadJar(String PathToSources) {
+        final File cache = new File(HelperFunctions.getExecutableHomePath(SymbolProvider.class, "cache"));
+        Set<File> inputResources = Collections.singleton(new File(PathToSources));
+        Set<String> sourceClasspath = Collections.emptySet();
+        Launcher launcher = new IncrementalLauncher(inputResources, sourceClasspath, cache);
         launcher.buildModel();
         this.factory = launcher.getFactory();
     }
-
 
     public List<ISymbol> getObjectSymbols(String FullQualifiedName, String Query) {
         CtTypeReference<?> LastType = factory.Type().get(FullQualifiedName).getReference();
@@ -139,7 +142,7 @@ public class SymbolProvider {
                 }).collect(Collectors.toList());
     }
 
-    public List<IObjectMethod> getAllMethods(String FullQualifiedName, String Query) {
+   /* public List<IObjectMethod> getAllMethods(String FullQualifiedName, String Query) {
         CtTypeReference<?> Type = factory.Type().get(FullQualifiedName).getReference();
         return Type.getDeclaredExecutables().stream().filter(ctExecutableReference -> !ctExecutableReference.isConstructor()).map(ctExecutableReference -> {
             CtExecutable executable = ctExecutableReference.getDeclaration();
@@ -157,7 +160,7 @@ public class SymbolProvider {
             method.setObjectParameters(objectParameters.toArray(new IObjectParameter[objectParameters.size()]));
             return method;
         }).collect(Collectors.toList());
-    }
+    }*/
 
     public boolean HasBaseSuperClass(CtTypeReference ctTypeReference) {
         CtTypeReference superClass = ctTypeReference.getSuperclass();
@@ -171,7 +174,7 @@ public class SymbolProvider {
         return HasBaseSuperClass(superClass);
     }
 
-    public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
+   /* public List<ISymbol> GetObjectSymbols(IFile file, String query) throws IOException {
         String xmlString = FileHelper.ReadCompleteFile(file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
         String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
@@ -182,8 +185,8 @@ public class SymbolProvider {
         }
         return symbols;
     }
-
-    public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
+*/
+    /*public List<ISymbol> GetCollectionSymbols(IFile file, String query) throws IOException {
         String xmlString = FileHelper.ReadCompleteFile(file.getPath());
         IEntity value = (IEntity) xmlStore.getXMLObjectFromString(xmlString);
         String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
@@ -215,7 +218,7 @@ public class SymbolProvider {
         String ClassPath = GetFullyQualifiedModelName(file, value.getModelName());
         return getAllMethods(ClassPath, query);
     }
-
+*/
     /*public IXMLBase GetXml(IFile file) {
         String name = Constants.Common.EMPTY_STRING;
         if (file.getType() == 0) {

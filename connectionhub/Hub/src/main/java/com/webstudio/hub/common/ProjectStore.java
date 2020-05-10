@@ -18,7 +18,7 @@ public class ProjectStore {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     public void LoadProject(Branch branch) throws IOException {
-        symbolProvider.LoadJar(branch.getBusinessObject().get(0));
+        symbolProvider.LoadJar(branch.getSourcePath());
         fileStore.LoadFilesAndFolders(branch.getXMLPath());
         xmlStore.LoadXML(fileStore.getFiles());
     }

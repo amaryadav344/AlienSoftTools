@@ -1,0 +1,12 @@
+<entity type="entity" name="Supplier" businessObject="Supplier" isWrapper="false" tableName="AST_SUPPLIER" serviceName="SupplierService">
+  <attributes>
+    <attribute name="Id" objectField="Id" dataType="Integer" isPrimaryKey="true" type="property"/>
+    <attribute name="Companyname" objectField="Companyname" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="Contactname" objectField="Contactname" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="Contacttitle" objectField="Contacttitle" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="City" objectField="City" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="Country" objectField="Country" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="Phone" objectField="Phone" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="Fax" objectField="Fax" dataType="String" isPrimaryKey="false" type="property"/>
+  </attributes>
+</entity>

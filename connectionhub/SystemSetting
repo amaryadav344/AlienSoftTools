@@ -1,0 +1,7 @@
+<entity type="entity" name="SystemSetting" businessObject="SystemSetting" isWrapper="false" tableName="AST_SYSTEM_SETTING" serviceName="SystemSettingService">
+  <attributes>
+    <attribute name="SystemSettingid" objectField="SystemSettingid" dataType="Integer" isPrimaryKey="true" type="property"/>
+    <attribute name="SettingName" objectField="SettingName" dataType="String" isPrimaryKey="false" type="property"/>
+    <attribute name="SettingValue" objectField="SettingValue" dataType="String" isPrimaryKey="false" type="property"/>
+  </attributes>
+</entity>

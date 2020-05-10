@@ -41,5 +41,6 @@ public class AppConfig {
         setBusinessConfig(businessConfig);
         setHubConfig(hub);
 
+
     }
 }
