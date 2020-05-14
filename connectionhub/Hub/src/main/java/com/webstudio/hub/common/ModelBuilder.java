@@ -3,7 +3,6 @@ package com.webstudio.hub.common;
 import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
-import java.lang.reflect.Type;
 
 class ModelBuilder {
     private TypeSpec.Builder builder;
@@ -21,6 +20,11 @@ class ModelBuilder {
 
     ModelBuilder setPackageName(String packageName) {
         PackageName = packageName;
+        return this;
+    }
+
+    ModelBuilder addType(TypeSpec typeSpec) {
+        builder.addType(typeSpec);
         return this;
     }
 
@@ -47,6 +51,14 @@ class ModelBuilder {
     ModelBuilder addAnnotation(ClassName className, String MemberName, String value) {
         AnnotationSpec annotationSpec = AnnotationSpec.builder(className)
                 .addMember(MemberName, "$S", value)
+                .build();
+        this.builder.addAnnotation(annotationSpec);
+        return this;
+    }
+
+    ModelBuilder addAnnotation(Class<?> className, String MemberName, String value, Object... args) {
+        AnnotationSpec annotationSpec = AnnotationSpec.builder(className)
+                .addMember(MemberName, value, args)
                 .build();
         this.builder.addAnnotation(annotationSpec);
         return this;

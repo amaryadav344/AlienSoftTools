@@ -1,7 +1,7 @@
 package com.webstudio.hub.repositories;
 
-import com.business.utils.HelperFunctions;
 import com.business.utils.models.Entity.IAttribute;
+import com.google.common.base.CaseFormat;
 import com.webstudio.hub.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -93,8 +93,9 @@ public class DBMetaDataRepository {
     class ColumnRowMapper implements RowMapper {
         @Override
         public IAttribute mapRow(ResultSet resultSet, int i) throws SQLException {
-            return new IAttribute(HelperFunctions.SnakeCaseToCamelCase(resultSet.getString(1)),
-                    HelperFunctions.SnakeCaseToCamelCase(resultSet.getString(1)),
+            return new IAttribute(
+                    CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, resultSet.getString(1)),
+                    CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, resultSet.getString(1)),
                     getDataTypeFromDBDataType(resultSet.getString(3)),
                     null, resultSet.getString(2).equals("Y"), Constants.AttributeTypes.PROPERTY);
         }

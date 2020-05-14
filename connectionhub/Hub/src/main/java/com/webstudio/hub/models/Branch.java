@@ -21,6 +21,8 @@ public class Branch {
     private String ServiceBase;
     @JacksonXmlProperty(localName = "RepositoryBase")
     private String RepositoryBase;
+    @JacksonXmlProperty(localName = "ValidationBase")
+    private String ValidationBase;
 
 
     public String getBusinessObjectBase() {
@@ -99,4 +101,11 @@ public class Branch {
         BusinessConfigPath = businessConfigPath;
     }
 
+    public String getValidationBase() {
+        return ValidationBase;
+    }
+
+    public void setValidationBase(String validationBase) {
+        ValidationBase = validationBase;
+    }
 }
