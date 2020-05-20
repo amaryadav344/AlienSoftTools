@@ -15,6 +15,7 @@ export class EntityInfoDialogComponent implements OnInit {
   entity: IEntity = R.Initializer.getEntity();
   file: IFile = R.Initializer.getFile();
   tables: string[] = [];
+  Services: string[];
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
               public windowService: WindowService, public httpClientService: HttpClientService) {
@@ -23,6 +24,7 @@ export class EntityInfoDialogComponent implements OnInit {
 
   ngOnInit() {
     this.file = this.windowService.windowStore.getCurrentWindow().data;
+
   }
 
   saveEntity() {

@@ -4,10 +4,9 @@ import {R} from '../../../common/R';
 import {PropertyInfo} from '../../../common/PropertyInfo';
 import {HttpClientService} from '../../../services/entity-service/httpclient.service';
 import {WindowService} from '../../../services/window/window.service';
-import {DialogService, DynamicDialogConfig} from 'primeng/api';
+import {DialogService} from 'primeng/api';
 import {IForm} from '../../../models/UI/IForm';
-import {ISymbol} from '../../../models/Enitity/ISymbol';
-import {NavigationParameter} from '../../../models/UI/NavigationParameter';
+import {IAttribute} from '../../../models/Enitity/IAttribute';
 
 @Component({
   selector: 'app-side-bar',
@@ -93,10 +92,11 @@ export class SideBarComponent implements OnInit {
 
 
   filterSymbols(event) {
-    this.httpClientService.getEntityFields(this.form.entity, this.FindParentEntityFieldForControl(this.PropertyInfo.PropertiesObject) + event)
+    this.httpClientService.getEntityFields(this.form.entity,
+      this.FindParentEntityFieldForControl(this.PropertyInfo.PropertiesObject) + event)
       .toPromise()
       .then((result) => {
-        this.mFieldSuggestions = result as  ISymbol[];
+        this.mFieldSuggestions = result as  IAttribute[];
       });
 
   }

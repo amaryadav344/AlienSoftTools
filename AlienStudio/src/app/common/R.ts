@@ -3,10 +3,8 @@ import {IFile} from '../models/Enitity/IFile';
 import {IDBConnectionInfo} from '../models/Enitity/IDBConnectionInfo';
 import {WindowItem} from './window-Item';
 import {IForm} from '../models/UI/IForm';
-import {ISymbol} from '../models/Enitity/ISymbol';
 import {StackLayout} from '../models/UI/StackLayout';
-import {ICustomMethod} from '../models/Enitity/ICustomMethod';
-import {ILoadMapping} from '../models/Enitity/ILoadMapping';
+import {IAttribute} from '../models/Enitity/IAttribute';
 
 export class R {
 
@@ -14,11 +12,12 @@ export class R {
     'Scalar Query',
     'Sub Query',
   ];
-  static DataTypes: string[] = [
+  static DataTypesArray: string[] = [
     'String',
     'Integer',
     'DateTime',
     'Decimal',
+    'boolean'
   ];
   static CollectionTypes: string[] = [
     'List',
@@ -98,10 +97,23 @@ export class R {
       static MODE_ALL = 2;
     };
   };
+
+  static AttributeTypes = class {
+    static OBJECT = 'object';
+    static COLLECTION = 'collection';
+    static PROPERTY = 'property';
+  };
   static SymbolTypes = class {
     static TYPE_OBJECT = 1;
     static TYPE_COLLECTION = 2;
     static TYPE_VARIBLE = 0;
+  };
+  static DataTypes = class {
+    static STRING_TYPE = 'String';
+    static INTEGER_TYPE = 'Integer';
+    static DATETIME_TYPE = 'DateTime';
+    static DECIMAL_TYPE = 'Decimal';
+    static BOOLEAN_TYPE = 'boolean';
   };
   static SERVER_URLS = class {
     static JS_TO_XML = 'http://localhost:8080/XML/JsToXml';
@@ -125,16 +137,6 @@ export class R {
   };
 
   static Initializer = class {
-
-
-    static getCustomMethod(): ICustomMethod {
-      return {name: '', mode: 'All', loadPrimaryObject: false, loadMapping: []};
-    }
-
-    static getLoadMapping(): ILoadMapping {
-      return {name: '', loadParameters: [], loadType: ''};
-    }
-
     static getEntity(): IEntity {
       return {
         name: '',
@@ -160,12 +162,18 @@ export class R {
     }
 
     static getForm(): IForm {
-      return new IForm(new StackLayout([], 'stackLayout'), '', '', R.Initializer.getCustomMethod());
+      return new IForm(new StackLayout([], 'stackLayout'), '', '', {serviceName: '', parameters: []});
     }
 
-    static getSymbols(): ISymbol[] {
-      return [{name: 'person', entityName: 'personName', type: R.SymbolTypes.TYPE_VARIBLE},
-        {name: 'person', entityName: 'personName', type: R.SymbolTypes.TYPE_VARIBLE}];
+    static getAttribute(): IAttribute {
+      return {
+        name: '',
+        entity: '',
+        type: '',
+        dataType: '',
+        isPrimaryKey: false,
+        objectField: ''
+      };
     }
   };
   static Controls = class {

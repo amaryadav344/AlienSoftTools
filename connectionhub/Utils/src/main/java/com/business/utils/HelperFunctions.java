@@ -1,7 +1,9 @@
 package com.business.utils;
 
+import com.business.utils.models.Entity.IFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.File;
 import java.nio.file.Paths;
 
 public class HelperFunctions {
@@ -28,4 +30,12 @@ public class HelperFunctions {
         }
         return sb.toString();
     }
+
+    public static String GetFullyQualifiedModelName(IFile file, String modelName, String XmlPath, String PackageName) {
+        String RelativeFilePath = file.getPath().replace(XmlPath, "");
+        String ModelRelativePath = RelativeFilePath.replace(file.getName(), "DTO." + modelName);
+        return PackageName + ModelRelativePath.replace(File.separator, ".");
+
+    }
+
 }

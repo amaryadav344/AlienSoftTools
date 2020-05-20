@@ -74,11 +74,11 @@ export class HttpClientService {
     return this.httpClient.post<IDBConnectionInfo>(R.SERVER_URLS.GET_DB_CONNECTION_INFO, ' ', {responseType: 'json'});
   }
 
-  public getSymbols(file: IFile, query: string, SymbolType: number) {
+  public getSymbols(file: IFile, query: string, SymbolType: string) {
     let params = new HttpParams();
     params = params.append('query', query);
     params = params.append('type', SymbolType.toString());
-    return this.httpClient.post<ISymbol[]>(R.SERVER_URLS.GET_SYMBOLS, file, {params, responseType: 'json'});
+    return this.httpClient.post<IAttribute[]>(R.SERVER_URLS.GET_SYMBOLS, file, {params, responseType: 'json'});
   }
 
   public listEntities(query: string) {

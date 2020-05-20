@@ -17,6 +17,14 @@ public class Constants {
 
     }
 
+    public static class DataTypes {
+        public static final String STRING_TYPE = "String";
+        public static final String INTEGER_TYPE = "Integer";
+        public static final String DATETIME_TYPE = "DateTime";
+        public static final String DECIMAL_TYPE = "Decimal";
+        public static final String BOOLEAN_TYPE = "boolean";
+    }
+
     public static class CommonRequestMapping {
         public static final String COMMON = "Common";
         public static final String GET_MATCHING_TABLE_NAMES = "GetMatchingTableNames";
@@ -29,6 +37,7 @@ public class Constants {
     public static class CodeSymbolRequestMapping {
         public static final String CODE = "Code";
         public static final String GET_SYMBOLS = "GetSymbols";
+        public static final String GET_SERVICES = "GetServices";
         public static final String GET_OBJECT_METHODS = "GetObjectMethods";
     }
 

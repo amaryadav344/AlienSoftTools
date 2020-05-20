@@ -126,11 +126,11 @@ public class XMLController {
         return new ResponseEntity<>(files.toArray(new String[0]), HttpStatus.OK);
     }
 
-    @RequestMapping(value = Constants.XMLRequestMapping.GET_NAVIGATION_PARAMETER_BY_FORM, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+  /*  @RequestMapping(value = Constants.XMLRequestMapping.GET_NAVIGATION_PARAMETER_BY_FORM, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NavigationParameter[]> GetNavigationParameterByForm(@RequestBody(required = false) String form) {
         List<NavigationParameter> navigationParameters = xmlStore.GetNavigationParameterByForm(form);
         return new ResponseEntity<>(navigationParameters.toArray(new NavigationParameter[0]), HttpStatus.OK);
-    }
+    }*/
 
 
     @RequestMapping(value = Constants.XMLRequestMapping.LIST_ENTITIES, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

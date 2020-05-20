@@ -1,10 +1,12 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {DialogService, MessageService} from 'primeng/api';
+import {DialogService, DynamicDialogConfig, MessageService} from 'primeng/api';
 import {IEntity} from '../../models/Enitity/IEntity';
 import {WindowService} from '../../services/window/window.service';
 import {WindowBase} from '../window/window-base/WindowBase';
 import {R} from '../../common/R';
 import {HttpClientService} from '../../services/entity-service/httpclient.service';
+import {AttributeInfoDialogComponent} from '../dialogs/attribute-info-dialog/attribute-info-dialog.component';
+import {IAttribute} from '../../models/Enitity/IAttribute';
 
 
 @Component({
@@ -15,6 +17,7 @@ import {HttpClientService} from '../../services/entity-service/httpclient.servic
 })
 export class EntityWindowComponent extends WindowBase implements OnInit {
   entity: IEntity = R.Initializer.getEntity();
+  selection: IAttribute;
 
 
   constructor(public dialogService: DialogService, public httpClientService: HttpClientService,
@@ -79,6 +82,34 @@ export class EntityWindowComponent extends WindowBase implements OnInit {
 
   closeWindow() {
     this.windowService.closeWindow(this.file);
+  }
+
+  onAddNewAttribute(Openmode) {
+    const ref = this.dialogService.open(AttributeInfoDialogComponent, {
+      data: {
+        entity: this.entity,
+        attribute: this.selection,
+        mode: Openmode,
+      },
+      header: 'Collection Information',
+      width:
+        '40%',
+      contentStyle:
+        {
+          'max-height':
+            '800px', overflow:
+          'auto'
+        }
+    }as DynamicDialogConfig);
+    ref.onClose.subscribe((attribute: IAttribute) => {
+      if (attribute) {
+        if (Openmode === R.Constants.OpenMode.MODE_UPDATE) {
+          Object.assign(this.selection, attribute);
+        } else {
+          this.entity.attributes.push(attribute);
+        }
+      }
+    });
   }
 }
 

@@ -69,6 +69,7 @@ import {CustomAutoCompleteComponent} from './components/custom-auto-complete/cus
 import {NewFrameDialogComponent} from './components/dialogs/new-frame-dialog/new-frame-dialog.component';
 import {FormInfoDialogComponent} from './components/dialogs/form-info-dialog/form-info-dialog.component';
 import {ChartModule} from 'primeng/chart';
+import {AttributeInfoDialogComponent} from './components/dialogs/attribute-info-dialog/attribute-info-dialog.component';
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import {ChartModule} from 'primeng/chart';
     CustomAutoCompleteComponent,
     NewFrameDialogComponent,
     FormInfoDialogComponent,
+    AttributeInfoDialogComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -156,6 +158,7 @@ import {ChartModule} from 'primeng/chart';
     UserInterfaceComponent,
     MasterLoginWindowComponent,
     MasterIntitalLoadComponent,
+    AttributeInfoDialogComponent,
     MainAppComponent,
 
 

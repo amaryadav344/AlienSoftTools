@@ -1,16 +1,16 @@
 <div *ngIf="hidden">
   <app-entity-toolbar [entity]="entity" (switchToXMl)="getJS();" (closeWindow)="closeWindow()" (saveXML)="saveXML()"
                       (switchToUI)="getXML()"></app-entity-toolbar>
-  <p-table  *ngIf="!isTextView" #tableCollections [value]="entity.attributes" [scrollable]="true"
+  <p-table *ngIf="!isTextView" #tableCollections [value]="entity.attributes"
            [globalFilterFields]="['name','entity','objectField']" selectionMode="single"
-           [(selection)]="selection" (onRowSelect)="onCollectionSelect(1)">
+           [(selection)]="selection" (onRowSelect)="onAddNewAttribute(1)">
     <ng-template pTemplate="caption">
       <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-12">
           <div class="ui-inputgroup">
             <input type="text" pInputText placeholder="Search Collections"
                    (input)="tableCollections.filterGlobal($event.target.value, 'contains')">
-            <button pButton type="button" icon="pi pi-plus" (click)="onCollectionSelect(0)"></button>
+            <button pButton type="button" icon="pi pi-plus" (click)="onAddNewAttribute(0)"></button>
           </div>
         </div>
       </div>
@@ -41,7 +41,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
       <tr [pSelectableRowDblClick]="rowData">
-      <tr>
         <td>{{rowData.name}}</td>
         <td>{{rowData.dataType}}</td>
         <td>{{rowData.objectField}}</td>

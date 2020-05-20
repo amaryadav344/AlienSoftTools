@@ -13,19 +13,19 @@ import java.util.List;
 @JsonIgnoreProperties({"type"})
 public class IEntity extends IXMLBase {
     @JacksonXmlProperty(isAttribute = true)
-    String name;
-    String type;
+    private String name;
+    private String type;
     @JacksonXmlProperty(isAttribute = true)
-    String businessObject;
+    private String businessObject;
     @JacksonXmlProperty(isAttribute = true)
-    boolean isWrapper;
+    private boolean isWrapper;
     @JacksonXmlProperty(isAttribute = true)
-    String tableName;
+    private String tableName;
     @JacksonXmlProperty(isAttribute = true)
-    String serviceName;
+    private String serviceName;
     @JacksonXmlElementWrapper(localName = "attributes")
     @JacksonXmlProperty(localName = "attribute")
-    List<IAttribute> attributes;
+    private List<IAttribute> attributes;
 
     public String getName() {
         return name;
@@ -50,7 +50,6 @@ public class IEntity extends IXMLBase {
     public void setBusinessObject(String businessObject) {
         this.businessObject = businessObject;
     }
-
 
 
     public String getTableName() {

@@ -1,19 +1,19 @@
 import {IXMLBase} from '../IXMLBase';
-import {ICustomMethod} from '../Enitity/ICustomMethod';
+import {ILoadDetails} from './ILoadDetails';
 
 export class IForm extends IXMLBase {
   control: any;
   type = 'form';
   entity: string;
   name: string;
-  loadMethod: ICustomMethod;
+  loadDetails: ILoadDetails
 
 
-  constructor(control: any, entity: string, name: string, loadMethod) {
+  constructor(control: any, entity: string, name: string, loadDetails: ILoadDetails) {
     super();
     this.control = control;
     this.entity = entity;
     this.name = name;
-    this.loadMethod = loadMethod;
+    this.loadDetails = this.loadDetails;
   }
 }
