@@ -1,8 +1,0 @@
-<form type="form" name="ProductDetails" entity="Product">
-  <loadMethod name="" mode="All" loadPrimaryObject="false">
-    <loadMappings/>
-  </loadMethod>
-  <control type="StackLayout" ID="stackLayout">
-    <controls/>
-  </control>
-</form>
